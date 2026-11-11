@@ -1,0 +1,19 @@
+import { AccountAvatarShowcase, ReferenceStatus } from "../../showcases/ComponentShowcase"
+
+# Account Avatar
+
+The account identity mark is a static 40×40 circle composed of four hard-edged color segments.
+
+<ReferenceStatus />
+<AccountAvatarShowcase />
+
+## Target API
+
+```tsx
+import { AccountAvatar } from "@xray-network/xray-ui"
+
+<AccountAvatar palette="ada" label="Main wallet" />
+```
+
+Required palettes: `ada`, `btc`, `night`, `xray`, and `cool`. Always provide an accessible label
+when the surrounding UI does not already name the account.

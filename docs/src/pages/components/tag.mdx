@@ -1,0 +1,20 @@
+import { ReferenceStatus, TagShowcase } from "../../showcases/ComponentShowcase"
+
+# Tag / Badge
+
+Compact labels for environment, status, and numeric change. Color always communicates a defined
+semantic role.
+
+<ReferenceStatus />
+<TagShowcase />
+
+## Target API
+
+```tsx
+import { Tag } from "@xray-network/xray-ui"
+
+<Tag variant="mainnet">mainnet</Tag>
+```
+
+Tags are 22px-high capsules. Status indicators use a 12px dot; deltas use semantic foreground and
+background pairs defined by the protocol.

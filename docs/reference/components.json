@@ -1,0 +1,69 @@
+{
+  "$schema": "https://wiki.xraynetwork.io/design/components.schema.json",
+  "schemaVersion": 1,
+  "protocol": {
+    "version": "1.0.0",
+    "url": "https://wiki.xraynetwork.io/design/protocol/v1.0.0/DESIGN.md"
+  },
+  "implementation": {
+    "package": "@xray-network/xray-ui",
+    "version": null,
+    "status": "not-published"
+  },
+  "components": [
+    {
+      "id": "button",
+      "name": "Button",
+      "targetImport": "Button",
+      "variants": ["primary", "gray", "outline", "success"],
+      "states": ["default", "hover", "pressed", "focus-visible", "disabled"],
+      "themes": ["light", "dark"],
+      "documentation": "https://wiki.xraynetwork.io/design/components/button/"
+    },
+    {
+      "id": "tag",
+      "name": "Tag / Badge",
+      "targetImport": "Tag",
+      "variants": ["preview", "mainnet", "beta", "status-online", "status-down", "status-slow", "delta-positive", "delta-negative"],
+      "states": ["static"],
+      "themes": ["light", "dark"],
+      "documentation": "https://wiki.xraynetwork.io/design/components/tag/"
+    },
+    {
+      "id": "account-avatar",
+      "name": "Account Avatar",
+      "targetImport": "AccountAvatar",
+      "variants": ["ada", "btc", "night", "xray", "cool"],
+      "states": ["static"],
+      "themes": ["light", "dark"],
+      "documentation": "https://wiki.xraynetwork.io/design/components/account-avatar/"
+    },
+    {
+      "id": "asset-row",
+      "name": "Asset Row",
+      "targetImport": "AssetRow",
+      "variants": ["filled", "idle"],
+      "states": ["delta-positive", "delta-negative"],
+      "themes": ["light", "dark"],
+      "documentation": "https://wiki.xraynetwork.io/design/components/asset-row/"
+    },
+    {
+      "id": "balance-card",
+      "name": "Balance Card",
+      "targetImport": "BalanceCard",
+      "variants": ["default"],
+      "states": ["static"],
+      "themes": ["light", "dark"],
+      "documentation": "https://wiki.xraynetwork.io/design/components/balance-card/"
+    },
+    {
+      "id": "payment-form",
+      "name": "Payment Form",
+      "targetImport": "PaymentForm",
+      "variants": ["default"],
+      "states": ["default", "focus-visible", "validation-error", "submitting", "success"],
+      "themes": ["light", "dark"],
+      "documentation": "https://wiki.xraynetwork.io/design/components/payment-form/"
+    }
+  ]
+}

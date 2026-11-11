@@ -1,0 +1,47 @@
+import { CodeBlock, HeroArtwork, HeroDiagram, Link } from '@rspress/core/theme';
+
+<div className="spectre-home rp-not-doc">
+  <section className="spectre-hero" aria-labelledby="xray-design-title">
+    <div className="spectre-hero-grid">
+      <HeroArtwork />
+      <HeroDiagram />
+      <div className="spectre-hero-copy">
+        <h1 id="xray-design-title">Turn a visual language into an implementation contract.</h1>
+        <p className="spectre-lead">A portable source of truth for tokens, layout, components, responsive behavior, accessibility, themes, voice, and interaction states.</p>
+        <div className="spectre-actions">
+          <a className="spectre-button spectre-button--primary" href="#adopt">Adopt XRAY Design <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m12 5 7 7-7 7M19 12H5" /></svg></a>
+          <Link className="spectre-button spectre-button--secondary" href="/components/">Explore components</Link>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section className="spectre-start" id="adopt" aria-labelledby="adopt-title">
+    <div className="spectre-section-heading">
+      <div><span className="spectre-eyebrow">01 / Adoption</span><h2 id="adopt-title" data-outline>Keep the complete standard beside the product</h2></div>
+      <Link className="spectre-text-link" href="/protocol/">Protocol releases <span aria-hidden="true">↗</span></Link>
+    </div>
+    <p>Pin the immutable Markdown release so every contributor and coding agent uses the same interface contract.</p>
+    <div className="spectre-install-panel">
+      <CodeBlock title="Pin version 1.0.0" wrapCode><pre tabIndex={0}><code>curl -fsSLo DESIGN.md https://wiki.xraynetwork.io/design/protocol/v1.0.0/DESIGN.md</code></pre></CodeBlock>
+      <div className="spectre-install-result"><span className="spectre-check" aria-hidden="true">✓</span><p>The standard travels with the product and remains readable by humans and tools.</p></div>
+    </div>
+  </section>
+
+  <section className="spectre-workflow" id="system" aria-labelledby="system-title">
+    <div className="spectre-section-heading"><div><span className="spectre-eyebrow">02 / The system</span><h2 id="system-title" data-outline>One quiet canvas. One electric blue. Data is the color.</h2></div></div>
+    <p>XRAY Design makes interface decisions explicit enough to apply consistently and verify visibly.</p>
+    <ol className="spectre-workflow-list">
+      <li><span className="spectre-step" aria-hidden="true">01</span><div className="spectre-workflow-content"><div className="spectre-workflow-title"><h3>Define with semantic tokens</h3><span className="spectre-state">TOKENS</span></div><p>Color, spacing, type, radius, and motion communicate roles instead of one-off values.</p></div></li>
+      <li><span className="spectre-step" aria-hidden="true">02</span><div className="spectre-workflow-content"><div className="spectre-workflow-title"><h3>Compose from contracts</h3><span className="spectre-state spectre-state--review">COMPONENTS</span></div><p>Reusable anatomy and behavior stay consistent across screens, states, and themes.</p></div></li>
+      <li><span className="spectre-step" aria-hidden="true">03</span><div className="spectre-workflow-content"><div className="spectre-workflow-title"><h3>Verify visible behavior</h3><span className="spectre-state spectre-state--accepted">CONFORMANT</span></div><p>Review accessibility, responsive layouts, content states, and light–dark parity.</p></div></li>
+    </ol>
+    <div className="spectre-callout"><span className="spectre-callout-mark" aria-hidden="true">↳</span><div><strong>Surface steps create the depth.</strong><p>XRAY interfaces use hairline borders and purposeful contrast—without shadows, glows, or gradients.</p></div></div>
+  </section>
+
+  <nav className="spectre-resources" aria-label="Explore XRAY Design documentation">
+    <Link className="spectre-resource" href="/components/"><span className="spectre-resource-label">REFERENCE <span aria-hidden="true">↗</span></span><h2>Component library</h2><p>Inspect anatomy, variants, interaction states, accessibility, and both supported themes.</p></Link>
+    <Link className="spectre-resource" href="/protocol/"><span className="spectre-resource-label">SPECIFICATION <span aria-hidden="true">↗</span></span><h2>Read the standard</h2><p>Explore the complete interface contract and immutable protocol releases.</p></Link>
+  </nav>
+  <div className="spectre-home-footer"><span>XRAY DESIGN <span aria-hidden="true">/</span> A quiet canvas where data stays in focus.</span><Link href="/versioning">About versions <span aria-hidden="true">→</span></Link></div>
+</div>

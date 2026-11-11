@@ -1,0 +1,20 @@
+import { PaymentFormShowcase, ReferenceStatus } from "../../showcases/ComponentShowcase"
+
+# Payment Form
+
+Reference composition for sending an asset, including account, address, amount, network fee, total,
+and secured status.
+
+<ReferenceStatus />
+<PaymentFormShowcase />
+
+## Target API
+
+```tsx
+import { PaymentForm } from "@xray-network/xray-ui"
+
+<PaymentForm assets={assets} accounts={accounts} onSubmit={sendAssets} />
+```
+
+Implementations must cover validation errors, submission progress, failure, and success in addition
+to the default composition shown here.

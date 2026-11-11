@@ -1,0 +1,25 @@
+{
+  "name": "wiki-xray-design-docs",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@10.8.2",
+  "scripts": {
+    "protocol:publish": "node scripts/publish-design.mjs",
+    "predev": "npm run protocol:publish",
+    "dev": "rspress dev --host 0.0.0.0 --port 10007",
+    "prebuild": "npm run protocol:publish",
+    "build": "rspress build",
+    "deploy": "npm run build && wrangler deploy",
+    "prepreview": "npm run protocol:publish",
+    "preview": "rspress preview --host 0.0.0.0 --port 10007"
+  },
+  "devDependencies": {
+    "@rspress/core": "2.0.21",
+    "@types/react": "19.2.18",
+    "react": "19.2.8",
+    "typescript": "5.9.3",
+    "wrangler": "4.54.0"
+  }
+}

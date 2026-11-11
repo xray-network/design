@@ -1,0 +1,19 @@
+import { BalanceCardShowcase, ReferenceStatus } from "../../showcases/ComponentShowcase"
+
+# Balance Card
+
+Large financial summary using the XRAY price-tag numeral treatment.
+
+<ReferenceStatus />
+<BalanceCardShowcase />
+
+## Target API
+
+```tsx
+import { BalanceCard } from "@xray-network/xray-ui"
+
+<BalanceCard label="Total balance" value="1252251.254221" ticker="ADA" delta={8.4} />
+```
+
+Separate integer, fractional, and ticker typography visually while preserving one readable value
+for assistive technology.

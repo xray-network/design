@@ -1,0 +1,19 @@
+import { AssetRowShowcase, ReferenceStatus } from "../../showcases/ComponentShowcase"
+
+# Asset Row
+
+A dense 60px capsule combining asset identity, balance, and directional change.
+
+<ReferenceStatus />
+<AssetRowShowcase />
+
+## Target API
+
+```tsx
+import { AssetRow } from "@xray-network/xray-ui"
+
+<AssetRow asset="ADA" name="Cardano" balance="12,842.91" delta={12.8} variant="filled" />
+```
+
+Use `filled` for selected or emphasized rows and `idle` for the bordered neutral state. Positive
+and negative deltas must use semantic status colors rather than brand blue.

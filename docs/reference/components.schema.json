@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wiki.xraynetwork.io/design/components.schema.json",
+  "title": "XRAY Design component catalog",
+  "type": "object",
+  "required": ["schemaVersion", "protocol", "implementation", "components"],
+  "properties": {
+    "$schema": { "type": "string", "format": "uri" },
+    "schemaVersion": { "type": "integer", "minimum": 1 },
+    "protocol": {
+      "type": "object",
+      "required": ["version", "url"],
+      "properties": {
+        "version": { "type": "string" },
+        "url": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false
+    },
+    "implementation": {
+      "type": "object",
+      "required": ["package", "version", "status"],
+      "properties": {
+        "package": { "type": "string" },
+        "version": { "type": ["string", "null"] },
+        "status": { "enum": ["not-published", "published"] }
+      },
+      "additionalProperties": false
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "targetImport", "variants", "states", "themes", "documentation"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "name": { "type": "string" },
+          "targetImport": { "type": "string" },
+          "variants": { "type": "array", "items": { "type": "string" } },
+          "states": { "type": "array", "items": { "type": "string" } },
+          "themes": {
+            "type": "array",
+            "items": { "enum": ["light", "dark"] },
+            "minItems": 2,
+            "uniqueItems": true
+          },
+          "documentation": { "type": "string", "format": "uri" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
