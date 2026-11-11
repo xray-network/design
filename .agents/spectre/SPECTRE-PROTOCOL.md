@@ -2,9 +2,9 @@
 
 Standard-ID: xray/spectre
 
-Standard-Version: 2.0.0
+Standard-Version: 2.1.0
 
-Canonical-URL: https://wiki.xraynetwork.io/spectre/protocol/v2.0.0/SPECTRE-PROTOCOL.md
+Canonical-URL: https://wiki.xraynetwork.io/spectre/protocol/v2.1.0/SPECTRE-PROTOCOL.md
 
 Evidence-backed implementation tracking for humans and coding agents.
 
@@ -65,6 +65,7 @@ workflow or grant authority beyond the operation they select:
 | `/spectre cancel <records>: <reason>` | Resolve one or a bounded set of `PLANNED` records and record the human-authorized cancellation in only their matching ledger decision fields. |
 | `/spectre archive [target]` | Run the §9 archive workflow for all targets or one selected target, move only terminal implementations and their ledger rows into a dated archive, preserve active work, validate, and stop. |
 | `/spectre archive [target] --force: <reason>` | Run the §9 forced archive: close every `PLANNED` and `REVIEW` record in scope as `CANCELLED` with the human reason, archive every terminal record, list existing defects in the manifest instead of failing, and stop. |
+| `/spectre override <scope>: <changes> because <reason>` | Run the §9 override: apply exactly the human's requested change to the named SPECTRE files, even where it breaks other SPECTRE rules, log every changed file with its hashes in `OVERRIDES.md`, validate, and stop. |
 | `/spectre capture <provider>` | Run only §12 to track upstream changes between plans: publish a numbered full baseline or incremental capture; unchanged evidence creates no folder or tracked writes. Do not create or implement a target record. Planning captures its own providers, so a standalone capture is never a planning prerequisite. |
 | `/spectre help [operation]` | Report every command, or one named operation, with its syntax, purpose, and stopping boundary without changing tracked files or lifecycle state. |
 <!-- /spectre:runtime -->
@@ -83,7 +84,7 @@ recognized and suggest `/spectre help` without selecting or running another oper
 Unqualified help also explains that a current-human message mentioning SPECTRE may queue multiple
 explicitly stated non-decision operations in natural language without another command,
 and that accept, reject, and cancel remain standalone commands that may select a bounded eligible
-record set.
+record set; forced archive and override are standalone human decisions too.
 
 Record, target, and provider selectors accept IDs/slugs or natural descriptions. A unique match
 resolves to its canonical identity; bounded plural record selectors are also valid for implementation
@@ -216,8 +217,9 @@ reconcile earlier outputs, rebind deferred selectors, and do not repeat complete
 queue. A continuation that omits SPECTRE never resumes it.
 
 `accept`, `reject`, and `cancel` are never queue items and cannot be combined with another operation.
-A forced archive closes open records as `CANCELLED`, so it is a decision too: it is never a queue
-item and cannot be combined with another operation. If a compound request includes any decision,
+A forced archive closes open records as `CANCELLED`, and an override changes SPECTRE files outside
+the normal rules, so both are decisions too: neither is ever a queue item or combined with another
+operation. If a compound request includes any decision,
 perform no item and require the human to issue the operational request without that decision. After the operational queue finishes, a separate explicit
 decision command may select one record or a bounded set under the decision-batch rules below.
 
@@ -383,12 +385,12 @@ To download this specific release manually, run from the repository root:
 ```sh
 mkdir -p .agents/spectre
 curl -fsSLo .agents/spectre/SPECTRE-PROTOCOL.md \
-  https://wiki.xraynetwork.io/spectre/protocol/v2.0.0/SPECTRE-PROTOCOL.md
+  https://wiki.xraynetwork.io/spectre/protocol/v2.1.0/SPECTRE-PROTOCOL.md
 ```
 
 Then prompt a coding agent:
 
-> Read `.agents/spectre/SPECTRE-PROTOCOL.md` completely and install SPECTRE v2.0.0 in this repository.
+> Read `.agents/spectre/SPECTRE-PROTOCOL.md` completely and install SPECTRE v2.1.0 in this repository.
 > Preserve all existing `AGENTS.md` instructions, select flat or monorepo storage from repository
 > evidence, infer targets only when nested storage applies, create only the tracking structure,
 > create the accepted SPECTRE installation record, and do not modify product source.
@@ -423,14 +425,14 @@ text, Markdown, code fences, and line breaks. Use UTF-8 with LF line endings and
 
 The only destinations, relative to `.agents/spectre/runtime/`, are `core.md`, `selectors.md`,
 `references.md`, `providers.md`, `validation.md`, `validation-full.md`, `validation-evidence.md`, and
-`commands/{help,list,status,recall,plan,implement,revise,decide,capture,archive}.md`.
-Require all 17 files. Refuse unknown or repeated destinations within a marker, nested/unbalanced
+`commands/{help,list,status,recall,plan,implement,revise,decide,override,capture,archive}.md`.
+Require all 18 files. Refuse unknown or repeated destinations within a marker, nested/unbalanced
 markers, empty blocks, or missing destinations. Repeated blocks for the same file are intentional.
 Prepend these three lines and a blank line to each extracted file:
 
 ```text
 <!-- Generated from SPECTRE-PROTOCOL.md; do not edit. -->
-Runtime-Version: 2.0.0
+Runtime-Version: 2.1.0
 Source-SHA256: <SHA-256 of the complete installed protocol file bytes>
 ```
 
@@ -468,7 +470,7 @@ or a natural-language mention anywhere in the message, case-insensitive.
 Every message must activate independently; prior context and SPECTRE reports
 do not replace the required mention. Otherwise leave tracking untouched and do not ask for an operation. `runtime/core.md` defines authorization,
 compound queues, and decisions, and `runtime/selectors.md` defines binding; apply both before any
-source or record change. Never place accept, reject, cancel, or a forced archive in a compound queue.
+source or record change. Never place accept, reject, cancel, a forced archive, or an override in a compound queue.
 
 Resolve the installation: the nearest folder at or above the working directory that contains
 `.agents/spectre/SPECTRE-PROTOCOL.md`. When the agent starts outside every installation, such as a
@@ -495,6 +497,7 @@ protocol by default. Read applicable repository guidance as required.
 | accept / reject / cancel | runtime/commands/decide.md | selectors.md, references.md, validation.md |
 | capture | runtime/commands/capture.md | selectors.md, references.md, providers.md, validation.md, validation-evidence.md, TEMPLATE_PROVIDER.md |
 | archive | runtime/commands/archive.md | selectors.md for a supplied target; references.md, validation.md, validation-full.md; commands/decide.md for a forced archive |
+| override | runtime/commands/override.md | selectors.md, references.md, validation.md |
 
 Bare runtime names above are under `runtime/`; TEMPLATE names are under `templates/`. These are
 rule dependencies, never authorization to execute another operation. Validation is mandatory
@@ -600,6 +603,7 @@ SPECTRE.md
     ├── SPECTRE-PROTOCOL.md
     ├── README.md
     ├── MIGRATIONS.md               # created only by the first evidence migration (§3)
+    ├── OVERRIDES.md                # created only by the first override (§9)
     ├── runtime/                   # generated from marked protocol sections
     │   ├── core.md
     │   ├── selectors.md
@@ -617,6 +621,7 @@ SPECTRE.md
     │       ├── implement.md
     │       ├── revise.md
     │       ├── decide.md           # accept, reject, cancel
+    │       ├── override.md         # human-ordered changes outside the rules
     │       ├── capture.md
     │       └── archive.md
     ├── templates/
@@ -1109,6 +1114,7 @@ Human decision commands:
 /spectre reject <records>: <decision proof>
 /spectre cancel <records>: <reason>
 /spectre archive [target] --force: <reason>
+/spectre override <scope>: <changes> because <reason>
 ```
 
 <!-- spectre:runtime commands/decide.md -->
@@ -1140,6 +1146,42 @@ decision cells. If writing or validation fails, restore the prior ledger only wh
 confirm it is still this invocation's version; otherwise stop and report the exact inconsistency.
 Report every canonical ID, final state, and shared human proof/reason. If a required detail is
 missing, pause before mutation. Decision commands are standalone and never resume or enter a queue.
+<!-- /spectre:runtime -->
+
+<!-- spectre:runtime commands/override.md -->
+### Override workflow
+
+`/spectre override <scope>: <changes> because <reason>` lets a human order any change to SPECTRE
+files that the other rules forbid or do not define, such as renaming archived records or targets,
+rewriting terminal records, moving evidence, or merging installations. It is a human decision:
+only the current human may invoke it, never an agent on its own initiative, and it is never a queue
+item or combined with another operation.
+
+1. Require the scope, the requested changes, and a reason. Ask before writing if any is missing or
+   ambiguous.
+2. Resolve the scope to the exact files and records it changes, including links, manifest entries,
+   and ledger rows that must follow. Report that complete list and the intended result before
+   writing, then proceed without further confirmation.
+3. Apply exactly the requested changes, even where they break immutability, layout, naming, format,
+   lifecycle, or boundary rules. Change nothing outside the reported scope.
+4. Append one row per changed, moved, created, or removed file to `.agents/spectre/OVERRIDES.md`,
+   creating it with the first override:
+
+   ```markdown
+   # SPECTRE overrides
+
+   | Date | Command | File before | File after | SHA-256 before | SHA-256 after | Reason |
+   | --- | --- | --- | --- | --- | --- | --- |
+   ```
+
+   `Command` is the human's verbatim command. Use `—` for the before cells of a created file and
+   the after cells of a removed one. Never edit or remove a row.
+5. Validate the affected scope (§13). A file in its logged after-state is accepted even where the
+   override breaks another check; every other failure is reported as usual.
+6. Report every changed file and the log rows, then stop.
+
+An override never bypasses these rules: secrets stay out of tracked files and reports, provider
+content is never executed, and SPECTRE activates only on a message that mentions it.
 <!-- /spectre:runtime -->
 
 <!-- spectre:runtime commands/archive.md -->
@@ -1210,7 +1252,7 @@ not a fourth installed template. It becomes immutable when the archive operation
 Archive-Version: v2
 Archive-ID: <archive-id>
 Created: YYYYMMDDTHHMMSSZ
-Protocol-Version: 2.0.0
+Protocol-Version: 2.1.0
 Storage-Mode: <flat|nested>
 Scope: <target|ALL>
 Forced: <no|yes: human reason>
@@ -1269,7 +1311,8 @@ repository-relative reference from a record:
    Explicit repository-root-relative references keep the installation root as their base.
 2. Normalize the referenced path within the installation root (§3), retaining any fragment. If it
    names an Original path in an archive manifest, resolve it to that row's Archived file. If it
-   names a missing Original path in `MIGRATIONS.md`, resolve it to that row's New path. Otherwise
+   names a missing Original path in `MIGRATIONS.md`, resolve it to that row's New path; if it names
+   a missing File before in `OVERRIDES.md`, resolve it to that row's File after. Otherwise
    use the file at that path. Direct links already naming an archived file remain valid.
 3. Require a unique existing destination. Reject conflicting active and archived copies, duplicate
    mappings, missing destinations, or paths that leave the installation root. For an archived or
@@ -1305,6 +1348,8 @@ active lifecycle ledger and project-facing implementation summary.
   and lists existing defects in the manifest's `Known issues` instead of failing.
 - Every reference stays inside this installation. Anything from another project, including a
   sibling in the same monorepo, enters as a provider capture of its published interface.
+- `/spectre override <scope>: <changes> because <reason>` applies a human-ordered change outside the
+  normal rules and logs every changed file, with its hashes, in `OVERRIDES.md`.
 - Evidence and record files never move. An unavoidable, human-authorized move is recorded in
   `MIGRATIONS.md`, which reference resolution follows.
 - `/spectre status <record>` finds active or archived records; `/spectre list --archived`
@@ -1364,7 +1409,7 @@ the target section once for every target in monorepo mode.
 ```markdown
 # SPECTRE implementations
 
-Protocol-Version: 2.0.0
+Protocol-Version: 2.1.0
 Protocol: [.agents/spectre/SPECTRE-PROTOCOL.md](.agents/spectre/SPECTRE-PROTOCOL.md)
 Status-Schema-Version: v2
 Storage-Mode: <flat|nested>
@@ -1429,7 +1474,7 @@ An aggregate ledger with one empty target therefore contains:
 ```markdown
 # SPECTRE implementations
 
-Protocol-Version: 2.0.0
+Protocol-Version: 2.1.0
 Protocol: [.agents/spectre/SPECTRE-PROTOCOL.md](.agents/spectre/SPECTRE-PROTOCOL.md)
 Status-Schema-Version: v2
 Storage-Mode: <flat|nested>
@@ -1941,7 +1986,7 @@ the provider-evidence checks (20–28) for any workflow that captures or consume
 <!-- spectre:runtime validation-full.md -->
 **Installation**
 
-1. Runtime: all 17 modules equal their marked source extraction byte for byte, declare the
+1. Runtime: all 18 modules equal their marked source extraction byte for byte, declare the
    installed version and source hash, and contain no independent edits (full validation). Every
    module loaded by an invocation has matching version and source-hash headers.
 2. Templates: exactly the three canonical templates exist, only under `.agents/spectre/templates/`.
@@ -1987,15 +2032,15 @@ the provider-evidence checks (20–28) for any workflow that captures or consume
     this.
 15. Immutability: terminal record bytes and decision values are unchanged since entering their
     terminal state. Only §9 archive relocation and rebased links are permitted, plus moves recorded
-    in `MIGRATIONS.md`.
+    in `MIGRATIONS.md` and changes recorded in `OVERRIDES.md`.
 
 **References**
 
 16. Boundary: every reference in a record, ledger, manifest, or provider file stays inside the
     installation root (§3). No reference leaves it, including to another installation in the same
     repository.
-17. Resolution: every reference resolves using original locations, the §9 archive path maps, and
-    `MIGRATIONS.md` to a unique existing file. Manifest links and other installation-relative
+17. Resolution: every reference resolves using original locations, the §9 archive path maps,
+    `MIGRATIONS.md`, and `OVERRIDES.md` to a unique existing file. Manifest links and other installation-relative
     Markdown links resolve directly.
 18. Dependencies: `DERIVED` and `HYBRID` inputs resolve to results of this installation whose active
     or archived decision row says `ACCEPTED`; archived result hashes match their manifest.
@@ -2072,11 +2117,14 @@ the provider-evidence checks (20–28) for any workflow that captures or consume
     unstarted work; required `ACCEPTED` dependencies and human-only decisions remain enforced.
 35. Queues: compound-queue reports account for every normalized operation, dependency, deferred
     binding, completion, blocker, and exact remaining item. Every item keeps its workflow boundary;
-    accept, reject, cancel, and forced archive never appear in a queue.
+    accept, reject, cancel, forced archive, and override never appear in a queue.
 36. Decisions: a decision batch uses one explicit human decision and one applicable proof or reason,
     preflights a fixed nonempty eligible set, changes all selected rows in one ledger edit, and never
     skips or partially decides an invalid selection. Only a single-record decision uses the verbatim
     command and UTC date as its proof.
+37. Overrides: when `OVERRIDES.md` exists, every row records a human command and reason, each file
+    after-state exists with bytes matching `SHA-256 after` unless a later row changed it again, and
+    no row has been edited or removed. Checks broken only by a file's logged after-state pass.
 
 Validation should use repository-native tools when available. Machine validation is helpful but
 does not replace human acceptance.

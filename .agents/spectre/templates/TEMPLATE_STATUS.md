@@ -10,7 +10,7 @@ the target section once for every target in monorepo mode.
 ```markdown
 # SPECTRE implementations
 
-Protocol-Version: 2.0.0
+Protocol-Version: 2.1.0
 Protocol: [.agents/spectre/SPECTRE-PROTOCOL.md](.agents/spectre/SPECTRE-PROTOCOL.md)
 Status-Schema-Version: v2
 Storage-Mode: <flat|nested>

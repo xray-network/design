@@ -1,6 +1,6 @@
 <!-- Generated from SPECTRE-PROTOCOL.md; do not edit. -->
-Runtime-Version: 2.0.0
-Source-SHA256: 34cb0adc3a4dbd5fc9b9cba7e88b09b83c24694c6dc4d98ffc4320c7d93bb3f1
+Runtime-Version: 2.1.0
+Source-SHA256: a4ab931b976a8c0d1cc2c9893623d0a13cff273b5ff2cd2dd9072e3c5b3deb07
 
 The command prefix, operation, help-operation argument, lifecycle-state filter, and `--archived` flag are ASCII
 case-insensitive, as are the implementation `--batch` and archive `--force` flags. Lowercase is canonical. Selectors follow `runtime/selectors.md` when required by the router. Preserve
@@ -56,8 +56,9 @@ reconcile earlier outputs, rebind deferred selectors, and do not repeat complete
 queue. A continuation that omits SPECTRE never resumes it.
 
 `accept`, `reject`, and `cancel` are never queue items and cannot be combined with another operation.
-A forced archive closes open records as `CANCELLED`, so it is a decision too: it is never a queue
-item and cannot be combined with another operation. If a compound request includes any decision,
+A forced archive closes open records as `CANCELLED`, and an override changes SPECTRE files outside
+the normal rules, so both are decisions too: neither is ever a queue item or combined with another
+operation. If a compound request includes any decision,
 perform no item and require the human to issue the operational request without that decision. After the operational queue finishes, a separate explicit
 decision command may select one record or a bounded set under the decision-batch rules below.
 

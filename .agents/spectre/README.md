@@ -15,6 +15,8 @@ active lifecycle ledger and project-facing implementation summary.
   and lists existing defects in the manifest's `Known issues` instead of failing.
 - Every reference stays inside this installation. Anything from another project, including a
   sibling in the same monorepo, enters as a provider capture of its published interface.
+- `/spectre override <scope>: <changes> because <reason>` applies a human-ordered change outside the
+  normal rules and logs every changed file, with its hashes, in `OVERRIDES.md`.
 - Evidence and record files never move. An unavoidable, human-authorized move is recorded in
   `MIGRATIONS.md`, which reference resolution follows.
 - `/spectre status <record>` finds active or archived records; `/spectre list --archived`

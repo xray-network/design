@@ -1,6 +1,6 @@
 <!-- Generated from SPECTRE-PROTOCOL.md; do not edit. -->
-Runtime-Version: 2.0.0
-Source-SHA256: 34cb0adc3a4dbd5fc9b9cba7e88b09b83c24694c6dc4d98ffc4320c7d93bb3f1
+Runtime-Version: 2.1.0
+Source-SHA256: a4ab931b976a8c0d1cc2c9893623d0a13cff273b5ff2cd2dd9072e3c5b3deb07
 
 ## 13. Validation invariants
 
@@ -47,15 +47,15 @@ the provider-evidence checks (20–28) for any workflow that captures or consume
     this.
 15. Immutability: terminal record bytes and decision values are unchanged since entering their
     terminal state. Only §9 archive relocation and rebased links are permitted, plus moves recorded
-    in `MIGRATIONS.md`.
+    in `MIGRATIONS.md` and changes recorded in `OVERRIDES.md`.
 
 **References**
 
 16. Boundary: every reference in a record, ledger, manifest, or provider file stays inside the
     installation root (§3). No reference leaves it, including to another installation in the same
     repository.
-17. Resolution: every reference resolves using original locations, the §9 archive path maps, and
-    `MIGRATIONS.md` to a unique existing file. Manifest links and other installation-relative
+17. Resolution: every reference resolves using original locations, the §9 archive path maps,
+    `MIGRATIONS.md`, and `OVERRIDES.md` to a unique existing file. Manifest links and other installation-relative
     Markdown links resolve directly.
 18. Dependencies: `DERIVED` and `HYBRID` inputs resolve to results of this installation whose active
     or archived decision row says `ACCEPTED`; archived result hashes match their manifest.
@@ -71,11 +71,14 @@ the provider-evidence checks (20–28) for any workflow that captures or consume
     unstarted work; required `ACCEPTED` dependencies and human-only decisions remain enforced.
 35. Queues: compound-queue reports account for every normalized operation, dependency, deferred
     binding, completion, blocker, and exact remaining item. Every item keeps its workflow boundary;
-    accept, reject, cancel, and forced archive never appear in a queue.
+    accept, reject, cancel, forced archive, and override never appear in a queue.
 36. Decisions: a decision batch uses one explicit human decision and one applicable proof or reason,
     preflights a fixed nonempty eligible set, changes all selected rows in one ledger edit, and never
     skips or partially decides an invalid selection. Only a single-record decision uses the verbatim
     command and UTC date as its proof.
+37. Overrides: when `OVERRIDES.md` exists, every row records a human command and reason, each file
+    after-state exists with bytes matching `SHA-256 after` unless a later row changed it again, and
+    no row has been edited or removed. Checks broken only by a file's logged after-state pass.
 
 Validation should use repository-native tools when available. Machine validation is helpful but
 does not replace human acceptance.

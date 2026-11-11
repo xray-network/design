@@ -1,6 +1,6 @@
 <!-- Generated from SPECTRE-PROTOCOL.md; do not edit. -->
-Runtime-Version: 2.0.0
-Source-SHA256: 34cb0adc3a4dbd5fc9b9cba7e88b09b83c24694c6dc4d98ffc4320c7d93bb3f1
+Runtime-Version: 2.1.0
+Source-SHA256: a4ab931b976a8c0d1cc2c9893623d0a13cff273b5ff2cd2dd9072e3c5b3deb07
 
 The two implementation forms in the tree are alternatives and must not be mixed:
 
@@ -83,7 +83,8 @@ repository-relative reference from a record:
    Explicit repository-root-relative references keep the installation root as their base.
 2. Normalize the referenced path within the installation root (§3), retaining any fragment. If it
    names an Original path in an archive manifest, resolve it to that row's Archived file. If it
-   names a missing Original path in `MIGRATIONS.md`, resolve it to that row's New path. Otherwise
+   names a missing Original path in `MIGRATIONS.md`, resolve it to that row's New path; if it names
+   a missing File before in `OVERRIDES.md`, resolve it to that row's File after. Otherwise
    use the file at that path. Direct links already naming an archived file remain valid.
 3. Require a unique existing destination. Reject conflicting active and archived copies, duplicate
    mappings, missing destinations, or paths that leave the installation root. For an archived or

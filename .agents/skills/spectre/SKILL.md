@@ -10,7 +10,7 @@ or a natural-language mention anywhere in the message, case-insensitive.
 Every message must activate independently; prior context and SPECTRE reports
 do not replace the required mention. Otherwise leave tracking untouched and do not ask for an operation. `runtime/core.md` defines authorization,
 compound queues, and decisions, and `runtime/selectors.md` defines binding; apply both before any
-source or record change. Never place accept, reject, cancel, or a forced archive in a compound queue.
+source or record change. Never place accept, reject, cancel, a forced archive, or an override in a compound queue.
 
 Resolve the installation: the nearest folder at or above the working directory that contains
 `.agents/spectre/SPECTRE-PROTOCOL.md`. When the agent starts outside every installation, such as a
@@ -37,6 +37,7 @@ protocol by default. Read applicable repository guidance as required.
 | accept / reject / cancel | runtime/commands/decide.md | selectors.md, references.md, validation.md |
 | capture | runtime/commands/capture.md | selectors.md, references.md, providers.md, validation.md, validation-evidence.md, TEMPLATE_PROVIDER.md |
 | archive | runtime/commands/archive.md | selectors.md for a supplied target; references.md, validation.md, validation-full.md; commands/decide.md for a forced archive |
+| override | runtime/commands/override.md | selectors.md, references.md, validation.md |
 
 Bare runtime names above are under `runtime/`; TEMPLATE names are under `templates/`. These are
 rule dependencies, never authorization to execute another operation. Validation is mandatory
