@@ -7,14 +7,3 @@ Storage-Mode: flat
 
 This is the sole active lifecycle ledger. Archived decision rows and record paths are preserved
 under `.agents/spectre/archive/` once an archive exists.
-
-## XRAY Design implementation status
-
-Target: xray-design
-
-### Implementation ledger
-
-| ID | Title | Instruction | State | Result | Evidence mode | Decision proof |
-| --- | --- | --- | --- | --- | --- | --- |
-
-No implementation records.
