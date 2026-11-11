@@ -43,7 +43,7 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
     for (let row = minRow; row <= maxRow; row++) {
       for (let col = minColumn; col <= maxColumn; col++) {
         const point = points[row * columns + col]
-        baseCtx.globalAlpha = point.visibility * .8
+        baseCtx.globalAlpha = point.visibility * .9
         strokeSymbol(baseCtx, 0, point.x, point.y)
       }
     }
@@ -76,7 +76,7 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
     const x = pixelX[i] / pixelRatio, y = pixelY[i] / pixelRatio, size = tileSize / pixelRatio
     baseCtx.clearRect(x, y, size, size)
     if (visible) {
-      baseCtx.globalAlpha = points[i].visibility * .8
+      baseCtx.globalAlpha = points[i].visibility * .9
       baseCtx.drawImage(atlas, 0, tileSize, tileSize, tileSize, x, y, size, size)
     }
   }

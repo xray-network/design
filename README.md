@@ -1,4 +1,4 @@
-# XRAY Design
+# XRAY/Design
 
 The portable interface protocol and visual component reference for XRAY products.
 
@@ -6,11 +6,11 @@ The current design standard is [`protocol/v1.0.0/DESIGN.md`](./protocol/v1.0.0/D
 Immutable releases under `protocol/` define the tokens, layout, components, responsive
 behavior, accessibility, themes, voice, and interaction states used across XRAY interfaces.
 
-## Published resources
+## Documentation
 
-- `https://wiki.xraynetwork.io/design/` — documentation
-- `https://wiki.xraynetwork.io/design/DESIGN.md` — current release
-- `https://wiki.xraynetwork.io/design/protocol/v1.0.0/DESIGN.md` — immutable 1.0.0 release
+The public docs app at `https://wiki.xraynetwork.io/design/` currently publishes only a
+hero placeholder, using the SPECTRE documentation theme. Protocol releases and component
+references remain in this repository and are not published by the default docs build.
 
 ## Repository layout
 
@@ -19,7 +19,7 @@ behavior, accessibility, themes, voice, and interaction states used across XRAY 
 ├── protocol/
 │   └── v1.0.0/
 │       └── DESIGN.md
-└── docs/                 # Rspress protocol and component showcase
+└── wiki/                 # independent Rspress placeholder wiki
     ├── reference/
     │   ├── components.json
     │   └── components.schema.json
@@ -32,7 +32,7 @@ behavior, accessibility, themes, voice, and interaction states used across XRAY 
 Install dependencies inside the documentation project:
 
 ```sh
-cd docs
+cd wiki
 npm install
 ```
 
@@ -54,11 +54,10 @@ Deploy the documentation site to `https://wiki.xraynetwork.io/design/`:
 npm run deploy
 ```
 
-The documentation build validates the versioned releases and publishes the rendered protocol,
-component specimens, released source files, and machine-readable manifests. It generates the
-current-release `/design/DESIGN.md` download from the latest release under `protocol/`.
-Generated release files live only under `docs/src/pages/public/`;
-the landing page at `docs/src/pages/index.mdx` is maintained source.
+The docs build renders `wiki/src/pages/index.mdx` only. Run
+`npm run protocol:publish` explicitly to regenerate local release downloads; the placeholder
+build does not call this publisher. Existing reference pages are retained in source and excluded
+from the public routes. See [`wiki/README.md`](wiki/README.md) for the independent docs workflow.
 
 The production React components live in a separate `xray-ui` repository. The specimens here are
 documentation-only references until `@xray-network/xray-ui` is published; after that, the docs

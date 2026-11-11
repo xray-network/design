@@ -26,7 +26,6 @@ html:root {
   --rp-radius-small: var(--xr-radius);
   --rp-radius-large: var(--xr-radius-panel);
   --rp-sidebar-width: 265px;
-  --spectre-layout-width: 1440px;
   --spectre-content-width: 768px;
   --spectre-layout-gutter: 24px;
   --spectre-header-height: 64px;
@@ -36,6 +35,7 @@ html:root {
   --spectre-sidebar-bg: var(--xr-surface);
   --spectre-sidebar-item: var(--xr-gray-500);
   --spectre-symbol-color: var(--xr-blue-500);
+  --spectre-external-link-icon: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20fill='none'%20viewBox='0%200%2024%2024'%20stroke='%23000'%20stroke-width='1.6'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='m12%205-7%207%207%207M5%2012h14'/%3E%3C/svg%3E");
   --rp-content-padding-x: 48px;
   --rp-content-padding-y: 64px;
   --rp-outline-width: 200px;
@@ -80,10 +80,7 @@ html:root:has(.spectre-section-tabs) {
 
 html .rp-nav {
   height: var(--spectre-header-height);
-  padding-inline: max(
-    var(--spectre-layout-gutter),
-    calc((100% - var(--spectre-layout-width)) / 2)
-  );
+  padding-inline: var(--spectre-layout-gutter);
   background: var(--xr-canvas);
   border-bottom-color: var(--xr-border);
 }
@@ -108,7 +105,7 @@ html .rp-nav:has(+ .spectre-section-tabs) {
   display: flex;
   gap: 24px;
   width: calc(100% - 2 * var(--spectre-layout-gutter));
-  max-width: var(--spectre-layout-width);
+  max-width: none;
   height: 100%;
   margin-inline: auto;
   overflow-x: auto;
@@ -145,11 +142,11 @@ html .spectre-section-tab[aria-current="page"] {
   border-bottom-color: var(--xr-link);
 }
 
-/* Header contents, sidebar, and content align to one centered frame. */
+/* Navigation rails follow the viewport edges; prose keeps a readable measure. */
 html .rp-doc-layout__container,
 html .rp-doc-layout__menu {
   width: calc(100% - 2 * var(--spectre-layout-gutter));
-  max-width: var(--spectre-layout-width);
+  max-width: none;
   margin-inline: auto;
 }
 
@@ -195,6 +192,23 @@ html .rp-nav__title__logo {
 html .rp-nav__title__logo-image {
   width: 32px;
   height: 32px;
+}
+
+/* Reuse the Back to Wiki arrow, rotated to mark external destinations. */
+html .rp-nav-menu a[target="_blank"]::after,
+html .rp-sidebar-item.rp-link[target="_blank"]::after,
+html .rp-nav-screen-menu-item.rp-link[target="_blank"] .rp-nav-screen-menu-item__left::after {
+  content: "";
+  display: inline-block;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin: 0 0 0 6px;
+  background-color: currentColor;
+  transform: rotate(135deg);
+  vertical-align: -2px;
+  -webkit-mask: var(--spectre-external-link-icon) center / contain no-repeat;
+  mask: var(--spectre-external-link-icon) center / contain no-repeat;
 }
 
 html .rp-search-button {
@@ -484,11 +498,6 @@ html :where(a, button, input):focus-visible {
   stroke-dasharray: 3 4;
 }
 
-.spectre-diagram-caption {
-  fill: var(--xr-fg-muted);
-  font-size: 9px;
-}
-
 .spectre-diagram-icon {
   stroke: var(--xr-fg-muted);
   stroke-width: 1.3;
@@ -662,9 +671,16 @@ html :where(a, button, input):focus-visible {
   font-size: 12px;
 }
 
+.spectre-about,
 .spectre-start {
   padding-top: 48px;
   scroll-margin-top: 128px;
+}
+
+.spectre-about > p {
+  max-width: 760px;
+  color: var(--rp-c-text-2);
+  line-height: 1.65;
 }
 
 .spectre-start > p {
@@ -674,10 +690,6 @@ html :where(a, button, input):focus-visible {
 
 .spectre-install-panel {
   margin-top: 26px;
-  padding: 30px;
-  border: 1px solid var(--rp-c-divider-light);
-  border-radius: var(--spectre-home-radius);
-  background: var(--rp-c-bg-soft);
 }
 
 .spectre-section-heading {
@@ -693,11 +705,6 @@ html :where(a, button, input):focus-visible {
   line-height: 1.25;
   letter-spacing: -.035em;
   font-weight: 500;
-}
-
-.spectre-start > p,
-.spectre-workflow > p {
-  font-size: 14px;
 }
 
 .spectre-text-link,
@@ -727,6 +734,7 @@ html :where(a, button, input):focus-visible {
 
 .spectre-start .rp-codeblock {
   margin: 0 0 16px;
+  border-top: 6px solid var(--rp-c-brand);
 }
 
 .spectre-start .rp-codeblock__title {
@@ -825,6 +833,17 @@ html :where(a, button, input):focus-visible {
 
 .spectre-workflow-content > p {
   font-size: 16px;
+}
+
+.spectre-workflow-content > .spectre-workflow-output {
+  margin-top: 12px;
+  color: var(--rp-c-text-3);
+  font: 500 12px/1.7 var(--rp-font-family-mono);
+}
+
+.spectre-workflow-output strong {
+  color: var(--rp-c-text-2);
+  font-weight: 600;
 }
 
 .spectre-state {
@@ -961,12 +980,9 @@ html :where(a, button, input):focus-visible {
     border-top: 1px solid var(--xr-border-strong);
   }
 
+  .spectre-about,
   .spectre-start {
     padding-top: 32px;
-  }
-
-  .spectre-install-panel {
-    padding: 18px;
   }
 
   .spectre-home .spectre-lead {
@@ -1019,5 +1035,105 @@ html :where(a, button, input):focus-visible {
   .spectre-resource {
     animation: none;
     transition: none;
+  }
+}
+
+/* Shared landing-page additions to the SPECTRE docs base. */
+html .rp-doc-layout__doc-container:has(.wiki-directory) {
+  max-width: 1280px;
+}
+
+.wiki-directory {
+  max-width: none;
+}
+
+.wiki-placeholder .spectre-hero {
+  border-bottom: 0;
+}
+
+.wiki-placeholder .spectre-hero-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: min(620px, calc(100svh - 200px));
+  padding-block: 88px;
+}
+
+.wiki-placeholder .spectre-hero-copy,
+.wiki-directory .spectre-hero-copy {
+  width: 100%;
+  text-align: center;
+}
+
+.wiki-placeholder h1,
+.wiki-placeholder .spectre-lead,
+.wiki-directory h1,
+.wiki-directory .spectre-lead {
+  margin-inline: auto;
+}
+
+.wiki-placeholder .spectre-eyebrow,
+.wiki-directory .spectre-eyebrow {
+  margin-bottom: 24px;
+}
+
+.spectre-home .wiki-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  margin-top: 32px;
+  padding: 4px 12px;
+  border: 1px solid var(--xr-border-strong);
+  border-radius: var(--xr-radius-pill);
+  color: var(--xr-fg-secondary);
+  background: var(--xr-surface);
+  font: 400 12px/1.5 var(--xr-font-mono);
+}
+
+.wiki-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.wiki-card-grid .spectre-resource {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 240px;
+  border: 1px solid var(--xr-border-strong);
+  border-radius: var(--xr-radius);
+}
+
+.wiki-card-grid .spectre-resource h2 {
+  margin-top: 28px;
+}
+
+.wiki-card-grid .spectre-resource p {
+  flex: 1;
+}
+
+.wiki-card-path {
+  display: block;
+  margin-top: 24px;
+  color: var(--xr-fg-muted);
+  font: 400 11px/1.5 var(--xr-font-mono);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1000px) {
+  .wiki-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .wiki-card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wiki-placeholder .spectre-hero-grid {
+    padding-block: 56px;
   }
 }

@@ -1,0 +1,30 @@
+{
+  "name": "wiki-xray-design-docs",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@10.8.2",
+  "description": "The interface protocol, visual language, and component reference for XRAY products.",
+  "homepage": "https://wiki.xraynetwork.io/design/",
+  "scripts": {
+    "dev": "rspress dev --host 0.0.0.0 --port 10009",
+    "build": "rspress build",
+    "typecheck": "tsc --noEmit",
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "rspress preview --host 0.0.0.0 --port 10009",
+    "protocol:publish": "node scripts/publish-design.mjs"
+  },
+  "devDependencies": {
+    "@rspress/core": "2.0.21",
+    "@types/react": "19.2.18",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "typescript": "5.9.3",
+    "wrangler": "4.54.0"
+  },
+  "overrides": {
+    "react": "$react",
+    "react-dom": "$react-dom"
+  }
+}

@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url"
 const scriptDirectory = dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = resolve(scriptDirectory, "../..")
 const sourceRoot = join(repositoryRoot, "protocol")
-const publicRoot = join(repositoryRoot, "docs/src/pages/public")
+const publicRoot = join(repositoryRoot, "wiki/src/pages/public")
 const destinationRoot = join(publicRoot, "protocol")
 const componentCatalogPath = resolve(scriptDirectory, "../reference/components.json")
 const componentSchemaPath = resolve(scriptDirectory, "../reference/components.schema.json")
