@@ -1,6 +1,13 @@
-# XRAY/Design
+# XRAY/DESIGN
 
-The portable interface protocol and visual component reference for XRAY products.
+**Direct · Editable · Source · Integrated · Generative · Native**
+
+DESIGN is being built as an HTML/React component library for XRAY products, using liquid
+components: source copied directly into a project and adjusted by AI.
+
+Components become native project code. Their markup, styles, and behavior are editable in place,
+with no imports from a DESIGN package. AI adapts each component to the project's structure,
+visual language, and interaction needs.
 
 The current design standard is [`protocol/v1.0.0/DESIGN.md`](./protocol/v1.0.0/DESIGN.md).
 Immutable releases under `protocol/` define the tokens, layout, components, responsive
@@ -59,10 +66,9 @@ The docs build renders `wiki/src/pages/index.mdx` only. Run
 build does not call this publisher. Existing reference pages are retained in source and excluded
 from the public routes. See [`wiki/README.md`](wiki/README.md) for the independent docs workflow.
 
-The production React components live in a separate `xray-ui` repository. The specimens here are
-documentation-only references until `@xray-network/xray-ui` is published; after that, the docs
-should pin and render the real package.
+The specimens currently in this repository are documentation references. The intended delivery
+model is HTML/React source copied into the consuming project and adapted there by AI.
 
 ## License
 
-XRAY Design is available under the [MIT License](./LICENSE).
+DESIGN is available under the [MIT License](./LICENSE).
