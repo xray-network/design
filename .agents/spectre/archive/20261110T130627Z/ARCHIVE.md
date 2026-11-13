@@ -4,18 +4,20 @@ Archive-Version: v1
 Archive-ID: 20261110T130627Z
 Created: 20261110T130627Z
 Protocol-Version: 1.0.0
+Kind: implementations
 Storage-Mode: flat
-Scope: ALL
+Scope: xray-design/0001
 
 ## Archived implementations
 
 ### XRAY Design implementation status
 
 Target: xray-design
+Path: ./
 
-| ID | Title | Instruction | State | Result | Evidence mode | Decision proof |
+| ID | Title | Instruction | State | Result | Evidence mode | Decision or status |
 | --- | --- | --- | --- | --- | --- | --- |
-| `0001` | Install SPECTRE | [Instruction](implementations/0001-IMPL-INSTR.md) | `ACCEPTED` | [Result](implementations/0001-IMPL-RESULT.md) | `LOCAL` | Human requested installation of SPECTRE. |
+| `xray-design/0001` | Install SPECTRE | [Instruction](implementations/0001-IMPL-INSTR.md) | `ACCEPTED` | [Result](implementations/0001-IMPL-RESULT.md) | `LOCAL` | Human requested installation of SPECTRE. |
 
 ## Record paths
 
