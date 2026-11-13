@@ -1,0 +1,41 @@
+<!-- List: rows without boxes. Use div rows for static content, a/button rows for actions. -->
+<div class="x-list" role="list" aria-label="Recent activity">
+  <div class="x-list-heading">Today</div>
+  <div class="x-list-row" role="listitem">
+    <span class="x-list-icon" data-tone="positive" aria-hidden="true">
+      <svg class="x-icon" viewBox="0 0 24 24"><path d="M19.5 4.5l-15 15m0 0h11.25m-11.25 0V8.25"/></svg>
+    </span>
+    <span class="x-list-text">
+      <span class="x-list-title">Received</span>
+      <span class="x-list-sub">14:02 · from addr1q9…7xk2</span>
+    </span>
+    <span class="x-list-end" data-tone="positive">
+      <span class="x-list-title">+250.00 ADA</span>
+      <span class="x-list-sub">$175.00</span>
+    </span>
+  </div>
+  <a class="x-list-row" href="#tx" role="listitem">
+    <span class="x-list-icon" aria-hidden="true">
+      <svg class="x-icon" viewBox="0 0 24 24"><path d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+    </span>
+    <span class="x-list-text">
+      <span class="x-list-title">Sent</span>
+      <span class="x-list-sub">09:17 · to addr1qx…m4d1</span>
+    </span>
+    <span class="x-list-end">
+      <span class="x-list-title">−42.17 ADA</span>
+      <span class="x-list-sub">$29.52</span>
+    </span>
+  </a>
+  <!-- A token disc as the lead; a button row -->
+  <button class="x-list-row" type="button" role="listitem">
+    <span class="x-list-token" style="--x-list-token-bg: var(--x-warning)" aria-hidden="true">S</span>
+    <span class="x-list-text">
+      <span class="x-list-title">Snek</span>
+      <span class="x-list-sub">137,400 SNEK</span>
+    </span>
+    <span class="x-list-end">
+      <span class="x-list-title">$461.82</span>
+    </span>
+  </button>
+</div>

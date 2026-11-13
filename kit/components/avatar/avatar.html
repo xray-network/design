@@ -1,0 +1,20 @@
+<!-- Avatar, drawn ahead of time (server templates can call avatarSvg(seed, palette)). -->
+<span class="x-avatar">
+  <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" fill="#ffb869"/><rect width="40" height="40" fill="#fa2c37" transform="translate(-0.05 0.22) rotate(247.82 20 20)"/><rect width="40" height="40" fill="#1940ed" transform="translate(-8.72 -13.24) rotate(251.45 20 20)"/><rect width="40" height="40" fill="#ff6900" transform="translate(24.18 -11.96) rotate(488.82 20 20)"/></svg>
+</span>
+
+<!-- Drawn by avatar.controller.js from the seed; with a chain badge -->
+<span class="x-avatar" data-seed="mn_addr1…t7n2yd" data-palette="night">
+  <span class="x-avatar-badge" title="Midnight">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg>
+  </span>
+</span>
+
+<!-- Sizes: 28, 36 (default), 48 -->
+<span class="x-avatar" data-size="sm" data-seed="bc1q…q8fz4h" data-palette="btc"></span>
+<span class="x-avatar" data-size="lg" data-seed="7xKp…Hq4pNx" data-palette="xray"></span>
+
+<script type="module">
+  import { initAvatars } from "./avatar.controller.js";
+  initAvatars();
+</script>

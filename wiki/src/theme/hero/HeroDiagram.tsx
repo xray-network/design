@@ -3,10 +3,10 @@ import { useId } from "react"
 export function HeroDiagram() {
   const id = useId()
   return (
-    <svg className="spectre-hero-diagram" viewBox="0 60 320 134" role="img" aria-labelledby={`${id}-title ${id}-description`} focusable="false">
-      <title id={`${id}-title`}>XRAY/DESIGN workflow.</title>
-      <desc id={`${id}-description`}>Define the visual system, compose components, then verify the interface.</desc>
-      <rect className="spectre-diagram-frame" x="14" y="68" width="292" height="118" rx="8" />
+    <svg className="spectre-hero-diagram" viewBox="0 60 320 114" role="img" aria-labelledby={`${id}-title ${id}-description`} focusable="false">
+      <title id={`${id}-title`}>XRAY/DESIGN: a copy-in UI kit for agents.</title>
+      <desc id={`${id}-description`}>Install the kit by prompt, copy components into your code, then adapt them.</desc>
+      <rect className="spectre-diagram-frame" x="14" y="68" width="292" height="98" rx="8" />
 
       <g className="spectre-diagram-records">
         <rect x="36" y="84" width="56" height="48" rx="4" />
@@ -17,18 +17,13 @@ export function HeroDiagram() {
           <path d="m154 101-7 7 7 7m12-14 7 7-7 7m-4-19-4 24" />
           <path d="m246 108 7 7 13-15" />
         </g>
-        <text x="64" y="151">Define</text>
-        <text x="160" y="151">Compose</text>
-        <text x="256" y="151">Verify</text>
+        <text x="64" y="151">Install</text>
+        <text x="160" y="151">Copy</text>
+        <text x="256" y="151">Adapt</text>
       </g>
       <g className="spectre-diagram-arrows">
         <path className="spectre-diagram-dashed" d="M96 108h28M192 108h28" />
         <path d="M120 104L124 108L120 112M216 104L220 108L216 112" />
-      </g>
-      <g className="spectre-diagram-caption">
-        <text x="64" y="169">Tokens</text>
-        <text x="160" y="169">Components</text>
-        <text x="256" y="169">Conformance</text>
       </g>
     </svg>
   )

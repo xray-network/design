@@ -1,48 +1,91 @@
----
-title: Install
-description: "XRAY/DESIGN: a copy-in UI kit for agents. Rules, tokens, liquid motion and components in HTML and React."
----
+import { CodeBlock, HeroArtwork, HeroDiagram, CopyPromptButton, installationPrompt, Link } from '@rspress/core/theme';
 
-import { Prompt, KIT_VERSION } from "../demos/InstallPrompt"
+<div className="spectre-home rp-not-doc">
+  <section className="spectre-hero" aria-labelledby="ui-that-becomes-your-code">
+    <div className="spectre-hero-grid">
+      <HeroArtwork />
+      <HeroDiagram />
+      <div className="spectre-hero-copy">
+        <h1 id="ui-that-becomes-your-code">Liquid UI your agent copies into your code.</h1>
+        <p className="spectre-lead">Design rules, tokens and components in HTML and React, installed with one prompt. Every component becomes source you own and adapt.</p>
+        <div className="spectre-actions">
+          <a className="spectre-button spectre-button--primary" href="#get-started">Get started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="m12 5 7 7-7 7M19 12H5" /></svg></a>
+          <CopyPromptButton />
+        </div>
+      </div>
+    </div>
+  </section>
 
-# Install
+  <section className="spectre-about" aria-labelledby="about-design-title">
+    <div className="spectre-section-heading">
+      <div><span className="spectre-eyebrow">01 / What is XRAY/DESIGN</span><h2 id="about-design-title" data-outline>A UI kit that becomes your code</h2></div>
+    </div>
+    <p>XRAY/DESIGN is a copy-in UI kit for coding agents. Instead of adding a package dependency, your agent installs a catalog of design rules, tokens, motion helpers and components in HTML and React. It then copies only the components you need into your project.</p>
+    <p>Copied components are plain source that you own. The agent adapts them within each component's contract, keeps both themes, keyboard support and reduced motion working, and can later upgrade them with a 3-way merge that keeps your changes.</p>
+  </section>
 
-XRAY/DESIGN is not a package. An agent copies the kit into your project, and components become
-project code that it adapts on request. This guide installs <code>v{KIT_VERSION}</code>, the version this wiki documents.
+  <section className="spectre-start" id="get-started" aria-labelledby="get-started-title">
+    <div className="spectre-section-heading">
+      <div><span className="spectre-eyebrow">02 / Installation</span><h2 id="get-started-title" data-outline>Start with a single prompt</h2></div>
+      <Link className="spectre-text-link" href="/installation">Installation guide <span aria-hidden="true">↗</span></Link>
+    </div>
+    <p>Open your project in a coding agent, then copy and send this prompt.</p>
+    <div className="spectre-install-panel">
+      <CodeBlock title="Copy into your coding agent" wrapCode>
+        <pre tabIndex={0}><code>{installationPrompt}</code></pre>
+      </CodeBlock>
+      <div className="spectre-install-result">
+        <span className="spectre-check" aria-hidden="true">✓</span>
+        <p>Your agent places the kit in <code>.agents/skills/design/</code>, then loads the tokens and adds a pointer to <code>AGENTS.md</code>.</p>
+      </div>
+    </div>
+  </section>
 
-## Install the kit
+  <section className="spectre-workflow" id="first-component" aria-labelledby="first-component-title">
+    <div className="spectre-section-heading">
+      <div><span className="spectre-eyebrow">03 / The workflow</span><h2 id="first-component-title" data-outline>Add, adapt, and upgrade components</h2></div>
+    </div>
+    <p>Ask for components by name or describe the UI in your own words. The agent reads <code>.agents/skills/design/RULES.md</code> before any UI work, copies components into your UI folder, and lists them in <code>.agents/design.lock.json</code>.</p>
+    <ol className="spectre-workflow-list">
+      <li>
+        <span className="spectre-step" aria-hidden="true">01</span>
+        <div className="spectre-workflow-content">
+          <div className="spectre-workflow-title"><h3>Add a component</h3><span className="spectre-state spectre-state--planned">ADDED</span></div>
+          <p>Your agent copies the component and everything it needs (tokens, motion helpers, other components) into your UI folder, keeping relative imports intact. It wires the component into your stack: React imports, or CSS links and a small controller for plain HTML.</p>
+          <p className="spectre-workflow-output"><strong>Produced:</strong> component source + lock entry <span aria-hidden="true">→</span> <code>ADDED</code></p>
+          <CodeBlock><pre tabIndex={0}><code>Add the segmented control for the period filter.</code></pre></CodeBlock>
+        </div>
+      </li>
+      <li>
+        <span className="spectre-step" aria-hidden="true">02</span>
+        <div className="spectre-workflow-content">
+          <div className="spectre-workflow-title"><h3>Adapt it to your product</h3><span className="spectre-state spectre-state--review">ADAPTED</span></div>
+          <p>Ask for changes in your own words. The agent edits your copy within the component's safe edits, keeps its invariants, and runs its checklist: both themes, keyboard, reduced motion and phone width.</p>
+          <p className="spectre-workflow-output"><strong>Produced:</strong> changes in your own code <span aria-hidden="true">→</span> <code>ADAPTED</code></p>
+          <CodeBlock><pre tabIndex={0}><code>Make the period filter full width and add a 90 days option.</code></pre></CodeBlock>
+        </div>
+      </li>
+      <li>
+        <span className="spectre-step" aria-hidden="true">03</span>
+        <div className="spectre-workflow-content">
+          <div className="spectre-workflow-title"><h3>Upgrade the kit</h3><span className="spectre-state spectre-state--accepted">UPGRADED</span></div>
+          <p>When a new version ships, the agent replaces files you never touched and merges the kit's changes into the ones you edited. Any conflicts are listed for it to resolve before it finishes.</p>
+          <p className="spectre-workflow-output"><strong>Produced:</strong> merged components + lock at the new version <span aria-hidden="true">→</span> <code>UPGRADED</code></p>
+          <CodeBlock><pre tabIndex={0}><code>Upgrade XRAY/DESIGN to the latest version.</code></pre></CodeBlock>
+        </div>
+      </li>
+    </ol>
+  </section>
 
-Run this prompt from the root of your project:
-
-<Prompt />
-
-The agent places two folders and then runs the skill's setup. Setup detects React or plain HTML,
-chooses the UI folder, copies the tokens, and adds a pointer to `AGENTS.md`.
-
-```text
-.agents/design/          catalog: rules, tokens, motion, components (read-only)
-.agents/skills/design/   agent skill: add, adapt, create, theme, upgrade, audit
-.agents/design.lock.json what was copied, from which version, with file hashes
-```
-
-## Use it
-
-Ask for components by name or just describe the UI:
-
-- "Add the segmented control for the period filter."
-- "Build the settings screen with switches for lock and hidden balances."
-- "Audit the send form against the design rules."
-
-The agent reads `.agents/design/RULES.md`, copies what it needs into your UI folder, and adapts it there.
-
-## Upgrade
-
-<Prompt kind="upgrade" />
-
-Your local changes to copied components are kept with a 3-way merge; any conflicts are listed for the agent to resolve.
-
-## Requirements
-
-- Browsers: Baseline 2024 (Chrome/Edge 123+, Safari 17.5+, Firefox 128+). Newer features (anchor positioning, `@starting-style` exit transitions) degrade gracefully.
-- React 19+ for the React versions. Plain HTML pages need no build step.
-- Node 18+ for the skill's helper script. Without Node, the agent follows the same steps by hand.
+  <nav className="spectre-resources" aria-label="Explore XRAY/DESIGN documentation">
+    <Link className="spectre-resource" href="/components/button">
+      <span className="spectre-resource-label">COMPONENTS <span aria-hidden="true">↗</span></span>
+      <h2>Browse components</h2><p>Live React and HTML demos, with each component's contract and checklist.</p>
+    </Link>
+    <Link className="spectre-resource" href="/rules">
+      <span className="spectre-resource-label">SPECIFICATION <span aria-hidden="true">↗</span></span>
+      <h2>Read the design rules</h2><p>Color, type, radius, the motion budget, accessibility and the markup contract.</p>
+    </Link>
+  </nav>
+  <div className="spectre-home-footer"><span>XRAY/DESIGN <span aria-hidden="true">·</span> Liquid UI that becomes your code.</span><Link href="/installation">Installation guide <span aria-hidden="true">→</span></Link></div>
+</div>

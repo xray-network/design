@@ -389,7 +389,9 @@ html :where(a, button, input):focus-visible {
     /* Item and section-header text starts 12px inside; pull it back in line with the nav logo. */
     margin: 0 0 0 -12px;
     left: auto;
-    padding: 32px 0 0;
+    /* 12px on the right keeps item fills off the border, where no scrollbar gutter does it;
+       12px at the bottom keeps the version tag (and the last item when the list scrolls) off the edge. */
+    padding: 32px 12px 12px 0;
     border: 0;
     border-right: 1px solid var(--xr-border);
     border-radius: 0;
@@ -1164,3 +1166,9 @@ html .rp-doc-layout__doc-container:has(.wiki-directory) {
 /* Kit tokens (light-dark()) follow the docs appearance switch. */
 html:root { color-scheme: light; }
 html:root:is(.rp-dark, .dark) { color-scheme: dark; }
+
+/* Wrapped prompts on doc pages break at spaces, like the home page. */
+html .rp-doc .rp-codeblock__content--wrap-code code {
+  word-break: normal !important;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,67 @@
+/* Toast: short, non-blocking feedback at the bottom of the screen. Requires core/tokens.css.
+   The region is a manual popover so toasts render above dialogs (top layer). */
+
+@layer x.components {
+  .x-toaster {
+    /* Reset popover UA styles. */
+    position: fixed;
+    inset: auto auto var(--x-space-6) 50%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    overflow: visible;
+
+    z-index: var(--x-z-toast);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--x-space-2);
+    width: max-content;
+    max-width: calc(100vw - var(--x-space-8));
+    translate: -50% 0;
+    pointer-events: none;
+  }
+
+  .x-toast {
+    --x-toast-enter-y: 16px;
+    --x-toast-radius: var(--x-radius-lg);
+
+    display: flex;
+    align-items: center;
+    gap: var(--x-space-2-5);
+    min-height: var(--x-size-lg);
+    max-width: 100%;
+    padding: var(--x-space-1-5) var(--x-space-1-5) var(--x-space-1-5) var(--x-space-4);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-toast-radius);
+    background: var(--x-bg-panel);
+    color: var(--x-fg-1);
+    font-size: var(--x-text-sm);
+    font-weight: var(--x-weight-body);
+    pointer-events: auto;
+    transition:
+      opacity var(--x-duration-base) var(--x-ease),
+      translate var(--x-spring-duration) var(--x-spring),
+      scale var(--x-spring-duration) var(--x-spring);
+  }
+  @starting-style {
+    .x-toast { opacity: 0; translate: 0 var(--x-toast-enter-y); scale: 0.96; }
+  }
+  .x-toast[data-state="closing"] {
+    opacity: 0;
+    scale: 0.96;
+    transition:
+      opacity var(--x-duration-base) var(--x-ease),
+      scale var(--x-duration-base) var(--x-ease);
+  }
+  /* No close button: keep the padding even. */
+  .x-toast:not(:has(.x-icon-button)) { padding-right: var(--x-space-4); }
+
+  .x-toast-message { margin: 0; min-width: 0; line-height: var(--x-leading-body); }
+  .x-toast-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--x-toast-dot, var(--x-fg-3)); }
+  .x-toast[data-tone="success"] { --x-toast-dot: var(--x-success); }
+  .x-toast[data-tone="danger"] { --x-toast-dot: var(--x-danger); }
+  .x-toast[data-tone="info"] { --x-toast-dot: var(--x-accent); }
+  .x-toast .x-button { margin-left: var(--x-space-1); }
+}

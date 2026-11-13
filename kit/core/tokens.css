@@ -1,0 +1,219 @@
+/* ==========================================================================
+   XRAY/DESIGN tokens
+   Import once, before any component CSS. Defines the cascade layers, every color, type,
+   space, radius, size and motion value the components use.
+
+   Three tiers:
+     1. Primitives   --x-blue-500, --x-gray-800 …   raw palette; components never read these
+     2. Semantic     --x-bg, --x-fg-1, --x-accent … theme-aware roles; components read these
+     3. Component    --x-button-bg …               declared inside each component's CSS,
+                                                     defaulting to semantic tokens
+   Rebrand by overriding semantic tokens (usually 4–6 of them); restyle one component by
+   overriding its component tokens.
+
+   Themes: light and dark resolve per element through light-dark(), driven by color-scheme.
+     <html>                      follows the OS
+     <html data-theme="dark">    forces dark (also works on any subtree)
+     <html data-theme="light">   forces light
+   ========================================================================== */
+
+@layer x.reset, x.tokens, x.components;
+
+/* Kit elements size themselves with borders and padding included, whatever the host's reset does. */
+@layer x.reset {
+  [class^="x-"], [class*=" x-"],
+  [class^="x-"]::before, [class*=" x-"]::before,
+  [class^="x-"]::after, [class*=" x-"]::after { box-sizing: border-box; }
+}
+
+@layer x.tokens {
+  :root {
+    color-scheme: light dark;
+
+    /* ---- 1. Primitives ------------------------------------------------- */
+    --x-white: #ffffff;
+    --x-black: #000000;
+
+    --x-blue-50: #c3cdfa;
+    --x-blue-200: #8b9ef6;
+    --x-blue-300: #657ff3;
+    --x-blue-400: #3f5ff0;
+    --x-blue-500: #1940ed;
+    --x-blue-600: #0f2fbf;
+
+    --x-gray-50: #f9fafb;
+    --x-gray-100: #f3f4f6;
+    --x-gray-200: #e5e7eb;
+    --x-gray-300: #d1d5db;
+    --x-gray-400: #9ca3af;
+    --x-gray-500: #6e758d;
+    --x-gray-600: #55556d;
+    --x-gray-700: #374151;
+    --x-gray-800: #1f2937;
+    --x-gray-900: #1e2232;
+    --x-gray-950: #0e0e18;
+
+    --x-green-500: #15e4a3;
+    --x-green-800: #07874d;
+    --x-red-200: #ffa2a2;
+    --x-red-500: #fa2c37;
+    --x-red-700: #c10008;
+    --x-yellow-500: #f0b000;
+    --x-orange-500: #ff6900;
+
+    /* ---- 2. Semantic: surfaces ----------------------------------------- */
+    --x-bg: light-dark(var(--x-white), var(--x-black));                 /* page canvas */
+    --x-bg-panel: light-dark(var(--x-gray-50), var(--x-gray-950));      /* cards, menus, dialogs */
+    --x-bg-chip: light-dark(var(--x-gray-100), var(--x-gray-800));      /* chips, soft buttons, tracks */
+    --x-bg-chip-hover: light-dark(var(--x-gray-200), var(--x-gray-700));
+    --x-bg-active: light-dark(var(--x-gray-200), var(--x-gray-800));    /* selected item */
+    --x-bg-active-hover: light-dark(var(--x-gray-300), var(--x-gray-700));
+    --x-bg-soft: light-dark(rgb(0 0 0 / 0.06), rgb(255 255 255 / 0.06)); /* hover wash */
+    --x-bg-faint: light-dark(rgb(0 0 0 / 0.03), rgb(255 255 255 / 0.04)); /* resting tabs */
+    --x-scrim: light-dark(rgb(0 0 0 / 0.35), rgb(0 0 0 / 0.6));
+    --x-ink: var(--x-gray-800);   /* identity tiles: the same dark surface in both themes */
+    --x-on-ink: var(--x-white);
+
+    /* ---- Semantic: lines ----------------------------------------------- */
+    --x-border: light-dark(var(--x-gray-200), var(--x-gray-900));
+    --x-border-hover: light-dark(var(--x-gray-300), var(--x-gray-700));
+
+    /* ---- Semantic: text ------------------------------------------------ */
+    --x-fg-1: light-dark(var(--x-gray-950), var(--x-white));   /* titles, values */
+    --x-fg-2: light-dark(var(--x-gray-700), var(--x-gray-300)); /* body */
+    --x-fg-3: var(--x-gray-500);                                /* secondary, labels */
+    --x-fg-4: light-dark(var(--x-gray-400), var(--x-gray-600)); /* placeholders, legal */
+    --x-fg-frac: light-dark(var(--x-gray-500), var(--x-gray-400)); /* numeral fractions */
+
+    /* ---- Semantic: action ---------------------------------------------- */
+    --x-accent: var(--x-blue-500);           /* identical in both themes */
+    --x-accent-hover: var(--x-blue-400);
+    --x-accent-press: var(--x-blue-600);
+    --x-accent-fg: var(--x-white);
+    --x-accent-wash: light-dark(rgb(25 64 237 / 0.07), rgb(25 64 237 / 0.14)); /* selected option fill */
+    --x-link: light-dark(var(--x-blue-500), var(--x-blue-400));
+    --x-focus: var(--x-accent);
+
+    /* ---- Semantic: status ---------------------------------------------- */
+    --x-success: var(--x-green-500);                                   /* fills, dots */
+    --x-success-fg: light-dark(var(--x-green-800), var(--x-green-500)); /* text on canvas */
+    --x-danger: var(--x-red-500);
+    --x-danger-fg: light-dark(var(--x-red-700), var(--x-red-200));
+    --x-danger-hover: color-mix(in oklab, var(--x-red-500), var(--x-white) 14%);
+    --x-danger-press: color-mix(in oklab, var(--x-red-500), var(--x-black) 16%);
+    --x-danger-on: var(--x-white); /* text on a danger fill */
+    --x-warning: var(--x-yellow-500);
+    --x-info-fg: light-dark(var(--x-blue-500), var(--x-blue-200));
+
+    /* ---- Type ---------------------------------------------------------- */
+    --x-font-sans: "-apple-system-body", ui-sans-serif, -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+    --x-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+    --x-text-2xs: 11px;  /* kbd, ids */
+    --x-text-xs: 12px;   /* captions, second lines */
+    --x-text-sm: 13px;   /* small controls, menu items, addresses */
+    --x-text-md: 14px;   /* body, controls */
+    --x-text-lg: 15px;   /* card titles, section titles */
+    --x-text-xl: 16px;   /* dialog input, context numerals */
+    --x-text-2xl: 22px;  /* page title (app) */
+    --x-text-3xl: 24px;  /* page title (shell), stat values */
+    --x-text-4xl: 34px;  /* article title */
+    --x-text-hero: 48px; /* balance numerals */
+
+    --x-weight-body: 500; /* the default weight is 500, not 400 */
+    --x-weight-label: 600;
+    --x-weight-title: 700;
+    --x-weight-stat: 800;
+    --x-weight-numeral: 900;
+
+    --x-leading-tight: 1.15;
+    --x-leading-body: 1.4;
+    --x-leading-prose: 1.6;
+    --x-tracking-tight: -0.02em; /* large numerals and titles */
+    --x-tracking-caps: 0.04em;   /* tickers */
+
+    /* ---- Space (4px grid; 2px and 6px for optical fixes) --------------- */
+    --x-space-0-5: 2px;
+    --x-space-1: 4px;
+    --x-space-1-5: 6px;
+    --x-space-2: 8px;
+    --x-space-2-5: 10px; /* window inset */
+    --x-space-3: 12px;
+    --x-space-3-5: 14px;
+    --x-space-4: 16px;
+    --x-space-5: 20px;
+    --x-space-6: 24px;
+    --x-space-7: 28px;
+    --x-space-8: 32px;
+    --x-space-10: 40px;
+    --x-space-12: 48px;
+
+    /* ---- Radius: follows the element's height; nested surfaces step down so corners stay concentric -- */
+    --x-radius-xs: 6px;     /* 22px controls, kbd, small tags */
+    --x-radius-sm: 8px;     /* 26–28px controls, chip buttons, tooltips */
+    --x-radius-md: 10px;    /* 32–36px controls: icon buttons, tabs, chips, tags, small buttons and inputs */
+    --x-radius-lg: 12px;    /* 40–44px controls: buttons, inputs, segmented; toasts */
+    --x-radius-xl: 14px;    /* 48–56px controls; menus, list rows */
+    --x-radius-2xl: 16px;   /* cards, option cards */
+    --x-radius-3xl: 20px;   /* frames, dialogs */
+    --x-radius-pill: 999px; /* the switch only; controls are rounded rectangles, not capsules */
+
+    /* ---- Control sizes ------------------------------------------------- */
+    --x-size-xs: 22px;
+    --x-size-sm: 28px;
+    --x-size-md: 36px;
+    --x-size-lg: 40px; /* default button */
+    --x-size-xl: 44px; /* default input */
+    --x-size-2xl: 48px;
+    --x-icon-sm: 14px;
+    --x-icon-md: 16px;
+    --x-icon-lg: 18px;
+    --x-stroke-icon: 1.75;
+
+    /* ---- Motion --------------------------------------------------------
+       Geometric: color, border and opacity feedback. Never overshoots.
+       Liquid: springs as linear() curves, for things that physically move. */
+    --x-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --x-duration-fast: 120ms; /* hover, press color */
+    --x-duration-base: 180ms; /* small reveals */
+    --x-duration-slow: 280ms; /* panels, layout */
+
+    /* Generated by spring() in motion.js (the command is in that file). Do not hand-edit. */
+    --x-spring: linear(0, 0.014, 0.052, 0.107, 0.175, 0.251, 0.331, 0.412, 0.492, 0.569, 0.641, 0.707, 0.768, 0.822, 0.869, 0.91, 0.945, 0.974, 0.997, 1.016, 1.03, 1.041, 1.048, 1.052, 1.054, 1.054, 1.053, 1.05, 1.047, 1.043, 1.039, 1.034, 1.03, 1.026, 1.022, 1.018, 1.014, 1.011, 1.009, 1.006, 1);
+    --x-spring-duration: 390ms;
+    --x-spring-soft: linear(0, 0.016, 0.057, 0.114, 0.179, 0.249, 0.319, 0.388, 0.453, 0.515, 0.571, 0.623, 0.669, 0.711, 0.748, 0.781, 0.811, 0.836, 0.859, 0.878, 0.895, 0.91, 0.923, 0.934, 0.944, 0.952, 0.959, 0.965, 0.97, 0.975, 0.979, 0.982, 0.985, 0.987, 0.989, 0.991, 0.992, 0.993, 0.994, 0.995, 1);
+    --x-spring-soft-duration: 517ms;
+
+    --x-press-scale: 0.97; /* press depth for moving parts (switch thumb stretch); 1 when motion is reduced */
+
+    /* ---- Layering ------------------------------------------------------ */
+    --x-z-menu: 45;
+    --x-z-toast: 50;
+    --x-z-tooltip: 60;
+  }
+
+  /* Forced themes (whole page or any subtree). light-dark() follows color-scheme. */
+  [data-theme="light"] { color-scheme: light; }
+  [data-theme="dark"] { color-scheme: dark; }
+
+  /* Reduced motion: every duration collapses, so components need no per-component rule.
+     data-motion="reduce" forces it for a subtree (previews, tests, user settings). */
+  @media (prefers-reduced-motion: reduce) {
+    :root:not([data-motion="full"]) {
+      --x-duration-fast: 0ms;
+      --x-duration-base: 0ms;
+      --x-duration-slow: 0ms;
+      --x-spring-duration: 0ms;
+      --x-spring-soft-duration: 0ms;
+      --x-press-scale: 1;
+    }
+  }
+  [data-motion="reduce"] {
+    --x-duration-fast: 0ms;
+    --x-duration-base: 0ms;
+    --x-duration-slow: 0ms;
+    --x-spring-duration: 0ms;
+    --x-spring-soft-duration: 0ms;
+    --x-press-scale: 1;
+  }
+}

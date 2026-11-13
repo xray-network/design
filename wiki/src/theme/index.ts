@@ -1,5 +1,5 @@
 // Kit tokens first: they declare the cascade layers every component stylesheet joins.
-import "@kit/tokens/tokens.css"
+import "@kit/core/tokens.css"
 import "./theme.css"
 import { createElement, forwardRef } from "react"
 import { Layout as BasicLayout, Link as DefaultLink, type LinkProps } from "@rspress/core/theme-original"
@@ -20,3 +20,5 @@ export const Layout = () => createElement(BasicLayout, { bottom: createElement(T
 
 export * from "@rspress/core/theme-original"
 export { HeroArtwork } from "./hero/HeroArtwork"
+export { HeroDiagram } from "./hero/HeroDiagram"
+export { CopyPromptButton, installationPrompt } from "./CopyPromptButton"

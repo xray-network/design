@@ -1,0 +1,31 @@
+/* Chips: filter chips built on native radios or checkboxes. Requires core/tokens.css. */
+
+@layer x.components {
+  .x-chips { display: flex; flex-wrap: wrap; gap: var(--x-space-2); }
+
+  .x-chip { position: relative; cursor: pointer; }
+  .x-chip > input { position: absolute; inset: 0; margin: 0; opacity: 0; pointer-events: none; }
+  .x-chip > span {
+    --x-chip-height: 32px;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: var(--x-chip-height);
+    padding: 0 var(--x-space-4);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-md);
+    color: var(--x-fg-2);
+    font: var(--x-weight-label) var(--x-text-sm) / 1 var(--x-font-sans);
+    white-space: nowrap;
+    transition:
+      color var(--x-duration-fast) var(--x-ease),
+      background-color var(--x-duration-fast) var(--x-ease),
+      border-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-chip > span > i { color: var(--x-fg-3); font-style: normal; font-weight: var(--x-weight-body); } /* count */
+  .x-chip:hover > span { border-color: var(--x-border-hover); }
+  .x-chip:has(:checked) > span { border-color: transparent; background: var(--x-bg-active); color: var(--x-fg-1); }
+  .x-chip:has(:focus-visible) > span { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+  .x-chip:has(:disabled) { opacity: 0.4; cursor: default; }
+}

@@ -1,0 +1,45 @@
+/* List: rows without boxes, with a soft fill on hover. Transactions, assets, pools, settings.
+   Requires core/tokens.css. */
+
+@layer x.components {
+  .x-list { display: grid; gap: var(--x-space-0-5); margin: 0; padding: 0; list-style: none; }
+  .x-list-heading { padding: var(--x-space-3) 0 var(--x-space-1); color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-label); }
+
+  .x-list-row {
+    --x-list-row-inset: var(--x-space-3);
+
+    display: flex;
+    align-items: center;
+    gap: var(--x-space-3-5);
+    min-width: 0;
+    margin: 0 calc(var(--x-list-row-inset) * -1); /* the hover fill overhangs, so content stays on the page's edge */
+    padding: var(--x-space-2-5) var(--x-list-row-inset);
+    border: 0;
+    border-radius: var(--x-radius-xl);
+    background: none;
+    color: var(--x-fg-2);
+    font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans);
+    text-align: left;
+    text-decoration: none;
+    transition: background-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-list-row:hover { background: var(--x-bg-soft); }
+  :is(a, button, label).x-list-row { cursor: pointer; }
+  button.x-list-row { width: calc(100% + var(--x-list-row-inset) * 2); }
+
+  .x-list-text { flex: 1; min-width: 0; }
+  .x-list-title, .x-list-sub { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .x-list-title { color: var(--x-fg-1); font-weight: var(--x-weight-label); }
+  .x-list-sub { color: var(--x-fg-3); font-size: var(--x-text-sm); }
+  .x-list-end { flex: none; text-align: right; font-variant-numeric: tabular-nums; }
+  .x-list-end .x-list-title { color: var(--x-fg-1); }
+  .x-list-end[data-tone="positive"] .x-list-title { color: var(--x-success-fg); }
+
+  /* Lead marks: a 36px outlined circle for an icon, or a filled token disc with a letter. */
+  .x-list-icon,
+  .x-list-token { display: grid; place-items: center; flex: none; width: var(--x-size-md); height: var(--x-size-md); border-radius: 50%; }
+  .x-list-icon { border: 1px solid var(--x-border); color: var(--x-fg-2); }
+  .x-list-icon[data-tone="positive"] { color: var(--x-success-fg); }
+  .x-list-icon .x-icon { width: var(--x-icon-md); height: var(--x-icon-md); }
+  .x-list-token { background: var(--x-list-token-bg, var(--x-accent)); color: var(--x-accent-fg); font-size: var(--x-text-sm); font-weight: var(--x-weight-stat); }
+}

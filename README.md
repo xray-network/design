@@ -10,75 +10,84 @@ components into a project, where they become project code it can adapt.
   any subtree. Rebrand by overriding about five variables.
 - **Liquid motion with a budget:** spring easings as CSS `linear()` curves, used only where things
   physically move. No runtime motion library; reduced motion collapses every duration token.
-- **Agent-native:** `RULES.md` (the design rules), a `COMPONENT.md` contract per component, and an
-  agent skill that adds, adapts, upgrades (3-way merge) and audits components.
+- **Agent-native:** `RULES.md` (the design rules), a `COMPONENT.md` contract per component, and a
+  skill that adds, adapts, upgrades (3-way merge) and audits components.
+
+Docs and live playground: https://wiki.xraynetwork.io/design/
 
 ## Install into a project
 
-The kit is published on `kit/v<version>` tags as a dist-only tree. Give your agent:
+The `kit/` folder is installed exactly as it is in this repository: no build, no package. Give
+your agent this prompt (replace the version with the release you want):
 
-> Install XRAY/DESIGN kit v0.1.0. Clone `https://github.com/xray-network/design.git` with
-> `--depth 1 --branch kit/v0.1.0` into a temporary directory. Check that `design/VERSION` starts with
-> `0.1.0`. Copy `design/` to `.agents/design/` and `skills/design/` to `.agents/skills/design/`, and
-> delete the temporary directory. Then follow the Setup section of `.agents/skills/design/SKILL.md`.
+> Install XRAY/DESIGN v0.1.0. Clone `https://github.com/xray-network/design.git` with `--depth 1 --branch v0.1.0`
+> into a temporary directory. Check that its `kit/VERSION` is 0.1.0. Copy its `kit/` folder to
+> `.agents/skills/design/`, then delete the temporary directory. Then follow the Setup section of
+> `.agents/skills/design/SKILL.md`.
 
-See [`src/INSTALL.md`](src/INSTALL.md) (shipped as the kit README) for upgrades and requirements.
+The wiki's Installation page always shows this prompt for the current version, with upgrade steps and requirements.
 
 ## Repository layout
 
 ```text
-src/                      kit source (what ships, before the build)
-├── rules/RULES.md        design rules            -> .agents/design/RULES.md
-├── tokens/               tokens.css, tailwind.css (v4 bridge)
-├── base/                 optional reset, focus ring, utilities
-├── motion/               spring() -> linear(), trackIndicator, createFlip
-├── components/<id>/      COMPONENT.md, <id>.css, <id>.html, [<id>.controller.js + .d.ts], <id>.tsx
-├── skill/                SKILL.md + scripts/lock.mjs  -> .agents/skills/design/
-└── INSTALL.md            README of the kit branch
-wiki/                     public docs and live playground (Rspress), published with every release
-├── src/pages/            install (index), rules and one page per component
-└── src/demos/            live demos: React and HTML versions, reduced-motion toggle, HTML source
-tests/parity.tsx          React renderings checked against the HTML references
-scripts/
-├── build-kit.mjs         validate src/ and emit dist/ (kit layout + manifest.json + VERSION)
-├── check-parity.mjs      HTML <-> React <-> CSS parity
-├── check-install.mjs     installs dist/ into fixture projects; add, type-check, upgrade with merge
-└── springs.mjs           regenerate the spring tokens
+kit/                      the kit; installed as-is to <project>/.agents/skills/design/
+├── SKILL.md              agent skill: setup, add, adapt, create, theme, upgrade, audit
+├── RULES.md              design rules
+├── VERSION               kit version (plain semver)
+├── core/                 shared code every component builds on
+│   ├── tokens.css        tokens and cascade layers
+│   ├── base.css          optional reset, focus ring, utilities
+│   ├── tailwind.css      optional Tailwind v4 bridge
+│   └── motion.js (+ .d.ts)  spring() -> linear(), trackIndicator, createFlip
+└── components/<id>/      COMPONENT.md, <id>.css, <id>.html, [<id>.controller.js], <id>.tsx
+wiki/                     docs and live playground (Rspress), deployed with every release
+├── src/pages/            overview (home), installation, rules and one page per component
+├── src/demos/            live demos: React and HTML versions, reduced-motion toggle, HTML source
+└── scripts/check-kit.mjs the one kit check; runs before every wiki build
 ```
 
-Components in 0.1.0: `button` (+ icon button), `segmented`, `switch`, `field` (+ input), `dialog`,
-`menu`, `toast`.
+Components in 0.1.0 (15): `button` (+ icon button), `tabs`, `segmented`, `chips`, `switch`, `option`
+(option cards), `field` (+ input), `list`, `card` (+ tile), `numeral`, `avatar`, `tag` (+ status, delta),
+`dialog`, `menu`, `toast`. Their look and markup follow the XRAY app (new UI v6).
+
+Everything in `kit/` reaches users, so it holds only kit files: no tests, demos or tooling. Documents sit at
+its root; `core/` and `components/` hold the code that agents copy into projects.
 
 ## Development
 
+All tooling lives in the wiki:
+
 ```sh
+cd wiki
 npm install
-npm install --prefix wiki
-npm run dev        # wiki + playground at http://localhost:10009/design/
-npm run check      # build + validate, type-check, parity, install end-to-end
+npm run dev         # wiki + playground at http://localhost:10009/design/
+npm run check:kit   # validate kit/ and HTML <-> React parity
+npm run typecheck   # type-checks the wiki and every kit component
+npm run build       # runs check:kit first
 ```
 
-The wiki imports components, `RULES.md`, each `COMPONENT.md` and `INSTALL.md` straight from `src/`,
-so edits there hot-reload in the running wiki.
+The wiki imports components, `RULES.md` and each `COMPONENT.md` straight from `kit/`, so edits there
+hot-reload in the running wiki.
 
-The build fails on raw colors, hard-coded durations, shadows or blur in component CSS, undefined tokens,
-imports that leave the kit layout, missing `"use client"`, missing types for controllers React
-imports, and COMPONENT.md metadata that does not match the files.
+`check:kit` fails on raw colors, hard-coded durations, shadows or blur in component CSS, undefined
+tokens, imports that leave the kit, missing `"use client"`, missing types for controllers that React
+imports, COMPONENT.md metadata that does not match the files, stray files in `kit/`, and markup the
+React version renders that the HTML reference never shows.
 
 ## Adding a component to the kit
 
-1. `src/components/<id>/` with `COMPONENT.md` (frontmatter: id, name, summary, motion tier,
+1. `kit/components/<id>/` with `COMPONENT.md` (frontmatter: id, name, summary, motion tier,
    requires, components, files), `<id>.css` in `@layer x.components`, `<id>.html`, and `<id>.tsx`.
-2. A React example in `tests/parity.tsx`.
+2. A React example in `wiki/scripts/parity.tsx`.
 3. A demo in `wiki/src/demos/demos.tsx`, a page `wiki/src/pages/components/<id>.mdx`, and an entry with an
    icon in `wiki/src/navigation.ts`.
-4. `npm run check`.
+4. `npm run check:kit` and `npm run typecheck` in `wiki/`.
 
 ## Releasing
 
-1. Bump `version` in `package.json` and run `npm run check`.
-2. Publish `dist/` as the root of an orphan commit tagged `kit/v<version>`.
-3. Deploy the wiki: `npm run wiki:deploy` (it shows the new version in the sidebar).
+1. Bump `kit/VERSION` and run the checks.
+2. Commit and tag the commit `v<version>`. The tag is what the install prompt clones.
+3. Deploy the wiki: `npm run deploy` in `wiki/` (it shows the new version and updates the prompts).
 
 ## License
 

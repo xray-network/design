@@ -1,0 +1,81 @@
+/* Card and Tile: the app's object cards (mini apps, accounts) and the identity tile they lead with.
+   Requires core/tokens.css and button (for the card's menu button). */
+
+@layer x.components {
+  .x-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); gap: var(--x-space-3); }
+
+  .x-card {
+    --x-card-pad: var(--x-space-4);
+    --x-card-radius: var(--x-radius-2xl);
+
+    position: relative;
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-card-radius);
+    background: var(--x-bg-panel);
+    transition: border-color var(--x-duration-base) var(--x-ease);
+  }
+  .x-card:hover { border-color: var(--x-border-hover); }
+
+  /* The whole card is one button or link; the menu button floats above it. */
+  .x-card-main {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--x-space-3-5);
+    width: 100%;
+    height: 100%;
+    padding: var(--x-card-pad);
+    border: 0;
+    border-radius: inherit;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .x-card-text { display: block; flex: 1; min-width: 0; padding-right: var(--x-space-6); }
+  .x-card-title { display: block; overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-lg); font-weight: var(--x-weight-title); line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+  .x-card-description {
+    display: -webkit-box;
+    margin-top: var(--x-space-0-5);
+    overflow: hidden;
+    color: var(--x-fg-3);
+    font-size: var(--x-text-sm);
+    line-height: 1.4;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .x-card-meta { display: block; margin-top: var(--x-space-2-5); color: var(--x-fg-4); font: var(--x-weight-body) var(--x-text-2xs) / 1.3 var(--x-font-mono); }
+  .x-card-menu { position: absolute; top: var(--x-space-2-5); right: var(--x-space-2-5); }
+
+  /* ==========================================================================
+     Tile: a dark identity square with a color strip. The same in both themes.
+     ========================================================================== */
+  .x-tile {
+    --x-tile-size: 48px;
+    --x-tile-radius: 14px;
+    --x-tile-strip: var(--x-accent); /* set per object: style="--x-tile-strip: …" */
+    --x-tile-strip-height: 5px;
+    --x-tile-icon: 24px;
+
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: var(--x-tile-size);
+    height: var(--x-tile-size);
+    padding-top: calc((var(--x-tile-strip-height) - 1px) * 2); /* shifts the glyph down to sit centered under the strip */
+    border-radius: var(--x-tile-radius);
+    background: var(--x-ink);
+    color: var(--x-on-ink);
+    font: 400 calc(var(--x-tile-icon) + 2px) / 1 Georgia, "Times New Roman", serif; /* letter glyphs */
+    overflow: hidden;
+  }
+  .x-tile::before { content: ""; position: absolute; inset: 0 0 auto; height: var(--x-tile-strip-height); background: var(--x-tile-strip); }
+  .x-tile .x-icon { width: var(--x-tile-icon); height: var(--x-tile-icon); }
+
+  .x-tile[data-size="lg"] { --x-tile-size: 64px; --x-tile-radius: 18px; --x-tile-strip-height: 6px; --x-tile-icon: 30px; }
+  .x-tile[data-size="md"] { --x-tile-size: 36px; --x-tile-radius: 11px; --x-tile-strip-height: 4px; --x-tile-icon: 18px; }
+  .x-tile[data-size="xs"] { --x-tile-size: 20px; --x-tile-radius: 6px; --x-tile-strip-height: 3px; --x-tile-icon: 11px; }
+  .x-tile[data-size="xs"] .x-icon { stroke-width: 2; }
+}

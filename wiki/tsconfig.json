@@ -15,7 +15,7 @@
     "esModuleInterop": true,
     "paths": {
       "@kit/*": [
-        "../src/*"
+        "../kit/*"
       ],
       "react": [
         "./node_modules/@types/react"
@@ -30,6 +30,9 @@
     "src/theme/index.ts",
     "src/theme/hero",
     "src/navigation.ts",
+    "src/prompts.ts",
+    "plugins",
+    "scripts/parity.tsx",
     "src/demos",
     "src/env.d.ts"
   ]

@@ -1,0 +1,37 @@
+/* Option cards: a single choice where each option needs a second line (fee tiers, plans).
+   Native radios. Requires core/tokens.css. */
+
+@layer x.components {
+  .x-options {
+    --x-options-columns: 3;
+
+    display: grid;
+    grid-template-columns: repeat(var(--x-options-columns), minmax(0, 1fr));
+    gap: var(--x-space-2);
+  }
+
+  .x-option {
+    position: relative;
+    display: grid;
+    gap: var(--x-space-0-5);
+    padding: var(--x-space-3) var(--x-space-3-5);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-2xl);
+    color: var(--x-fg-3);
+    font: var(--x-weight-body) var(--x-text-xs) / var(--x-leading-body) var(--x-font-sans);
+    cursor: pointer;
+    transition: border-color var(--x-duration-fast) var(--x-ease), background-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-option > input { position: absolute; inset: 0; margin: 0; opacity: 0; pointer-events: none; }
+  .x-option-title { color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); }
+  .x-option-value { font-family: var(--x-font-mono); }
+
+  .x-option:hover { border-color: var(--x-border-hover); }
+  .x-option:has(:checked) { border-color: var(--x-accent); background: var(--x-accent-wash); }
+  .x-option:has(:focus-visible) { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+  .x-option:has(:disabled) { opacity: 0.4; cursor: default; }
+
+  @media (max-width: 420px) {
+    .x-options { --x-options-columns: 1; }
+  }
+}

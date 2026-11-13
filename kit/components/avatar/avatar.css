@@ -1,0 +1,36 @@
+/* Avatar: the account mark. A round drawing of overlapping angular color areas, optionally with a chain badge.
+   Requires core/tokens.css. */
+
+@layer x.components {
+  .x-avatar {
+    --x-avatar-size: 36px;
+    --x-avatar-ring: var(--x-bg); /* the surface behind the avatar; set it where that is not the canvas */
+
+    position: relative;
+    display: inline-block;
+    flex: none;
+    width: var(--x-avatar-size);
+    height: var(--x-avatar-size);
+    vertical-align: middle;
+  }
+  .x-avatar > svg:first-child { display: block; width: 100%; height: 100%; border-radius: 50%; }
+
+  /* Badge: the account's chain, ringed in the surface color so it reads as a separate mark. */
+  .x-avatar-badge {
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+    display: grid;
+    place-items: center;
+    width: var(--x-size-xs);
+    height: var(--x-size-xs);
+    border: 2px solid var(--x-avatar-ring);
+    border-radius: 50%;
+    background: var(--x-bg-chip);
+    color: var(--x-fg-1);
+  }
+  .x-avatar-badge > svg { width: 12px; height: 12px; fill: currentColor; }
+
+  .x-avatar[data-size="sm"] { --x-avatar-size: var(--x-size-sm); }
+  .x-avatar[data-size="lg"] { --x-avatar-size: var(--x-size-2xl); }
+}

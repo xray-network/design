@@ -5,6 +5,8 @@ import { Switch } from "@kit/components/switch/switch"
 import { initSegmented } from "@kit/components/segmented/segmented.controller.js"
 import { initDialogs } from "@kit/components/dialog/dialog.controller.js"
 import { initMenus } from "@kit/components/menu/menu.controller.js"
+import { initTabs } from "@kit/components/tabs/tabs.controller.js"
+import { initAvatars } from "@kit/components/avatar/avatar.controller.js"
 
 import "./demo.css"
 
@@ -17,7 +19,8 @@ function HtmlPane({ html, after }: { html: string; after?: After }) {
     const root = ref.current
     if (!root) return
     root.innerHTML = html.replace(/<script[\s\S]*?<\/script>/g, "")
-    const cleanups = [initSegmented(root), initDialogs(root), initMenus(root), after?.(root)]
+    initAvatars(root)
+    const cleanups = [initSegmented(root), initDialogs(root), initMenus(root), initTabs(root), after?.(root)]
     return () => cleanups.forEach((fn) => fn?.())
   }, [html, after])
   return <div ref={ref} className="wiki-demo-stage" data-layout="html" />

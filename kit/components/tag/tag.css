@@ -1,0 +1,30 @@
+/* Tag, Status and Delta: small labels for state and change. Requires core/tokens.css. */
+
+@layer x.components {
+  /* Tag: an outlined label for a short fact (network, role, count). */
+  .x-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--x-space-2);
+    height: 32px;
+    padding: 0 var(--x-space-3-5);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-md);
+    color: var(--x-fg-2);
+    font: var(--x-weight-label) var(--x-text-sm) / 1 var(--x-font-sans);
+    white-space: nowrap;
+  }
+  .x-tag[data-size="sm"] { border-radius: var(--x-radius-xs); height: var(--x-size-xs); padding: 0 var(--x-space-2); gap: var(--x-space-1-5); font-size: var(--x-text-xs); }
+
+  /* Status: a colored dot plus text. The text carries the meaning; the dot is extra. */
+  .x-status { display: inline-flex; align-items: center; gap: var(--x-space-2); color: var(--x-fg-2); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); white-space: nowrap; }
+  .x-status-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--x-status-color, var(--x-success)); }
+  [data-tone="danger"] > .x-status-dot { --x-status-color: var(--x-danger); }
+  [data-tone="warning"] > .x-status-dot { --x-status-color: var(--x-warning); }
+  [data-tone="neutral"] > .x-status-dot { --x-status-color: var(--x-fg-4); }
+
+  /* Delta: a signed change. */
+  .x-delta { color: var(--x-fg-3); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .x-delta[data-trend="up"] { color: var(--x-success-fg); }
+  .x-delta[data-trend="down"] { color: var(--x-danger-fg); }
+}

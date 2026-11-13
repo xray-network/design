@@ -1,0 +1,133 @@
+/* Button and IconButton. Requires core/tokens.css.
+   Sizes, colors and states follow the XRAY app (new-ui v6: .btn, .btn.ghost, .mini, .icon-btn, .icon),
+   with rounded corners instead of capsules. Feedback is color only. */
+
+@layer x.components {
+  .x-button {
+    --x-button-bg: var(--x-accent);
+    --x-button-bg-hover: var(--x-accent-hover);
+    --x-button-bg-press: var(--x-accent-press);
+    --x-button-fg: var(--x-accent-fg);
+    --x-button-border: transparent;
+    --x-button-border-hover: transparent;
+    --x-button-height: var(--x-size-lg);
+    --x-button-pad: 18px;
+    --x-button-font-size: var(--x-text-md);
+    --x-button-font-weight: var(--x-weight-label);
+    --x-button-radius: var(--x-radius-lg);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--x-space-2);
+    flex: none;
+    height: var(--x-button-height);
+    padding: 0 var(--x-button-pad);
+    border: 1px solid var(--x-button-border);
+    border-radius: var(--x-button-radius);
+    background: var(--x-button-bg);
+    color: var(--x-button-fg);
+    font: var(--x-button-font-weight) var(--x-button-font-size) / 1 var(--x-font-sans);
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background-color var(--x-duration-fast) var(--x-ease),
+      border-color var(--x-duration-fast) var(--x-ease),
+      color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-button:hover { background: var(--x-button-bg-hover); border-color: var(--x-button-border-hover); }
+  .x-button:active { background: var(--x-button-bg-press); }
+  .x-button .x-icon { width: var(--x-icon-md); height: var(--x-icon-md); }
+
+  /* ---- Variants */
+  /* Ghost: hairline button (secondary actions, "Cancel"). */
+  .x-button[data-variant="ghost"] {
+    --x-button-bg: transparent;
+    --x-button-bg-hover: var(--x-bg-soft);
+    --x-button-bg-press: var(--x-bg-soft);
+    --x-button-fg: var(--x-fg-1);
+    --x-button-border: var(--x-border);
+    --x-button-border-hover: var(--x-border-hover);
+  }
+  /* Chip: the small filled button inside rows and inputs ("Max", "Paste", "Retry"). Fixed size. */
+  .x-button[data-variant="chip"] {
+    --x-button-bg: var(--x-bg-chip);
+    --x-button-bg-hover: var(--x-border-hover);
+    --x-button-bg-press: var(--x-border-hover);
+    --x-button-fg: var(--x-fg-1);
+    --x-button-height: var(--x-size-sm);
+    --x-button-pad: var(--x-space-3);
+    --x-button-font-size: var(--x-text-xs);
+    --x-button-font-weight: var(--x-weight-title);
+    --x-button-radius: var(--x-radius-sm);
+  }
+  /* Danger: destructive confirmations only (kit extension; the app has no destructive button yet). */
+  .x-button[data-variant="danger"] {
+    --x-button-bg: var(--x-danger);
+    --x-button-bg-hover: var(--x-danger-hover);
+    --x-button-bg-press: var(--x-danger-press);
+    --x-button-fg: var(--x-danger-on);
+  }
+
+  /* ---- Sizes (not for chips) */
+  .x-button[data-size="sm"] { --x-button-height: 32px; --x-button-pad: 14px; --x-button-font-size: var(--x-text-sm); --x-button-radius: var(--x-radius-md); }
+  .x-button[data-size="lg"] { --x-button-height: var(--x-size-2xl); --x-button-font-size: var(--x-text-lg); --x-button-radius: var(--x-radius-xl); }
+  .x-button[data-width="full"] { display: flex; width: 100%; }
+
+  /* ---- Disabled and loading */
+  .x-button:disabled,
+  .x-button[aria-disabled="true"] { opacity: 0.4; cursor: default; pointer-events: none; }
+  .x-button[aria-busy="true"] { color: transparent; pointer-events: none; }
+  .x-button[aria-busy="true"]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 16px;
+    height: 16px;
+    margin: auto;
+    border: 2px solid var(--x-button-fg);
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: x-button-spin 700ms linear infinite; /* progress: essential motion, kept when reduced */
+  }
+  @keyframes x-button-spin { to { rotate: 360deg; } }
+
+  /* ==========================================================================
+     IconButton: quiet, no fill at rest. Square for toolbars and chrome (36px, 10px radius),
+     round inside content (32px). Always has aria-label.
+     ========================================================================== */
+  .x-icon-button {
+    --x-icon-button-size: var(--x-size-md);
+    --x-icon-button-radius: var(--x-radius-md);
+    --x-icon-button-icon: var(--x-icon-lg);
+
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: var(--x-icon-button-size);
+    height: var(--x-icon-button-size);
+    padding: 0;
+    border: 0;
+    border-radius: var(--x-icon-button-radius);
+    background: transparent;
+    color: var(--x-fg-3);
+    cursor: pointer;
+    transition:
+      background-color var(--x-duration-fast) var(--x-ease),
+      color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-icon-button:hover,
+  .x-icon-button[aria-expanded="true"],
+  .x-icon-button[aria-pressed="true"] { background: var(--x-bg-soft); color: var(--x-fg-1); }
+  .x-icon-button .x-icon { width: var(--x-icon-button-icon); height: var(--x-icon-button-icon); }
+
+  .x-icon-button[data-size="sm"] { --x-icon-button-size: var(--x-size-sm); --x-icon-button-radius: var(--x-radius-sm); --x-icon-button-icon: var(--x-icon-md); }
+  .x-icon-button[data-size="xs"] { --x-icon-button-size: var(--x-size-xs); --x-icon-button-radius: var(--x-radius-xs); --x-icon-button-icon: var(--x-icon-sm); }
+  .x-icon-button[data-shape="round"] { --x-icon-button-size: 32px; --x-icon-button-radius: 50%; --x-icon-button-icon: var(--x-icon-md); }
+
+  .x-icon-button:disabled,
+  .x-icon-button[aria-disabled="true"] { opacity: 0.4; cursor: default; pointer-events: none; }
+}

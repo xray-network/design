@@ -1,0 +1,49 @@
+/* Numeral: balances and other headline amounts. Heavy integer, small muted fraction, ticker.
+   Requires core/tokens.css. */
+
+@layer x.components {
+  .x-numeral {
+    --x-numeral-size: 20px;
+    --x-numeral-frac-size: 0.6em;
+    --x-numeral-ticker-size: var(--x-text-xs);
+    --x-numeral-ticker-gap: 5px;
+
+    display: inline-flex;
+    align-items: baseline;
+    color: var(--x-fg-1);
+    font: var(--x-weight-numeral) var(--x-numeral-size) / 1 var(--x-font-sans);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--x-tracking-tight);
+    white-space: nowrap;
+  }
+  .x-numeral-frac { color: var(--x-fg-frac); font-size: var(--x-numeral-frac-size); font-weight: var(--x-weight-title); letter-spacing: 0; }
+  .x-numeral-ticker {
+    margin-left: var(--x-numeral-ticker-gap);
+    color: var(--x-fg-3);
+    font-size: var(--x-numeral-ticker-size);
+    font-weight: var(--x-weight-title);
+    letter-spacing: var(--x-tracking-caps);
+  }
+
+  /* Hidden balances: the value is replaced by a mask; the ticker stays. */
+  .x-numeral-mask { display: none; }
+  .x-numeral[data-masked="true"] .x-numeral-value { display: none; }
+  .x-numeral[data-masked="true"] .x-numeral-mask { display: inline; }
+
+  /* ---- Sizes */
+  /* sm: bars and status cards (16px; fraction and ticker stay 12px) */
+  .x-numeral[data-size="sm"] { --x-numeral-size: var(--x-text-xl); --x-numeral-frac-size: var(--x-text-xs); }
+  /* hero: the page's one headline balance; natural digit widths */
+  .x-numeral[data-size="hero"] {
+    --x-numeral-size: var(--x-text-hero);
+    --x-numeral-frac-size: 0.5em;
+    --x-numeral-ticker-size: var(--x-text-lg);
+    --x-numeral-ticker-gap: var(--x-space-2-5);
+    flex-wrap: wrap;
+    line-height: 1.05;
+    font-variant-numeric: proportional-nums;
+  }
+  @media (max-width: 560px) {
+    .x-numeral[data-size="hero"] { --x-numeral-size: 38px; }
+  }
+}

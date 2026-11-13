@@ -2,13 +2,14 @@ import { readFileSync } from "node:fs"
 import { resolve } from "node:path"
 import { defineConfig } from "@rspress/core"
 
+import { remarkOutlineHeadings } from "./plugins/remark-outline-headings"
 import { sidebar } from "./src/navigation"
 
 // The wiki is the kit's playground: pages import components, rules and docs straight from
-// ../src, so `npm run dev` hot-reloads any change there.
+// ../kit, so `npm run dev` hot-reloads any change there.
 const wiki = process.cwd()
-const kit = resolve(wiki, "..")
-const { version } = JSON.parse(readFileSync(resolve(kit, "package.json"), "utf8")) as { version: string }
+const kit = resolve(wiki, "../kit")
+const version = readFileSync(resolve(kit, "VERSION"), "utf8").trim()
 
 export default defineConfig({
   root: "src/pages",
@@ -22,6 +23,7 @@ export default defineConfig({
   logoText: "XRAY/DESIGN",
   description: "A copy-in UI kit for agents: rules, tokens, liquid motion and components in HTML and React.",
   route: { cleanUrls: true },
+  markdown: { remarkPlugins: [remarkOutlineHeadings] },
   builderConfig: {
     source: {
       define: { "process.env.KIT_VERSION": JSON.stringify(version) },
@@ -31,7 +33,7 @@ export default defineConfig({
       alias: {
         react: resolve(wiki, "node_modules/react"),
         "react-dom": resolve(wiki, "node_modules/react-dom"),
-        "@kit": resolve(kit, "src"),
+        "@kit": kit,
       },
     },
     tools: {

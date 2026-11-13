@@ -1,0 +1,84 @@
+/* Tabs: the app's view tabs. A row of navigation buttons on the canvas; the current one is filled.
+   Requires core/tokens.css and button (for the trailing icon button). */
+
+@layer x.components {
+  .x-tabs {
+    --x-tabs-gap: var(--x-space-1-5);
+
+    display: flex;
+    align-items: center;
+    gap: var(--x-tabs-gap);
+    min-width: 0;
+    padding: var(--x-space-1);
+    margin: 0 calc(var(--x-space-1) * -1); /* room for focus rings inside the scroll box */
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .x-tabs::-webkit-scrollbar { display: none; }
+
+  .x-tab {
+    --x-tab-height: var(--x-size-md);
+    --x-tab-bg: var(--x-bg-faint);
+    --x-tab-fg: var(--x-fg-3);
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--x-space-2);
+    flex: none;
+    height: var(--x-tab-height);
+    padding: 0 var(--x-space-3);
+    border: 0;
+    border-radius: var(--x-radius-md);
+    background: var(--x-tab-bg);
+    color: var(--x-tab-fg);
+    font: var(--x-weight-label) var(--x-text-md) / 1 var(--x-font-sans);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color var(--x-duration-fast) var(--x-ease), color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-tab:hover { --x-tab-bg: var(--x-bg-soft); --x-tab-fg: var(--x-fg-1); }
+  .x-tab[aria-current="page"],
+  .x-tab:has(> .x-tab-main[aria-current="page"]) { --x-tab-bg: var(--x-bg-active); --x-tab-fg: var(--x-fg-1); }
+
+  .x-tab-placeholder {
+    flex: none;
+    width: var(--x-space-5);
+    height: var(--x-space-5);
+    border-radius: var(--x-radius-xs);
+    background: var(--x-fg-4);
+  }
+
+  /* Composite tab: the tab itself plus small actions (more, close). */
+  .x-tab:has(> .x-tab-main) { gap: 0; padding: 0 5px 0 0; cursor: default; }
+  .x-tab-main {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--x-space-2);
+    height: 100%;
+    padding: 0 var(--x-space-1-5) 0 var(--x-space-2);
+    border: 0;
+    border-radius: var(--x-radius-md) 0 0 var(--x-radius-md);
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+  .x-tab-action {
+    display: grid;
+    place-items: center;
+    width: var(--x-size-xs);
+    height: var(--x-size-xs);
+    padding: 0;
+    border: 0;
+    border-radius: var(--x-radius-xs);
+    background: none;
+    color: inherit;
+    opacity: 0.55;
+    cursor: pointer;
+    transition: opacity var(--x-duration-fast) var(--x-ease), background-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-tab-action:hover { opacity: 1; background: var(--x-bg-soft); }
+  .x-tab-action .x-icon { width: var(--x-icon-sm); height: var(--x-icon-sm); stroke-width: 2; }
+
+  .x-tabs-separator { flex: none; width: 1px; height: 18px; margin: 0 var(--x-space-1); background: var(--x-border); }
+}

@@ -1,0 +1,72 @@
+/* Switch. Requires core/tokens.css. CSS only: a native checkbox with role="switch". */
+
+@layer x.components {
+  .x-switch {
+    --x-switch-w: 40px;
+    --x-switch-h: 24px;
+    --x-switch-pad: 3px;
+    --x-switch-thumb: calc(var(--x-switch-h) - var(--x-switch-pad) * 2);
+    --x-switch-stretch: 5px; /* extra thumb width while pressed */
+    --x-switch-track-off: var(--x-border-hover);
+    --x-switch-track-off-hover: var(--x-fg-4);
+    --x-switch-track-on: var(--x-accent);
+    --x-switch-track-on-hover: var(--x-accent-hover);
+    --x-switch-thumb-bg: var(--x-accent-fg);
+    --x-switch-thumb-w: var(--x-switch-thumb);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--x-space-3);
+    color: var(--x-fg-1);
+    font-size: var(--x-text-md);
+    font-weight: var(--x-weight-body);
+    cursor: pointer;
+    user-select: none;
+  }
+  .x-switch > input { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+
+  .x-switch-track {
+    position: relative;
+    flex: none;
+    width: var(--x-switch-w);
+    height: var(--x-switch-h);
+    border-radius: var(--x-radius-pill);
+    background: var(--x-switch-track-off);
+    transition: background-color var(--x-duration-base) var(--x-ease);
+  }
+
+  .x-switch-thumb {
+    position: absolute;
+    top: var(--x-switch-pad);
+    left: var(--x-switch-pad);
+    width: var(--x-switch-thumb-w);
+    height: var(--x-switch-thumb);
+    border-radius: var(--x-radius-pill);
+    background: var(--x-switch-thumb-bg);
+    translate: 0 0;
+    transition:
+      translate var(--x-spring-duration) var(--x-spring),
+      width var(--x-spring-duration) var(--x-spring);
+  }
+
+  .x-switch:hover .x-switch-track { background: var(--x-switch-track-off-hover); }
+  .x-switch:has(:checked) .x-switch-track { background: var(--x-switch-track-on); }
+  .x-switch:has(:checked):hover .x-switch-track { background: var(--x-switch-track-on-hover); }
+
+  /* On: the thumb's right edge rests on the track's right padding, whatever its width. */
+  .x-switch:has(:checked) .x-switch-thumb {
+    translate: calc(var(--x-switch-w) - var(--x-switch-pad) * 2 - var(--x-switch-thumb-w)) 0;
+  }
+
+  /* Liquid press: the thumb stretches toward the opposite side, then springs over on release. */
+  .x-switch:active:not(:has(:disabled)) { --x-switch-thumb-w: calc(var(--x-switch-thumb) + var(--x-switch-stretch) * (1 - var(--x-press-scale)) / 0.03); }
+
+  .x-switch:has(:focus-visible) .x-switch-track { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+  .x-switch:has(:disabled) { opacity: 0.4; cursor: default; }
+
+  /* Label first, switch at the far end: settings rows. */
+  .x-switch[data-label="start"] { flex-direction: row-reverse; justify-content: space-between; }
+
+  .x-switch[data-size="sm"] { --x-switch-w: 32px; --x-switch-h: 20px; --x-switch-pad: 2px; --x-switch-stretch: 4px; }
+}

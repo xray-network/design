@@ -3,7 +3,7 @@
 .wiki-demo {
   margin: 24px 0 40px;
   border: 1px solid var(--x-border);
-  border-radius: var(--x-radius-2xl);
+  border-radius: var(--x-radius-3xl);
   background: var(--x-bg);
   color: var(--x-fg-2);
   font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans);
@@ -31,9 +31,15 @@
 .wiki-demo-stage > .x-field,
 .wiki-demo-stage > .x-input,
 .wiki-demo-stage > [data-width="full"],
-.wiki-demo-stage > .x-switch[data-label="start"] { align-self: stretch; }
+.wiki-demo-stage > .x-switch[data-label="start"],
+.wiki-demo-stage > .x-card-grid,
+.wiki-demo-stage > .x-list,
+.wiki-demo-stage > .x-options,
+.wiki-demo-stage > .x-tabs { align-self: stretch; }
+.wiki-demo-stage > .x-list { margin-inline: var(--x-space-3); } /* room for the rows' overhanging hover fill */
 /* HTML references are flat fragments: let inline controls flow in rows. */
-.wiki-demo-stage[data-layout="html"]:has(> .x-button:first-child) { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5); }
+.wiki-demo-stage[data-layout="html"]:has(> :is(.x-button, .x-tag, .x-avatar):first-child) { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5) var(--x-space-4); }
+.wiki-demo-stage[data-layout="html"] > .x-card-grid { flex: 1 0 100%; }
 .wiki-demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5); }
 .wiki-demo-note { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-xs); }
 
@@ -71,33 +77,4 @@
     stroke-linecap: round;
     stroke-linejoin: round;
   }
-}
-
-/* Agent prompt card (install page). */
-.wiki-prompt {
-  margin: 24px 0;
-  border: 1px solid var(--x-border);
-  border-radius: var(--x-radius-xl);
-  background: var(--x-bg-panel);
-  color: var(--x-fg-2);
-  font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans);
-  text-align: left;
-}
-.wiki-prompt-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--x-space-3);
-  padding: var(--x-space-2-5) var(--x-space-2-5) var(--x-space-2-5) var(--x-space-4);
-  border-bottom: 1px solid var(--x-border);
-  color: var(--x-fg-3);
-  font-size: var(--x-text-xs);
-  font-weight: var(--x-weight-label);
-}
-.wiki-prompt-text {
-  margin: 0;
-  padding: var(--x-space-4);
-  color: var(--x-fg-1);
-  font: var(--x-weight-body) var(--x-text-sm) / 1.7 var(--x-font-mono);
-  overflow-wrap: anywhere;
 }

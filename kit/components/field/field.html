@@ -1,0 +1,34 @@
+<!-- Text field: label, input, hint. No JS. -->
+<div class="x-field">
+  <label class="x-field-label" for="to">To</label>
+  <div class="x-input">
+    <input id="to" type="text" placeholder="addr1… or $handle" autocomplete="off" spellcheck="false" aria-describedby="to-hint">
+  </div>
+  <p class="x-field-hint" id="to-hint">Cardano address or ADA handle</p>
+</div>
+
+<!-- Amount: large input with an inline chip button and the ticker -->
+<div class="x-field">
+  <label class="x-field-label" for="amount">Amount</label>
+  <div class="x-input" data-size="lg">
+    <input id="amount" type="text" inputmode="decimal" placeholder="0.00" aria-describedby="amount-hint">
+    <button class="x-button" type="button" data-variant="chip">Max</button>
+    <span class="x-input-affix">ADA</span>
+  </div>
+  <p class="x-field-hint" id="amount-hint">Available 12,480.25 ADA</p>
+</div>
+
+<!-- Error: aria-invalid on the input, message linked by aria-describedby -->
+<div class="x-field">
+  <label class="x-field-label" for="memo">Note</label>
+  <div class="x-input">
+    <input id="memo" type="text" value="This note is far too long for on-chain metadata" aria-invalid="true" aria-describedby="memo-error">
+  </div>
+  <p class="x-field-error" id="memo-error" role="alert">Notes are limited to 64 characters</p>
+</div>
+
+<!-- Search: small input with a leading icon, no label (aria-label instead) -->
+<label class="x-input" data-size="sm">
+  <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+  <input type="search" placeholder="Search mini apps" aria-label="Search mini apps">
+</label>
