@@ -1,0 +1,29 @@
+{
+  "name": "@xray-network/design-source",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Source of the XRAY/DESIGN copy-in UI kit: components, rules, agent skill, playground.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npm --prefix wiki run dev",
+    "build": "node scripts/build-kit.mjs",
+    "typecheck": "tsc --noEmit",
+    "parity": "node scripts/check-parity.mjs",
+    "check": "npm run build && npm run typecheck && npm run parity && node scripts/check-install.mjs",
+    "wiki:build": "npm --prefix wiki run build",
+    "wiki:deploy": "npm --prefix wiki run deploy",
+    "springs": "node scripts/springs.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "esbuild": "^0.28.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^7.0.2"
+  }
+}

@@ -12,12 +12,25 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@kit/*": [
+        "../src/*"
+      ],
+      "react": [
+        "./node_modules/@types/react"
+      ],
+      "react/*": [
+        "./node_modules/@types/react/*"
+      ]
+    }
   },
   "include": [
     "rspress.config.ts",
     "src/theme/index.ts",
     "src/theme/hero",
-    "src/pages/index.mdx"
+    "src/navigation.ts",
+    "src/demos",
+    "src/env.d.ts"
   ]
 }

@@ -4,7 +4,7 @@ export function HeroDiagram() {
   const id = useId()
   return (
     <svg className="spectre-hero-diagram" viewBox="0 60 320 134" role="img" aria-labelledby={`${id}-title ${id}-description`} focusable="false">
-      <title id={`${id}-title`}>XRAY Design workflow.</title>
+      <title id={`${id}-title`}>XRAY/DESIGN workflow.</title>
       <desc id={`${id}-description`}>Define the visual system, compose components, then verify the interface.</desc>
       <rect className="spectre-diagram-frame" x="14" y="68" width="292" height="118" rx="8" />
 

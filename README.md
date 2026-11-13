@@ -1,74 +1,85 @@
 # XRAY/DESIGN
 
-**Direct · Editable · Source · Integrated · Generative · Native**
+A copy-in UI kit for agents. It ships as source plus rules, not as a package: an agent copies
+components into a project, where they become project code it can adapt.
 
-DESIGN is being built as an HTML/React component library for XRAY products, using liquid
-components: source copied directly into a project and adjusted by AI.
+- **Two versions of every component:** plain HTML + CSS (with small vanilla controllers where
+  state needs JS) and React 19. Both share one stylesheet and one markup contract. State lives in
+  `aria-*` / `data-*` attributes, so any framework can drive it.
+- **Two themes, one set of tokens:** `light-dark()` semantic tokens; `data-theme` forces a theme on
+  any subtree. Rebrand by overriding about five variables.
+- **Liquid motion with a budget:** spring easings as CSS `linear()` curves, used only where things
+  physically move. No runtime motion library; reduced motion collapses every duration token.
+- **Agent-native:** `RULES.md` (the design rules), a `COMPONENT.md` contract per component, and an
+  agent skill that adds, adapts, upgrades (3-way merge) and audits components.
 
-Components become native project code. Their markup, styles, and behavior are editable in place,
-with no imports from a DESIGN package. AI adapts each component to the project's structure,
-visual language, and interaction needs.
+## Install into a project
 
-The current design standard is [`protocol/v1.0.0/DESIGN.md`](./protocol/v1.0.0/DESIGN.md).
-Immutable releases under `protocol/` define the tokens, layout, components, responsive
-behavior, accessibility, themes, voice, and interaction states used across XRAY interfaces.
+The kit is published on `kit/v<version>` tags as a dist-only tree. Give your agent:
 
-## Documentation
+> Install XRAY/DESIGN kit v0.1.0. Clone `https://github.com/xray-network/design.git` with
+> `--depth 1 --branch kit/v0.1.0` into a temporary directory. Check that `design/VERSION` starts with
+> `0.1.0`. Copy `design/` to `.agents/design/` and `skills/design/` to `.agents/skills/design/`, and
+> delete the temporary directory. Then follow the Setup section of `.agents/skills/design/SKILL.md`.
 
-The public docs app at `https://wiki.xraynetwork.io/design/` currently publishes only a
-hero placeholder, using the SPECTRE documentation theme. Protocol releases and component
-references remain in this repository and are not published by the default docs build.
+See [`src/INSTALL.md`](src/INSTALL.md) (shipped as the kit README) for upgrades and requirements.
 
 ## Repository layout
 
 ```text
-.
-├── protocol/
-│   └── v1.0.0/
-│       └── DESIGN.md
-└── wiki/                 # independent Rspress placeholder wiki
-    ├── reference/
-    │   ├── components.json
-    │   └── components.schema.json
-    ├── package.json
-    └── package-lock.json
+src/                      kit source (what ships, before the build)
+├── rules/RULES.md        design rules            -> .agents/design/RULES.md
+├── tokens/               tokens.css, tailwind.css (v4 bridge)
+├── base/                 optional reset, focus ring, utilities
+├── motion/               spring() -> linear(), trackIndicator, createFlip
+├── components/<id>/      COMPONENT.md, <id>.css, <id>.html, [<id>.controller.js + .d.ts], <id>.tsx
+├── skill/                SKILL.md + scripts/lock.mjs  -> .agents/skills/design/
+└── INSTALL.md            README of the kit branch
+wiki/                     public docs and live playground (Rspress), published with every release
+├── src/pages/            install (index), rules and one page per component
+└── src/demos/            live demos: React and HTML versions, reduced-motion toggle, HTML source
+tests/parity.tsx          React renderings checked against the HTML references
+scripts/
+├── build-kit.mjs         validate src/ and emit dist/ (kit layout + manifest.json + VERSION)
+├── check-parity.mjs      HTML <-> React <-> CSS parity
+├── check-install.mjs     installs dist/ into fixture projects; add, type-check, upgrade with merge
+└── springs.mjs           regenerate the spring tokens
 ```
+
+Components in 0.1.0: `button` (+ icon button), `segmented`, `switch`, `field` (+ input), `dialog`,
+`menu`, `toast`.
 
 ## Development
 
-Install dependencies inside the documentation project:
-
 ```sh
-cd wiki
 npm install
+npm install --prefix wiki
+npm run dev        # wiki + playground at http://localhost:10009/design/
+npm run check      # build + validate, type-check, parity, install end-to-end
 ```
 
-Start the documentation site:
+The wiki imports components, `RULES.md`, each `COMPONENT.md` and `INSTALL.md` straight from `src/`,
+so edits there hot-reload in the running wiki.
 
-```sh
-npm run dev
-```
+The build fails on raw colors, hard-coded durations, shadows or blur in component CSS, undefined tokens,
+imports that leave the kit layout, missing `"use client"`, missing types for controllers React
+imports, and COMPONENT.md metadata that does not match the files.
 
-Build the documentation site:
+## Adding a component to the kit
 
-```sh
-npm run build
-```
+1. `src/components/<id>/` with `COMPONENT.md` (frontmatter: id, name, summary, motion tier,
+   requires, components, files), `<id>.css` in `@layer x.components`, `<id>.html`, and `<id>.tsx`.
+2. A React example in `tests/parity.tsx`.
+3. A demo in `wiki/src/demos/demos.tsx`, a page `wiki/src/pages/components/<id>.mdx`, and an entry with an
+   icon in `wiki/src/navigation.ts`.
+4. `npm run check`.
 
-Deploy the documentation site to `https://wiki.xraynetwork.io/design/`:
+## Releasing
 
-```sh
-npm run deploy
-```
-
-The docs build renders `wiki/src/pages/index.mdx` only. Run
-`npm run protocol:publish` explicitly to regenerate local release downloads; the placeholder
-build does not call this publisher. Existing reference pages are retained in source and excluded
-from the public routes. See [`wiki/README.md`](wiki/README.md) for the independent docs workflow.
-
-The specimens currently in this repository are documentation references. The intended delivery
-model is HTML/React source copied into the consuming project and adapted there by AI.
+1. Bump `version` in `package.json` and run `npm run check`.
+2. Publish `dist/` as the root of an orphan commit tagged `kit/v<version>`.
+3. Deploy the wiki: `npm run wiki:deploy` (it shows the new version in the sidebar).
 
 ## License
 
-DESIGN is available under the [MIT License](./LICENSE).
+MIT. See [LICENSE](./LICENSE).

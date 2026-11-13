@@ -1,0 +1,30 @@
+<!-- Segmented control: native radios, so it works and submits without JS.
+     segmented.controller.js adds the liquid indicator. -->
+<div class="x-segmented" role="radiogroup" aria-label="Period">
+  <label class="x-segmented-item"><input type="radio" name="period" value="24h" checked><span>24h</span></label>
+  <label class="x-segmented-item"><input type="radio" name="period" value="7d"><span>7 days</span></label>
+  <label class="x-segmented-item"><input type="radio" name="period" value="30d"><span>30 days</span></label>
+  <label class="x-segmented-item"><input type="radio" name="period" value="all"><span>All time</span></label>
+  <span class="x-segmented-indicator" aria-hidden="true"></span>
+</div>
+
+<!-- Small, with counts -->
+<div class="x-segmented" data-size="sm" role="radiogroup" aria-label="Assets">
+  <label class="x-segmented-item"><input type="radio" name="assets" value="tokens" checked><span>Tokens<i>6</i></span></label>
+  <label class="x-segmented-item"><input type="radio" name="assets" value="nfts"><span>NFTs<i>12</i></span></label>
+  <span class="x-segmented-indicator" aria-hidden="true"></span>
+</div>
+
+<!-- Full width: items share the width equally (wallet panes) -->
+<div class="x-segmented" data-width="full" role="radiogroup" aria-label="Wallet action">
+  <label class="x-segmented-item"><input type="radio" name="wallet" value="send" checked><span>Send</span></label>
+  <label class="x-segmented-item"><input type="radio" name="wallet" value="receive"><span>Receive</span></label>
+  <label class="x-segmented-item"><input type="radio" name="wallet" value="stake"><span>Stake</span></label>
+  <label class="x-segmented-item"><input type="radio" name="wallet" value="swap" disabled><span>Swap</span></label>
+  <span class="x-segmented-indicator" aria-hidden="true"></span>
+</div>
+
+<script type="module">
+  import { initSegmented } from "./segmented.controller.js";
+  initSegmented();
+</script>

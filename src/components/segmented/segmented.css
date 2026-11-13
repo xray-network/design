@@ -1,0 +1,85 @@
+/* Segmented control. Requires tokens/tokens.css.
+   Works without JS (the checked item gets a fill). With segmented.controller.js or the React
+   component, one liquid indicator slides between items instead. */
+
+@layer x.components {
+  .x-segmented {
+    --x-segmented-pad: 3px;
+    --x-segmented-item-height: 32px;
+    --x-segmented-item-pad: 16px;
+    --x-segmented-font-size: var(--x-text-sm);
+    --x-segmented-indicator-bg: var(--x-bg-active);
+
+    position: relative;
+    isolation: isolate; /* the indicator sits under the labels, above the root */
+    display: inline-flex;
+    max-width: 100%;
+    padding: var(--x-segmented-pad);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-pill);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .x-segmented::-webkit-scrollbar { display: none; }
+
+  .x-segmented-item { position: relative; flex: none; cursor: pointer; }
+  .x-segmented-item > input { position: absolute; inset: 0; margin: 0; opacity: 0; pointer-events: none; }
+  .x-segmented-item > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    height: var(--x-segmented-item-height);
+    padding: 0 var(--x-segmented-item-pad);
+    border-radius: var(--x-radius-pill);
+    color: var(--x-fg-3);
+    font: var(--x-weight-label) var(--x-segmented-font-size) / 1 var(--x-font-sans);
+    white-space: nowrap;
+    transition: color var(--x-duration-fast) var(--x-ease), background-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-segmented-item > span > i { font-style: normal; font-weight: var(--x-weight-body); color: var(--x-fg-3); } /* count */
+  .x-segmented-item:hover > span { color: var(--x-fg-1); }
+  .x-segmented-item:has(:checked) > span { background: var(--x-segmented-indicator-bg); color: var(--x-fg-1); }
+  .x-segmented-item:has(:focus-visible) > span { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+  .x-segmented-item:has(:disabled) { opacity: 0.4; cursor: default; }
+  .x-segmented-item:has(:disabled) > span { color: var(--x-fg-3); }
+
+  /* ---- Sizes and width */
+  .x-segmented[data-size="sm"] { --x-segmented-item-height: 26px; --x-segmented-item-pad: 12px; --x-segmented-font-size: var(--x-text-xs); }
+  .x-segmented[data-width="full"] { display: flex; }
+  .x-segmented[data-width="full"] .x-segmented-item { flex: 1 1 0; }
+
+  /* ---- Liquid indicator (enabled by JS through data-indicator) ----------
+     The edge in the direction of travel leads on the liquid spring; the trailing edge follows
+     on the soft spring, so the pill stretches toward the target and then settles. */
+  .x-segmented-indicator {
+    display: none;
+    position: absolute;
+    z-index: -1;
+    top: var(--x-segmented-pad);
+    bottom: var(--x-segmented-pad);
+    left: var(--x-ind-left, 0);
+    right: var(--x-ind-right, 100%);
+    border-radius: var(--x-radius-pill);
+    background: var(--x-segmented-indicator-bg);
+    pointer-events: none;
+  }
+  .x-segmented[data-indicator] .x-segmented-indicator { display: block; }
+  .x-segmented[data-indicator] .x-segmented-item:has(:checked) > span { background: transparent; }
+
+  .x-segmented[data-indicator="ready"] .x-segmented-indicator {
+    transition:
+      left var(--x-spring-duration) var(--x-spring),
+      right var(--x-spring-duration) var(--x-spring);
+  }
+  .x-segmented[data-indicator="ready"][data-direction="forward"] .x-segmented-indicator {
+    transition:
+      right calc(var(--x-spring-duration) * 0.85) var(--x-spring),
+      left calc(var(--x-spring-soft-duration) * 1.1) var(--x-spring-soft);
+  }
+  .x-segmented[data-indicator="ready"][data-direction="backward"] .x-segmented-indicator {
+    transition:
+      left calc(var(--x-spring-duration) * 0.85) var(--x-spring),
+      right calc(var(--x-spring-soft-duration) * 1.1) var(--x-spring-soft);
+  }
+}

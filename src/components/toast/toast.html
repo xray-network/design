@@ -1,0 +1,28 @@
+<!-- Toast: the controller creates the live region and the toasts. -->
+<button class="x-button" type="button" data-variant="ghost" id="copy">Copy address</button>
+<button class="x-button" type="button" data-variant="ghost" id="fail">Send (fails)</button>
+
+<script type="module">
+  import { createToaster } from "./toast.controller.js";
+  const { toast } = createToaster();
+
+  document.getElementById("copy").addEventListener("click", () => toast("Address copied", { tone: "success" }));
+  document.getElementById("fail").addEventListener("click", () =>
+    toast("Transaction failed: fee too low", {
+      tone: "danger",
+      action: { label: "Retry", onClick: () => toast("Retrying with a standard fee", { tone: "info" }) },
+    }),
+  );
+</script>
+
+<!-- Static markup of one toast, for reference and server rendering:
+<section class="x-toaster" popover="manual" aria-live="polite" aria-label="Notifications">
+  <div class="x-toast" data-tone="success">
+    <span class="x-toast-dot" aria-hidden="true"></span>
+    <p class="x-toast-message">Address copied</p>
+    <button class="x-icon-button" type="button" data-size="xs" aria-label="Dismiss">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+</section>
+-->

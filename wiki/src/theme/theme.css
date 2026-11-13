@@ -1160,3 +1160,7 @@ html .rp-doc-layout__doc-container:has(.wiki-directory) {
     padding-block: 56px;
   }
 }
+
+/* Kit tokens (light-dark()) follow the docs appearance switch. */
+html:root { color-scheme: light; }
+html:root:is(.rp-dark, .dark) { color-scheme: dark; }

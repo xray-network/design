@@ -1,24 +1,48 @@
 ---
-title: "XRAY Design"
-description: "The interface protocol, visual language, and component reference for XRAY products."
-pageType: doc-wide
-sidebar: false
-outline: false
-footer: false
+title: Install
+description: "XRAY/DESIGN: a copy-in UI kit for agents. Rules, tokens, liquid motion and components in HTML and React."
 ---
 
-import { HeroArtwork } from "@rspress/core/theme"
+import { Prompt, KIT_VERSION } from "../demos/InstallPrompt"
 
-<div className="spectre-home wiki-placeholder rp-not-doc">
-  <section className="spectre-hero" aria-labelledby="wiki-title">
-    <div className="spectre-hero-grid">
-      <HeroArtwork />
-      <div className="spectre-hero-copy">
-        <span className="spectre-eyebrow">Interface standard</span>
-        <h1 id="wiki-title">XRAY Design</h1>
-        <p className="spectre-lead">The interface protocol, visual language, and component reference for XRAY products.</p>
-        <p className="wiki-status">Documentation coming soon.</p>
-      </div>
-    </div>
-  </section>
-</div>
+# Install
+
+XRAY/DESIGN is not a package. An agent copies the kit into your project, and components become
+project code that it adapts on request. This guide installs <code>v{KIT_VERSION}</code>, the version this wiki documents.
+
+## Install the kit
+
+Run this prompt from the root of your project:
+
+<Prompt />
+
+The agent places two folders and then runs the skill's setup. Setup detects React or plain HTML,
+chooses the UI folder, copies the tokens, and adds a pointer to `AGENTS.md`.
+
+```text
+.agents/design/          catalog: rules, tokens, motion, components (read-only)
+.agents/skills/design/   agent skill: add, adapt, create, theme, upgrade, audit
+.agents/design.lock.json what was copied, from which version, with file hashes
+```
+
+## Use it
+
+Ask for components by name or just describe the UI:
+
+- "Add the segmented control for the period filter."
+- "Build the settings screen with switches for lock and hidden balances."
+- "Audit the send form against the design rules."
+
+The agent reads `.agents/design/RULES.md`, copies what it needs into your UI folder, and adapts it there.
+
+## Upgrade
+
+<Prompt kind="upgrade" />
+
+Your local changes to copied components are kept with a 3-way merge; any conflicts are listed for the agent to resolve.
+
+## Requirements
+
+- Browsers: Baseline 2024 (Chrome/Edge 123+, Safari 17.5+, Firefox 128+). Newer features (anchor positioning, `@starting-style` exit transitions) degrade gracefully.
+- React 19+ for the React versions. Plain HTML pages need no build step.
+- Node 18+ for the skill's helper script. Without Node, the agent follows the same steps by hand.

@@ -1,0 +1,103 @@
+/* Demo frames. Kit tokens are loaded globally by the theme; components bring their own CSS. */
+
+.wiki-demo {
+  margin: 24px 0 40px;
+  border: 1px solid var(--x-border);
+  border-radius: var(--x-radius-2xl);
+  background: var(--x-bg);
+  color: var(--x-fg-2);
+  font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans);
+  overflow: hidden;
+}
+
+.wiki-demo-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--x-space-3);
+  padding: var(--x-space-3) var(--x-space-4);
+  border-bottom: 1px solid var(--x-border);
+}
+
+.wiki-demo-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--x-space-4);
+  min-height: 160px;
+  padding: var(--x-space-8) var(--x-space-6);
+}
+.wiki-demo-stage > .x-field,
+.wiki-demo-stage > .x-input,
+.wiki-demo-stage > [data-width="full"],
+.wiki-demo-stage > .x-switch[data-label="start"] { align-self: stretch; }
+/* HTML references are flat fragments: let inline controls flow in rows. */
+.wiki-demo-stage[data-layout="html"]:has(> .x-button:first-child) { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5); }
+.wiki-demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5); }
+.wiki-demo-note { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-xs); }
+
+.wiki-demo-source { border-top: 1px solid var(--x-border); }
+.wiki-demo-source > summary {
+  padding: var(--x-space-3) var(--x-space-4);
+  color: var(--x-fg-3);
+  font-size: var(--x-text-sm);
+  font-weight: var(--x-weight-label);
+  cursor: pointer;
+}
+.wiki-demo-source > summary:hover { color: var(--x-fg-1); }
+.wiki-demo-source pre {
+  margin: 0;
+  max-height: 420px;
+  padding: var(--x-space-4);
+  overflow: auto;
+  border-top: 1px solid var(--x-border);
+  background: var(--x-bg-panel);
+  color: var(--x-fg-2);
+  font: var(--x-weight-body) 12.5px / 1.7 var(--x-font-mono);
+  white-space: pre;
+}
+
+/* The kit's icon rule (base.css is not loaded in the wiki, to keep docs styles intact).
+   In the reset layer, like base.css, so component sizes still win. */
+@layer x.reset {
+  .x-icon {
+    width: var(--x-icon-lg);
+    height: var(--x-icon-lg);
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--x-stroke-icon);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+/* Agent prompt card (install page). */
+.wiki-prompt {
+  margin: 24px 0;
+  border: 1px solid var(--x-border);
+  border-radius: var(--x-radius-xl);
+  background: var(--x-bg-panel);
+  color: var(--x-fg-2);
+  font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans);
+  text-align: left;
+}
+.wiki-prompt-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--x-space-3);
+  padding: var(--x-space-2-5) var(--x-space-2-5) var(--x-space-2-5) var(--x-space-4);
+  border-bottom: 1px solid var(--x-border);
+  color: var(--x-fg-3);
+  font-size: var(--x-text-xs);
+  font-weight: var(--x-weight-label);
+}
+.wiki-prompt-text {
+  margin: 0;
+  padding: var(--x-space-4);
+  color: var(--x-fg-1);
+  font: var(--x-weight-body) var(--x-text-sm) / 1.7 var(--x-font-mono);
+  overflow-wrap: anywhere;
+}

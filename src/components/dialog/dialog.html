@@ -1,0 +1,26 @@
+<!-- Dialog: native <dialog>. dialog.controller.js wires openers, closers and backdrop clicks. -->
+<button class="x-button" type="button" data-variant="danger" data-x-dialog-open="remove-account">Remove account</button>
+
+<dialog class="x-dialog" id="remove-account" data-size="sm" aria-labelledby="remove-account-title" aria-describedby="remove-account-desc">
+  <header class="x-dialog-header">
+    <h2 class="x-dialog-title" id="remove-account-title">Remove account?</h2>
+    <button class="x-icon-button" type="button" data-size="sm" aria-label="Close" data-x-dialog-close>
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6l12 12"/></svg>
+    </button>
+  </header>
+  <div class="x-dialog-body">
+    <p class="x-dialog-description" id="remove-account-desc">
+      Account 2 will be removed from this device. Your funds stay on chain; you can restore the account from its recovery phrase.
+    </p>
+  </div>
+  <footer class="x-dialog-footer">
+    <button class="x-button" type="button" data-variant="ghost" data-x-dialog-close autofocus>Cancel</button>
+    <button class="x-button" type="button" data-variant="danger" data-x-dialog-close="confirm">Remove</button>
+  </footer>
+</dialog>
+
+<script type="module">
+  import { initDialogs } from "./dialog.controller.js";
+  initDialogs();
+  // Read the result: document.getElementById("remove-account").addEventListener("close", (e) => e.target.returnValue)
+</script>
