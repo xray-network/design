@@ -1,0 +1,40 @@
+/* Icons page: every icon in a grid with its name. */
+
+.wiki-icons { margin: 24px 0 48px; }
+.wiki-icons-bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2); margin-bottom: var(--x-space-4); }
+.wiki-icons-bar > .x-input { flex: 1 1 220px; }
+
+.wiki-icons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--x-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.wiki-icons-grid > li { margin: 0; }
+
+.wiki-icons-item {
+  display: grid;
+  justify-items: center;
+  gap: var(--x-space-2-5);
+  width: 100%;
+  padding: var(--x-space-5) var(--x-space-2) var(--x-space-3);
+  border: 1px solid var(--x-border);
+  border-radius: var(--x-radius-xl);
+  background: none;
+  color: var(--x-fg-1);
+  cursor: pointer;
+  transition: border-color var(--x-duration-fast) var(--x-ease), background-color var(--x-duration-fast) var(--x-ease);
+}
+.wiki-icons-item:hover { border-color: var(--x-border-hover); background: var(--x-bg-soft); }
+.wiki-icons-item:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+.wiki-icons-item > span {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--x-fg-3);
+  font: 500 11px/1.4 var(--x-font-mono);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.wiki-icons-empty { color: var(--x-fg-3); }

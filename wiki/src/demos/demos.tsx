@@ -103,6 +103,9 @@ import PaginationExample from "./examples/pagination"
 import PaginationSource from "./examples/pagination.tsx?raw"
 import PaginationHtml from "@protocol/components/pagination/pagination.html?raw"
 
+import IconExample from "./examples/icon"
+import IconSource from "./examples/icon.tsx?raw"
+import IconHtml from "@protocol/components/icon/icon.html?raw"
 import TooltipExample from "./examples/tooltip"
 import TooltipSource from "./examples/tooltip.tsx?raw"
 import TooltipHtml from "@protocol/components/tooltip/tooltip.html?raw"
@@ -130,3 +133,4 @@ export const RadioDemo = () => <Demo html={RadioHtml} react={<RadioExample />} s
 export const TableDemo = () => <Demo html={TableHtml} react={<TableExample />} source={TableSource} />
 export const PaginationDemo = () => <Demo html={PaginationHtml} react={<PaginationExample />} source={PaginationSource} />
 export const TooltipDemo = () => <Demo html={TooltipHtml} react={<TooltipExample />} source={TooltipSource} />
+export const IconDemo = () => <Demo html={IconHtml} react={<IconExample />} source={IconSource} />

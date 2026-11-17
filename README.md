@@ -45,8 +45,8 @@ wiki/                     docs and live playground (Rspress), deployed with ever
 └── scripts/check-protocol.mjs  the one check; runs before every wiki build
 ```
 
-Components in 1.0.0 (20): `alert`, `avatar`, `button` (+ icon button), `checkbox`, `chips`, `dialog`,
-`field` (+ input, textarea), `menu`, `message`, `numeral`, `pagination`, `radio`, `segmented`, `select`, `switch`,
+Components in 1.0.0 (21): `alert`, `avatar`, `button` (+ icon button), `checkbox`, `chips`, `dialog` (Modal),
+`field` (+ input, textarea), `icon` (interface icons and brand marks), `menu`, `message`, `numeral`, `pagination`, `radio`, `segmented`, `select`, `switch`,
 `table`, `tabs`, `tag` (+ status, delta), `toast`, `tooltip`.
 
 Blocks in 1.0.0 (8): `account-switcher`, `balance`, `card` (+ tile), `list`, `option` (option cards), `send-form`, `stats`,

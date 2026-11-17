@@ -1,6 +1,6 @@
 ---
 id: dialog
-name: Dialog
+name: Modal
 summary: Modal dialog on native <dialog>; centered panel on desktop, bottom sheet on phones.
 motion: 0
 requires: [tokens]
@@ -8,7 +8,7 @@ components: [button]
 files: [dialog.css, dialog.html, dialog.controller.js, dialog.controller.d.ts, dialog.tsx]
 ---
 
-# Dialog
+# Modal
 
 Interrupts the flow for one decision or one short task: confirm, rename, add account. Long flows
 belong on a page. Non-blocking information belongs in a toast.

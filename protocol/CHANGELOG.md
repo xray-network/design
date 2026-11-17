@@ -22,8 +22,8 @@ The first version.
 - **Accent:** `--x-accent` for fills, the same blue in both themes; `--x-accent-ink` (+ `-hover`) for focus
   rings, focused borders, links, icons and check marks, lighter in dark theme. `--x-focus` and `--x-link`
   follow the ink.
-- **Components (20):** Alert, Avatar, Button (+ icon button, round shape), Checkbox, Chips, Dialog, Input
-  (field, input, textarea), Menu, Message, Numeral, Pagination, Radio, Segmented, Select, Switch, Table, Tabs,
+- **Components (21):** Alert, Avatar, Button (+ icon button, round shape), Checkbox, Chips, Modal (`dialog`), Icon
+  (interface icons and brand marks), Input (field, input, textarea), Menu, Message, Numeral, Pagination, Radio, Segmented, Select, Switch, Table, Tabs,
   Tag (+ status, delta), Toast, Tooltip.
 - **Blocks (8):** Account switcher, Balance, Card and Tile, List, Option cards (with a radio dot in the top-right
   corner), Send form, Stats, Transactions.

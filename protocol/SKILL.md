@@ -1,6 +1,6 @@
 ---
 name: design
-description: XRAY/DESIGN kit. Use when building or changing UI in this project. Covers adding kit components (alert, avatar, button, checkbox, chips, dialog, field and textarea, menu, message, numeral, pagination, radio, segmented, select, switch, table, tabs, tag, toast, tooltip) and blocks (account switcher, balance, card and tile, list, option cards, send form, stats, transactions), adapting them, creating new components in the kit's style, theming, upgrading the kit, and auditing UI against the design rules. This folder is the read-only catalog; copied components are project code.
+description: XRAY/DESIGN kit. Use when building or changing UI in this project. Covers adding kit components (alert, avatar, button, checkbox, chips, modal (dialog), field and textarea, icon, menu, message, numeral, pagination, radio, segmented, select, switch, table, tabs, tag, toast, tooltip) and blocks (account switcher, balance, card and tile, list, option cards, send form, stats, transactions), adapting them, creating new components in the kit's style, theming, upgrading the kit, and auditing UI against the design rules. This folder is the read-only catalog; copied components are project code.
 ---
 
 # XRAY/DESIGN

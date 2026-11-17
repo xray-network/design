@@ -11,6 +11,7 @@ import { initSelects } from "@protocol/components/select/select.controller.js"
 import { initTables } from "@protocol/components/table/table.controller.js"
 import { initTooltips } from "@protocol/components/tooltip/tooltip.controller.js"
 import { initAlerts } from "@protocol/components/alert/alert.controller.js"
+import { initIcons } from "@protocol/components/icon/icon.controller.js"
 import { initSendForms } from "@protocol/blocks/send-form/send-form.controller.js"
 import { initAccountSwitchers } from "@protocol/blocks/account-switcher/account-switcher.controller.js"
 
@@ -26,6 +27,7 @@ function HtmlPane({ html, after }: { html: string; after?: After }) {
     if (!root) return
     root.innerHTML = html.replace(/<script[\s\S]*?<\/script>/g, "")
     initAvatars(root)
+    initIcons(root)
     // Blocks first: the account switcher binds its own menu before the generic menu init sees it.
     const cleanups = [
       initAccountSwitchers(root), initSendForms(root),

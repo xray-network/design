@@ -29,6 +29,9 @@ import { Tooltip } from "../../protocol/components/tooltip/tooltip";
 import { Alert } from "../../protocol/components/alert/alert";
 import { Messages } from "../../protocol/components/message/message";
 import { Stats } from "../../protocol/blocks/stats/stats";
+import { Icon } from "../../protocol/components/icon/icon";
+import { bell, envelope } from "../../protocol/components/icon/icons.js";
+import { github } from "../../protocol/components/icon/brands.js";
 
 const icon = <svg className="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v15" /></svg>;
 const noop = () => {};
@@ -223,6 +226,15 @@ export const examples: Record<string, ReactElement> = {
     <>
       <Stats columns={3} items={[{ label: "Received", value: "+337.90", tone: "positive", sub: "ADA, last 14 days" }]} />
       <Stats items={[{ label: "Requests", value: "1.28M", delta: { value: "6.2%", direction: "up", tone: "positive" } }]} />
+    </>
+  ),
+  icon: (
+    <>
+      <Icon icon={bell} />
+      <Icon icon={envelope} size="sm" />
+      <Icon icon={envelope} size="md" />
+      <Icon icon={envelope} size="lg" />
+      <Icon icon={github} label="GitHub" />
     </>
   ),
 };

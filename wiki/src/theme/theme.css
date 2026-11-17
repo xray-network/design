@@ -279,7 +279,7 @@ html .rp-sidebar-item--active:hover {
   font-weight: 700;
 }
 
-/* The kit version: plain text just before the search box, on every screen size. */
+/* The kit version sits immediately before the search box. */
 html .wiki-version {
   flex: none;
   color: var(--xr-fg-secondary);

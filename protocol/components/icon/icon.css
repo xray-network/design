@@ -1,0 +1,27 @@
+/* Icon: 24×24 SVG icons that take the text color. Outline icons are stroked; brand icons are filled.
+   Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  /* Zero specificity: rules such as .x-alert-icon keep their own sizes. */
+  :where(.x-icon) {
+    --x-icon-size: var(--x-icon-lg);
+    --x-icon-stroke: var(--x-stroke-icon);
+
+    flex: none;
+    width: var(--x-icon-size);
+    height: var(--x-icon-size);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--x-icon-stroke);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .x-icon[data-size="sm"] { --x-icon-size: var(--x-icon-sm); }
+  .x-icon[data-size="md"] { --x-icon-size: var(--x-icon-md); }
+  .x-icon[data-size="lg"] { --x-icon-size: var(--x-icon-lg); }
+
+  /* Brand marks are filled shapes. */
+  .x-icon[data-set="brand"] { fill: currentColor; stroke: none; }
+}
