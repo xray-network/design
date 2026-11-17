@@ -1,0 +1,51 @@
+/* Account switcher: the current account as a chip that opens a menu of accounts.
+   Built from Avatar and Menu. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-account-switcher { display: inline-flex; }
+
+  /* The trigger is the app's account chip: the avatar fills its height, the corners are fully round. */
+  .x-account-switcher-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--x-space-2-5);
+    min-width: 0;
+    height: var(--x-size-md);
+    padding: 0 var(--x-space-3) 0 0;
+    border: 0;
+    border-radius: var(--x-radius-pill);
+    background: var(--x-bg-chip);
+    color: var(--x-fg-1);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-account-switcher-trigger:hover,
+  .x-account-switcher-trigger[aria-expanded="true"] { background: var(--x-bg-chip-hover); }
+
+  .x-account-switcher-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .x-account-switcher-label { overflow: hidden; color: var(--x-fg-1); font: var(--x-weight-body) var(--x-text-sm) / 1 var(--x-font-mono); text-overflow: ellipsis; white-space: nowrap; }
+  .x-account-switcher-sub { overflow: hidden; color: var(--x-fg-3); font-size: var(--x-text-xs); line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
+  .x-account-switcher-chevron { flex: none; width: var(--x-icon-sm); height: var(--x-icon-sm); color: var(--x-fg-3); stroke-width: 2; }
+
+  /* Menu rows: two lines with an avatar, a check on the current account. */
+  .x-account-switcher-menu { --x-menu-min-width: 280px; --x-avatar-ring: var(--x-bg-panel); }
+  .x-account-switcher-menu .x-menu-item { height: auto; min-height: 48px; padding: var(--x-space-1-5) var(--x-space-2-5) var(--x-space-1-5) var(--x-space-1-5); }
+  .x-account-switcher-menu .x-menu-item:hover { --x-avatar-ring: var(--x-bg-panel); }
+  .x-account-switcher-menu .x-account-switcher-text { flex: 1; }
+  .x-account-switcher-check { flex: none; width: var(--x-icon-md); height: var(--x-icon-md); color: var(--x-accent-ink); scale: 0; transition: scale var(--x-spring-duration) var(--x-spring); }
+  .x-account-switcher-menu [aria-checked="true"] .x-account-switcher-check { scale: 1; }
+  .x-account-switcher-add .x-icon { display: grid; place-items: center; }
+  .x-account-switcher-add-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: var(--x-size-sm);
+    height: var(--x-size-sm);
+    border: 1px dashed var(--x-border-hover);
+    border-radius: 50%;
+  }
+}

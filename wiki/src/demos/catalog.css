@@ -1,0 +1,27 @@
+/* /components/ and /blocks/ index pages: names in three columns. */
+
+.wiki-catalog {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--x-space-1) var(--x-space-6);
+  margin: 32px 0 48px;
+  padding: 0;
+  list-style: none;
+}
+.wiki-catalog > li { margin: 0; }
+
+.wiki-catalog-item {
+  display: block;
+  padding: var(--x-space-2) 0;
+  color: var(--x-fg-1);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: color var(--x-duration-fast) var(--x-ease);
+}
+.wiki-catalog-item:hover { color: var(--x-link); }
+.wiki-catalog-item:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 2px; border-radius: var(--x-radius-xs); }
+
+@media (max-width: 640px) {
+  .wiki-catalog { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

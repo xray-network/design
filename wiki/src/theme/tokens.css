@@ -197,12 +197,14 @@ html:root {
   --xr-fg-secondary: var(--xr-gray-600);
   --xr-fg-muted: var(--xr-gray-600);
   --xr-fg-disabled: var(--xr-gray-400);
-  --xr-action: var(--xr-blue-500);
-  --xr-action-hover: var(--xr-blue-400);
-  --xr-action-pressed: var(--xr-blue-600);
+  /* Accent comes from the kit (core/tokens.css): fills stay the brand blue, ink is lighter on dark. */
+  --xr-action: var(--x-accent);
+  --xr-action-hover: var(--x-accent-hover);
+  --xr-action-pressed: var(--x-accent-press);
   --xr-on-action: var(--xr-white);
-  --xr-link: var(--xr-blue-500);
-  --xr-focus: var(--xr-blue-500);
+  --xr-link: var(--x-accent-ink);
+  --xr-focus: var(--x-accent-ink);
+  --xr-link-hover: var(--x-accent-ink-hover); /* hover and active text */
   --xr-selection-bg: var(--xr-gray-100);
   --xr-selection-fg: var(--xr-blue-500);
   --xr-success-bg: var(--xr-green-200);
@@ -310,8 +312,7 @@ html:root:is(.rp-dark, .dark) {
   --xr-fg-secondary: var(--xr-gray-400);
   --xr-fg-disabled: var(--xr-gray-500);
   /* One source-palette step brighter for readable small links on dark panels. */
-  --xr-link: var(--xr-blue-300);
-  --xr-focus: var(--xr-blue-300);
+  /* --xr-link, --xr-focus and --xr-link-hover follow the kit's light-dark() ink tokens. */
   --xr-selection-bg: var(--xr-gray-800);
   --xr-selection-fg: var(--xr-white);
   --xr-success-bg: var(--xr-green-950);

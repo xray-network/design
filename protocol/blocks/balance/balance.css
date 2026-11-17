@@ -1,0 +1,17 @@
+/* Balance: the screen's headline amount, with its fiat value, change and actions.
+   Built from Numeral, Delta (tag) and Button. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-balance { display: grid; gap: var(--x-space-1-5); justify-items: start; }
+  .x-balance-label { color: var(--x-fg-3); font-size: var(--x-text-sm); }
+  .x-balance-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--x-space-2-5); color: var(--x-fg-2); font-size: var(--x-text-lg); }
+  .x-balance-meta .x-delta { font-size: var(--x-text-sm); }
+  .x-balance-period { color: var(--x-fg-3); font-size: var(--x-text-sm); }
+  .x-balance-actions { display: flex; flex-wrap: wrap; gap: var(--x-space-2); margin-top: var(--x-space-4); }
+
+  @media (max-width: 560px) {
+    .x-balance-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); width: 100%; }
+  }
+}

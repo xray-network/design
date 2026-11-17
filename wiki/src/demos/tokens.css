@@ -1,0 +1,88 @@
+/* Tokens page: tables and samples built from DESIGN-PROTOCOL.md's header. */
+
+.wiki-token-table {
+  margin: 16px 0 40px;
+  border: 1px solid var(--x-border);
+  border-radius: var(--x-radius-2xl);
+  background: var(--x-bg);
+  overflow: hidden;
+}
+
+.wiki-token-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--x-space-4);
+  padding: var(--x-space-3) var(--x-space-4);
+  border-top: 1px solid var(--x-border);
+}
+.wiki-token-row:first-child { border-top: 0; }
+.wiki-token-row:has(> .wiki-token-sample) { grid-template-columns: 112px minmax(0, 1fr) auto; }
+
+.wiki-token-sample {
+  display: flex;
+  align-items: center;
+  min-height: 28px;
+  color: var(--x-fg-1);
+  overflow: hidden;
+}
+
+.wiki-token-meta { display: grid; gap: 2px; min-width: 0; }
+.wiki-token-name { color: var(--x-fg-1); font: 600 13px/1.4 var(--x-font-mono); }
+.wiki-token-note { color: var(--x-fg-3); font-size: 13px; }
+
+.wiki-token-values { justify-self: end; text-align: right; }
+.wiki-token-pair { display: grid; gap: 2px; }
+.wiki-token-value {
+  color: var(--x-fg-2);
+  font: 500 12px/1.5 var(--x-font-mono);
+  white-space: nowrap;
+}
+.wiki-token-value > span { color: var(--x-fg-4); }
+
+/* Swatches: the same token under a forced light and a forced dark theme. */
+.wiki-swatch-pair { display: inline-flex; gap: 6px; }
+.wiki-swatch-frame {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 32px;
+  border: 1px solid var(--x-border);
+  border-radius: var(--x-radius-sm);
+  background: var(--x-bg);
+}
+.wiki-swatch {
+  display: block;
+  width: 28px;
+  height: 20px;
+  border: 1px solid var(--x-border);
+  border-radius: var(--x-radius-xs);
+}
+
+.wiki-palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: var(--x-space-2);
+  margin: 16px 0 40px;
+}
+.wiki-palette-chip {
+  display: grid;
+  gap: 2px;
+  padding: var(--x-space-2);
+  border: 1px solid var(--x-border);
+  border-radius: var(--x-radius-lg);
+  color: var(--x-fg-3);
+  font: 500 12px/1.4 var(--x-font-mono);
+}
+.wiki-palette-chip .wiki-swatch { width: 100%; height: 36px; margin-bottom: 6px; }
+.wiki-palette-name { color: var(--x-fg-1); font-weight: 600; }
+
+.wiki-space-bar { display: block; height: 12px; border-radius: 2px; background: var(--x-accent); }
+.wiki-radius-box { display: block; width: 40px; height: 40px; border: 1.5px solid var(--x-fg-3); }
+.wiki-size-box { display: block; width: 40px; border-radius: var(--x-radius-xs); background: var(--x-bg-chip); }
+
+@media (max-width: 640px) {
+  .wiki-token-row,
+  .wiki-token-row:has(> .wiki-token-sample) { grid-template-columns: 1fr; gap: var(--x-space-2); }
+  .wiki-token-values { justify-self: start; text-align: left; }
+}

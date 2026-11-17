@@ -1,16 +1,18 @@
 {
   "name": "wiki-xray-design-docs",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "private": true,
   "type": "module",
   "packageManager": "npm@10.8.2",
-  "description": "XRAY/DESIGN wiki and live playground. Imports the kit straight from ../kit.",
+  "description": "XRAY/DESIGN wiki and live playground. Imports the kit straight from ../protocol.",
   "homepage": "https://wiki.xraynetwork.io/design/",
   "scripts": {
-    "check:kit": "node scripts/check-kit.mjs",
+    "check:protocol": "node scripts/check-protocol.mjs",
+    "publish:protocol": "node scripts/publish-protocol.mjs",
+    "predev": "npm run publish:protocol",
     "dev": "rspress dev --host 0.0.0.0 --port 10009",
-    "prebuild": "npm run check:kit",
+    "prebuild": "npm run check:protocol && npm run publish:protocol",
     "build": "rspress build",
     "typecheck": "tsc --noEmit",
     "deploy": "npm run build && wrangler deploy",
@@ -24,7 +26,8 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "typescript": "5.9.3",
-    "wrangler": "4.54.0"
+    "wrangler": "4.54.0",
+    "yaml": "2.8.1"
   },
   "overrides": {
     "react": "$react",

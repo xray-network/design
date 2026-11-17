@@ -1,0 +1,37 @@
+/* Stats: a grid of key figures (label, value, and a note or change). Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-stats {
+    --x-stats-columns: 4;
+
+    display: grid;
+    grid-template-columns: repeat(var(--x-stats-columns), minmax(0, 1fr));
+    gap: var(--x-space-5) var(--x-space-6);
+    margin: 0;
+  }
+  .x-stat { display: grid; gap: var(--x-space-0-5); align-content: start; min-width: 0; }
+  .x-stat > * { margin: 0; }
+  .x-stat-label,
+  .x-stat-sub { color: var(--x-fg-3); font-size: var(--x-text-sm); }
+  .x-stat-value {
+    overflow: hidden;
+    color: var(--x-fg-1);
+    font-size: var(--x-text-3xl);
+    font-weight: var(--x-weight-stat);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+    letter-spacing: var(--x-tracking-tight);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .x-stat-delta { color: var(--x-fg-3); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); font-variant-numeric: tabular-nums; }
+  :is(.x-stat-value, .x-stat-delta)[data-tone="positive"] { color: var(--x-success-fg); }
+  :is(.x-stat-value, .x-stat-delta)[data-tone="negative"] { color: var(--x-danger-fg); }
+
+  /* Phones: two per row. */
+  @media (max-width: 560px) {
+    .x-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+}

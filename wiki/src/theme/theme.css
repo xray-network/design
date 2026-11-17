@@ -7,7 +7,7 @@ html:root {
   --rp-c-brand: var(--xr-link);
   --rp-c-brand-light: var(--xr-action-hover);
   --rp-c-brand-lighter: var(--xr-blue-50);
-  --rp-c-brand-dark: var(--xr-action-pressed);
+  --rp-c-brand-dark: var(--xr-link-hover); /* Rspress draws hover and active text with it */
   --rp-c-brand-darker: var(--xr-blue-700);
   --rp-c-brand-tint: var(--xr-selection-bg);
   --rp-c-bg: var(--xr-canvas);
@@ -58,7 +58,8 @@ html:root:is(.rp-dark, .dark) {
   --spectre-sidebar-bg: color-mix(in srgb, var(--xr-gray-900) 30%, var(--xr-black));
   --spectre-sidebar-item: var(--xr-gray-200);
   --spectre-sidebar-header: var(--xr-gray-500);
-  --spectre-symbol-color: var(--xr-blue-400);
+  --spectre-symbol-color: var(--xr-link);
+  --rp-c-brand-light: var(--xr-link-hover);
 }
 
 html,
@@ -278,16 +279,13 @@ html .rp-sidebar-item--active:hover {
   font-weight: 700;
 }
 
-html .rp-sidebar-item[data-context="spectre-version"] {
-  margin-top: 24px;
-  color: var(--xr-fg-muted);
-  background: transparent;
-  font: 400 11px/24px var(--xr-font-mono);
-}
-
-html .rp-sidebar-item[data-context="spectre-version"]:hover {
-  color: var(--xr-link);
-  background: var(--xr-chip);
+/* The kit version: plain text just before the search box, on every screen size. */
+html .wiki-version {
+  flex: none;
+  color: var(--xr-fg-secondary);
+  font: 500 12px/1 var(--xr-font-mono);
+  letter-spacing: .02em;
+  white-space: nowrap;
 }
 
 html .rp-sidebar-menu,
@@ -402,9 +400,6 @@ html :where(a, button, input):focus-visible {
     flex-shrink: 0;
   }
 
-  html .rp-doc-layout__sidebar > [data-context="spectre-version"] {
-    margin-top: auto;
-  }
 }
 
 @media (max-width: 768px) {
@@ -759,7 +754,7 @@ html :where(a, button, input):focus-visible {
 
 .spectre-start .rp-codeblock {
   margin: 0 0 16px;
-  border-top: 6px solid var(--rp-c-brand);
+  border-top: 6px solid var(--xr-action); /* a band: the fill blue in both themes */
 }
 
 .spectre-start .rp-codeblock__title {
@@ -1171,4 +1166,23 @@ html:root:is(.rp-dark, .dark) { color-scheme: dark; }
 html .rp-doc .rp-codeblock__content--wrap-code code {
   word-break: normal !important;
   overflow-wrap: anywhere;
+}
+
+/* Accent: fills (buttons, bands, the current search result behind white text) use the brand blue
+   in both themes; thin marks (links, focus, borders, icons) use the link blue, lighter on dark. */
+html .rp-suggest-item--current .rp-suggest-item__link { background-color: var(--xr-action); }
+
+/* Home hero: a small label above the headline and room around the copy, as on the project wikis. */
+.spectre-hero-copy > .spectre-eyebrow {
+  margin-bottom: 24px;
+}
+
+.spectre-home:not(.wiki-placeholder):not(.wiki-directory) .spectre-hero-grid {
+  padding-block: 88px 80px;
+}
+
+@media (max-width: 768px) {
+  .spectre-home:not(.wiki-placeholder):not(.wiki-directory) .spectre-hero-grid {
+    padding-block: 56px 48px;
+  }
 }

@@ -1,0 +1,15 @@
+/* Send form: recipient, amount, network fee, summary and the review button.
+   Built from Field, Button and the Option cards block. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-send-form { display: grid; gap: var(--x-space-6); max-width: 560px; }
+  .x-send-form-address > input { font-family: var(--x-font-mono); font-size: var(--x-text-sm); }
+
+  .x-send-form-summary { display: grid; gap: var(--x-space-2); margin: 0; padding-top: var(--x-space-4); border-top: 1px solid var(--x-border); }
+  .x-send-form-summary > div { display: flex; align-items: baseline; justify-content: space-between; gap: var(--x-space-3); }
+  .x-send-form-summary dt { color: var(--x-fg-3); font-size: var(--x-text-md); }
+  .x-send-form-summary dd { margin: 0; color: var(--x-fg-2); font: var(--x-weight-body) var(--x-text-md) / 1.4 var(--x-font-mono); }
+  .x-send-form-summary dd b { color: var(--x-fg-1); font-weight: var(--x-weight-title); }
+}

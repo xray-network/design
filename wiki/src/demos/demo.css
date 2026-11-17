@@ -35,7 +35,11 @@
 .wiki-demo-stage > .x-card-grid,
 .wiki-demo-stage > .x-list,
 .wiki-demo-stage > .x-options,
-.wiki-demo-stage > .x-tabs { align-self: stretch; }
+.wiki-demo-stage > .x-tabs,
+.wiki-demo-stage > .x-table,
+.wiki-demo-stage > .x-send-form,
+.wiki-demo-stage > .x-transactions { align-self: stretch; }
+.wiki-demo-stage > .x-select { width: auto; min-width: 200px; }
 .wiki-demo-stage > .x-list { margin-inline: var(--x-space-3); } /* room for the rows' overhanging hover fill */
 /* HTML references are flat fragments: let inline controls flow in rows. */
 .wiki-demo-stage[data-layout="html"]:has(> :is(.x-button, .x-tag, .x-avatar):first-child) { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5) var(--x-space-4); }
@@ -45,13 +49,28 @@
 
 .wiki-demo-source { border-top: 1px solid var(--x-border); }
 .wiki-demo-source > summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--x-space-1-5);
   padding: var(--x-space-3) var(--x-space-4);
   color: var(--x-fg-3);
   font-size: var(--x-text-sm);
   font-weight: var(--x-weight-label);
+  list-style: none;
   cursor: pointer;
+  transition: color var(--x-duration-fast) var(--x-ease);
 }
+.wiki-demo-source > summary::-webkit-details-marker { display: none; }
 .wiki-demo-source > summary:hover { color: var(--x-fg-1); }
+.wiki-demo-source > summary:focus-visible { outline: 2px solid var(--x-focus); outline-offset: -2px; border-radius: var(--x-radius-sm); }
+/* The kit's chevron: it turns over on the spring when the code opens. */
+.wiki-demo-chevron {
+  width: var(--x-icon-md);
+  height: var(--x-icon-md);
+  transition: rotate var(--x-spring-duration) var(--x-spring);
+}
+.wiki-demo-source[open] .wiki-demo-chevron { rotate: 180deg; }
 .wiki-demo-source pre {
   margin: 0;
   max-height: 420px;
@@ -65,8 +84,8 @@
 }
 
 /* The kit's icon rule (base.css is not loaded in the wiki, to keep docs styles intact).
-   In the reset layer, like base.css, so component sizes still win. */
-@layer x.reset {
+   In the base layer, like base.css, so component sizes still win. */
+@layer base {
   .x-icon {
     width: var(--x-icon-lg);
     height: var(--x-icon-lg);

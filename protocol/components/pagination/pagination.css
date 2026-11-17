@@ -1,0 +1,60 @@
+/* Pagination: previous, a page-number input and next, joined into one control, then the count.
+   Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-pagination {
+    --x-pagination-size: 24px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--x-space-3);
+    margin: 0;
+    color: var(--x-fg-3);
+    font: var(--x-weight-body) var(--x-text-xs) / 1 var(--x-font-sans);
+  }
+
+  /* The joined control: neighbors share a hairline; only the outer corners are rounded. */
+  .x-pagination-control { display: inline-flex; }
+  .x-pagination-control > * {
+    display: inline-grid;
+    place-items: center;
+    height: var(--x-pagination-size);
+    margin: 0 0 0 -1px;
+    padding: 0;
+    border: 1px solid var(--x-border);
+    border-radius: 0;
+    background: var(--x-bg);
+    color: var(--x-fg-2);
+    font: inherit;
+    text-decoration: none;
+    transition: border-color var(--x-duration-fast) var(--x-ease), color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-pagination-control > :first-child { margin-left: 0; border-radius: var(--x-radius-sm) 0 0 var(--x-radius-sm); }
+  .x-pagination-control > :last-child { border-radius: 0 var(--x-radius-sm) var(--x-radius-sm) 0; }
+
+  .x-pagination-step { width: var(--x-pagination-size); cursor: pointer; }
+  .x-pagination-step .x-icon { width: var(--x-icon-sm); height: var(--x-icon-sm); stroke-width: 2; }
+  .x-pagination-step:hover { position: relative; z-index: 1; border-color: var(--x-border-hover); color: var(--x-fg-1); }
+  .x-pagination-step:disabled,
+  .x-pagination-step[aria-disabled="true"] { color: var(--x-fg-4); cursor: default; pointer-events: none; }
+
+  .x-pagination-input {
+    width: 40px;
+    color: var(--x-fg-1);
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+  .x-pagination-input::-webkit-inner-spin-button,
+  .x-pagination-input::-webkit-outer-spin-button { margin: 0; appearance: none; }
+  .x-pagination-input:hover { position: relative; z-index: 1; border-color: var(--x-border-hover); }
+  /* Focus belongs to the input's own box here: it is a whole control within the group. */
+  .x-pagination-input:focus { position: relative; z-index: 2; border-color: var(--x-focus); outline: none !important; }
+  .x-pagination-input:disabled { color: var(--x-fg-3); }
+
+  .x-pagination-count { font-variant-numeric: tabular-nums; white-space: nowrap; }
+}

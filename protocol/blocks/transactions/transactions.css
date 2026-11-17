@@ -1,0 +1,21 @@
+/* Transactions: a filtered, day-grouped history with paging.
+   Built from Chips, Pagination and the List block. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-transactions { display: grid; gap: var(--x-space-4); }
+  .x-transactions-head { display: flex; align-items: center; gap: var(--x-space-3); min-height: 28px; }
+  .x-transactions-head > h2 { flex: 1; margin: 0; color: var(--x-fg-1); font-size: var(--x-text-lg); font-weight: var(--x-weight-label); }
+  .x-transactions-days { display: grid; gap: var(--x-space-5); }
+  .x-transactions-empty { margin: 0; padding: var(--x-space-8) 0; color: var(--x-fg-3); text-align: center; }
+  .x-transactions-foot { padding-top: var(--x-space-3); border-top: 1px solid var(--x-border); }
+
+  /* Filtering with no JS: the checked chip's value hides other kinds, and day groups left empty. */
+  .x-transactions:has(.x-chip input[value="sent"]:checked) .x-list-row:not([data-kind="sent"]),
+  .x-transactions:has(.x-chip input[value="received"]:checked) .x-list-row:not([data-kind="received"]),
+  .x-transactions:has(.x-chip input[value="staking"]:checked) .x-list-row:not([data-kind="staking"]) { display: none; }
+  .x-transactions:has(.x-chip input[value="sent"]:checked) .x-transactions-day:not(:has([data-kind="sent"])),
+  .x-transactions:has(.x-chip input[value="received"]:checked) .x-transactions-day:not(:has([data-kind="received"])),
+  .x-transactions:has(.x-chip input[value="staking"]:checked) .x-transactions-day:not(:has([data-kind="staking"])) { display: none; }
+}

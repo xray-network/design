@@ -1,13 +1,13 @@
-import { CodeBlock, HeroArtwork, HeroDiagram, CopyPromptButton, installationPrompt, Link } from '@rspress/core/theme';
+import { CodeBlock, HeroArtwork, CopyPromptButton, installationPrompt, Link } from '@rspress/core/theme';
 
 <div className="spectre-home rp-not-doc">
   <section className="spectre-hero" aria-labelledby="ui-that-becomes-your-code">
     <div className="spectre-hero-grid">
       <HeroArtwork />
-      <HeroDiagram />
       <div className="spectre-hero-copy">
-        <h1 id="ui-that-becomes-your-code">Liquid UI your agent copies into your code.</h1>
-        <p className="spectre-lead">Design rules, tokens and components in HTML and React, installed with one prompt. Every component becomes source you own and adapt.</p>
+        <span className="spectre-eyebrow">Interface standard</span>
+        <h1 id="ui-that-becomes-your-code">Consistent UI from your coding agent, on every screen.</h1>
+        <p className="spectre-lead">One prompt gives your agent the XRAY design rules, tokens and tested components in HTML and React. Everything it builds then matches: the same colors, spacing and motion, both themes, keyboard support. Components are copied into your code, so you can change them like any other file.</p>
         <div className="spectre-actions">
           <a className="spectre-button spectre-button--primary" href="#get-started">Get started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="m12 5 7 7-7 7M19 12H5" /></svg></a>
           <CopyPromptButton />
@@ -36,7 +36,7 @@ import { CodeBlock, HeroArtwork, HeroDiagram, CopyPromptButton, installationProm
       </CodeBlock>
       <div className="spectre-install-result">
         <span className="spectre-check" aria-hidden="true">✓</span>
-        <p>Your agent places the kit in <code>.agents/skills/design/</code>, then loads the tokens and adds a pointer to <code>AGENTS.md</code>.</p>
+        <p>Your agent places the protocol and kit in <code>.agents/design/</code>, then loads the tokens and adds a pointer to <code>AGENTS.md</code>.</p>
       </div>
     </div>
   </section>
@@ -45,7 +45,7 @@ import { CodeBlock, HeroArtwork, HeroDiagram, CopyPromptButton, installationProm
     <div className="spectre-section-heading">
       <div><span className="spectre-eyebrow">03 / The workflow</span><h2 id="first-component-title" data-outline>Add, adapt, and upgrade components</h2></div>
     </div>
-    <p>Ask for components by name or describe the UI in your own words. The agent reads <code>.agents/skills/design/RULES.md</code> before any UI work, copies components into your UI folder, and lists them in <code>.agents/design.lock.json</code>.</p>
+    <p>Ask for components by name or describe the UI in your own words. The agent reads <code>.agents/design/DESIGN-PROTOCOL.md</code> before any UI work, copies components and blocks into your UI folder, and records them, with the protocol version, in <code>design.lock.json</code> in that folder.</p>
     <ol className="spectre-workflow-list">
       <li>
         <span className="spectre-step" aria-hidden="true">01</span>
@@ -78,14 +78,14 @@ import { CodeBlock, HeroArtwork, HeroDiagram, CopyPromptButton, installationProm
   </section>
 
   <nav className="spectre-resources" aria-label="Explore XRAY/DESIGN documentation">
-    <Link className="spectre-resource" href="/components/button">
+    <Link className="spectre-resource" href="/components/">
       <span className="spectre-resource-label">COMPONENTS <span aria-hidden="true">↗</span></span>
       <h2>Browse components</h2><p>Live React and HTML demos, with each component's contract and checklist.</p>
     </Link>
-    <Link className="spectre-resource" href="/rules">
+    <a className="spectre-resource" href="/design/DESIGN-PROTOCOL.md">
       <span className="spectre-resource-label">SPECIFICATION <span aria-hidden="true">↗</span></span>
-      <h2>Read the design rules</h2><p>Color, type, radius, the motion budget, accessibility and the markup contract.</p>
-    </Link>
+      <h2>Read the protocol</h2><p>Tokens, color, type, radius, the motion budget, accessibility and the markup contract.</p>
+    </a>
   </nav>
-  <div className="spectre-home-footer"><span>XRAY/DESIGN <span aria-hidden="true">·</span> Liquid UI that becomes your code.</span><Link href="/installation">Installation guide <span aria-hidden="true">→</span></Link></div>
+  <div className="spectre-home-footer"><span>XRAY/DESIGN <span aria-hidden="true">·</span> Consistent UI from your coding agent.</span><Link href="/installation">Installation guide <span aria-hidden="true">→</span></Link></div>
 </div>

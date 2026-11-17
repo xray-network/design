@@ -1,0 +1,22 @@
+---
+title: Releases
+---
+
+import { CodeBlock } from "@rspress/core/theme"
+import Changelog from "@protocol/CHANGELOG.md"
+import { KIT_VERSION, upgradePrompt } from "../prompts"
+
+# Releases
+
+The current kit is <code>{KIT_VERSION}</code>. A project stays on the version it installed, recorded in
+`<uiRoot>/design.lock.json`, until you ask your agent to upgrade:
+
+<CodeBlock wrapCode lang="text"><pre className="shiki css-variables" data-lang="text" tabIndex={0}><code><span className="line"><span>{upgradePrompt}</span></span></code></pre></CodeBlock>
+
+The agent reads the changelog below from the version in your lock up to the new one, merges the kit's changes
+into your copied components, and applies every **Breaking** entry to your code.
+
+The latest design protocol is always at <a href="/design/DESIGN-PROTOCOL.md"><code>DESIGN-PROTOCOL.md</code></a>, for
+projects that use the rules and tokens without the kit. Only the latest version is published.
+
+<Changelog components={{ h1: () => null }} />

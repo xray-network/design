@@ -1,0 +1,166 @@
+---
+title: Tailwind
+---
+
+# Tailwind
+
+XRAY/DESIGN does not ship Tailwind support: components are plain CSS that reads `--x-*` variables.
+Because those variables are ordinary CSS custom properties, they connect to Tailwind in either
+direction with a few lines in your project. Pick the direction that matches who owns the look:
+
+- **XRAY/DESIGN → Tailwind:** the kit's tokens are the source of truth. Your Tailwind code uses them, so
+  everything you write matches the kit components.
+- **Tailwind → XRAY/DESIGN:** your Tailwind theme is the source of truth. Kit components take your brand
+  color, font and radius.
+
+The examples use Tailwind v4 and a UI folder at `src/ui/`.
+
+## Load order
+
+Import the kit's tokens in the CSS file that imports Tailwind:
+
+```css title="src/app.css"
+@import "tailwindcss";
+@import "./ui/core/tokens.css";
+```
+
+The order of the two lines does not matter. The kit puts its CSS in the same cascade layers as Tailwind, in the
+same order: tokens in `theme`, its reset in `base`, components in `components`. So in a Tailwind project:
+
+- Tailwind's preflight reset (in `base`) cannot strip kit components (in `components`).
+- Utilities (in `utilities`) override kit components: `<Button className="rounded-full mt-4">` gives a round
+  button with a top margin.
+
+A utility also beats a kit component's `:hover` and `:active` rules for the same property. `className="bg-red-500"`
+on a Button keeps it red on hover, so add the state too: `bg-red-500 hover:bg-red-600`.
+
+Skip `core/base.css` in Tailwind projects: preflight already resets the page.
+
+Dark mode needs no setup: kit colors switch on their own, and setup connects them to your `.dark` class if your
+project uses one. Utilities mapped to kit tokens switch with them, so kit colors need no `dark:` variants.
+
+## XRAY/DESIGN → Tailwind
+
+Map the tokens once in your Tailwind theme:
+
+```css title="src/app.css"
+@import "tailwindcss";
+@import "./ui/core/tokens.css";
+
+@theme inline {
+  --color-canvas: var(--x-bg);
+  --color-panel: var(--x-bg-panel);
+  --color-chip: var(--x-bg-chip);
+  --color-active: var(--x-bg-active);
+  --color-soft: var(--x-bg-soft);
+  --color-line: var(--x-border);
+  --color-line-hover: var(--x-border-hover);
+  --color-fg-1: var(--x-fg-1);
+  --color-fg-2: var(--x-fg-2);
+  --color-fg-3: var(--x-fg-3);
+  --color-fg-4: var(--x-fg-4);
+  --color-accent: var(--x-accent);
+  --color-accent-hover: var(--x-accent-hover);
+  --color-accent-ink: var(--x-accent-ink);
+  --color-success: var(--x-success-fg);
+  --color-danger: var(--x-danger-fg);
+
+  --font-sans: var(--x-font-sans);
+  --font-mono: var(--x-font-mono);
+
+  --radius-control: var(--x-radius-md);
+  --radius-button: var(--x-radius-lg);
+  --radius-card: var(--x-radius-2xl);
+  --radius-frame: var(--x-radius-3xl);
+
+  --ease-out: var(--x-ease);
+  --ease-spring: var(--x-spring);
+}
+```
+
+Then write `bg-panel`, `text-fg-1`, `border-line`, `rounded-card`, `ease-spring`.
+
+`inline` is required. Without it, Tailwind copies each value into its utilities when it builds. With it,
+utilities keep pointing at the `--x-*` variables, so the kit's light and dark values (`light-dark()`), reduced
+motion and any overrides you make still apply. Durations have no theme namespace; use `duration-(--x-duration-fast)`.
+
+Pick names that do not collide with your theme. Mapping `--color-accent` replaces Tailwind's built-in
+`accent-*` color utilities in this project; prefix the names (`--color-x-accent`) if you need both.
+
+## Tailwind → XRAY/DESIGN
+
+Kit components only read semantic tokens. Point those tokens at your Tailwind theme in one project file, loaded
+after `core/tokens.css`, and every kit component follows your theme. Never edit `core/tokens.css` itself:
+it is replaced on upgrade.
+
+### From a Tailwind theme
+
+```css title="src/app.css"
+@import "tailwindcss";
+@import "./ui/core/tokens.css";
+
+@theme {
+  --color-brand-300: oklch(0.76 0.12 258);
+  --color-brand-400: oklch(0.69 0.16 259);
+  --color-brand-500: oklch(0.62 0.19 260);
+  --color-brand-600: oklch(0.55 0.21 262);
+  --color-brand-700: oklch(0.48 0.2 264);
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+/* XRAY/DESIGN follows the project theme. [data-theme] keeps it inside forced-theme sections. */
+:root, [data-theme] {
+  --x-accent: var(--color-brand-600);
+  --x-accent-hover: var(--color-brand-500);
+  --x-accent-press: var(--color-brand-700);
+  --x-accent-wash: color-mix(in oklab, var(--color-brand-600) 10%, transparent);
+  --x-accent-ink: light-dark(var(--color-brand-600), var(--color-brand-400)); /* focus, links, icons */
+  --x-accent-ink-hover: light-dark(var(--color-brand-500), var(--color-brand-300));
+  --x-font-sans: var(--font-sans);
+}
+```
+
+Keep this block in the same file that imports Tailwind. Tailwind v4 only outputs the theme variables it sees
+used, and it sees the `var()` references there. If a variable still comes out undefined, declare those
+values with `@theme static`, which always outputs them.
+
+For surfaces and text, map both themes with `light-dark()`, as the kit's own tokens do:
+
+```css
+:root, [data-theme] {
+  --x-bg: light-dark(var(--color-white), var(--color-zinc-950));
+  --x-bg-panel: light-dark(var(--color-zinc-50), var(--color-zinc-900));
+  --x-border: light-dark(var(--color-zinc-200), var(--color-zinc-800));
+  --x-fg-1: light-dark(var(--color-zinc-950), var(--color-white));
+  --x-fg-3: var(--color-zinc-500);
+}
+```
+
+To match your radius scale, override the kit's radius tokens (`--x-radius-md` for 32–36px controls,
+`--x-radius-lg` for buttons and inputs, `--x-radius-2xl` for cards). Leave sizes, spacing and motion as they
+are: components are tuned to them.
+
+### From shadcn/ui-style variables
+
+Projects built on shadcn/ui keep their theme in variables that already switch with dark mode, so they map one to one:
+
+```css
+:root, [data-theme] {
+  --x-bg: var(--background);
+  --x-bg-panel: var(--card);
+  --x-bg-chip: var(--muted);
+  --x-border: var(--border);
+  --x-fg-1: var(--foreground);
+  --x-fg-3: var(--muted-foreground);
+  --x-accent: var(--primary);
+  --x-accent-fg: var(--primary-foreground);
+  --x-focus: var(--ring);
+  --x-danger: var(--destructive);
+}
+```
+
+## Both directions at once
+
+The two directions combine: map your brand into the kit (Tailwind → XRAY/DESIGN), then expose the kit's
+semantic tokens as utilities (XRAY/DESIGN → Tailwind). Your Tailwind code and the kit components then share one
+set of values, and you change the look in one place.

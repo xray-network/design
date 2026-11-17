@@ -13,9 +13,10 @@
     "skipLibCheck": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "paths": {
-      "@kit/*": [
-        "../kit/*"
+      "@protocol/*": [
+        "../protocol/*"
       ],
       "react": [
         "./node_modules/@types/react"

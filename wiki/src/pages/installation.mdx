@@ -7,9 +7,9 @@ Open your project in your coding agent and send:
 
 <CodeBlock wrapCode lang="text"><pre className="shiki css-variables" data-lang="text" tabIndex={0}><code><span className="line"><span>{installationPrompt}</span></span></code></pre></CodeBlock>
 
-The agent clones the release tag, checks its version, copies the kit folder into place as an agent skill, and runs the
-skill's setup. Setup detects React or plain HTML (and Tailwind v4), chooses your UI folder, copies the tokens,
-loads them globally, and adds a pointer to `AGENTS.md`. It does not copy any component yet.
+The agent reads the latest protocol, which tells it how to install: it clones the kit from `main`, copies the
+`protocol/` folder to `.agents/design/`, and runs the skill's setup. Setup detects React or plain HTML, chooses your UI folder, copies the tokens,
+loads them globally, connects the kit's dark mode to your theme switch, and adds a pointer to `AGENTS.md`. It does not copy any component yet.
 XRAY/DESIGN <code>{KIT_VERSION}</code> is current; existing installations stay on their version until explicitly upgraded.
 
 ## Start with natural language
@@ -22,24 +22,27 @@ Build the settings screen with switches for lock and hidden balances.
 Audit the send form against the design rules.
 ```
 
-The agent reads `.agents/skills/design/RULES.md` before any UI work. Then it copies the components it needs into
+The agent reads `.agents/design/DESIGN-PROTOCOL.md` before any UI work. Then it copies the components it needs into
 your UI folder and adapts them there. Copied components are your code; the kit folder stays read-only.
 
 ## What gets installed
 
 ```text
-.agents/skills/design/             # the kit: one folder, read-only, replaced on upgrade
+.agents/design/                    # the protocol and kit: one folder, read-only, replaced on upgrade
 ├── SKILL.md                       # the agent skill: add, adapt, create, theme, upgrade, audit
-├── RULES.md                       # design rules
-├── VERSION
+├── DESIGN-PROTOCOL.md             # version, tokens and design rules
+├── CHANGELOG.md                   # what changed in each version
 ├── core/                          # shared code every component builds on
 │   ├── tokens.css                 # tokens and cascade layers
 │   ├── base.css                   # optional reset and focus ring
-│   ├── tailwind.css               # optional Tailwind v4 bridge
 │   └── motion.js                  # springs as linear(), indicator and FLIP helpers
-└── components/<id>/               # COMPONENT.md, CSS, HTML, controller, React
-.agents/design.lock.json           # version, UI folder, stack, and the components you use
-<ui folder>/                       # core/ and the components you add, as your own code
+├── components/<id>/               # primitives: COMPONENT.md, CSS, HTML, controller, React
+└── blocks/<id>/                   # screen sections built from components
+<ui folder>/                       # your code: what the agent copies, plus the lock
+├── design.lock.json               # kit version, stack, and the components and blocks you use
+├── core/                          # tokens (and motion helpers when a component needs them)
+├── components/<id>/               # the components you add
+└── blocks/<id>/                   # the blocks you add
 ```
 
 The kit is the installed folder: there is no build, no package and no helper script. Components keep the
@@ -51,15 +54,16 @@ Nothing is added to `package.json`.
 
 <CodeBlock wrapCode lang="text"><pre className="shiki css-variables" data-lang="text" tabIndex={0}><code><span className="line"><span>{upgradePrompt}</span></span></code></pre></CodeBlock>
 
-Commit first: version control is the upgrade's rollback path. The agent keeps the old kit folder as the
-merge base, then fetches the new release. Files you never changed are replaced; files you changed get a
-3-way merge, and any conflicts are listed for the agent to resolve.
+Commit first: version control is the upgrade's rollback path. The upgrade always goes to the latest protocol. The
+agent keeps the old kit folder as the merge base, then fetches the latest kit. Files you never changed are replaced; files you changed get a
+3-way merge, and any conflicts are listed for the agent to resolve. See [Releases](/releases) for what each
+version changed.
 
 ## Requirements
 
 - Browsers: Baseline 2024 (Chrome and Edge 123+, Safari 17.5+, Firefox 128+). Newer features, such as anchor positioning and `@starting-style` exit transitions, degrade gracefully.
 - React 19+ for the React versions. Plain HTML pages need no build step.
-- Node 18+ for the skill's helper script. Without Node, the agent follows the same steps by hand.
+- Git, for the agent to clone the kit during installation and upgrade. With the protocol only, nothing is needed.
 - Claude Code reads skills from `.claude/skills/`; setup links the skill there when the project uses it.
 
 [Continue to the design rules →](./rules)

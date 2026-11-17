@@ -1,0 +1,61 @@
+/* Checkbox: a native checkbox, restyled, with a label and an optional description. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-checkbox {
+    --x-checkbox-size: 18px;
+
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--x-space-2-5);
+    color: var(--x-fg-1);
+    font-size: var(--x-text-md);
+    line-height: var(--x-checkbox-size);
+    cursor: pointer;
+    user-select: none;
+  }
+  .x-checkbox-text { display: grid; gap: var(--x-space-0-5); }
+  .x-checkbox-description { color: var(--x-fg-3); font-size: var(--x-text-sm); line-height: var(--x-leading-body); }
+  .x-checkbox:has(> input:disabled) { opacity: 0.4; cursor: default; }
+
+  /* The box: the native input with its look replaced. */
+  .x-checkbox > input {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: var(--x-checkbox-size);
+    height: var(--x-checkbox-size);
+    margin: 0;
+    border: 1.5px solid var(--x-border-hover);
+    border-radius: 5px;
+    background: none;
+    appearance: none;
+    cursor: inherit;
+    transition: background-color var(--x-duration-fast) var(--x-ease), border-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-checkbox:hover > input:not(:checked, :indeterminate) { border-color: var(--x-fg-4); }
+  .x-checkbox > input:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+  .x-checkbox > input:checked,
+  .x-checkbox > input:indeterminate { border-color: var(--x-accent); background: var(--x-accent); }
+
+  /* The mark: a check (or a dash when indeterminate) that pops in on the liquid spring. */
+  .x-checkbox > input::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background: var(--x-accent-fg);
+    scale: 0;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4.5 12.75 6 6 9-13.5'/%3E%3C/svg%3E") center / contain no-repeat;
+    transition: scale var(--x-spring-duration) var(--x-spring);
+  }
+  .x-checkbox > input:indeterminate::before {
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  .x-checkbox > input:checked::before,
+  .x-checkbox > input:indeterminate::before { scale: 1; }
+
+  /* A vertical group of checkboxes. */
+  .x-checkbox-group { display: grid; gap: var(--x-space-3); margin: 0; padding: 0; border: 0; }
+  .x-checkbox-group > legend { margin-bottom: var(--x-space-3); padding: 0; color: var(--x-fg-2); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); }
+}

@@ -1,0 +1,51 @@
+<!-- Message: the controller creates the top-right region and the messages. -->
+<button class="x-button" type="button" data-variant="ghost" id="delegated">Delegate</button>
+<button class="x-button" type="button" data-variant="ghost" id="saturated">Pool warning</button>
+<button class="x-button" type="button" data-variant="ghost" id="update">Plain message</button>
+
+<script type="module">
+  import { createMessenger } from "./message.controller.js";
+  const { message } = createMessenger();
+
+  document.getElementById("delegated").addEventListener("click", () =>
+    message({ tone: "success", title: "Delegation confirmed", text: "The first reward arrives in about 15 days." }),
+  );
+  document.getElementById("saturated").addEventListener("click", () =>
+    message({
+      tone: "warning",
+      title: "Pool saturated",
+      text: "XRAY Stake Pool is at 101% saturation, so rewards are reduced.",
+      action: { label: "Change pool", onClick: () => message({ tone: "info", text: "Choose a pool in Staking." }) },
+      duration: Infinity,
+    }),
+  );
+  document.getElementById("update").addEventListener("click", () =>
+    message({ title: "Wallet synced", text: "Balances are up to date." }),
+  );
+</script>
+
+<!-- Static markup of one message, for reference and server rendering:
+<section class="x-messages" popover="manual" aria-live="polite" aria-label="Messages">
+  <div class="x-message" data-tone="success" role="status">
+    <svg class="x-message-icon x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+    <div class="x-message-content">
+      <p class="x-message-title">Delegation confirmed</p>
+      <p class="x-message-text">The first reward arrives in about 15 days.</p>
+    </div>
+    <button class="x-icon-button" type="button" data-size="sm" aria-label="Dismiss">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="x-message" data-tone="warning" role="alert">
+    <svg class="x-message-icon x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/></svg>
+    <div class="x-message-content">
+      <p class="x-message-title">Pool saturated</p>
+      <p class="x-message-text">XRAY Stake Pool is at 101% saturation, so rewards are reduced.</p>
+      <div class="x-message-actions"><button class="x-button" type="button" data-variant="chip">Change pool</button></div>
+    </div>
+    <button class="x-icon-button" type="button" data-size="sm" aria-label="Dismiss">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+</section>
+-->

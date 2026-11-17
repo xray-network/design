@@ -1,12 +1,8 @@
-/** The kit version this wiki documents (kit/VERSION, injected by rspress.config.ts). */
+/** The protocol version this wiki documents (DESIGN-PROTOCOL.md's Protocol-Version, injected by rspress.config.ts). */
 export const KIT_VERSION = process.env.KIT_VERSION as string
 
-export const KIT_REPO = "https://github.com/xray-network/design.git"
-
-/** Agent prompts, always for the version this wiki documents. */
+/** Agent prompts, the same form as SPECTRE's. The latest protocol tells the agent how to install or upgrade, so their text never changes. */
 export const installationPrompt =
-  `Install XRAY/DESIGN v${KIT_VERSION}. Clone ${KIT_REPO} with --depth 1 --branch v${KIT_VERSION} into a temporary directory. ` +
-  `Check that its kit/VERSION is ${KIT_VERSION}. Copy its kit/ folder to .agents/skills/design/, then delete the temporary directory. ` +
-  `Then follow the Setup section of .agents/skills/design/SKILL.md.`
+  "Read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository."
 
-export const upgradePrompt = `Upgrade XRAY/DESIGN to v${KIT_VERSION}, following the Upgrade section of .agents/skills/design/SKILL.md.`
+export const upgradePrompt = "Read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and upgrade XRAY/DESIGN in this repository."

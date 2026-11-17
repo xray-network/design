@@ -1,0 +1,61 @@
+<!-- Table: a framed section. A link in the first cell makes the whole row clickable.
+     table.controller.js adds optional sorting; the footer holds Pagination. -->
+<section class="x-table" aria-labelledby="endpoints-title">
+  <div class="x-table-head">
+    <h3 class="x-table-title" id="endpoints-title">Endpoints</h3>
+    <p class="x-table-description">Requests in the last 30 days</p>
+  </div>
+  <div class="x-table-scroll">
+    <table>
+      <caption>Endpoints</caption>
+      <thead>
+        <tr>
+          <th scope="col">Endpoint</th>
+          <th scope="col" data-align="center">Method</th>
+          <th scope="col" data-align="end" aria-sort="descending"><button class="x-table-sort" type="button">Requests<svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v15m0 0 6.75-6.75M12 19.5l-6.75-6.75"/></svg></button></th>
+          <th scope="col" data-align="end"><button class="x-table-sort" type="button">Errors<svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v15m0 0 6.75-6.75M12 19.5l-6.75-6.75"/></svg></button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><a class="x-table-link" href="#accounts">/accounts/{address}</a></th>
+          <td data-align="center">GET</td><td data-align="end" data-value="182340">182,340</td><td data-align="end" data-value="0.2">0.2%</td>
+        </tr>
+        <tr>
+          <th scope="row"><a class="x-table-link" href="#transactions">/transactions/{hash}</a></th>
+          <td data-align="center">GET</td><td data-align="end" data-value="96115">96,115</td><td data-align="end" data-value="0.4">0.4%</td>
+        </tr>
+        <tr>
+          <th scope="row"><a class="x-table-link" href="#submit">/tx/submit</a></th>
+          <td data-align="center">POST</td><td data-align="end" data-value="12804">12,804</td><td data-align="end" data-value="1.9">1.9%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="x-table-foot">
+    <form class="x-pagination" method="get" role="navigation" aria-label="Endpoints pages">
+      <span class="x-pagination-control">
+        <a class="x-pagination-step" aria-disabled="true" aria-label="Previous page"><svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 19.5 8.25 12l7.5-7.5"/></svg></a>
+        <input class="x-pagination-input" type="number" inputmode="numeric" name="page" value="1" min="1" max="4" aria-label="Page number">
+        <a class="x-pagination-step" href="?page=2" aria-label="Next page"><svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg></a>
+      </span>
+      <span class="x-pagination-count">4 pages · 11 items</span>
+    </form>
+  </div>
+</section>
+
+<!-- Without a title, and empty -->
+<section class="x-table" aria-label="Delegations">
+  <div class="x-table-scroll">
+    <table>
+      <caption>Delegations</caption>
+      <thead><tr><th scope="col">Pool</th><th scope="col" data-align="end">Stake</th></tr></thead>
+      <tbody><tr class="x-table-empty"><td colspan="2">Not found</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+<script type="module">
+  import { initTables } from "./table.controller.js";
+  initTables();
+</script>

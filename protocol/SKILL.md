@@ -1,0 +1,179 @@
+---
+name: design
+description: XRAY/DESIGN kit. Use when building or changing UI in this project. Covers adding kit components (alert, avatar, button, checkbox, chips, dialog, field and textarea, menu, message, numeral, pagination, radio, segmented, select, switch, table, tabs, tag, toast, tooltip) and blocks (account switcher, balance, card and tile, list, option cards, send form, stats, transactions), adapting them, creating new components in the kit's style, theming, upgrading the kit, and auditing UI against the design rules. This folder is the read-only catalog; copied components are project code.
+---
+
+# XRAY/DESIGN
+
+This project uses XRAY/DESIGN, a copy-in UI kit. Nothing is installed as a dependency: components
+are copied from this folder into the project and become project code that you may adapt.
+
+This folder (`.agents/design/`) is the **catalog**. It is read-only and replaced on upgrade:
+
+| Path | What it is |
+|---|---|
+| `DESIGN-PROTOCOL.md` | The design protocol: every token in its YAML header, its `Protocol-Version` under the title, then the rules. **Read it completely before any UI work.** |
+| `CHANGELOG.md` | What changed in each version; **Breaking** entries need project changes |
+| `core/tokens.css`, `core/base.css` | Tokens and layers; optional reset |
+| `core/motion.js`, `core/motion.d.ts` | Motion helpers (liquid indicator, FLIP, springs). No dependencies |
+| `components/<id>/COMPONENT.md` | Contract: anatomy, states, accessibility, motion, invariants, safe edits, checklist. Its frontmatter lists dependencies (`requires`, `components`) and `files` |
+| `components/<id>/<id>.css` `.html` `.tsx` `.controller.js` | Styles, HTML reference, React version, vanilla controller |
+| `blocks/<id>/` | Blocks: screen sections built only from components. Same files as a component; `COMPONENT.md` lists the components it uses |
+
+Only `core/`, `components/` and `blocks/` hold code that is copied into the project; the files at the root of this folder
+(`SKILL.md`, `DESIGN-PROTOCOL.md`, `CHANGELOG.md`) never are. Never edit files in this folder. Edit the project copies under `uiRoot`.
+
+The project's **UI folder** (`uiRoot`, for example `src/ui/`) holds the copied code and a lock file,
+`<uiRoot>/design.lock.json`, that records what the project uses:
+
+```json
+{ "version": "1.0.0", "stack": "react", "base": true, "components": ["button", "numeral", "tag"], "blocks": ["balance"] }
+```
+
+The lock's location defines `uiRoot`: it is the folder that contains `design.lock.json`. Find it through the
+"UI folder" line of the Design section in `AGENTS.md`; if that is missing, search the project for `design.lock.json`.
+No lock means the kit has not been set up in this project yet: run Setup.
+
+## How copying works
+
+Copied files keep the catalog's layout under `uiRoot`, so relative imports keep working:
+
+```text
+.agents/design/core/tokens.css                 -> <uiRoot>/core/tokens.css
+.agents/design/core/motion.js                  -> <uiRoot>/core/motion.js
+.agents/design/components/menu/menu.css        -> <uiRoot>/components/menu/menu.css
+```
+
+Which files to copy for a component:
+
+- Always: its `.css`.
+- React (`stack: "react"`): its `.tsx`, plus any `.controller.js` and `.d.ts` that the `.tsx` imports.
+- HTML (`stack: "html"`): its `.controller.js`. Paste markup from `<id>.html` into pages; do not copy the file.
+- Never: `COMPONENT.md` and `<id>.html`. They stay in the catalog as the reference.
+- Dependencies first: every component in its frontmatter `components`, and `core/motion.js` (plus `core/motion.d.ts` for React)
+  when `requires` includes `motion`.
+
+Never overwrite a file that already exists under `uiRoot`. A project file is **unchanged** when it is identical to its
+catalog counterpart (`cmp -s <catalog file> <project file>`), and **modified** otherwise.
+
+## Setup (once, right after the kit is placed in `.agents/design/`)
+
+1. Detect the stack:
+   - React if `package.json` has `react` (React 19+ expected; on 18, replace `ref`-as-prop with `forwardRef`).
+   - Otherwise plain HTML/CSS.
+2. Choose the UI folder (`uiRoot`): an existing `components/ui` or `src/ui`, or ask the human if unclear. Default: `src/ui`.
+3. Copy `core/tokens.css` to `<uiRoot>/core/tokens.css`. Copy `core/base.css` too, unless the project has its own reset
+   (then copy only its focus-ring rule into the project's CSS).
+4. Load the tokens once, globally, before any component CSS:
+   - React: import `<uiRoot>/core/tokens.css` (and `core/base.css`) in the root entry or root layout.
+   - HTML: `<link rel="stylesheet">` tags for `core/tokens.css` and `core/base.css` in every page head.
+5. Connect dark mode. Kit colors follow `color-scheme`: the OS setting by default, or `data-theme="dark|light"`.
+   If the project instead switches themes with a `.dark` class (for example `classList.toggle("dark")`,
+   next-themes with `attribute="class"`, or an existing `@custom-variant dark`), add this to the main CSS, after the tokens:
+   ```css
+   .dark { color-scheme: dark; }
+   :root:not(.dark) { color-scheme: light; }
+   ```
+   In a Tailwind project, also add `@custom-variant dark (&:where(.dark, .dark *));` if it is not there yet, so
+   `dark:` utilities follow the same class. Projects that follow the OS need nothing.
+6. Write `<uiRoot>/design.lock.json` with `version` from the `Protocol-Version` line of `DESIGN-PROTOCOL.md`, `stack`, `base`, `"components": []` and `"blocks": []`.
+7. Add this section to `AGENTS.md` (create the file if it does not exist; do not duplicate the section):
+   ```markdown
+   ## Design
+
+   - Read `.agents/design/DESIGN-PROTOCOL.md` before creating or changing UI.
+   - Use the `design` skill (`.agents/design/SKILL.md`) to add, adapt, upgrade or audit components.
+   - UI folder: `<uiRoot>/` (kit components are listed in `<uiRoot>/design.lock.json`).
+   ```
+   Write the actual path in place of `<uiRoot>`. If the UI folder moves later, move the lock with it and update this line.
+8. Claude Code reads skills from `.claude/skills/`. If the project uses Claude Code, link the skill:
+   `mkdir -p .claude/skills && ln -s ../../.agents/design .claude/skills/design`.
+
+## Add a component
+
+1. Read `components/<id>/COMPONENT.md`, including its frontmatter.
+2. Copy its dependencies and then its files, following "How copying works".
+3. Add the component (and any dependency components) to `components` in the lock.
+4. Wire it in:
+   - React: import from `<uiRoot>/components/<id>/<id>` (the component imports its own CSS).
+     Match the project's conventions where cheap: path aliases, file naming, a barrel file.
+   - HTML: add a `<link>` to `<uiRoot>/components/<id>/<id>.css`. Paste markup from the catalog's `<id>.html`.
+     If there is a controller, load it with `<script type="module">` and call its init function once.
+5. Run the component's checklist.
+
+## Add a block
+
+Blocks are finished screen sections (balance, send form, transaction history) built only from components.
+
+1. Read `blocks/<id>/COMPONENT.md`. Its frontmatter `components` lists the components the block uses, and the
+   optional `blocks` lists other blocks it builds on.
+2. Add those components ("Add a component") and those blocks (this section) first, then copy the block's files the
+   same way into `<uiRoot>/blocks/<id>/`. Its imports (`../../components/<id>/<id>`, `../<block>/<block>`) then resolve.
+3. Add the block to `blocks` in the lock.
+4. Wire it in like a component (React import, or HTML link, markup and controller), then feed it real data:
+   blocks take data through props (React) or markup (HTML) and never fetch it themselves.
+5. Run the block's checklist.
+
+## Adapt a component (the human asks for a change)
+
+1. Read the component's COMPONENT.md: **Invariants** and **Safe edits**.
+2. Prefer, in order: overriding component tokens → a new `data-variant`/`data-size` → editing markup within
+   the safe edits → structural changes.
+3. If the change would break an invariant or a rule, say so and propose the closest compliant
+   option. Do it anyway only if the human confirms.
+4. If both the HTML and React versions are in use, change both the same way. State stays in attributes.
+5. Re-run the checklist (both themes, keyboard, reduced motion, phone width).
+
+## Create a new component
+
+When the kit has nothing suitable, build it in the kit's style (DESIGN-PROTOCOL.md section 14):
+semantic and component tokens, `x-<name>` classes, attribute state, `@layer components`, native
+elements first, a motion tier from the budget, both themes. Put it in `<uiRoot>/components/<name>/` with its
+own COMPONENT.md in the same format. Do not add it to the lock (the lock lists kit components only).
+A new block goes in `<uiRoot>/blocks/<name>/` and may use components and other blocks; components never use blocks.
+
+## Theme or rebrand
+
+Override semantic tokens in a project stylesheet loaded after `core/tokens.css`, never in the copied
+files. Override color tokens on `:root, [data-theme]` (the kit's own selector for them), so sections with a forced
+`data-theme` keep your values. Usually you need `--x-accent`, `--x-accent-hover`, `--x-accent-press`, `--x-accent-wash`, `--x-accent-ink` (a lighter
+shade in dark theme, for focus, links and icons; `--x-focus` and `--x-link` follow it), and optionally fonts. For a different dark palette, override the `light-dark()` pairs. Verify contrast (AA).
+
+## Status
+
+Report the lock's version and components, and for each copied file whether it is unchanged, modified
+or missing (compare with the catalog as described in "How copying works").
+
+## Upgrade the kit
+
+Only when the human asks. The latest version is the `main` branch; if the human names a version, use its tag
+(`--branch v<version>`) instead. Ask them to commit first: version control is the rollback path.
+
+1. Move the current catalog out as the merge base: `mv .agents/design <tmp>/base`.
+   (Keep the base outside `.agents/`, so no agent reads it as the installed kit.)
+2. Fetch the new kit: `git clone https://github.com/xray-network/design.git <tmp>/repo`.
+   If the `Protocol-Version` line in `<tmp>/repo/protocol/DESIGN-PROTOCOL.md` equals the lock's `version`, move the base back,
+   delete `<tmp>`, and report that the kit is already up to date. Otherwise copy `<tmp>/repo/protocol` to `.agents/design`.
+   From here on, follow the **new** SKILL.md. Read the new `CHANGELOG.md` sections after the lock's `version`;
+   apply every **Breaking** entry to the project code in step 5.
+3. For every kit file the project has under `uiRoot` (the `core/` files it copied, and each component and block in the lock):
+   - new catalog file identical to the base file → nothing to do
+   - project file identical to the base file (unchanged) → replace it with the new catalog file
+   - project file modified → 3-way merge:
+     `git merge-file -L project -L "kit <old>" -L "kit <new>" <project file> <base file> <new catalog file>`.
+     Conflicts are left marked; list them.
+   - file no longer in the new catalog → keep the project file and report it
+4. Copy any file the new version of an installed component needs that the project does not have yet.
+5. Resolve every conflict, keeping the project's intent and the kit's fixes. Re-run the checklists of changed components.
+6. Set `version` in the lock, delete `<tmp>`, and summarize what changed, using the changelog sections you read.
+
+## Audit
+
+When asked to review UI, check the code against DESIGN-PROTOCOL.md and report by section number:
+- raw colors, sizes or durations instead of tokens
+- state classes instead of attributes
+- missing focus ring, accessible name or keyboard path
+- motion outside the budget, or motion that ignores reduced motion
+- shadows, blur or decorative gradients
+- only one theme checked
+Fix them only if asked.

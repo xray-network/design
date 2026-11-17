@@ -1,0 +1,45 @@
+<!-- Select inside a field: the label names the trigger; the hidden input submits the value.
+     select.controller.js adds keyboard, type-to-find, positioning and selection. -->
+<div class="x-field">
+  <span class="x-field-label" id="network-label">Network</span>
+  <button class="x-select" type="button" popovertarget="network-list" aria-haspopup="listbox" aria-labelledby="network-label network-value">
+    <span class="x-select-value" id="network-value" data-placeholder="Select a network">Cardano Mainnet</span>
+    <svg class="x-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+  </button>
+  <div class="x-select-list" id="network-list" popover role="listbox" aria-labelledby="network-label">
+    <div class="x-select-option" role="option" data-value="mainnet" aria-selected="true" tabindex="-1">
+      <svg class="x-select-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+      <span>Cardano Mainnet</span><span class="x-select-option-note">Block 14,187,156</span>
+    </div>
+    <div class="x-select-option" role="option" data-value="preprod" aria-selected="false" tabindex="-1">
+      <svg class="x-select-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+      <span>Cardano Preprod</span><span class="x-select-option-note">Testnet</span>
+    </div>
+    <div class="x-select-option" role="option" data-value="preview" aria-selected="false" aria-disabled="true" tabindex="-1">
+      <svg class="x-select-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+      <span>Cardano Preview</span><span class="x-select-option-note">Unavailable</span>
+    </div>
+  </div>
+  <input type="hidden" name="network" value="mainnet" data-for="network-list">
+</div>
+
+<!-- Small, standalone (aria-label instead of a field label) -->
+<button class="x-select" type="button" data-size="sm" popovertarget="sort-list" aria-haspopup="listbox" aria-label="Sort by">
+  <span class="x-select-value" data-placeholder="Sort by">Value</span>
+  <svg class="x-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+</button>
+<div class="x-select-list" id="sort-list" popover role="listbox" aria-label="Sort by">
+  <div class="x-select-option" role="option" data-value="value" aria-selected="true" tabindex="-1">
+    <svg class="x-select-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+    <span>Value</span>
+  </div>
+  <div class="x-select-option" role="option" data-value="name" aria-selected="false" tabindex="-1">
+    <svg class="x-select-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+    <span>Name</span>
+  </div>
+</div>
+
+<script type="module">
+  import { initSelects } from "./select.controller.js";
+  initSelects();
+</script>

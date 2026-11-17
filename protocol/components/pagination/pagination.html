@@ -1,0 +1,41 @@
+<!-- Pagination: a GET form. Enter in the page box submits ?page=N; the arrows are links. No JS. -->
+<form class="x-pagination" method="get" role="navigation" aria-label="Transactions pages">
+  <span class="x-pagination-control">
+    <a class="x-pagination-step" href="?page=3" aria-label="Previous page">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+    </a>
+    <input class="x-pagination-input" type="number" inputmode="numeric" name="page" value="4" min="1" max="16" aria-label="Page number">
+    <a class="x-pagination-step" href="?page=5" aria-label="Next page">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+    </a>
+  </span>
+  <span class="x-pagination-count">16 pages · 312 items</span>
+</form>
+
+<!-- First page: previous is disabled -->
+<form class="x-pagination" method="get" role="navigation" aria-label="Assets pages">
+  <span class="x-pagination-control">
+    <a class="x-pagination-step" aria-disabled="true" aria-label="Previous page">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+    </a>
+    <input class="x-pagination-input" type="number" inputmode="numeric" name="page" value="1" min="1" max="3" aria-label="Page number">
+    <a class="x-pagination-step" href="?page=2" aria-label="Next page">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+    </a>
+  </span>
+  <span class="x-pagination-count">3 pages · 52 items</span>
+</form>
+
+<!-- Cursor paging (no total): neighbours only; the page box is read-only -->
+<nav class="x-pagination" aria-label="Events pages">
+  <span class="x-pagination-control">
+    <a class="x-pagination-step" href="?before=8f2c" aria-label="Previous page">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+    </a>
+    <input class="x-pagination-input" type="number" value="7" aria-label="Page number" disabled>
+    <a class="x-pagination-step" href="?after=91aa" aria-label="Next page">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+    </a>
+  </span>
+  <span class="x-pagination-count">Page 7</span>
+</nav>

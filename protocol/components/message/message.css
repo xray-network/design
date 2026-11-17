@@ -1,0 +1,71 @@
+/* Message: a notification card in the top-right corner that the user can dismiss.
+   Requires core/tokens.css and button. The region is a manual popover so messages show above dialogs. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-messages {
+    /* Reset popover UA styles. */
+    position: fixed;
+    inset: var(--x-space-4) var(--x-space-4) auto auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    overflow: visible;
+
+    z-index: var(--x-z-toast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--x-space-2);
+    width: 360px;
+    max-width: calc(100vw - var(--x-space-8));
+    pointer-events: none;
+  }
+
+  .x-message {
+    --x-message-tone: var(--x-fg-3);
+    --x-message-enter-x: 32px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: var(--x-space-3);
+    padding: var(--x-space-3-5) var(--x-space-3) var(--x-space-3-5) var(--x-space-4);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-2xl);
+    background: var(--x-bg-panel);
+    color: var(--x-fg-2);
+    font: var(--x-weight-body) var(--x-text-sm) / var(--x-leading-body) var(--x-font-sans);
+    pointer-events: auto;
+    transition:
+      opacity var(--x-duration-base) var(--x-ease),
+      translate var(--x-spring-duration) var(--x-spring),
+      scale var(--x-spring-duration) var(--x-spring);
+  }
+  @starting-style {
+    .x-message { opacity: 0; translate: var(--x-message-enter-x) 0; scale: 0.98; }
+  }
+  .x-message[data-state="closing"] {
+    opacity: 0;
+    translate: var(--x-message-enter-x) 0;
+    transition:
+      opacity var(--x-duration-base) var(--x-ease),
+      translate var(--x-duration-base) var(--x-ease);
+  }
+  .x-message[data-tone="info"] { --x-message-tone: var(--x-accent-ink); }
+  .x-message[data-tone="success"] { --x-message-tone: var(--x-success); }
+  .x-message[data-tone="warning"] { --x-message-tone: var(--x-warning); }
+  .x-message[data-tone="danger"] { --x-message-tone: var(--x-danger); }
+
+  .x-message-icon { flex: none; width: 20px; height: 20px; color: var(--x-message-tone); }
+  .x-message-content { display: grid; flex: 1; gap: var(--x-space-0-5); min-width: 0; padding-top: 1px; }
+  .x-message-title { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); }
+  .x-message-text { margin: 0; color: var(--x-fg-2); }
+  .x-message-actions { display: flex; flex-wrap: wrap; gap: var(--x-space-2); margin-top: var(--x-space-2); }
+  .x-message > .x-icon-button { margin: -3px 0; }
+
+  /* Phones: full width under the top edge. */
+  @media (max-width: 560px) {
+    .x-messages { inset: var(--x-space-3) var(--x-space-3) auto; width: auto; max-width: none; }
+  }
+}

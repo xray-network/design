@@ -1,0 +1,135 @@
+/* Select: a custom single-choice dropdown. A trigger that looks like the input, and a listbox popover.
+   Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-select {
+    --x-select-height: var(--x-size-xl);
+    --x-select-radius: var(--x-radius-lg);
+    --x-select-pad: var(--x-space-4);
+    --x-select-font-size: var(--x-text-md);
+    --x-select-border: var(--x-border);
+
+    display: flex;
+    align-items: center;
+    gap: var(--x-space-2-5);
+    width: 100%;
+    min-width: 0;
+    height: var(--x-select-height);
+    padding: 0 var(--x-space-3) 0 var(--x-select-pad);
+    border: 1px solid var(--x-select-border);
+    border-radius: var(--x-select-radius);
+    background: none;
+    color: var(--x-fg-1);
+    font: var(--x-weight-body) var(--x-select-font-size) / 1 var(--x-font-sans);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-select:hover { --x-select-border: var(--x-border-hover); }
+  /* Focus shows as the border, like the text input. !important inside the layer also beats unlayered host
+     focus styles, so no second ring appears around it. */
+  .x-select:focus-visible { outline: none !important; --x-select-border: var(--x-focus); }
+  .x-select[aria-expanded="true"] { --x-select-border: var(--x-focus); }
+  .x-select[aria-invalid="true"] { --x-select-border: var(--x-danger); }
+  .x-select:disabled,
+  .x-select[aria-disabled="true"] { opacity: 0.4; cursor: default; pointer-events: none; }
+
+  .x-select-value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .x-select-value:empty::before { content: attr(data-placeholder); color: var(--x-fg-4); }
+  .x-select-chevron {
+    flex: none;
+    width: var(--x-icon-md);
+    height: var(--x-icon-md);
+    color: var(--x-fg-3);
+    transition: rotate var(--x-spring-duration) var(--x-spring);
+  }
+  .x-select[aria-expanded="true"] .x-select-chevron { rotate: 180deg; }
+
+  .x-select[data-size="sm"] { --x-select-height: var(--x-size-md); --x-select-radius: var(--x-radius-md); --x-select-pad: var(--x-space-3-5); --x-select-font-size: var(--x-text-sm); }
+
+  /* ---- Listbox: a popover in the top layer, at least as wide as the trigger */
+  .x-select-list {
+    position: fixed;
+    inset: auto;
+    margin: 0;
+    max-width: calc(100vw - var(--x-space-4));
+    max-height: min(320px, calc(100dvh - var(--x-space-8)));
+    padding: var(--x-space-1-5);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-xl);
+    background: var(--x-bg-panel);
+    color: var(--x-fg-2);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--x-border) transparent;
+    transform-origin: var(--x-select-origin, top center);
+
+    opacity: 0;
+    scale: 0.98;
+    translate: 0 -4px;
+    transition:
+      opacity var(--x-duration-fast) var(--x-ease),
+      scale var(--x-duration-fast) var(--x-ease),
+      translate var(--x-duration-fast) var(--x-ease),
+      overlay var(--x-duration-fast) allow-discrete,
+      display var(--x-duration-fast) allow-discrete;
+  }
+  .x-select-list:popover-open {
+    will-change: opacity, scale, translate; /* stays on its own layer while open: no redraw when the animation ends or on hover */
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+    transition:
+      opacity var(--x-duration-fast) var(--x-ease),
+      scale var(--x-spring-duration) var(--x-spring),
+      translate var(--x-spring-duration) var(--x-spring),
+      overlay var(--x-duration-fast) allow-discrete,
+      display var(--x-duration-fast) allow-discrete;
+  }
+  @starting-style {
+    .x-select-list:popover-open { opacity: 0; scale: 0.98; translate: 0 -4px; }
+  }
+  @supports (position-area: block-end) {
+    .x-select-list[data-anchored] {
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-block;
+      margin-block-start: var(--x-space-1-5);
+      min-width: anchor-size(width);
+    }
+  }
+
+  .x-select-option {
+    display: flex;
+    align-items: center;
+    gap: var(--x-space-2-5);
+    min-height: 36px;
+    padding: var(--x-space-2) var(--x-space-2-5);
+    border-radius: var(--x-radius-sm);
+    color: var(--x-fg-2);
+    font-size: var(--x-text-md);
+    cursor: pointer;
+    outline: none;
+    transition: background-color var(--x-duration-fast) var(--x-ease), color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-select-option > span { flex: 1; min-width: 0; }
+  .x-select-option-note { flex: none; color: var(--x-fg-3); font-size: var(--x-text-xs); }
+  .x-select-option:hover,
+  .x-select-option:focus-visible,
+  .x-select-option:focus { background: var(--x-bg-soft); color: var(--x-fg-1); }
+  .x-select-option[aria-selected="true"] { color: var(--x-fg-1); font-weight: var(--x-weight-label); }
+  .x-select-option[aria-disabled="true"] { opacity: 0.4; cursor: default; background: none; }
+
+  /* Check mark on the selected option; it pops in on the liquid spring. */
+  .x-select-check {
+    flex: none;
+    width: var(--x-icon-md);
+    height: var(--x-icon-md);
+    color: var(--x-accent-ink);
+    scale: 0;
+    transition: scale var(--x-spring-duration) var(--x-spring);
+  }
+  .x-select-option[aria-selected="true"] .x-select-check { scale: 1; }
+}

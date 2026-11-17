@@ -1,0 +1,14 @@
+<!-- Tooltip naming an icon button: the text repeats the aria-label, so it is aria-hidden. -->
+<button class="x-icon-button" type="button" aria-label="Copy address" data-x-tooltip="tip-copy">
+  <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 0 0-2.25 2.25v6"/></svg>
+</button>
+<div class="x-tooltip" id="tip-copy" popover="manual" aria-hidden="true">Copy address</div>
+
+<!-- Tooltip adding information: linked with aria-describedby and role="tooltip" -->
+<span tabindex="0" aria-describedby="tip-epoch" data-x-tooltip="tip-epoch">Epoch 667</span>
+<div class="x-tooltip" id="tip-epoch" popover="manual" role="tooltip">Ends in 4d 07h 06m</div>
+
+<script type="module">
+  import { initTooltips } from "./tooltip.controller.js";
+  initTooltips();
+</script>

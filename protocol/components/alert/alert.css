@@ -1,0 +1,37 @@
+/* Alert: a message inside the content (above a form, at the top of a page section) that can be dismissed.
+   Requires core/tokens.css and button (for the dismiss icon button and actions). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-alert {
+    --x-alert-tone: var(--x-fg-3);
+
+    display: flex;
+    align-items: flex-start;
+    gap: var(--x-space-3);
+    padding: var(--x-space-3-5) var(--x-space-3) var(--x-space-3-5) var(--x-space-4);
+    /* The tint is stronger in dark theme: a few percent of a color barely shows on black. */
+    border: 1px solid light-dark(
+      color-mix(in oklab, var(--x-alert-tone) 30%, var(--x-border)),
+      color-mix(in oklab, var(--x-alert-tone) 40%, var(--x-border)));
+    border-radius: var(--x-radius-2xl);
+    background: light-dark(
+      color-mix(in oklab, var(--x-alert-tone) 8%, var(--x-bg)),
+      color-mix(in oklab, var(--x-alert-tone) 22%, var(--x-bg)));
+    color: var(--x-fg-2);
+    font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans);
+    overflow: hidden;
+  }
+  .x-alert[data-tone="info"] { --x-alert-tone: var(--x-accent-ink); }
+  .x-alert[data-tone="success"] { --x-alert-tone: var(--x-success); }
+  .x-alert[data-tone="warning"] { --x-alert-tone: var(--x-warning); }
+  .x-alert[data-tone="danger"] { --x-alert-tone: var(--x-danger); }
+
+  .x-alert-icon { flex: none; width: 20px; height: 20px; margin-top: 1px; color: var(--x-alert-tone); }
+  .x-alert-content { display: grid; flex: 1; gap: var(--x-space-1); min-width: 0; padding-top: 1px; }
+  .x-alert-title { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); }
+  .x-alert-text { margin: 0; color: var(--x-fg-2); font-size: var(--x-text-sm); }
+  .x-alert-actions { display: flex; flex-wrap: wrap; gap: var(--x-space-2); margin-top: var(--x-space-2); }
+  .x-alert > .x-icon-button { margin: -3px 0; }
+}

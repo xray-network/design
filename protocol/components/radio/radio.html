@@ -1,0 +1,19 @@
+<!-- Radio: native inputs with one name per group. No JS. -->
+<fieldset class="x-radio-group">
+  <legend>Currency</legend>
+  <label class="x-radio"><input type="radio" name="currency" value="usd" checked><span class="x-radio-text">US dollar</span></label>
+  <label class="x-radio"><input type="radio" name="currency" value="eur"><span class="x-radio-text">Euro</span></label>
+  <label class="x-radio">
+    <input type="radio" name="currency" value="ada">
+    <span class="x-radio-text">ADA<span class="x-radio-description">Show balances in the native asset</span></span>
+  </label>
+  <label class="x-radio"><input type="radio" name="currency" value="btc" disabled><span class="x-radio-text">Bitcoin</span></label>
+</fieldset>
+
+<!-- In a row -->
+<fieldset class="x-radio-group" data-direction="row">
+  <legend>Theme</legend>
+  <label class="x-radio"><input type="radio" name="theme" value="system" checked><span class="x-radio-text">System</span></label>
+  <label class="x-radio"><input type="radio" name="theme" value="light"><span class="x-radio-text">Light</span></label>
+  <label class="x-radio"><input type="radio" name="theme" value="dark"><span class="x-radio-text">Dark</span></label>
+</fieldset>

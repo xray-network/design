@@ -10,47 +10,51 @@ components into a project, where they become project code it can adapt.
   any subtree. Rebrand by overriding about five variables.
 - **Liquid motion with a budget:** spring easings as CSS `linear()` curves, used only where things
   physically move. No runtime motion library; reduced motion collapses every duration token.
-- **Agent-native:** `RULES.md` (the design rules), a `COMPONENT.md` contract per component, and a
+- **Agent-native:** `DESIGN-PROTOCOL.md` (the version, every token and the design rules), a `COMPONENT.md` contract per component, and a
   skill that adds, adapts, upgrades (3-way merge) and audits components.
 
 Docs and live playground: https://wiki.xraynetwork.io/design/
 
 ## Install into a project
 
-The `kit/` folder is installed exactly as it is in this repository: no build, no package. Give
-your agent this prompt (replace the version with the release you want):
+The `protocol/` folder is installed exactly as it is in this repository: no build, no package. Give
+your agent this prompt:
 
-> Install XRAY/DESIGN v0.1.0. Clone `https://github.com/xray-network/design.git` with `--depth 1 --branch v0.1.0`
-> into a temporary directory. Check that its `kit/VERSION` is 0.1.0. Copy its `kit/` folder to
-> `.agents/skills/design/`, then delete the temporary directory. Then follow the Setup section of
-> `.agents/skills/design/SKILL.md`.
+> Read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository.
 
-The wiki's Installation page always shows this prompt for the current version, with upgrade steps and requirements.
+The protocol's Installation section tells the agent the rest: clone this repository, copy `protocol/` to
+`.agents/design/`, and run the Setup section of `SKILL.md`. It installs the latest protocol and kit from `main`. The wiki's Installation page has the same prompt, plus upgrade steps
+and requirements.
 
 ## Repository layout
 
 ```text
-kit/                      the kit; installed as-is to <project>/.agents/skills/design/
+protocol/                 the protocol and kit; installed as-is to <project>/.agents/design/
 ├── SKILL.md              agent skill: setup, add, adapt, create, theme, upgrade, audit
-├── RULES.md              design rules
-├── VERSION               kit version (plain semver)
+├── DESIGN-PROTOCOL.md    the design protocol: tokens in its YAML header, Protocol-ID and -Version, then the rules
+├── CHANGELOG.md          what changed in each version (shown on the wiki's Releases page)
 ├── core/                 shared code every component builds on
 │   ├── tokens.css        tokens and cascade layers
 │   ├── base.css          optional reset, focus ring, utilities
-│   ├── tailwind.css      optional Tailwind v4 bridge
 │   └── motion.js (+ .d.ts)  spring() -> linear(), trackIndicator, createFlip
-└── components/<id>/      COMPONENT.md, <id>.css, <id>.html, [<id>.controller.js], <id>.tsx
+├── components/<id>/      primitives: COMPONENT.md, <id>.css, <id>.html, [<id>.controller.js], <id>.tsx
+└── blocks/<id>/          screen sections built from components (and other blocks); same files
 wiki/                     docs and live playground (Rspress), deployed with every release
-├── src/pages/            overview (home), installation, rules and one page per component
+├── src/pages/            overview (home), installation, protocol, tokens and one page per component
 ├── src/demos/            live demos: React and HTML versions, reduced-motion toggle, HTML source
-└── scripts/check-kit.mjs the one kit check; runs before every wiki build
+└── scripts/check-protocol.mjs  the one check; runs before every wiki build
 ```
 
-Components in 0.1.0 (15): `button` (+ icon button), `tabs`, `segmented`, `chips`, `switch`, `option`
-(option cards), `field` (+ input), `list`, `card` (+ tile), `numeral`, `avatar`, `tag` (+ status, delta),
-`dialog`, `menu`, `toast`. Their look and markup follow the XRAY app (new UI v6).
+Components in 1.0.0 (20): `alert`, `avatar`, `button` (+ icon button), `checkbox`, `chips`, `dialog`,
+`field` (+ input, textarea), `menu`, `message`, `numeral`, `pagination`, `radio`, `segmented`, `select`, `switch`,
+`table`, `tabs`, `tag` (+ status, delta), `toast`, `tooltip`.
 
-Everything in `kit/` reaches users, so it holds only kit files: no tests, demos or tooling. Documents sit at
+Blocks in 1.0.0 (8): `account-switcher`, `balance`, `card` (+ tile), `list`, `option` (option cards), `send-form`, `stats`,
+`transactions`.
+
+Their look and markup follow the XRAY app (new UI v6).
+
+Everything in `protocol/` reaches users, so it holds only kit files: no tests, demos or tooling. Documents sit at
 its root; `core/` and `components/` hold the code that agents copy into projects.
 
 ## Development
@@ -61,33 +65,47 @@ All tooling lives in the wiki:
 cd wiki
 npm install
 npm run dev         # wiki + playground at http://localhost:10009/design/
-npm run check:kit   # validate kit/ and HTML <-> React parity
+npm run check:protocol   # validate protocol/ and HTML <-> React parity
 npm run typecheck   # type-checks the wiki and every kit component
-npm run build       # runs check:kit first
+npm run build       # runs check:protocol first
 ```
 
-The wiki imports components, `RULES.md` and each `COMPONENT.md` straight from `kit/`, so edits there
+The wiki imports components, `DESIGN-PROTOCOL.md` and each `COMPONENT.md` straight from `protocol/`, so edits there
 hot-reload in the running wiki.
 
-`check:kit` fails on raw colors, hard-coded durations, shadows or blur in component CSS, undefined
+`check:protocol` fails on raw colors, hard-coded durations, shadows or blur in component CSS, undefined
 tokens, imports that leave the kit, missing `"use client"`, missing types for controllers that React
-imports, COMPONENT.md metadata that does not match the files, stray files in `kit/`, and markup the
+imports, COMPONENT.md metadata that does not match the files, stray files in `protocol/`, and markup the
 React version renders that the HTML reference never shows.
 
-## Adding a component to the kit
+## Adding a component or block to the kit
 
-1. `kit/components/<id>/` with `COMPONENT.md` (frontmatter: id, name, summary, motion tier,
-   requires, components, files), `<id>.css` in `@layer x.components`, `<id>.html`, and `<id>.tsx`.
+1. `protocol/components/<id>/` (or `protocol/blocks/<id>/` for a block) with `COMPONENT.md` (frontmatter: id, name, summary, motion tier,
+   requires, components, files), `<id>.css` in `@layer components`, `<id>.html`, and `<id>.tsx`.
 2. A React example in `wiki/scripts/parity.tsx`.
-3. A demo in `wiki/src/demos/demos.tsx`, a page `wiki/src/pages/components/<id>.mdx`, and an entry with an
-   icon in `wiki/src/navigation.ts`.
-4. `npm run check:kit` and `npm run typecheck` in `wiki/`.
+3. A demo in `wiki/src/demos/demos.tsx` (blocks: `blocks.tsx`), a page in `wiki/src/pages/components/` (blocks:
+   `wiki/src/pages/blocks/`), and an entry with an icon in `wiki/src/navigation.ts`.
+4. A line in `protocol/CHANGELOG.md` (step below).
+5. `npm run check:protocol` and `npm run typecheck` in `wiki/`.
+
+## Changelog
+
+Every change to `protocol/` adds a line to the top section of `protocol/CHANGELOG.md`, under **Added**, **Changed**, **Fixed**
+or **Breaking**. Breaking entries say what a project has to change; agents apply them during an upgrade. The wiki's
+Releases page renders this file.
 
 ## Releasing
 
-1. Bump `kit/VERSION` and run the checks.
-2. Commit and tag the commit `v<version>`. The tag is what the install prompt clones.
-3. Deploy the wiki: `npm run deploy` in `wiki/` (it shows the new version and updates the prompts).
+`main` is the release: the install and upgrade prompts clone it, so everything merged into `protocol/` reaches new
+installs immediately. Keep `main` shippable.
+
+1. Bump the `Protocol-Version` line in `protocol/DESIGN-PROTOCOL.md` and `version` in `wiki/package.json` (the wiki
+   header shows it). Give the new version its `## <version>` section at the top of `protocol/CHANGELOG.md`.
+2. Run the checks. They fail when the version has no changelog section, `wiki/package.json` names another version,
+   or a token differs from `core/tokens.css`.
+3. Commit to `main` and tag the commit `v<version>`. The tag lets people pin that exact version.
+4. Deploy the wiki: `npm run deploy` in `wiki/`. It publishes the latest protocol at
+   `/design/DESIGN-PROTOCOL.md`; earlier versions are not kept (the git tags have them).
 
 ## License
 

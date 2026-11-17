@@ -1,0 +1,37 @@
+/* Tooltip: a short label for a control, on hover and keyboard focus. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-tooltip {
+    /* Reset popover UA styles. */
+    position: fixed;
+    inset: auto;
+    margin: 0;
+
+    max-width: min(280px, calc(100vw - var(--x-space-4)));
+    padding: var(--x-space-1-5) var(--x-space-2-5);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-sm);
+    background: var(--x-bg-panel);
+    color: var(--x-fg-1);
+    font: var(--x-weight-label) var(--x-text-xs) / 1.4 var(--x-font-sans);
+    font-variant-numeric: tabular-nums; /* live values (countdowns) keep their width */
+    pointer-events: none;
+    overflow: visible;
+
+    opacity: 0;
+    translate: 0 var(--x-tooltip-shift, 2px);
+    transition:
+      opacity var(--x-duration-fast) var(--x-ease),
+      translate var(--x-duration-fast) var(--x-ease),
+      overlay var(--x-duration-fast) allow-discrete,
+      display var(--x-duration-fast) allow-discrete;
+  }
+  .x-tooltip:popover-open { opacity: 1; translate: 0 0; will-change: opacity, translate; }
+  @starting-style {
+    .x-tooltip:popover-open { opacity: 0; translate: 0 var(--x-tooltip-shift, 2px); }
+  }
+  /* Below the trigger, it enters from above instead. */
+  .x-tooltip[data-side="bottom"] { --x-tooltip-shift: -2px; }
+}

@@ -1,0 +1,50 @@
+<!-- Send form: Field, Option cards and Button. send-form.controller.js adds Max, the live total and the
+     over-balance error; without it the form still submits. -->
+<form class="x-send-form" data-available="12480.254221" data-ticker="ADA">
+  <div class="x-field">
+    <label class="x-field-label" for="send-to">Recipient</label>
+    <div class="x-input x-send-form-address">
+      <input id="send-to" name="to" type="text" placeholder="Address or $handle" autocomplete="off" spellcheck="false" required>
+    </div>
+  </div>
+
+  <div class="x-field">
+    <label class="x-field-label" for="send-amount">Amount</label>
+    <div class="x-input" data-size="lg">
+      <input id="send-amount" name="amount" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off" required data-x-amount aria-describedby="send-amount-hint">
+      <button class="x-button" type="button" data-variant="chip" data-x-max>Max</button>
+      <span class="x-input-affix">ADA</span>
+    </div>
+    <p class="x-field-hint" id="send-amount-hint">12,480.25 ADA available</p>
+  </div>
+
+  <div class="x-field">
+    <span class="x-field-label" id="send-fee-label">Network fee</span>
+    <div class="x-options" role="radiogroup" aria-labelledby="send-fee-label">
+      <label class="x-option">
+        <input type="radio" name="fee" value="slow" data-fee="0.12">
+        <span class="x-option-title">Slow</span><span>About 5 min</span><span class="x-option-value">0.12 ADA</span>
+      </label>
+      <label class="x-option">
+        <input type="radio" name="fee" value="standard" data-fee="0.17" checked>
+        <span class="x-option-title">Standard</span><span>About 20 s</span><span class="x-option-value">0.17 ADA</span>
+      </label>
+      <label class="x-option">
+        <input type="radio" name="fee" value="fast" data-fee="0.42">
+        <span class="x-option-title">Fast</span><span>About 5 s</span><span class="x-option-value">0.42 ADA</span>
+      </label>
+    </div>
+  </div>
+
+  <dl class="x-send-form-summary">
+    <div><dt>Network fee</dt><dd data-x-fee>0.17 ADA</dd></div>
+    <div><dt>Total</dt><dd><b data-x-total>0.17 ADA</b></dd></div>
+  </dl>
+
+  <button class="x-button" type="submit" data-size="lg" data-width="full">Review transaction</button>
+</form>
+
+<script type="module">
+  import { initSendForms } from "./send-form.controller.js";
+  initSendForms();
+</script>
