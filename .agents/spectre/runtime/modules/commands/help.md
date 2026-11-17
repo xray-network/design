@@ -1,6 +1,6 @@
 <!-- Generated from SPECTRE-PROTOCOL.md; do not edit. -->
-Runtime-Version: 1.0.0
-Source-SHA256: fde9185b15eff04d2b0e301a91c8dffbb9f633b6a8b76fc5064ff6d67057d590
+Protocol-Version: 1.0.0
+Source-SHA256: 8aa83ba3ac50feb3cc7a4e25c1a945fc25695fa146bbf4d246abb407ba3c9aad
 
 | Syntax | Operation and stopping boundary |
 | --- | --- |
@@ -22,7 +22,7 @@ Source-SHA256: fde9185b15eff04d2b0e301a91c8dffbb9f633b6a8b76fc5064ff6d67057d590
 | `/spectre target retire <target>: <reason>` | Retire an existing target with no live rows; retain its identity, last path, and history. |
 | `/spectre target reactivate <target>: <path>` | Reactivate the same logical target at an existing path; continue its original sequence. |
 | `/spectre capture <provider>` | Discover, compare, validate and publish a numbered baseline/update when needed; no change creates no tracked writes. |
-| `/spectre upgrade <version>` | Explicitly migrate this installation to a verified named release using §14: replace generated files and migrate the live ledger and live records; archives and captures keep their bytes. Archive first to keep terminal records as written. Never upgrade from a moving mirror implicitly. |
+| `/spectre upgrade` | Explicitly bring this installation to the latest protocol using §14: replace generated files and rewrite the live ledger, live records and provider files to the current formats as one human-ordered override. Archives are not touched. Standalone only. |
 | `/spectre override <scope>: <changes> because <reason>` | Apply an exceptional human-ordered SPECTRE change, update affected live references, and record an informational override log. Standalone only. |
 | `/spectre host add <host> [<host>...]` | Add only named host adapters and report their invocation/reload requirements. Standalone setup. |
 | `/spectre host remove <host> [<host>...]` | Remove only named SPECTRE host adapters. Standalone setup. |
