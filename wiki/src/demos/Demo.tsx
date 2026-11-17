@@ -64,7 +64,7 @@ export function Demo({ id, name, kind = "component", children }: Omit<DemoEntry,
   return (
     <div className="wiki-demo rp-not-doc" data-motion={reduce ? "reduce" : undefined}>
       <div className="wiki-demo-bar">
-        <span className="wiki-demo-label">Preview</span>
+        <h2 className="wiki-demo-prompt-title">Preview</h2>
         <Switch size="sm" checked={reduce} onChange={(event) => setReduce(event.target.checked)}>Reduce motion</Switch>
       </div>
       <div className="wiki-demo-stage">{children}</div>
