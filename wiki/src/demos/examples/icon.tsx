@@ -1,6 +1,6 @@
 import { Icon } from "@protocol/components/icon/icon"
 import { bell, envelope, paperAirplane, wallet } from "@protocol/components/icon/icons.js"
-import { github, telegram, x } from "@protocol/components/icon/brands.js"
+import { github, telegram, x } from "@protocol/components/icon/socials.js"
 import { Button, IconButton } from "@protocol/components/button/button"
 import { Row } from "../Demo"
 

@@ -31,7 +31,7 @@ import { Messages } from "../../protocol/components/message/message";
 import { Stats } from "../../protocol/blocks/stats/stats";
 import { Icon } from "../../protocol/components/icon/icon";
 import { bell, envelope } from "../../protocol/components/icon/icons.js";
-import { github } from "../../protocol/components/icon/brands.js";
+import { github } from "../../protocol/components/icon/socials.js";
 
 const icon = <svg className="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v15" /></svg>;
 const noop = () => {};

@@ -50,7 +50,7 @@ wiki/                     docs and live playground (Rspress), deployed with ever
 ```
 
 Components in 1.0.0 (21): `alert`, `avatar`, `button` (+ icon button), `checkbox`, `chips`, `dialog` (Modal),
-`field` (+ input, textarea), `icon` (interface icons and brand marks), `menu`, `message`, `numeral`, `pagination`, `radio`, `segmented`, `select`, `switch`,
+`field` (+ input, textarea), `icon` (interface, social and crypto icons), `menu`, `message`, `numeral`, `pagination`, `radio`, `segmented`, `select`, `switch`,
 `table`, `tabs`, `tag` (+ status, delta), `toast`, `tooltip`.
 
 Blocks in 1.0.0 (8): `account-switcher`, `balance`, `card` (+ tile), `list`, `option` (option cards), `send-form`, `stats`,

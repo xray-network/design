@@ -4,21 +4,35 @@
 .wiki-icons-bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2); margin-bottom: var(--x-space-4); }
 .wiki-icons-bar > .x-input { flex: 1 1 220px; }
 
+.wiki-icons-section + .wiki-icons-section { margin-top: var(--x-space-10); }
+.wiki-icons-title {
+  margin: 0 0 var(--x-space-3);
+  color: var(--x-fg-1);
+  font-size: 18px;
+  font-weight: 700;
+}
+.wiki-icons-title > span { margin-left: var(--x-space-1-5); color: var(--x-fg-4); font-weight: 500; }
+
 .wiki-icons-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--x-space-2);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .wiki-icons-grid > li { margin: 0; }
+/* The preview size is set on the grid; icons take it instead of their own default. */
+.wiki-icons-grid .x-icon { --x-icon-size: inherit; }
 
 .wiki-icons-item {
   display: grid;
   justify-items: center;
   gap: var(--x-space-2-5);
   width: 100%;
+  /* A fixed icon box, so switching the size changes the icon, not the card. */
+  grid-template-rows: 32px auto;
+  align-items: center;
   padding: var(--x-space-5) var(--x-space-2) var(--x-space-3);
   border: 1px solid var(--x-border);
   border-radius: var(--x-radius-xl);
@@ -38,3 +52,10 @@
   white-space: nowrap;
 }
 .wiki-icons-empty { color: var(--x-fg-3); }
+
+@media (max-width: 900px) {
+  .wiki-icons-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .wiki-icons-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

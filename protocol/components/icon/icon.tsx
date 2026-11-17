@@ -5,7 +5,7 @@ import "./icon.css";
 export type { IconData };
 
 export type IconProps = Omit<SVGProps<SVGSVGElement>, "children" | "dangerouslySetInnerHTML"> & {
-  /** An icon from ./icons.js or ./brands.js: import { bell } from "./icons.js". */
+  /** An icon from ./icons.js, ./socials.js or ./crypto.js: import { bell } from "./icons.js". */
   icon: IconData;
   /** sm 14, md 16, lg 18 (default). For another size set --x-icon-size. */
   size?: "sm" | "md" | "lg";

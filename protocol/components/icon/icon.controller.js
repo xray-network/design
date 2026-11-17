@@ -1,12 +1,13 @@
 import * as outline from "./icons.js";
-import * as brands from "./brands.js";
+import * as socials from "./socials.js";
+import * as crypto from "./crypto.js";
 
 /**
  * Icons by name, for HTML pages and tools that look icons up at runtime. React components import icons
  * directly instead (import { bell } from "./icons.js"), so a bundler keeps only the ones they use.
  */
 const registry = new Map();
-for (const icon of [...Object.values(outline), ...Object.values(brands)]) registry.set(icon.name, icon);
+for (const icon of [...Object.values(outline), ...Object.values(socials), ...Object.values(crypto)]) registry.set(icon.name, icon);
 
 /** Adds project icons ({ name, body } with a 24×24 body; brand: true for filled marks). A name already taken is replaced. */
 export function registerIcons(icons) {
@@ -18,7 +19,7 @@ export function getIcon(name) {
   return registry.get(name);
 }
 
-/** Every registered icon: the interface set first, then brands, then project icons. */
+/** Every registered icon: interface icons, socials, crypto, then project icons. */
 export function allIcons() {
   return [...registry.values()];
 }

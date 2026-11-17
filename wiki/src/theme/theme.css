@@ -279,7 +279,7 @@ html .rp-sidebar-item--active:hover {
   font-weight: 700;
 }
 
-/* The kit version sits immediately before the search box. */
+/* The kit version: plain text just before the search box, on every screen size. */
 html .wiki-version {
   flex: none;
   color: var(--xr-fg-secondary);
@@ -287,6 +287,7 @@ html .wiki-version {
   letter-spacing: .02em;
   white-space: nowrap;
 }
+
 
 html .rp-sidebar-menu,
 html .rp-doc-layout__outline {
@@ -1198,4 +1199,42 @@ html .rp-suggest-item--current .rp-suggest-item__link { background-color: var(--
   .spectre-home:not(.wiki-placeholder):not(.wiki-directory) .spectre-hero-grid {
     padding-block: 56px 48px;
   }
+}
+
+/* Previous / next arrows on the right of the page title (PageArrows). The title keeps clear of them. */
+html .rp-doc-layout__doc-container {
+  position: relative;
+}
+
+html .wiki-page-arrows {
+  position: absolute;
+  top: 66px; /* centered on the title's first line */
+  right: var(--rp-content-padding-x, 0px); /* flush with the content's right edge, not the container's */
+  z-index: 1;
+  display: flex;
+  gap: 6px;
+}
+
+html .wiki-page-arrow {
+  display: flex;
+}
+
+/* Bordered ghost buttons, wider than tall: easier to hit. */
+html .wiki-page-arrow .x-button {
+  width: 48px;
+  padding: 0;
+  text-decoration: none;
+}
+
+html .wiki-page-arrow[data-disabled] {
+  opacity: .35;
+  pointer-events: none;
+}
+html .rp-doc-layout__doc-container:has(.wiki-page-arrows) .rp-doc > h1:first-child {
+  padding-right: 116px;
+}
+
+/* Not on pages with a hero instead of a title. */
+html .rp-doc-layout__doc-container:has(.spectre-home) .wiki-page-arrows {
+  display: none;
 }

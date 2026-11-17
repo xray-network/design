@@ -6,6 +6,7 @@ import { Layout as BasicLayout, Link as DefaultLink, type LinkProps } from "@rsp
 import { Toaster } from "@protocol/components/toast/toast"
 import { Messages } from "@protocol/components/message/message"
 import pkg from "../../package.json"
+import { PageArrows } from "./PageArrows"
 
 // Each wiki is an independent app. Cross-wiki links must load its own router.
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) =>
@@ -22,6 +23,8 @@ Link.displayName = "Link"
 export const Layout = () =>
   createElement(BasicLayout, {
     beforeNavMenu: pkg.version ? createElement("span", { className: "wiki-version" }, `v${pkg.version}`) : null,
+    // Previous / next arrows on the right of the page title.
+    beforeDocContent: createElement(PageArrows),
     bottom: createElement(Fragment, null, createElement(Toaster), createElement(Messages)),
   })
 
