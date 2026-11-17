@@ -1,7 +1,8 @@
 # Changelog
 
 What changed in each kit version. Newest first. Agents read this file when they upgrade a project's kit:
-entries under **Breaking** need a change in project code; everything else arrives through the 3-way merge.
+entries under **Breaking** need a change in project code. Web copies use a 3-way merge; native
+implementations review source contracts/tokens and apply changes in their own framework.
 
 Versions follow semver, read for a copy-in kit:
 
@@ -16,6 +17,9 @@ The first version.
 
 ### Added
 
+- **Native GUI guidance:** a platform-adaptation contract and skill workflow for SwiftUI, UIKit/AppKit,
+  JavaFX, Android and other GUI frameworks. Covers token translation, accessible component ports,
+  native implementation tracking and upgrades; native component libraries are not shipped.
 - **Core:** semantic tokens for two themes (`light-dark()`, `data-theme`, `data-motion="reduce"`), cascade
   layers that match Tailwind's, springs as CSS `linear()`, an optional reset and focus ring, and motion helpers
   (liquid indicator, FLIP).
@@ -31,3 +35,8 @@ The first version.
   spacing, radius, surfaces, motion, layout, accessibility, theming,
   writing, components and blocks.
 - **Skill:** `SKILL.md`: setup, add a component or block, adapt, create, theme, upgrade (3-way merge), audit.
+
+### Changed
+
+- **Native GUI documentation:** the public page explains requests and automatic agent behavior;
+  detailed implementation procedures remain in the skill reference.

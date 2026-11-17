@@ -14,6 +14,13 @@ The app's top-level view switcher: Dashboard, Mini Apps, then one tab per open m
 navigation, so the current one carries `aria-current="page"`. For switching a small view in place
 (periods, panes) use Segmented.
 
+## Platform contract
+
+All platforms expose exactly one current view and keep it reachable at compact widths. Native GUI
+implementations bind framework navigation/selection state to the filled current tab and accessibility
+state; they do not recreate DOM attributes. Preserve separately accessible tab actions, the absence of
+an underline/sliding indicator, and base-scale spacing/radius. Let text and hit areas grow as needed.
+
 ## Anatomy
 
 ```
@@ -52,7 +59,7 @@ Tier 0. Fill and text color on `--x-duration-fast`. Tabs do not slide: there is 
 
 ## Invariants
 
-- Current state comes from `aria-current="page"`, not a class.
+- Web current state comes from `aria-current="page"`, not a class; native state uses framework navigation/selection state.
 - 36px tall, 10px radius, weight 600: the same size and radius as icon buttons beside them.
 - No underline or sliding indicator; the filled tab is the indicator.
 

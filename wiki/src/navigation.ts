@@ -102,6 +102,7 @@ export function sidebar(): Sidebar {
       { text: "Design protocol", link: "/rules", icon: icons.rules },
       { text: "Tokens", link: "/tokens", icon: icons.tokens },
       { text: "Tailwind", link: "/tailwind", icon: icons.tailwind },
+      { text: "Native GUI", link: "/native-gui", icon: icons.tailwind },
       { text: "Releases", link: "/releases", icon: icons.releases },
       { sectionHeaderText: "Components" },
       ...byName(components).map(({ id, text }) => ({ text, link: `/components/${id}`, icon: icons[id] })),

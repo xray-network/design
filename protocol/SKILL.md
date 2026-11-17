@@ -1,12 +1,13 @@
 ---
 name: design
-description: XRAY/DESIGN kit. Use when building or changing UI in this project. Covers adding kit components (alert, avatar, button, checkbox, chips, modal (dialog), field and textarea, icon, menu, message, numeral, pagination, radio, segmented, select, switch, table, tabs, tag, toast, tooltip) and blocks (account switcher, balance, card and tile, list, option cards, send form, stats, transactions), adapting them, creating new components in the kit's style, theming, upgrading the kit, and auditing UI against the design rules. This folder is the read-only catalog; copied components are project code.
+description: Build, adapt, theme, upgrade and audit XRAY/DESIGN interfaces. Copy the supplied HTML or React components, or translate the visual protocol and component contracts into SwiftUI, UIKit, AppKit, JavaFX, Android and other GUI frameworks. Use for UI work in projects using XRAY/DESIGN. The installed catalog is read-only; project implementations are editable.
 ---
 
 # XRAY/DESIGN
 
-This project uses XRAY/DESIGN, a copy-in UI kit. Nothing is installed as a dependency: components
-are copied from this folder into the project and become project code that you may adapt.
+This project uses XRAY/DESIGN: a shared visual protocol and a copy-in web UI kit. Web components
+are copied into the project and become project code. Native GUI projects implement the same design
+using their framework; the catalog supplies contracts and web references, not prebuilt native libraries.
 
 This folder (`.agents/design/`) is the **catalog**. It is read-only and replaced on upgrade:
 
@@ -14,17 +15,32 @@ This folder (`.agents/design/`) is the **catalog**. It is read-only and replaced
 |---|---|
 | `DESIGN-PROTOCOL.md` | The design protocol: every token in its YAML header, its `Protocol-Version` under the title, then the rules. **Read it completely before any UI work.** |
 | `CHANGELOG.md` | What changed in each version; **Breaking** entries need project changes |
+| `references/native-gui.md` | Native setup, token conversion, component implementation, status and upgrades; read only for native GUI work |
 | `core/tokens.css`, `core/base.css` | Tokens and layers; optional reset |
 | `core/motion.js`, `core/motion.d.ts` | Motion helpers (liquid indicator, FLIP, springs). No dependencies |
 | `components/<id>/COMPONENT.md` | Contract: anatomy, states, accessibility, motion, invariants, safe edits, checklist. Its frontmatter lists dependencies (`requires`, `components`) and `files` |
 | `components/<id>/<id>.css` `.html` `.tsx` `.controller.js` | Styles, HTML reference, React version, vanilla controller |
 | `blocks/<id>/` | Blocks: screen sections built only from components. Same files as a component; `COMPONENT.md` lists the components it uses |
 
-Only `core/`, `components/` and `blocks/` hold code that is copied into the project; the files at the root of this folder
-(`SKILL.md`, `DESIGN-PROTOCOL.md`, `CHANGELOG.md`) never are. Never edit files in this folder. Edit the project copies under `uiRoot`.
+Only `core/`, `components/` and `blocks/` hold web code that is copied into the project; root documents and
+`references/` remain guidance in the catalog. Never edit the installed catalog. Edit project implementations under `uiRoot`.
 
-The project's **UI folder** (`uiRoot`, for example `src/ui/`) holds the copied code and a lock file,
-`<uiRoot>/design.lock.json`, that records what the project uses:
+## Choose the implementation
+
+Identify the target UI framework and OS from the requested screen, existing UI code and build files.
+A repository may contain several apps: a `package.json` for tooling does not make its native UI a web app.
+
+- React in a browser: use the web workflows below with `stack: "react"`.
+- Plain HTML or another browser framework: use `stack: "html"`; adapt templates and controller integration to the host.
+- Native or a non-DOM GUI (including React Native): read [Native GUI](references/native-gui.md) and use its
+  setup, implementation, status and upgrade workflows instead of copying CSS/TSX or browser controllers.
+
+For an existing installation, check the lock's stack and framework. For a new one, detect the framework before
+writing a lock or copying files. If the target is still ambiguous, ask which app/framework to change; do not
+fall back to HTML just because React is absent. Preserve the project's chosen framework and language.
+
+The project's **UI folder** (`uiRoot`, for example `src/ui/`) holds its UI implementation and a lock file,
+`<uiRoot>/design.lock.json`, that records what the project uses. Web example:
 
 ```json
 { "version": "1.0.0", "stack": "react", "base": true, "components": ["button", "numeral", "tag"], "blocks": ["balance"] }
@@ -34,7 +50,7 @@ The lock's location defines `uiRoot`: it is the folder that contains `design.loc
 "UI folder" line of the Design section in `AGENTS.md`; if that is missing, search the project for `design.lock.json`.
 No lock means the kit has not been set up in this project yet: run Setup.
 
-## How copying works
+## How copying works (web)
 
 Copied files keep the catalog's layout under `uiRoot`, so relative imports keep working:
 
@@ -58,9 +74,9 @@ catalog counterpart (`cmp -s <catalog file> <project file>`), and **modified** o
 
 ## Setup (once, right after the kit is placed in `.agents/design/`)
 
-1. Detect the stack:
-   - React if `package.json` has `react` (React 19+ expected; on 18, replace `ref`-as-prop with `forwardRef`).
-   - Otherwise plain HTML/CSS.
+Native targets follow [Native setup](references/native-gui.md#setup). The remaining steps are for web targets.
+
+1. Confirm the target stack as described above. React 19+ is expected; on 18, replace `ref`-as-prop with `forwardRef`.
 2. Choose the UI folder (`uiRoot`): an existing `components/ui` or `src/ui`, or ask the human if unclear. Default: `src/ui`.
 3. Copy `core/tokens.css` to `<uiRoot>/core/tokens.css`. Copy `core/base.css` too, unless the project has its own reset
    (then copy only its focus-ring rule into the project's CSS).
@@ -91,6 +107,8 @@ catalog counterpart (`cmp -s <catalog file> <project file>`), and **modified** o
 
 ## Add a component
 
+Native targets follow [Implement components and blocks](references/native-gui.md#implement-components-and-blocks).
+
 1. Read `components/<id>/COMPONENT.md`, including its frontmatter.
 2. Copy its dependencies and then its files, following "How copying works".
 3. Add the component (and any dependency components) to `components` in the lock.
@@ -102,6 +120,8 @@ catalog counterpart (`cmp -s <catalog file> <project file>`), and **modified** o
 5. Run the component's checklist.
 
 ## Add a block
+
+Native targets use the same [native implementation workflow](references/native-gui.md#implement-components-and-blocks).
 
 Blocks are finished screen sections (balance, send form, transaction history) built only from components.
 
@@ -117,22 +137,28 @@ Blocks are finished screen sections (balance, send form, transaction history) bu
 ## Adapt a component (the human asks for a change)
 
 1. Read the component's COMPONENT.md: **Invariants** and **Safe edits**.
-2. Prefer, in order: overriding component tokens → a new `data-variant`/`data-size` → editing markup within
-   the safe edits → structural changes.
+2. Prefer, in order: overriding component tokens → a variant/size → composition within the safe edits → structural changes.
+   Web variants use `data-variant`/`data-size`; native variants use typed properties and theme overrides.
 3. If the change would break an invariant or a rule, say so and propose the closest compliant
    option. Do it anyway only if the human confirms.
-4. If both the HTML and React versions are in use, change both the same way. State stays in attributes.
+4. If both the HTML and React versions are in use, change both the same way. Web state stays in attributes;
+   native state uses the framework's properties/bindings and accessibility semantics.
 5. Re-run the checklist (both themes, keyboard, reduced motion, phone width).
 
 ## Create a new component
 
 When the kit has nothing suitable, build it in the kit's style (DESIGN-PROTOCOL.md section 14):
-semantic and component tokens, `x-<name>` classes, attribute state, `@layer components`, native
-elements first, a motion tier from the budget, both themes. Put it in `<uiRoot>/components/<name>/` with its
+semantic and component tokens, framework-native controls first, a motion tier from the budget, both themes.
+Web implementations use `x-<name>` classes, attribute state and `@layer components`; native implementations
+follow [Native GUI](references/native-gui.md). Put it in the project's component folder under `uiRoot` with its
 own COMPONENT.md in the same format. Do not add it to the lock (the lock lists kit components only).
 A new block goes in `<uiRoot>/blocks/<name>/` and may use components and other blocks; components never use blocks.
 
 ## Theme or rebrand
+
+Native targets override semantic tokens in their project theme; retain both theme palettes and the mapping
+back to protocol token names. Follow [Translate tokens](references/native-gui.md#translate-tokens).
+The stylesheet instructions below apply to web targets.
 
 Override semantic tokens in a project stylesheet loaded after `core/tokens.css`, never in the copied
 files. Override color tokens on `:root, [data-theme]` (the kit's own selector for them), so sections with a forced
@@ -141,10 +167,15 @@ shade in dark theme, for focus, links and icons; `--x-focus` and `--x-link` foll
 
 ## Status
 
+For native targets, use [Native status and upgrades](references/native-gui.md#status-and-upgrades), not catalog file comparison.
+
 Report the lock's version and components, and for each copied file whether it is unchanged, modified
 or missing (compare with the catalog as described in "How copying works").
 
 ## Upgrade the kit
+
+For native targets, use [Native status and upgrades](references/native-gui.md#status-and-upgrades). The copying
+and 3-way merge procedure below applies only to web targets.
 
 Only when the human asks. The latest version is the `main` branch; if the human names a version, use its tag
 (`--branch v<version>`) instead. Ask them to commit first: version control is the rollback path.
@@ -171,9 +202,11 @@ Only when the human asks. The latest version is the `main` branch; if the human 
 
 When asked to review UI, check the code against DESIGN-PROTOCOL.md and report by section number:
 - raw colors, sizes or durations instead of tokens
-- state classes instead of attributes
+- web state classes instead of attributes, or native visuals/accessibility out of sync with framework state
 - missing focus ring, accessible name or keyboard path
 - motion outside the budget, or motion that ignores reduced motion
 - shadows, blur or decorative gradients
 - only one theme checked
+For native targets also check the recorded platform adaptations, text scaling and touch targets against
+[Native verification](references/native-gui.md#verification). Browser-only mechanisms are checked only on web targets.
 Fix them only if asked.

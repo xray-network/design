@@ -15,6 +15,14 @@ which can hold affixes (icon, ticker) and a trailing button. The input also work
 
 `components: [button]` is only for the inline Max/Paste button pattern. The field works without it.
 
+## Platform contract
+
+All platforms preserve label → control → hint/error order, validation timing and the focus/invalid border.
+Native GUI implementations use framework text controls with their text editing, selection, input method,
+secure-entry and accessibility support. Associate labels/help/errors and announce validation changes using
+platform APIs. HTML attributes and CSS mechanisms below apply to web; native state uses bindings/properties.
+Allow text scaling and control growth while preserving the base-scale spacing/radius relationships.
+
 ## Anatomy
 
 ```
@@ -62,8 +70,8 @@ Tier 0. Border color uses `--x-duration-fast`. The error message enters with
 
 ## Invariants
 
-- The native `<input>` is the only text control inside `.x-input`. No contenteditable.
-- Invalid state comes from `aria-invalid`, never from a class.
+- Web: use native text controls (`<input>` or `<textarea>`) inside `.x-input`. No contenteditable.
+- Web invalid state comes from `aria-invalid`, never from a class; native state comes from framework validation state.
 - The radius follows the height (56/14, 44/12, 36/10), never a capsule; focus is the accent border of the whole box,
   not the global outline ring, and never a ring on the inner input.
 

@@ -172,6 +172,31 @@ Precedence: **DESIGN-PROTOCOL.md** → the component's **COMPONENT.md** → exis
 conflicts with a rule, follow the request only when the human explicitly asks for it, and say
 which rule you broke.
 
+## Platform adaptation
+
+The visual standard applies to web, native and other GUI frameworks. The supplied HTML, CSS and React
+components are the web implementation. Native implementations translate the design into the target
+framework's controls, theme, state and accessibility mechanisms; they do not require a browser or WebView.
+
+- Preserve semantic colors in both themes, typography hierarchy, spacing and radius relationships,
+  surface layering, component states, motion intent, content rules and identity assets.
+- CSS names identify tokens across platforms. Map them to named theme values in the target framework.
+  The YAML header remains the token source; do not maintain a separate handwritten native palette.
+- Sizes in `px` describe the web reference. Define their mapping to logical layout units for the target
+  framework; do not convert them to physical screen pixels. Allow text scaling, safe areas and the
+  platform's accessible hit targets to enlarge controls and change layout. Record those adaptations.
+- DOM structure, CSS layers/selectors, `aria-*`/`data-*`, Popover API, `<dialog>` and JS motion helpers
+  are web mechanisms, including where a COMPONENT.md lists them as invariants. On native targets,
+  preserve their outcomes using platform control state, accessibility roles/values, focus management
+  and overlay presentation. Section 9 specifies the web contract, not native class/property names.
+- Native control behavior and accessibility take priority over matching browser mechanics. Keep the
+  XRAY styling where the framework exposes it; document system-controlled presentation differences.
+  This does not waive the shared visual and behavioral contracts.
+
+The skill's `references/native-gui.md` gives the native workflow; the wiki's
+[Native GUI overview](https://wiki.xraynetwork.io/design/native-gui) explains what the agent handles automatically.
+Read each component or block's contract before implementing it on any platform.
+
 ## Installation
 
 These steps are for the coding agent. When asked to install XRAY/DESIGN in a repository:
@@ -180,7 +205,8 @@ These steps are for the coding agent. When asked to install XRAY/DESIGN in a rep
    `git clone https://github.com/xray-network/design.git <tmp>`
 2. Copy `<tmp>/protocol/` to `.agents/design/` in the repository, then delete `<tmp>`.
 3. Follow the Setup section of `.agents/design/SKILL.md`. It chooses the UI folder, copies and loads the tokens,
-   connects dark mode, writes `<uiRoot>/design.lock.json` and adds a Design section to `AGENTS.md`.
+   or translates tokens into the native theme, connects dark mode, writes `<uiRoot>/design.lock.json`
+   and adds a Design section to `AGENTS.md`. Setup selects the target framework before copying code.
 
 **Protocol only.** When the human asks for just the rules and tokens, or the project keeps its own components, save
 this file as `.agents/design/DESIGN-PROTOCOL.md` instead, and add to `AGENTS.md` (without replacing existing
@@ -274,7 +300,8 @@ Inputs, chips and tags are never capsules.
 ## 6. Surfaces and layering
 
 - Elevation is expressed by surface step and hairline, never by shadow.
-- Overlays (menus, dialogs, toasts, messages) use the Popover API or `<dialog>`, so they sit in the top layer. Avoid z-index wars.
+- Web overlays (menus, dialogs, toasts, messages) use the Popover API or `<dialog>`, so they sit in the top layer.
+  Native targets use framework overlay/modal presentation with equivalent focus and dismissal behavior.
 - Modal dialogs dim the page with `--x-scrim`. Nothing else dims.
 
 ## 7. Icons
@@ -305,6 +332,9 @@ Two families, both defined only by tokens:
 
 **Implementation tiers**
 
+These tiers describe the web implementation. Native targets use their framework's animation tools with
+the same motion budget, easing intent and reduced-motion behavior.
+
 0. CSS: transitions, `@starting-style`, `linear()` springs. The default.
 1. Kit helpers in `core/motion.js`: `trackIndicator`, `createFlip`, `afterTransition`. No dependencies.
 2. A JS motion library (for example `motion`), only for gesture physics such as drag-to-dismiss, only in React,
@@ -313,7 +343,7 @@ Two families, both defined only by tokens:
 **Reduced motion** collapses every duration token to 0 (OS setting, or `data-motion="reduce"`
 on any ancestor). Components that use the tokens need nothing else. Never hard-code a duration.
 
-## 9. Markup and state contract
+## 9. Markup and state contract (web)
 
 - Native elements first: `<button>`, `<input type=radio|checkbox>`, `<dialog>`, `popover`, `<details>`, `<label>`.
 - **State lives in attributes**: `aria-*`, `data-state`, `data-*`, `:checked`, `:disabled`, `[open]`, `:popover-open`.
@@ -332,7 +362,8 @@ on any ancestor). Components that use the tokens need nothing else. Never hard-c
 - A visible focus ring on every interactive element (2px `--x-focus`, 2px offset; text fields show the accent border instead).
 - Full keyboard use: Tab order follows the visual order; arrows within composite widgets; Esc closes overlays.
 - Every control has an accessible name. Icon-only buttons have `aria-label`.
-- Hit targets are at least 24×24 (prefer 36+ on touch). The visual size can be smaller if the hit area is padded.
+- Web hit targets are at least 24×24 (prefer 36+ on touch). Native targets meet the target platform's
+  accessible hit-area guidance, even when it exceeds the reference size. The visual size can be smaller if the hit area is padded.
 - Respect reduced motion (tokens) and forced colors (do not remove outlines or borders in `forced-colors` mode).
 - Errors are text, linked with `aria-describedby`, and announced (`role="alert"`).
 
@@ -376,10 +407,12 @@ If a block needs a control the kit lacks, that control becomes a component first
 declared in its frontmatter `blocks:`; components never use blocks.
 
 1. Start from the catalog (`.agents/design/components/<id>` or `blocks/<id>`). Read its COMPONENT.md.
-2. Copy it into the project (see the skill) and keep the HTML and React versions consistent if both are used.
+2. Copy the web implementation or implement its contract in the target GUI framework (see the skill).
+   Keep the HTML and React versions consistent if both are used.
 3. Adapt within the component's **Safe edits**. Never break its **Invariants** or these rules without the human's explicit request.
-4. A new component must look like it came from the kit: semantic and component tokens, attribute state,
-   `x-` naming, `@layer components`, both themes, keyboard support, a motion tier, and its own COMPONENT.md in the project.
+4. A new component must look like it came from the kit: semantic and component tokens, both themes,
+   accessible framework state, keyboard support, a motion tier, and its own COMPONENT.md in the project.
+   Web implementations also use attribute state, `x-` naming and `@layer components`.
 5. Before finishing, run the component's checklist and the checks in section 10.
 
 ## 15. Do and don't

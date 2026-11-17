@@ -703,6 +703,10 @@ html :where(a, button, input):focus-visible {
   line-height: 1.65;
 }
 
+.spectre-about > p + p {
+  margin-top: 16px;
+}
+
 .spectre-start > p {
   padding-bottom: 28px;
   border-bottom: 1px solid var(--rp-c-divider-light);
@@ -929,8 +933,12 @@ html :where(a, button, input):focus-visible {
   transition: background-color 120ms var(--xr-ease), border-color 120ms var(--xr-ease);
 }
 
-.spectre-resource + .spectre-resource {
+.spectre-resources > .spectre-resource:nth-child(even) {
   border-left: 1px solid var(--xr-border-strong);
+}
+
+.spectre-resources > .spectre-resource:nth-child(n + 3) {
+  border-top: 1px solid var(--xr-border-strong);
 }
 
 .spectre-resource:hover {
@@ -995,8 +1003,11 @@ html :where(a, button, input):focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .spectre-resource + .spectre-resource {
+  .spectre-resources > .spectre-resource:nth-child(even) {
     border-left: 0;
+  }
+
+  .spectre-resources > .spectre-resource + .spectre-resource {
     border-top: 1px solid var(--xr-border-strong);
   }
 

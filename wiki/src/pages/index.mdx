@@ -7,7 +7,7 @@ import { CodeBlock, HeroArtwork, CopyPromptButton, installationPrompt, Link } fr
       <div className="spectre-hero-copy">
         <span className="spectre-eyebrow">Interface standard</span>
         <h1 id="ui-that-becomes-your-code">Consistent UI from your coding agent, on every screen.</h1>
-        <p className="spectre-lead">One prompt gives your agent the XRAY design rules, tokens and tested components in HTML and React. Everything it builds then matches: the same colors, spacing and motion, both themes, keyboard support. Components are copied into your code, so you can change them like any other file.</p>
+        <p className="spectre-lead">One prompt gives your agent a consistent design for any GUI framework: shared colors, spacing and motion, both themes, and UI code you own.</p>
         <div className="spectre-actions">
           <a className="spectre-button spectre-button--primary" href="#get-started">Get started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="m12 5 7 7-7 7M19 12H5" /></svg></a>
           <CopyPromptButton />
@@ -20,8 +20,9 @@ import { CodeBlock, HeroArtwork, CopyPromptButton, installationPrompt, Link } fr
     <div className="spectre-section-heading">
       <div><span className="spectre-eyebrow">01 / What is XRAY/DESIGN</span><h2 id="about-design-title" data-outline>A UI kit that becomes your code</h2></div>
     </div>
-    <p>XRAY/DESIGN is a copy-in UI kit for coding agents. Instead of adding a package dependency, your agent installs a catalog of design rules, tokens, motion helpers and components in HTML and React. It then copies only the components you need into your project.</p>
-    <p>Copied components are plain source that you own. The agent adapts them within each component's contract, keeps both themes, keyboard support and reduced motion working, and can later upgrade them with a 3-way merge that keeps your changes.</p>
+    <p>XRAY/DESIGN gives your coding agent one visual standard for web, desktop and mobile apps. Your agent can apply the design in any GUI framework your project uses, including SwiftUI, UIKit, JavaFX and Android.</p>
+    <p>Your agent creates UI code in your app's own framework. For web apps, it copies the supplied HTML or React components. For native apps, it follows the <Link href="/native-gui">native GUI workflow</Link> to build the same design with your platform's controls.</p>
+    <p>The code belongs to your project, so you can change it like any other source file. Your agent handles light and dark themes, accessibility, text scaling and reduced motion, and can update the design later while preserving your customizations.</p>
   </section>
 
   <section className="spectre-start" id="get-started" aria-labelledby="get-started-title">
@@ -81,6 +82,14 @@ import { CodeBlock, HeroArtwork, CopyPromptButton, installationPrompt, Link } fr
     <Link className="spectre-resource" href="/components/">
       <span className="spectre-resource-label">COMPONENTS <span aria-hidden="true">↗</span></span>
       <h2>Browse components</h2><p>Live React and HTML demos, with each component's contract and checklist.</p>
+    </Link>
+    <Link className="spectre-resource" href="/blocks/">
+      <span className="spectre-resource-label">BLOCKS <span aria-hidden="true">↗</span></span>
+      <h2>Browse blocks</h2><p>Screen sections built from kit components, with live React and HTML demos.</p>
+    </Link>
+    <Link className="spectre-resource" href="/icons">
+      <span className="spectre-resource-label">ICONS <span aria-hidden="true">↗</span></span>
+      <h2>Browse icons</h2><p>Search interface icons and brand marks, and copy their names for your UI.</p>
     </Link>
     <a className="spectre-resource" href="/design/DESIGN-PROTOCOL.md">
       <span className="spectre-resource-label">SPECIFICATION <span aria-hidden="true">↗</span></span>

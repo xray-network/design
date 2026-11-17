@@ -1,7 +1,7 @@
 # XRAY/DESIGN
 
-A copy-in UI kit for agents. It ships as source plus rules, not as a package: an agent copies
-components into a project, where they become project code it can adapt.
+A visual protocol and copy-in web UI kit for agents. It ships as source plus rules: an agent copies
+web components into a project, or uses the native GUI guidance to implement the design in its framework.
 
 - **Two versions of every component:** plain HTML + CSS (with small vanilla controllers where
   state needs JS) and React 19. Both share one stylesheet and one markup contract. State lives in
@@ -11,7 +11,10 @@ components into a project, where they become project code it can adapt.
 - **Liquid motion with a budget:** spring easings as CSS `linear()` curves, used only where things
   physically move. No runtime motion library; reduced motion collapses every duration token.
 - **Agent-native:** `DESIGN-PROTOCOL.md` (the version, every token and the design rules), a `COMPONENT.md` contract per component, and a
-  skill that adds, adapts, upgrades (3-way merge) and audits components.
+  skill that adds, adapts, upgrades (3-way merge for web copies) and audits components.
+- **Native GUI guidance:** the skill also maps the design into SwiftUI, UIKit/AppKit, JavaFX, Android
+  and other GUI frameworks. Native implementations use platform themes, state and accessibility;
+  the shipped component sources and parity checks cover HTML/React, not native SDKs.
 
 Docs and live playground: https://wiki.xraynetwork.io/design/
 
@@ -33,6 +36,7 @@ protocol/                 the protocol and kit; installed as-is to <project>/.ag
 ├── SKILL.md              agent skill: setup, add, adapt, create, theme, upgrade, audit
 ├── DESIGN-PROTOCOL.md    the design protocol: tokens in its YAML header, Protocol-ID and -Version, then the rules
 ├── CHANGELOG.md          what changed in each version (shown on the wiki's Releases page)
+├── references/           conditional skill guidance: native-gui.md
 ├── core/                 shared code every component builds on
 │   ├── tokens.css        tokens and cascade layers
 │   ├── base.css          optional reset, focus ring, utilities
@@ -55,7 +59,20 @@ Blocks in 1.0.0 (8): `account-switcher`, `balance`, `card` (+ tile), `list`, `op
 Their look and markup follow the XRAY app (new UI v6).
 
 Everything in `protocol/` reaches users, so it holds only kit files: no tests, demos or tooling. Documents sit at
-its root; `core/` and `components/` hold the code that agents copy into projects.
+its root; `references/` holds conditional guidance, and `core/`, `components/` and `blocks/` hold web code.
+Native project implementations and token resources are produced in the project's own UI folder.
+
+## Native GUI projects
+
+Use the same installation prompt in a native project. Setup detects the actual GUI framework and OS,
+then follows [the native guide](protocol/references/native-gui.md) instead of copying browser CSS or TSX.
+The agent translates YAML tokens into the project's theme resources, implements component contracts
+using accessible platform controls and records the framework, protocol version and implemented IDs.
+It verifies the result with that framework's build/runtime tools. JavaFX, Android Views and Swing are
+different targets; the agent preserves the framework already used by the app.
+
+Native upgrades review changes to tokens, contracts and reference behavior, then update native code
+while preserving project adaptations. They do not merge Swift/Java files with web sources.
 
 ## Development
 

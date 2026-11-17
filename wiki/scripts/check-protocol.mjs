@@ -2,7 +2,7 @@
 /**
  * Checks ../protocol, the folder that is installed as-is to .agents/design/. Runs before every wiki build (prebuild).
  *
- * 1. Structure: SKILL.md, DESIGN-PROTOCOL.md, CHANGELOG.md and the core/ files exist, with nothing extra; every
+ * 1. Structure: SKILL.md, DESIGN-PROTOCOL.md, CHANGELOG.md, references/ and core/ files exist, with nothing extra; every
  *    component has a COMPONENT.md whose frontmatter matches its folder, files and dependencies.
  *    Protocol: DESIGN-PROTOCOL.md declares Protocol-ID: xray/design and a semver Protocol-Version; CHANGELOG.md has a
  *    section for that version; wiki/package.json names the same version; and the tokens in its YAML header equal
@@ -11,7 +11,7 @@
  *    token it reads is defined.
  * 3. Code: relative imports stay inside the kit and are declared in the frontmatter; hook components
  *    start with "use client"; controllers that React imports ship types.
- * 4. Parity: everything the React version renders (x- classes, data-* values, roles) appears in the
+ * 4. Web parity: everything the React version renders (x- classes, data-* values, roles) appears in the
  *    component's HTML reference or controller, and every .x- class the CSS styles is shown there.
  */
 import { build } from "esbuild"
@@ -24,8 +24,9 @@ import { frontMatter, protocolMeta, protocolTokens, resolveTokens, UNLISTED } fr
 const WIKI = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const KIT = resolve(WIKI, "../protocol") // installed as-is to <project>/.agents/design/
 const SHARED = { tokens: ["core/tokens.css"], motion: ["core/motion.js", "core/motion.d.ts"] }
-// The whole kit layout: documents at the root, copyable code in core/, components/ and blocks/.
+// The installed layout: root documents and references/, web code in core/, components/ and blocks/.
 const ROOT_FILES = ["SKILL.md", "DESIGN-PROTOCOL.md", "CHANGELOG.md"]
+const REFERENCE_FILES = ["native-gui.md"]
 const CORE_FILES = ["tokens.css", "base.css", "motion.js", "motion.d.ts"]
 
 const errors = []
@@ -53,12 +54,31 @@ function frontmatter(file) {
 // 1. Structure
 // ---------------------------------------------------------------------------
 for (const f of ROOT_FILES) if (!existsSync(join(KIT, f))) error(`protocol/${f}`, "missing")
+for (const f of REFERENCE_FILES) if (!existsSync(join(KIT, "references", f))) error(`protocol/references/${f}`, "missing")
 for (const f of CORE_FILES) if (!existsSync(join(KIT, "core", f))) error(`protocol/core/${f}`, "missing")
 const stray = [
-  ...readdirSync(KIT).filter((f) => !["components", "blocks", "core", ...ROOT_FILES].includes(f)),
+  ...readdirSync(KIT).filter((f) => !["components", "blocks", "core", "references", ...ROOT_FILES].includes(f)),
   ...(existsSync(join(KIT, "core")) ? readdirSync(join(KIT, "core")).filter((f) => !CORE_FILES.includes(f)).map((f) => `core/${f}`) : []),
+  ...(existsSync(join(KIT, "references")) ? readdirSync(join(KIT, "references")).filter((f) => !REFERENCE_FILES.includes(f)).map((f) => `references/${f}`) : []),
 ]
 for (const f of stray) error(`protocol/${f}`, "unexpected file: everything in protocol/ is installed, so keep it to the kit")
+// References must remain usable in the installed catalog, independently of wiki routes.
+for (const file of [...ROOT_FILES, ...REFERENCE_FILES.map((f) => `references/${f}`)]) {
+  const source = join(KIT, file)
+  if (!existsSync(source)) continue
+  const markdown = read(source)
+  if (!markdown.trim()) error(`protocol/${file}`, "empty document")
+  for (const match of markdown.matchAll(/\[[^\]]*\]\(([^\s)]+)\)/g)) {
+    const target = match[1].split("#")[0]
+    if (!target || /^[a-z][a-z\d+.-]*:/i.test(target)) continue
+    const resolved = resolve(dirname(source), target)
+    if (relative(KIT, resolved).startsWith("..")) error(`protocol/${file}`, `document link "${target}" leaves the catalog`)
+    else if (!existsSync(resolved) || !statSync(resolved).isFile()) error(`protocol/${file}`, `document link "${target}" does not resolve to a file`)
+  }
+}
+if (existsSync(join(KIT, "SKILL.md"))) for (const f of REFERENCE_FILES) {
+  if (!read(join(KIT, "SKILL.md")).includes(`](references/${f}`)) error("protocol/SKILL.md", `does not link references/${f}`)
+}
 // The protocol: Protocol-ID and Protocol-Version under its title; every token in its YAML header.
 const PROTOCOL = join(KIT, "DESIGN-PROTOCOL.md")
 const protocolText = existsSync(PROTOCOL) ? read(PROTOCOL) : ""
@@ -189,7 +209,7 @@ for (const [where, { kind, id, meta, dir, files }] of Object.entries(entries)) {
 }
 
 // ---------------------------------------------------------------------------
-// 4. Parity
+// 4. Web parity (native implementations require their target framework's checks)
 // ---------------------------------------------------------------------------
 const OUT = join(WIKI, "node_modules/.cache/check-protocol/parity.mjs")
 mkdirSync(dirname(OUT), { recursive: true })

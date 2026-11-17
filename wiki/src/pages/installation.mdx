@@ -8,8 +8,9 @@ Open your project in your coding agent and send:
 <CodeBlock wrapCode lang="text"><pre className="shiki css-variables" data-lang="text" tabIndex={0}><code><span className="line"><span>{installationPrompt}</span></span></code></pre></CodeBlock>
 
 The agent reads the latest protocol, which tells it how to install: it clones the kit from `main`, copies the
-`protocol/` folder to `.agents/design/`, and runs the skill's setup. Setup detects React or plain HTML, chooses your UI folder, copies the tokens,
-loads them globally, connects the kit's dark mode to your theme switch, and adds a pointer to `AGENTS.md`. It does not copy any component yet.
+`protocol/` folder to `.agents/design/`, and runs the skill's setup. Setup detects the target GUI framework,
+chooses your UI folder, connects themes and adds a pointer to `AGENTS.md`. Web targets copy/load the CSS tokens;
+native targets translate them into their framework's theme resources. It does not add any component yet.
 XRAY/DESIGN <code>{KIT_VERSION}</code> is current; existing installations stay on their version until explicitly upgraded.
 
 ## Start with natural language
@@ -23,7 +24,25 @@ Audit the send form against the design rules.
 ```
 
 The agent reads `.agents/design/DESIGN-PROTOCOL.md` before any UI work. Then it copies the components it needs into
-your UI folder and adapts them there. Copied components are your code; the kit folder stays read-only.
+your UI folder and adapts them there, or implements their contracts in the native framework.
+Project implementations are your code; the kit folder stays read-only.
+
+## Native GUI projects
+
+The same installation prompt works for SwiftUI, UIKit/AppKit, JavaFX, Android and other GUI projects.
+The agent uses the existing framework and supported OS versions. The kit ships native porting guidance
+alongside its HTML/React sources; native component libraries are not included.
+
+For example:
+
+```text
+Implement the balance block in this SwiftUI iOS app using XRAY/DESIGN.
+Style this JavaFX settings form with XRAY/DESIGN tokens and component contracts.
+```
+
+The agent maps tokens, control states, accessibility and motion to the framework, keeps a native
+implementation lock, and verifies the UI with platform tooling. See [Native GUI](/native-gui) for
+example requests, framework coverage and what your agent handles automatically.
 
 ## What gets installed
 
@@ -32,37 +51,42 @@ your UI folder and adapts them there. Copied components are your code; the kit f
 ├── SKILL.md                       # the agent skill: add, adapt, create, theme, upgrade, audit
 ├── DESIGN-PROTOCOL.md             # version, tokens and design rules
 ├── CHANGELOG.md                   # what changed in each version
+├── references/native-gui.md        # native setup, implementation, status and upgrades
 ├── core/                          # shared code every component builds on
 │   ├── tokens.css                 # tokens and cascade layers
 │   ├── base.css                   # optional reset and focus ring
 │   └── motion.js                  # springs as linear(), indicator and FLIP helpers
 ├── components/<id>/               # primitives: COMPONENT.md, CSS, HTML, controller, React
 └── blocks/<id>/                   # screen sections built from components
-<ui folder>/                       # your code: what the agent copies, plus the lock
+<ui folder>/                       # web example; native targets follow their framework's source layout
 ├── design.lock.json               # kit version, stack, and the components and blocks you use
 ├── core/                          # tokens (and motion helpers when a component needs them)
 ├── components/<id>/               # the components you add
 └── blocks/<id>/                   # the blocks you add
 ```
 
-The kit is the installed folder: there is no build, no package and no helper script. Components keep the
+The kit is the installed folder: there is no package dependency. Web components keep the
 kit's folder layout inside your UI folder, so their relative imports keep working. A copied file counts as
 unchanged while it is identical to its copy in the kit folder; that is how the agent knows what you have edited.
-Nothing is added to `package.json`.
+Native targets create theme/resources and framework code instead. Their lock records the framework,
+platforms, implemented component/block IDs and native file baseline digests. Nothing is added to `package.json`.
 
 ## Upgrade an existing installation
 
 <CodeBlock wrapCode lang="text"><pre className="shiki css-variables" data-lang="text" tabIndex={0}><code><span className="line"><span>{upgradePrompt}</span></span></code></pre></CodeBlock>
 
 Commit first: version control is the upgrade's rollback path. The upgrade always goes to the latest protocol. The
-agent keeps the old kit folder as the merge base, then fetches the latest kit. Files you never changed are replaced; files you changed get a
-3-way merge, and any conflicts are listed for the agent to resolve. See [Releases](/releases) for what each
-version changed.
+agent keeps the old kit folder as the merge base, then fetches the latest kit. For web copies, files you never changed are replaced; files you changed get a
+3-way merge, and any conflicts are listed for the agent to resolve. Native implementations review upstream
+token/contract/source changes, update existing native code and re-run platform checks before recording
+the new baseline. See [Releases](/releases) for what each version changed.
 
 ## Requirements
 
 - Browsers: Baseline 2024 (Chrome and Edge 123+, Safari 17.5+, Firefox 128+). Newer features, such as anchor positioning and `@starting-style` exit transitions, degrade gracefully.
 - React 19+ for the React versions. Plain HTML pages need no build step.
+- Native GUI projects: the existing framework's SDK/build tools and a supported simulator/device or desktop
+  runtime. Web checks do not establish native compatibility or accessibility.
 - Git, for the agent to clone the kit during installation and upgrade. With the protocol only, nothing is needed.
 - Claude Code reads skills from `.claude/skills/`; setup links the skill there when the project uses it.
 

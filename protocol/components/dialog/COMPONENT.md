@@ -13,6 +13,14 @@ files: [dialog.css, dialog.html, dialog.controller.js, dialog.controller.d.ts, d
 Interrupts the flow for one decision or one short task: confirm, rename, add account. Long flows
 belong on a page. Non-blocking information belongs in a toast.
 
+## Platform contract
+
+All platforms preserve modal interaction, title/description, initial focus, dismissal policy, one primary
+action placed last, scrollable body and focus return to the opener. Native GUI implementations use the
+framework's modal/presentation mechanisms and accessibility focus support. `<dialog>`, `showModal()`,
+DOM scrollbar handling and CSS transitions below specify the web implementation only. Adapt compact
+presentation to the target OS and available width; record system-controlled sheet styling differences.
+
 ## Anatomy
 
 ```
@@ -65,7 +73,7 @@ overshoot reads as hesitation on the way out. Reduced motion: instant.
 
 ## Invariants
 
-- Native `<dialog>` with `showModal()`. No div-based modal, no custom focus trap.
+- Web: native `<dialog>` with `showModal()`. No div-based modal, no custom focus trap.
 - One primary action per dialog, placed last.
 - Shadow-free: separation comes from the scrim and the hairline.
 

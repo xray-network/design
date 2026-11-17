@@ -13,6 +13,13 @@ files: [button.css, button.html, button.tsx]
 Action button (`.x-button`) and quiet icon button (`.x-icon-button`). Sizes, colors and states follow the
 XRAY app; corners are rounded, not capsules. Feedback is color only: one step lighter on hover, one step darker on press.
 
+## Platform contract
+
+All platforms preserve the action, variants, loading/disabled states and visual hierarchy. Native GUI
+implementations use accessible framework buttons with named actions and exposed state. Dimensions below
+are the web/base-scale reference; allow text scaling and larger platform hit areas. Attribute, class and
+focus-selector requirements describe the web implementation; native controls expose equivalent semantics.
+
 ## Anatomy
 
 ```

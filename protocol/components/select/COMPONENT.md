@@ -13,6 +13,14 @@ files: [select.css, select.html, select.controller.js, select.controller.d.ts, s
 One choice from a list that is too long for Segmented or Option cards: networks, accounts, sort
 orders. The trigger looks like the text input; the list opens below it.
 
+## Platform contract
+
+All platforms preserve one selected value, accessible label/value, disabled-option handling, validation
+and focus/dismissal behavior. Native GUI implementations use a framework picker, menu or accessible
+selection control, with a trigger styled like Input where supported. Preserve keyboard search/navigation
+on desktop. Record system-owned picker presentation on mobile; browser Popover API, controller and ARIA
+requirements below apply only to web. Selection state uses the native framework's properties/bindings.
+
 ## Anatomy
 
 ```
@@ -62,9 +70,9 @@ check mark pops in on the spring. Reduced motion: instant.
 
 ## Invariants
 
-- One shared controller (`bindSelect`) for HTML and React. With `onSelect`, the caller owns the selection;
+- Web: one shared controller (`bindSelect`) for HTML and React. With `onSelect`, the caller owns the selection;
   without it, the controller updates the markup.
-- The Popover API opens and dismisses the list. No custom outside-click or Esc handling.
+- Web: the Popover API opens and dismisses the list. No custom outside-click or Esc handling.
 - The trigger matches the text input: same height, radius and border behavior, including focus (border only, no ring).
 
 ## Safe edits

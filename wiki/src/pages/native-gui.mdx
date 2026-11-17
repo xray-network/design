@@ -1,0 +1,69 @@
+---
+title: Native GUI
+description: "Ask your coding agent to apply XRAY/DESIGN in your native GUI project."
+---
+
+# Native GUI
+
+Use XRAY/DESIGN in your existing SwiftUI, JavaFX, Android or other GUI project. Your coding agent
+reads the design instructions and applies them through the framework your app already uses.
+
+## Start with a request
+
+[Install XRAY/DESIGN](/installation) with the same prompt used for web projects. Once installed,
+describe the interface you want:
+
+```text
+Build the account settings screen using XRAY/DESIGN.
+```
+
+You can also name a component or describe a change:
+
+```text
+Add the balance block to this SwiftUI app.
+Apply XRAY/DESIGN to this JavaFX settings form.
+Make the account switcher work with larger text.
+```
+
+The agent loads the relevant instructions automatically. If your repository contains several apps,
+mention which one you want to change.
+
+## What your agent handles
+
+- **Your framework:** detects the app's framework and target platforms, keeping your existing stack.
+- **The visual design:** maps colors, typography, spacing, corners and motion into the project's theme.
+- **Platform behavior:** uses framework controls and accounts for accessibility, text scaling, touch
+  targets, light/dark themes and reduced motion.
+- **Verification:** builds and checks the implementation with available platform tools, and reports
+  anything it could not verify.
+
+The result is native source code in your project, with reusable theme values and components you can
+adapt. Your agent creates this code from the design protocol and component contracts; it also records
+which parts of the design your project uses for future updates.
+
+## Frameworks
+
+The skill includes guidance for these targets and a general workflow for other GUI frameworks:
+
+| Your project | What the agent uses |
+|---|---|
+| SwiftUI | Your app's SwiftUI views, styles and theme |
+| UIKit or AppKit | Your existing iOS or macOS controls and layout |
+| JavaFX | JavaFX controls and styling |
+| Android Views | Your existing Java or Kotlin views and resources |
+| Compose | Your Kotlin composables and theme |
+| Other GUI frameworks | The project's own controls, theme and accessibility tools |
+
+## Updates
+
+When you ask to upgrade XRAY/DESIGN, your agent reviews the design changes and updates the native
+implementation while preserving your customizations. It checks the affected behavior and reports
+what changed. See [Installation](/installation#upgrade-an-existing-installation) for the upgrade prompt.
+
+<details>
+  <summary>Where the agent instructions live</summary>
+
+The design skill loads `.agents/design/references/native-gui.md` for native GUI work. That reference
+contains the implementation and upgrade procedures the agent follows automatically.
+
+</details>
