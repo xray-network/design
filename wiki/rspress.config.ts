@@ -61,12 +61,6 @@ export default defineConfig({
         "@protocol": protocolDir,
       },
     },
-    tools: {
-      rspack: {
-        // Component HTML references, imported as text: import html from "@protocol/components/x/x.html?raw"
-        module: { rules: [{ test: /\.html$/, resourceQuery: /raw/, type: "asset/source" }] },
-      },
-    },
   },
   themeConfig: {
     fallbackHeadingTitle: false,

@@ -51,7 +51,6 @@ export default function TabsExample() {
           </IconButton>
         }
       />
-      <p className="wiki-demo-note">Current view: {view}</p>
     </>
   )
 }

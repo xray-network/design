@@ -41,46 +41,87 @@
 .wiki-demo-stage > .x-transactions { align-self: stretch; }
 .wiki-demo-stage > .x-select { width: auto; min-width: 200px; }
 .wiki-demo-stage > .x-list { margin-inline: var(--x-space-3); } /* room for the rows' overhanging hover fill */
-/* HTML references are flat fragments: let inline controls flow in rows. */
-.wiki-demo-stage[data-layout="html"]:has(> :is(.x-button, .x-tag, .x-avatar):first-child) { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5) var(--x-space-4); }
-.wiki-demo-stage[data-layout="html"] > .x-card-grid { flex: 1 0 100%; }
 .wiki-demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5); }
 .wiki-demo-note { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-xs); }
 
-.wiki-demo-source { border-top: 1px solid var(--x-border); }
-.wiki-demo-source > summary {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--x-space-1-5);
-  padding: var(--x-space-3) var(--x-space-4);
+.wiki-demo-label {
   color: var(--x-fg-3);
-  font-size: var(--x-text-sm);
+  font-size: var(--x-text-xs);
   font-weight: var(--x-weight-label);
-  list-style: none;
-  cursor: pointer;
-  transition: color var(--x-duration-fast) var(--x-ease);
 }
-.wiki-demo-source > summary::-webkit-details-marker { display: none; }
-.wiki-demo-source > summary:hover { color: var(--x-fg-1); }
-.wiki-demo-source > summary:focus-visible { outline: 2px solid var(--x-focus); outline-offset: -2px; border-radius: var(--x-radius-sm); }
-/* The kit's chevron: it turns over on the spring when the code opens. */
-.wiki-demo-chevron {
-  width: var(--x-icon-md);
-  height: var(--x-icon-md);
-  transition: rotate var(--x-spring-duration) var(--x-spring);
-}
-.wiki-demo-source[open] .wiki-demo-chevron { rotate: 180deg; }
-.wiki-demo-source pre {
-  margin: 0;
-  max-height: 420px;
+
+.wiki-demo-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--x-space-3);
   padding: var(--x-space-4);
-  overflow: auto;
   border-top: 1px solid var(--x-border);
+}
+
+.wiki-demo-prompt-heading,
+.wiki-demo-target,
+.wiki-demo-more,
+.wiki-demo-prompt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--x-space-3);
+  min-width: 0;
+}
+
+.wiki-demo-prompt-heading { justify-content: space-between; }
+.wiki-demo .wiki-demo-prompt-title {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--x-fg-1);
+  font-size: var(--x-text-md);
+  font-weight: var(--x-weight-label);
+  line-height: var(--x-leading-body);
+}
+
+.wiki-demo-reference {
+  color: var(--x-fg-3);
+  font-size: var(--x-text-xs);
+  text-decoration: none;
+}
+.wiki-demo-reference:hover { color: var(--x-fg-1); text-decoration: underline; }
+.wiki-demo-reference:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 4px; border-radius: var(--x-radius-xs); }
+
+.wiki-demo-target > .x-segmented { min-width: 0; }
+.wiki-demo-more > .x-select { width: auto; min-width: 180px; max-width: 100%; }
+.wiki-demo-more > .x-input { flex: 1 1 180px; }
+
+.wiki-demo .wiki-demo-prompt-text {
+  margin: 0;
+  padding: var(--x-space-4);
+  border: 1px solid var(--x-border);
+  border-radius: var(--x-radius-md);
   background: var(--x-bg-panel);
   color: var(--x-fg-2);
-  font: var(--x-weight-body) 12.5px / 1.7 var(--x-font-mono);
-  white-space: pre;
+  font-size: var(--x-text-sm);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.wiki-demo-prompt-text code {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-family: var(--x-font-mono);
+  white-space: inherit;
+}
+.wiki-demo-prompt-text:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+.wiki-demo-prompt-actions { justify-content: flex-start; }
+.wiki-demo-copy-error { flex: 1 1 200px; margin: 0; color: var(--x-danger-fg); font-size: var(--x-text-xs); }
+
+@media (max-width: 560px) {
+  .wiki-demo-stage { padding: var(--x-space-6) var(--x-space-4); }
+  .wiki-demo-target { align-items: flex-start; flex-direction: column; }
+  .wiki-demo-target > .x-segmented { width: 100%; }
+  .wiki-demo-more > .x-select { flex: 1; }
 }
 
 /* The kit's icon rule (base.css is not loaded in the wiki, to keep docs styles intact).

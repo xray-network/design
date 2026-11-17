@@ -6,7 +6,7 @@ export default function SelectExample() {
   const [network, setNetwork] = useState("mainnet")
   return (
     <>
-      <Field label="Network" hint={`Selected: ${network}`}>
+      <Field label="Network">
         {(p) => (
           <Select
             {...p}

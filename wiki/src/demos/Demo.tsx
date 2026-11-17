@@ -1,79 +1,122 @@
 import { useEffect, useRef, useState, type ReactNode } from "react"
 
+import { Button } from "@protocol/components/button/button"
+import { Input } from "@protocol/components/field/field"
 import { Segmented } from "@protocol/components/segmented/segmented"
+import { Select } from "@protocol/components/select/select"
 import { Switch } from "@protocol/components/switch/switch"
-import { initSegmented } from "@protocol/components/segmented/segmented.controller.js"
-import { initDialogs } from "@protocol/components/dialog/dialog.controller.js"
-import { initMenus } from "@protocol/components/menu/menu.controller.js"
-import { initTabs } from "@protocol/components/tabs/tabs.controller.js"
-import { initAvatars } from "@protocol/components/avatar/avatar.controller.js"
-import { initSelects } from "@protocol/components/select/select.controller.js"
-import { initTables } from "@protocol/components/table/table.controller.js"
-import { initTooltips } from "@protocol/components/tooltip/tooltip.controller.js"
-import { initAlerts } from "@protocol/components/alert/alert.controller.js"
-import { initIcons } from "@protocol/components/icon/icon.controller.js"
-import { initSendForms } from "@protocol/blocks/send-form/send-form.controller.js"
-import { initAccountSwitchers } from "@protocol/blocks/account-switcher/account-switcher.controller.js"
+import { componentPrompt, moreGuiTargets, primaryGuiTargets, type DemoEntry } from "../prompts"
+import { useGuiPreference } from "./useGuiPreference"
 
 import "./demo.css"
 
-type After = (root: HTMLElement) => (() => void) | void
-
-/** Injects a component's HTML reference (scripts removed) and runs the vanilla controllers on it. */
-function HtmlPane({ html, after }: { html: string; after?: After }) {
-  const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const root = ref.current
-    if (!root) return
-    root.innerHTML = html.replace(/<script[\s\S]*?<\/script>/g, "")
-    initAvatars(root)
-    initIcons(root)
-    // Blocks first: the account switcher binds its own menu before the generic menu init sees it.
-    const cleanups = [
-      initAccountSwitchers(root), initSendForms(root),
-      initSegmented(root), initDialogs(root), initMenus(root), initTabs(root),
-      initSelects(root), initTables(root), initTooltips(root), initAlerts(root), after?.(root),
-    ]
-    return () => cleanups.forEach((fn) => fn?.())
-  }, [html, after])
-  return <div ref={ref} className="wiki-demo-stage" data-layout="html" />
-}
-
-const htmlSourceOf = (html: string) =>
-  html.replace(/<script[\s\S]*?<\/script>\s*/g, "").replace(/<!--[\s\S]*?-->\s*/g, "").trim()
-// The example as it runs, with the wiki's alias for the protocol folder shown as a project path.
-const reactSourceOf = (source: string) => source.replace(/@protocol\//g, "@/ui/").trim()
-
-/**
- * A live demo of one component: the React version (an example file) and the HTML version (the catalog's
- * <id>.html with its vanilla controller), a per-demo reduced-motion switch, and the source of whichever
- * version is shown: the example file for React, the HTML reference for HTML.
- */
-export function Demo({ react, html, source, after }: { react: ReactNode; html: string; source?: string; after?: After }) {
-  const [version, setVersion] = useState<"react" | "html">("react")
+/** One interactive visual reference and a prompt for the project's chosen GUI framework. */
+export function Demo({ id, name, kind = "component", children }: Omit<DemoEntry, "kind"> & { kind?: DemoEntry["kind"]; children: ReactNode }) {
   const [reduce, setReduce] = useState(false)
+  const [preference, setPreference] = useGuiPreference()
+  const [copyState, setCopyState] = useState<"idle" | "copying" | "copied" | "error">("idle")
+  const targetRef = useRef<HTMLDivElement>(null)
+  const copyRequest = useRef(0)
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const primary = primaryGuiTargets.some((target) => target.value === preference.target)
+  const prompt = componentPrompt({ id, name, kind }, preference)
+  const source = `https://github.com/xray-network/design/tree/main/protocol/${kind}s/${id}`
+
+  useEffect(() => {
+    const group = targetRef.current?.querySelector<HTMLElement>(".x-segmented")
+    if (!group) return
+    const revealSelection = () => {
+      const selected = group.querySelector<HTMLElement>(".x-segmented-item:has(input:checked)")
+      if (!selected) return
+      if (selected.offsetLeft < group.scrollLeft) group.scrollLeft = selected.offsetLeft
+      else if (selected.offsetLeft + selected.offsetWidth > group.scrollLeft + group.clientWidth) {
+        group.scrollLeft = selected.offsetLeft + selected.offsetWidth - group.clientWidth
+      }
+    }
+    revealSelection()
+    const resize = new ResizeObserver(revealSelection)
+    resize.observe(group)
+    return () => resize.disconnect()
+  }, [preference.target])
+
+  useEffect(() => {
+    setCopyState("idle")
+    return () => {
+      copyRequest.current++
+      clearTimeout(timer.current)
+    }
+  }, [prompt])
+
+  const copy = async () => {
+    const request = ++copyRequest.current
+    clearTimeout(timer.current)
+    setCopyState("copying")
+    try {
+      await navigator.clipboard.writeText(prompt)
+      if (request !== copyRequest.current) return
+      setCopyState("copied")
+      timer.current = setTimeout(() => setCopyState("idle"), 3000)
+    } catch {
+      if (request === copyRequest.current) setCopyState("error")
+    }
+  }
 
   return (
     <div className="wiki-demo rp-not-doc" data-motion={reduce ? "reduce" : undefined}>
       <div className="wiki-demo-bar">
-        <Segmented
-          aria-label="Version"
-          size="sm"
-          value={version}
-          onValueChange={setVersion}
-          options={[{ value: "react", label: "React" }, { value: "html", label: "HTML" }]}
-        />
-        <Switch size="sm" checked={reduce} onChange={(e) => setReduce(e.target.checked)}>Reduce motion</Switch>
+        <span className="wiki-demo-label">Preview</span>
+        <Switch size="sm" checked={reduce} onChange={(event) => setReduce(event.target.checked)}>Reduce motion</Switch>
       </div>
-      {version === "react" ? <div className="wiki-demo-stage">{react}</div> : <HtmlPane html={html} after={after} />}
-      {/* The code of the version shown: the example file for React, the HTML reference for HTML. */}
-      <details className="wiki-demo-source" key={version}>
-        <summary>
-          View code
-          <svg className="wiki-demo-chevron x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-        </summary>
-        <pre><code>{version === "react" && source ? reactSourceOf(source) : htmlSourceOf(html)}</code></pre>
-      </details>
+      <div className="wiki-demo-stage">{children}</div>
+      <section className="wiki-demo-prompt" aria-label={`Use ${name} ${kind}`}>
+        <div className="wiki-demo-prompt-heading">
+          <h2 className="wiki-demo-prompt-title">Generate for</h2>
+          <a className="wiki-demo-reference" href={source} target="_blank" rel="noreferrer" aria-label={`Reference source for ${name}`}>
+            Reference source <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div className="wiki-demo-target" ref={targetRef}>
+          <Segmented
+            aria-label="Generate for"
+            size="sm"
+            value={primary ? preference.target : "more"}
+            onValueChange={(target) => setPreference({ ...preference, target: target === "more" ? "flutter" : target as typeof preference.target })}
+            options={[...primaryGuiTargets, { value: "more", label: "More" }]}
+          />
+        </div>
+        {!primary && (
+          <div className="wiki-demo-more">
+            <Select
+              aria-label="More GUI frameworks"
+              size="sm"
+              value={preference.target}
+              options={[...moreGuiTargets]}
+              onValueChange={(target) => setPreference({ ...preference, target })}
+            />
+            {preference.target === "custom" && (
+              <Input
+                size="sm"
+                aria-label="GUI framework"
+                placeholder="Enter your framework"
+                value={preference.custom}
+                onChange={(event) => setPreference({ ...preference, custom: event.target.value })}
+              />
+            )}
+          </div>
+        )}
+        <p className="wiki-demo-note">Your framework selection applies to the prompt.</p>
+        {prompt ? (
+          <pre className="wiki-demo-prompt-text" tabIndex={0} aria-label={`Prompt for ${name}`}><code>{prompt}</code></pre>
+        ) : (
+          <p className="wiki-demo-note">Enter a framework to generate your prompt.</p>
+        )}
+        <div className="wiki-demo-prompt-actions">
+          <Button variant="ghost" size="sm" onClick={copy} disabled={!prompt || copyState === "copying"}>
+            <span role="status" aria-live="polite">{copyState === "copied" ? "Prompt copied" : copyState === "copying" ? "Copying…" : "Copy prompt"}</span>
+          </Button>
+          {copyState === "error" && <p className="wiki-demo-copy-error" role="status">Copy failed. Select the prompt and copy it manually.</p>}
+        </div>
+      </section>
     </div>
   )
 }

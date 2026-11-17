@@ -45,7 +45,7 @@ protocol/                 the protocol and kit; installed as-is to <project>/.ag
 └── blocks/<id>/          screen sections built from components (and other blocks); same files
 wiki/                     docs and live playground (Rspress), deployed with every release
 ├── src/pages/            overview (home), installation, protocol, tokens and one page per component
-├── src/demos/            live demos: React and HTML versions, reduced-motion toggle, HTML source
+├── src/demos/            interactive React previews, reduced-motion toggle and GUI-specific usage prompts
 └── scripts/check-protocol.mjs  the one check; runs before every wiki build
 ```
 

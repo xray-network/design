@@ -16,7 +16,6 @@ export default function RadioExample() {
           { value: "btc", label: "Bitcoin", disabled: true },
         ]}
       />
-      <p className="wiki-demo-note">Selected: {currency}</p>
       <RadioGroup legend="Theme" direction="row" defaultValue="system" options={[{ value: "system", label: "System" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" }]} />
     </>
   )
