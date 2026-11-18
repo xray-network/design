@@ -1,17 +1,17 @@
 import { Stats } from "@protocol/blocks/stats/stats"
 
-export default function StatsExample() {
+export default function StatsExample({ loading = false }: { loading?: boolean }) {
   return (
     <>
-      <Stats
+      <Stats loading={loading}
         columns={3}
         items={[
-          { label: "Received", value: "+337.90", tone: "positive", sub: "ADA, last 14 days" },
-          { label: "Sent", value: "−1,045.38", sub: "ADA, last 14 days" },
-          { label: "Transactions", value: "38", sub: "0.51 ADA in fees" },
+          { label: "Received", value: "+337.90", tone: "positive", sub: "USD, last 14 days" },
+          { label: "Sent", value: "−1,045.38", sub: "USD, last 14 days" },
+          { label: "Transactions", value: "38", sub: "$12.40 in fees" },
         ]}
       />
-      <Stats
+      <Stats loading={loading}
         items={[
           { label: "Requests, 24h", value: "1.28M", delta: { value: "6.2%", direction: "up", tone: "positive" } },
           { label: "Latency, p95", value: "84 ms", delta: { value: "3.1%", direction: "down", tone: "positive" } },

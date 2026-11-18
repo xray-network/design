@@ -31,6 +31,8 @@ nav.x-tabs[aria-label]                   row with 6px gaps; scrolls sideways wit
 │   ├── button.x-tab-main[aria-current]  the tab itself; app tabs lead with a gray .x-tab-placeholder
 │   └── button.x-tab-action[aria-label]  22px actions: more, close
 └── button.x-icon-button                 trailing "add" (36px)
+div.x-tabs-panels (optional)             views under the row, 16px below
+└── section.x-tabs-panel[aria-labelledby][hidden]   one per tab with aria-controls
 ```
 
 ## States
@@ -48,6 +50,12 @@ nav.x-tabs[aria-label]                   row with 6px gaps; scrolls sideways wit
 - Exactly one tab has `aria-current="page"`.
 - Tab actions are separate buttons with their own `aria-label` ("Close Graph"), never nested inside the tab button.
 - The row scrolls horizontally; the current tab is scrolled into view when it changes.
+
+## Views and lazy content
+
+Tabs can carry their views: a tab with `aria-controls` shows its `.x-tabs-panel` while current. A view
+renders the first time its tab becomes current and then stays rendered, so hidden views cost nothing until
+used; `forceMount` (React) renders every view up front. In HTML, lazy content goes in `<template data-lazy>`.
 
 ## Motion
 

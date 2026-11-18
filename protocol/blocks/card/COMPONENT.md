@@ -4,13 +4,13 @@ name: Card and Tile
 summary: Object card (one action plus an optional menu) and the gray tile with the object's initial.
 motion: 0
 requires: [tokens]
-components: [button]
+components: [button, skeleton]
 files: [card.css, card.html, card.tsx]
 ---
 
 # Card and Tile
 
-A block. Cards present repeated objects of one kind: mini apps, accounts, pools. They are not for grouping
+A block. Cards present repeated objects of one kind: apps, accounts, plans. They are not for grouping
 a page into sections (DESIGN-PROTOCOL.md section 4). A tile is the object's identity mark.
 
 ## Anatomy
@@ -22,7 +22,7 @@ div.x-card-grid                         auto-fill columns, 288px minimum, 12px g
     │   ├── span.x-tile                 48px, 14px radius, gray chip surface, the object's initial
     │   └── span.x-card-text
     │       ├── .x-card-title           15/700, one line
-    │       ├── .x-card-description     13px, two lines at most
+    │       ├── .x-card-description     13px, always two lines tall (clamped)
     │       └── .x-card-meta            11px mono: id or path
     └── span.x-card-menu                28px icon button, top right
 ```
@@ -42,9 +42,13 @@ A tile holds one letter, the object's initial, in gray. No icons and no brand co
 | hover | `.x-card:hover` | hairline to `--x-border-hover` |
 | focus | `.x-card-main:focus-visible` | global focus ring around the card |
 
+## Loading
+
+React `loading` (`aria-busy`): a tile-shaped Skeleton in place of the lead, and bars of varied widths in place of the title, the description (two lines, as clamped) and the meta.
+
 ## Accessibility
 
-- One primary action per card (`.x-card-main`, a button or a link) with an `aria-label` that names it ("Open Wallet").
+- One primary action per card (`.x-card-main`, a button or a link) with an `aria-label` that names it ("Open Payments").
 - The menu button is a sibling of the main action, not a child, and has its own label.
 - Tiles are decorative (`aria-hidden`); the name is always in the title.
 

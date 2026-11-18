@@ -46,6 +46,7 @@
     line-height: 1.4;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    min-height: 2lh; /* always two lines: cards in a row line up, and loading does not change their height */
   }
   .x-card-meta { display: block; margin-top: var(--x-space-2-5); color: var(--x-fg-4); font: var(--x-weight-body) var(--x-text-2xs) / 1.3 var(--x-font-mono); }
   .x-card-menu { position: absolute; top: var(--x-space-2-5); right: var(--x-space-2-5); }

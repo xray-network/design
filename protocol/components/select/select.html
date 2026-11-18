@@ -1,26 +1,26 @@
 <!-- Select inside a field: the label names the trigger; the hidden input submits the value.
      select.controller.js adds keyboard, type-to-find, positioning and selection. -->
 <div class="x-field">
-  <span class="x-field-label" id="network-label">Network</span>
-  <button class="x-select" type="button" popovertarget="network-list" aria-haspopup="listbox" aria-labelledby="network-label network-value">
-    <span class="x-select-value" id="network-value" data-placeholder="Select a network">Cardano Mainnet</span>
+  <span class="x-field-label" id="region-label">Region</span>
+  <button class="x-select" type="button" popovertarget="region-list" aria-haspopup="listbox" aria-labelledby="region-label region-value">
+    <span class="x-select-value" id="region-value" data-placeholder="Select a region">US East</span>
     <svg class="x-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
   </button>
-  <div class="x-select-list" id="network-list" popover role="listbox" aria-labelledby="network-label">
-    <div class="x-select-option" role="option" data-value="mainnet" aria-selected="true" tabindex="-1">
+  <div class="x-select-list" id="region-list" popover role="listbox" aria-labelledby="region-label">
+    <div class="x-select-option" role="option" data-value="us-east" aria-selected="true" tabindex="-1">
       <svg class="x-select-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
-      <span>Cardano Mainnet</span><span class="x-select-option-note">Block 14,187,156</span>
+      <span>US East</span><span class="x-select-option-note">Virginia</span>
     </div>
-    <div class="x-select-option" role="option" data-value="preprod" aria-selected="false" tabindex="-1">
+    <div class="x-select-option" role="option" data-value="eu-west" aria-selected="false" tabindex="-1">
       <svg class="x-select-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
-      <span>Cardano Preprod</span><span class="x-select-option-note">Testnet</span>
+      <span>EU West</span><span class="x-select-option-note">Ireland</span>
     </div>
-    <div class="x-select-option" role="option" data-value="preview" aria-selected="false" aria-disabled="true" tabindex="-1">
+    <div class="x-select-option" role="option" data-value="ap-south" aria-selected="false" aria-disabled="true" tabindex="-1">
       <svg class="x-select-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
-      <span>Cardano Preview</span><span class="x-select-option-note">Unavailable</span>
+      <span>Asia Pacific</span><span class="x-select-option-note">Unavailable</span>
     </div>
   </div>
-  <input type="hidden" name="network" value="mainnet" data-for="network-list">
+  <input type="hidden" name="region" value="us-east" data-for="region-list">
 </div>
 
 <!-- Small, standalone (aria-label instead of a field label) -->

@@ -12,8 +12,8 @@ export default function RadioExample() {
         options={[
           { value: "usd", label: "US dollar" },
           { value: "eur", label: "Euro" },
-          { value: "ada", label: "ADA", description: "Show balances in the native asset" },
-          { value: "btc", label: "Bitcoin", disabled: true },
+          { value: "gbp", label: "British pound", description: "Show amounts in pounds" },
+          { value: "jpy", label: "Japanese yen", disabled: true },
         ]}
       />
       <RadioGroup legend="Theme" direction="row" defaultValue="system" options={[{ value: "system", label: "System" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" }]} />

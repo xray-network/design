@@ -83,4 +83,8 @@
   .x-tab-action .x-icon { width: var(--x-icon-sm); height: var(--x-icon-sm); stroke-width: 2; }
 
   .x-tabs-separator { flex: none; width: 1px; height: 18px; margin: 0 var(--x-space-1); background: var(--x-border); }
+
+  /* Optional views under the tabs: the current tab's panel shows; the others are hidden. */
+  .x-tabs-panels { padding-top: var(--x-space-4); }
+  .x-tabs-panel[hidden] { display: none; }
 }

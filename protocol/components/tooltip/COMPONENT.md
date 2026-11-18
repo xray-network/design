@@ -19,6 +19,8 @@ buttons inside. For richer content, use a Menu or a Dialog.
 ```
 trigger[data-x-tooltip=<id>]                     any focusable element
 div.x-tooltip#<id>[popover=manual]               8px radius, panel surface, hairline, 12/600, no pointer events
+  [data-placement=bottom|left|right]             the side it shows on; default top, centered; flips when out of room
+  ::after                                        8px arrow pointing at the trigger's center (data-side, --x-tooltip-arrow)
 ```
 
 ## Variants

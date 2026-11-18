@@ -1,4 +1,4 @@
-import { IconButton } from "@protocol/components/button/button"
+import { Button, IconButton } from "@protocol/components/button/button"
 import { toast } from "@protocol/components/toast/toast"
 import { Tooltip } from "@protocol/components/tooltip/tooltip"
 import { Row } from "../Demo"
@@ -12,11 +12,19 @@ const ICONS = {
 
 export default function TooltipExample() {
   return (
-    <Row>
-      <Tooltip content="Copy address"><IconButton aria-label="Copy address" onClick={() => toast("Address copied", { tone: "success" })}><Icon d={ICONS.copy} /></IconButton></Tooltip>
-      <Tooltip content="Reload"><IconButton aria-label="Reload"><Icon d={ICONS.refresh} /></IconButton></Tooltip>
-      <Tooltip content="Open in split view"><IconButton aria-label="Open in split view"><Icon d={ICONS.columns} /></IconButton></Tooltip>
-      <Tooltip content="Ends in 4d 07h 06m" kind="description"><span className="x-tag" tabIndex={0}>Epoch 667</span></Tooltip>
-    </Row>
+    <>
+      <Row>
+        <Tooltip content="Copy link"><IconButton aria-label="Copy link" onClick={() => toast("Link copied", { tone: "success" })}><Icon d={ICONS.copy} /></IconButton></Tooltip>
+        <Tooltip content="Reload"><IconButton aria-label="Reload"><Icon d={ICONS.refresh} /></IconButton></Tooltip>
+        <Tooltip content="Open in split view"><IconButton aria-label="Open in split view"><Icon d={ICONS.columns} /></IconButton></Tooltip>
+        <Tooltip content="Ends in 4d 07h 06m" kind="description"><span className="x-tag" tabIndex={0}>Trial</span></Tooltip>
+      </Row>
+      <Row>
+        <Tooltip content="On top" kind="description"><Button variant="ghost" size="sm">Top</Button></Tooltip>
+        <Tooltip content="Below" kind="description" placement="bottom"><Button variant="ghost" size="sm">Bottom</Button></Tooltip>
+        <Tooltip content="On the left" kind="description" placement="left"><Button variant="ghost" size="sm">Left</Button></Tooltip>
+        <Tooltip content="On the right" kind="description" placement="right"><Button variant="ghost" size="sm">Right</Button></Tooltip>
+      </Row>
+    </>
   )
 }

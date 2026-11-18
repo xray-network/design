@@ -11,17 +11,17 @@ const ICONS = {
 }
 
 const APPS = [
-  { id: "cardano-wallet", name: "Cardano Wallet", desc: "Official wallet for managing your assets." },
-  { id: "cardano-assets", name: "Cardano Assets", desc: "Track and manage your digital assets seamlessly." },
+  { id: "payments", name: "Payments", desc: "Accept cards and bank transfers." },
+  { id: "invoices", name: "Invoices", desc: "Bill customers and track what is due." },
   { id: "wiki", name: "Wiki", desc: "Access comprehensive documentation and resources." },
-  { id: "graph", name: "Graph", desc: "Robust and scalable APIs for Cardano blockchain developers." },
+  { id: "reports", name: "Reports", desc: "Revenue, refunds and payouts." },
 ]
 
-export default function CardExample() {
+export default function CardExample({ loading = false }: { loading?: boolean }) {
   return (
     <CardGrid>
       {APPS.map((app) => (
-        <Card
+        <Card loading={loading}
           key={app.id}
           title={app.name}
           description={app.desc}

@@ -14,4 +14,4 @@ export type Messenger = {
   destroy: () => void;
 };
 export const MESSAGE_ICONS: Record<MessageTone, string>;
-export function createMessenger(options?: { region?: HTMLElement; max?: number }): Messenger;
+export function createMessenger(options?: { region?: HTMLElement; max?: number; position?: "top" | "bottom" }): Messenger;

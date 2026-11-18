@@ -1,0 +1,36 @@
+<!-- Collapse: native details/summary. The same name on every item makes an accordion.
+     Lazy content: put it in <template data-lazy>; collapse.controller.js renders it on first open. -->
+<div class="x-collapse">
+  <details class="x-collapse-item" name="faq" data-value="fees" open>
+    <summary class="x-collapse-header">
+      <span class="x-collapse-title">What does the processing fee cover?</span>
+      <svg class="x-collapse-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+    </summary>
+    <div class="x-collapse-content"><p>Card networks and the payment processor: 2.9% plus $0.30 per payment.</p></div>
+  </details>
+  <details class="x-collapse-item" name="faq" data-value="rewards">
+    <summary class="x-collapse-header">
+      <span class="x-collapse-title">When are payouts sent?</span>
+      <span class="x-collapse-extra">Every 2 days</span>
+      <svg class="x-collapse-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+    </summary>
+    <div class="x-collapse-content">
+      <template data-lazy><p>Two business days after the payment clears.</p></template>
+    </div>
+  </details>
+</div>
+
+<div class="x-collapse" data-variant="ghost">
+  <details class="x-collapse-item" data-value="advanced">
+    <summary class="x-collapse-header">
+      <span class="x-collapse-title">Advanced</span>
+      <svg class="x-collapse-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+    </summary>
+    <div class="x-collapse-content"><p>Custom TTL and metadata.</p></div>
+  </details>
+</div>
+
+<script type="module">
+  import { initCollapse } from "./collapse.controller.js";
+  initCollapse();
+</script>

@@ -1,84 +1,83 @@
 ---
 id: table
 name: Table
-summary: Data in a framed section with an optional title, row dividers, row links, an empty row and a pagination footer.
+summary: A data table in a hairline frame with a tinted header row, optional sorting and built-in paging with Pagination.
 motion: 0
 requires: [tokens]
-components: [pagination]
+components: [pagination, skeleton]
 files: [table.css, table.html, table.controller.js, table.tsx]
 ---
 
 # Table
 
-Rows of comparable data: endpoints, transactions, assets, delegations. Each row is one object; its
-first cell names it and can link to it. For one or two facts per object, List reads better on phones.
+Rows of comparable data on a page: payments, invoices, customers, endpoints. A hairline frame with a
+tinted header row and dividers between rows, like the tables in these docs. Give it a page size and it
+pages the rows with Pagination under the frame. For a dense table with its own title inside a dashboard
+card, use Table Compact; for one or two facts per object on phones, use List.
+
+## Platform contract
+
+Native GUI implementations use the platform's table or data grid with a header row, row dividers, the same
+alignment rules (numbers end-aligned) and the kit's Pagination equivalent under it. Sorting announces its
+order through the platform's accessibility API.
 
 ## Anatomy
 
 ```
-section.x-table[aria-labelledby|aria-label]         hairline frame, 20px radius
-├── div.x-table-head (optional)                     20px padding
-│   ├── h3.x-table-title                            18/700
-│   └── p.x-table-description                       12px muted
-├── div.x-table-scroll                              scrolls sideways when the table is wide
-│   └── table                                       14px, tabular digits, no wrapping
-│       ├── caption                                 names the table for screen readers (visually hidden)
-│       ├── thead th[scope=col][data-align]         12px muted; a hairline above when there is a title
-│       └── tbody tr                                hairline between rows
-│           ├── th[scope=row]                       600, --x-fg-1; [a.x-table-link] makes the row clickable
-│           └── td[data-align]
-└── div.x-table-foot (optional)                     hairline above; holds Pagination
+div.x-table
+├── div.x-table-frame                       hairline, 20px radius; scrolls sideways when wide
+│   └── table                               14px, tabular digits
+│       ├── caption                         names the table for screen readers (visually hidden)
+│       ├── thead th[scope=col][data-align] --x-bg-panel fill, 14/600, --x-fg-1, 12×16px, hairline under
+│       └── tbody tr                        canvas; hairline between rows; --x-bg-soft on hover
+│           ├── th[scope=row]               the row's name, same look as a cell
+│           └── td[data-align]              12×16px, --x-fg-1
+└── div.x-table-foot (optional)             12px above; holds Pagination, end-aligned
 ```
-
-Cells are 12px from each other and 20px from the frame.
 
 ## Variants
 
 | Attribute | Values |
 |---|---|
 | `th`, `td` `data-align` | `end` (numbers, amounts), `center` |
-| `th` `aria-sort` + `button.x-table-sort` | optional sortable column; `td data-value` gives the sort key |
+| `th[aria-sort]` + `button.x-table-sort` | a sortable column; `td data-value` gives the sort key (HTML) |
 | `tr.x-table-empty` | one row spanning all columns: the empty state |
+| `tr.x-table-loading` + `.x-table-frame[aria-busy=true]` | loading: a skeleton line in every cell, aligned like the data; paging disabled. React: `loading`, `loadingRows` (default: the page size, or 5) |
 
 ## States
 
 | State | Source | Look |
 |---|---|---|
-| row link | `a.x-table-link` in the first cell | link color; the whole row is the click target |
-| row hover / focus | `tr:hover`, `tr:focus-within` | link turns `--x-accent-ink-hover` |
-| row link focus | `.x-table-link:focus-visible` | 2px ring around the whole row |
+| row hover | `tbody tr:hover` | `--x-bg-soft` fill |
+| sorted | `aria-sort` on the header cell | arrow shown; turned for ascending |
 
 ## Accessibility
 
-- A real `<table>` with `th scope="col"` and the first cell as `th scope="row"`.
-- Name it: a visible `.x-table-title` with `aria-labelledby` on the section, plus the `caption`.
-- The row link is a real link on the row's name; other controls in the row stay separately clickable.
-- Sorting buttons announce their order through `aria-sort`.
+- A real `<table>` with `th scope="col"` and the first cell as `th scope="row"`; a `caption` names it.
+- Sort buttons live in the header cells and announce the order through `aria-sort`.
+- Pagination is a labelled navigation under the table; changing the page keeps focus in Pagination.
 
 ## Motion
 
-None beyond color on `--x-duration-fast` and the sort arrow turning.
+Row hover color on `--x-duration-fast`; the sort arrow turns on `--x-spring`.
 
 ## Component tokens
 
-`--x-table-pad-edge`, `--x-table-pad-cell`.
+`--x-table-radius`, `--x-table-cell-pad`.
 
 ## Invariants
 
-- Hairlines between rows, none between columns; the frame clips the corners.
-- Numbers right-aligned with tabular digits; cells never wrap (the scroll container handles width).
-- Native table elements. No div grids posing as tables.
+- Header row on `--x-bg-panel` at weight 600; body cells at weight 500 on the canvas.
+- No vertical lines; dividers between rows only.
+- Numbers are end-aligned with tabular digits.
 
 ## Safe edits
 
-- Cells with other components: Avatar or a token disc before the name, Delta, Status, Tag, a round IconButton.
-- A toolbar (search Input, Select) in the head next to the title.
-- Pagination at the top as well (a second `.x-table-foot` above the scroll container, with the hairline below).
-- Server-side sorting: set `aria-sort` from the request and skip the controller.
+- Controls (buttons, menus, tags) in cells.
+- A fixed column width through `width` on a column.
 
 ## Checklist
 
-- [ ] Clicking anywhere on a linked row opens it; buttons in the row still work
-- [ ] Wide tables scroll inside the frame, never the page
-- [ ] Empty state shows one row
-- [ ] Both themes
+- [ ] Caption names the table; first cell is the row header
+- [ ] Wide tables scroll sideways inside the frame on phones
+- [ ] Paging and sorting work by keyboard; both themes

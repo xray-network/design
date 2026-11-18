@@ -26,15 +26,24 @@ The first version.
 - **Accent:** `--x-accent` for fills, the same blue in both themes; `--x-accent-ink` (+ `-hover`) for focus
   rings, focused borders, links, icons and check marks, lighter in dark theme. `--x-focus` and `--x-link`
   follow the ink.
-- **Components (21):** Alert, Avatar, Button (+ icon button, round shape), Checkbox, Chips, Modal (`dialog`), Icon
-  (interface, social and crypto icons, all outline), Input (field, input, textarea), Menu, Message, Numeral, Pagination, Radio, Segmented, Select, Switch, Table, Tabs,
-  Tag (+ status, delta), Toast, Tooltip.
-- **Blocks (8):** Account switcher, Balance, Card and Tile, List, Option cards (with a radio dot in the top-right
-  corner), Send form, Stats, Transactions.
+- **Components (34):** Alert, Avatar, BorderBeam, Button (+ icon button, round shape), Checkbox, Chips, Collapse,
+  Empty, Group, Icon (interface, social and crypto icons, all outline), Input (field, input, textarea), Menu, Menu Navigation, Message,
+  Modal (`dialog`), Numeral, Pagination, Popconfirm, Popover, Radio, Result, Segmented, Select,
+  Select Native, Skeleton, Spinner, Switch, Table, Table Compact, Tabs, Tag (+ status, delta), Toast, Tooltip, Typography.
+- **Loading states:** Skeleton (shapes, and text bars exactly one line tall with stable varied widths). Table, Table
+  Compact, Result, Button, Pagination, Avatar (a spinner on top) and every block take `loading`: placeholders follow
+  the structure, not the content, and the layout does not move.
+- **Lazy content:** Modal, Tabs, Segmented and Collapse render hidden content on first show; `forceMount` renders it
+  up front. In HTML, lazy content goes in `<template data-lazy>`.
+- **Blocks (9):** Account switcher, Balance, Card and Tile, List, Option cards (with a radio dot in the top-right
+  corner), Send form, Stats, Stats grid, Transactions.
 - **Protocol:** `DESIGN-PROTOCOL.md`: the version and every token (both themes) in its header; rules for color, type,
   spacing, radius, surfaces, motion, layout, accessibility, theming,
   writing, components and blocks.
 - **Skill:** `SKILL.md`: setup, add a component or block, adapt, create, theme, upgrade (3-way merge), audit.
+- **Theming:** DESIGN-PROTOCOL.md §11 defines the theming surface for every GUI framework (the accent set derived
+  from one brand color, fonts, the radius scale, optional neutrals) and what stays fixed. Overrides live in one
+  project-owned theme layer, recorded as `theme` in `design.lock.json`; upgrades never modify it.
 
 ### Changed
 

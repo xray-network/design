@@ -3,20 +3,20 @@ import { Field } from "@protocol/components/field/field"
 import { Select } from "@protocol/components/select/select"
 
 export default function SelectExample() {
-  const [network, setNetwork] = useState("mainnet")
+  const [network, setNetwork] = useState("us-east")
   return (
     <>
-      <Field label="Network">
+      <Field label="Region">
         {(p) => (
           <Select
             {...p}
-            name="network"
+            name="region"
             value={network}
             onValueChange={setNetwork}
             options={[
-              { value: "mainnet", label: "Cardano Mainnet", note: "Block 14,187,156" },
-              { value: "preprod", label: "Cardano Preprod", note: "Testnet" },
-              { value: "preview", label: "Cardano Preview", note: "Unavailable", disabled: true },
+              { value: "us-east", label: "US East", note: "Virginia" },
+              { value: "eu-west", label: "EU West", note: "Ireland" },
+              { value: "ap-south", label: "Asia Pacific", note: "Unavailable", disabled: true },
             ]}
           />
         )}

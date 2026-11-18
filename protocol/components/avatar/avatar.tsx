@@ -7,22 +7,25 @@ export type AvatarProps = {
   seed: string;
   palette?: AvatarPalette;
   size?: "sm" | "md" | "lg";
-  /** A filled mark on the corner, usually the account's chain logo (an <svg>). */
+  /** A filled mark on the corner, such as a verified check (an <svg>). */
   badge?: ReactNode;
-  /** Name of the badge for screen readers ("Cardano"). */
+  /** Name of the badge for screen readers ("Verified"). */
   badgeLabel?: string;
   /** The surface behind the avatar, so the badge ring matches it: "var(--x-bg-panel)". */
   ring?: string;
+  /** While the account loads: a spinner on top of the avatar, which stays visible. */
+  loading?: boolean;
   className?: string;
 };
 
 /** Decorative: always show the account's label or address in text next to it. */
-export function Avatar({ seed, palette = "ada", size = "md", badge, badgeLabel, ring, className }: AvatarProps) {
+export function Avatar({ seed, palette = "amber", size = "md", badge, badgeLabel, ring, loading, className }: AvatarProps) {
   const { background, shapes } = avatarShapes(seed, palette);
   return (
     <span
       className={className ? `x-avatar ${className}` : "x-avatar"}
       data-size={size === "md" ? undefined : size}
+      aria-busy={loading || undefined}
       style={ring ? ({ "--x-avatar-ring": ring } as CSSProperties) : undefined}
     >
       <svg viewBox="0 0 40 40" aria-hidden="true">

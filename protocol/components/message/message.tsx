@@ -7,33 +7,39 @@ import "./message.css";
 
 export type { MessageOptions };
 
-let instance: Messenger | null = null;
-const pending: MessageOptions[] = [];
+export type MessagePosition = "top" | "bottom";
+const instances: Partial<Record<MessagePosition, Messenger>> = {};
+const pending: (MessageOptions & { position?: MessagePosition })[] = [];
 
 /**
  * Mount once near the root of the app. The same controller as the HTML version manages the
  * messages inside this region; React renders only the empty region.
  */
-export function Messages({ max = 4 }: { max?: number }) {
+export function Messages({ max = 4, position = "top" }: { max?: number; position?: MessagePosition }) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
-    const messenger = createMessenger({ region: ref.current, max });
-    instance = messenger;
-    pending.splice(0).forEach((options) => messenger.message(options));
+    const messenger = createMessenger({ region: ref.current, max, position });
+    instances[position] = messenger;
+    pending.splice(0).forEach((options) => message(options));
     return () => {
       messenger.destroy();
-      if (instance === messenger) instance = null;
+      if (instances[position] === messenger) delete instances[position];
     };
-  }, [max]);
+  }, [max, position]);
 
-  return <section ref={ref} className="x-messages" popover="manual" aria-live="polite" aria-label="Messages" />;
+  return <section ref={ref} className="x-messages" popover="manual" aria-live="polite" aria-label="Messages" data-position={position === "bottom" ? "bottom" : undefined} />;
 }
 
-/** Show a message from anywhere (event handlers, effects, outside React). Text only. */
-export function message(options: MessageOptions) {
-  if (instance) return instance.message(options);
-  pending.push(options); // shown when <Messages /> mounts
+/**
+ * Show a message from anywhere (event handlers, effects, outside React). Text only.
+ * `position` picks the Messages region at that corner (top right by default); without one there, any mounted region.
+ */
+export function message(options: MessageOptions & { position?: MessagePosition }) {
+  const { position = "top", ...rest } = options;
+  const target = instances[position] ?? instances.top ?? instances.bottom;
+  if (target) return target.message(rest);
+  pending.push(options); // shown when a <Messages /> mounts
   return { dismiss: () => {} };
 }

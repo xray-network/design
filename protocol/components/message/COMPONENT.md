@@ -10,8 +10,8 @@ files: [message.css, message.html, message.controller.js, message.controller.d.t
 
 # Message
 
-Tells the user about something that happened outside their current focus: a confirmed delegation,
-a finished sync, a warning about their pool. It has room for a title, a sentence and one action.
+Tells the user about something that happened outside their current focus: a confirmed payment,
+a finished sync, a warning about their plan. It has room for a title, a sentence and one action.
 For a one-line confirmation of what the user just did, use Toast. For a message tied to a place in
 the page, use Alert.
 
@@ -45,6 +45,12 @@ section.x-messages[popover=manual][aria-live=polite]   top right, 360px, top lay
 | stacked | siblings change | moves to its new place by FLIP on `--x-spring-soft` |
 | closing | `data-state="closing"` | slides back out to the right and fades on `--x-ease`, then removed |
 | paused | pointer or focus inside the region | timers stop |
+
+## Position
+
+In the top-right corner by default. `data-position="bottom"` on the region (React `<Messages position="bottom" />`,
+HTML `createMessenger({ position: "bottom" })`) uses the bottom-right corner, the newest message nearest the edge.
+`message({ ..., position: "bottom" })` picks that region when an app mounts both.
 
 ## Accessibility
 

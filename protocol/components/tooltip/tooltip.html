@@ -5,8 +5,16 @@
 <div class="x-tooltip" id="tip-copy" popover="manual" aria-hidden="true">Copy address</div>
 
 <!-- Tooltip adding information: linked with aria-describedby and role="tooltip" -->
-<span tabindex="0" aria-describedby="tip-epoch" data-x-tooltip="tip-epoch">Epoch 667</span>
-<div class="x-tooltip" id="tip-epoch" popover="manual" role="tooltip">Ends in 4d 07h 06m</div>
+<span tabindex="0" aria-describedby="tip-trial" data-x-tooltip="tip-trial">Trial</span>
+<div class="x-tooltip" id="tip-trial" popover="manual" role="tooltip">Ends in 4d 07h 06m</div>
+
+<!-- Sides: top (default), bottom, left, right -->
+<button class="x-button" type="button" data-variant="ghost" data-x-tooltip="tip-bottom">Bottom</button>
+<div class="x-tooltip" id="tip-bottom" popover="manual" aria-hidden="true" data-placement="bottom">Below</div>
+<button class="x-button" type="button" data-variant="ghost" data-x-tooltip="tip-left">Left</button>
+<div class="x-tooltip" id="tip-left" popover="manual" aria-hidden="true" data-placement="left">On the left</div>
+<button class="x-button" type="button" data-variant="ghost" data-x-tooltip="tip-right">Right</button>
+<div class="x-tooltip" id="tip-right" popover="manual" aria-hidden="true" data-placement="right">On the right</div>
 
 <script type="module">
   import { initTooltips } from "./tooltip.controller.js";

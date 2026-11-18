@@ -1,4 +1,4 @@
-/* List: rows without boxes, with a soft fill on hover. Transactions, assets, pools, settings.
+/* List: rows without boxes, with a soft fill on hover. Payments, currencies, plans, settings.
    Requires core/tokens.css. */
 
 @layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
@@ -44,4 +44,7 @@
   .x-list-icon[data-tone="positive"] { color: var(--x-success-fg); }
   .x-list-icon .x-icon { width: var(--x-icon-md); height: var(--x-icon-md); }
   .x-list-token { background: var(--x-list-token-bg, var(--x-accent)); color: var(--x-accent-fg); font-size: var(--x-text-sm); font-weight: var(--x-weight-stat); }
+
+  /* Loading: bars on the right hug the right edge, like the amounts they stand for. */
+  .x-list-end .x-skeleton { margin-left: auto; }
 }

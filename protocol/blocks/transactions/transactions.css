@@ -14,8 +14,8 @@
   /* Filtering with no JS: the checked chip's value hides other kinds, and day groups left empty. */
   .x-transactions:has(.x-chip input[value="sent"]:checked) .x-list-row:not([data-kind="sent"]),
   .x-transactions:has(.x-chip input[value="received"]:checked) .x-list-row:not([data-kind="received"]),
-  .x-transactions:has(.x-chip input[value="staking"]:checked) .x-list-row:not([data-kind="staking"]) { display: none; }
+  .x-transactions:has(.x-chip input[value="refund"]:checked) .x-list-row:not([data-kind="refund"]) { display: none; }
   .x-transactions:has(.x-chip input[value="sent"]:checked) .x-transactions-day:not(:has([data-kind="sent"])),
   .x-transactions:has(.x-chip input[value="received"]:checked) .x-transactions-day:not(:has([data-kind="received"])),
-  .x-transactions:has(.x-chip input[value="staking"]:checked) .x-transactions-day:not(:has([data-kind="staking"])) { display: none; }
+  .x-transactions:has(.x-chip input[value="refund"]:checked) .x-transactions-day:not(:has([data-kind="refund"])) { display: none; }
 }

@@ -8,7 +8,7 @@
 
     display: grid;
     grid-template-columns: repeat(var(--x-stats-columns), minmax(0, 1fr));
-    gap: var(--x-space-5) var(--x-space-6);
+    gap: var(--x-space-5) var(--x-space-10);
     margin: 0;
   }
   .x-stat { display: grid; gap: var(--x-space-0-5); align-content: start; min-width: 0; }

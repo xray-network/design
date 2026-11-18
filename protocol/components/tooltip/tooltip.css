@@ -21,7 +21,7 @@
     overflow: visible;
 
     opacity: 0;
-    translate: 0 var(--x-tooltip-shift, 2px);
+    translate: var(--x-tooltip-from, 0 2px);
     transition:
       opacity var(--x-duration-fast) var(--x-ease),
       translate var(--x-duration-fast) var(--x-ease),
@@ -30,8 +30,26 @@
   }
   .x-tooltip:popover-open { opacity: 1; translate: 0 0; will-change: opacity, translate; }
   @starting-style {
-    .x-tooltip:popover-open { opacity: 0; translate: 0 var(--x-tooltip-shift, 2px); }
+    .x-tooltip:popover-open { opacity: 0; translate: var(--x-tooltip-from, 0 2px); }
   }
-  /* Below the trigger, it enters from above instead. */
-  .x-tooltip[data-side="bottom"] { --x-tooltip-shift: -2px; }
+  /* It enters from the trigger's direction: above it rises, below it drops, beside it slides in. */
+  .x-tooltip[data-side="bottom"] { --x-tooltip-from: 0 -2px; }
+  .x-tooltip[data-side="left"] { --x-tooltip-from: 2px 0; }
+  .x-tooltip[data-side="right"] { --x-tooltip-from: -2px 0; }
+
+  /* The arrow: a rotated square in the tooltip's fill with the hairline on its outer edges, pointing at the
+     trigger's center (--x-tooltip-arrow, set by the controller along the facing edge). */
+  .x-tooltip::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--x-border);
+    background: var(--x-bg-panel);
+    rotate: 45deg;
+  }
+  .x-tooltip:is(:not([data-side]), [data-side="top"])::after { bottom: -5px; left: calc(var(--x-tooltip-arrow, 50%) - 4px); border-top: 0; border-left: 0; }
+  .x-tooltip[data-side="bottom"]::after { top: -5px; left: calc(var(--x-tooltip-arrow, 50%) - 4px); border-bottom: 0; border-right: 0; }
+  .x-tooltip[data-side="left"]::after { right: -5px; top: calc(var(--x-tooltip-arrow, 50%) - 4px); border-bottom: 0; border-left: 0; }
+  .x-tooltip[data-side="right"]::after { left: -5px; top: calc(var(--x-tooltip-arrow, 50%) - 4px); border-top: 0; border-right: 0; }
 }

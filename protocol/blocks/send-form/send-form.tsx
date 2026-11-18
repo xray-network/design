@@ -4,6 +4,7 @@ import { useId, useState, type FormEvent } from "react";
 import { Button } from "../../components/button/button";
 import { Field, Input } from "../../components/field/field";
 import { OptionCards } from "../option/option";
+import { Skeleton } from "../../components/skeleton/skeleton";
 import "./send-form.css";
 
 export type Fee = { value: string; title: string; description: string; amount: number };
@@ -19,10 +20,12 @@ export type SendFormProps = {
   /** Called with a valid request. Show a review dialog from here. */
   onReview: (request: { recipient: string; amount: number; fee: Fee; total: number }) => void;
   submitLabel?: string;
+  /** While the balance and fees load: bars in their place, and the form cannot be sent. */
+  loading?: boolean;
   className?: string;
 };
 
-export function SendForm({ available, ticker, fees, defaultFee, toFiat, onReview, submitLabel = "Review transaction", className }: SendFormProps) {
+export function SendForm({ available, ticker, fees, defaultFee, toFiat, onReview, submitLabel = "Review payment", loading, className }: SendFormProps) {
   const id = useId();
   const [recipient, setRecipient] = useState("");
   const [amountText, setAmountText] = useState("");
@@ -39,7 +42,7 @@ export function SendForm({ available, ticker, fees, defaultFee, toFiat, onReview
     total > available ? `Not enough ${ticker}: the most you can send is ${format(max)}`
     : submitted && amount <= 0 ? "Enter an amount"
     : undefined;
-  const recipientError = submitted && !recipient.trim() ? "Enter an address or $handle" : undefined;
+  const recipientError = submitted && !recipient.trim() ? "Enter an email or account ID" : undefined;
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
@@ -49,15 +52,15 @@ export function SendForm({ available, ticker, fees, defaultFee, toFiat, onReview
   };
 
   return (
-    <form className={className ? `x-send-form ${className}` : "x-send-form"} onSubmit={submit} noValidate>
+    <form className={className ? `x-send-form ${className}` : "x-send-form"} onSubmit={submit} noValidate aria-busy={loading || undefined}>
       <Field label="Recipient" error={recipientError} id={`${id}-to`}>
         {(p) => (
-          <Input {...p} className="x-send-form-address" value={recipient} onChange={(e) => setRecipient(e.target.value)} placeholder="Address or $handle" autoComplete="off" spellCheck={false} />
+          <Input {...p} className="x-send-form-address" value={recipient} onChange={(e) => setRecipient(e.target.value)} placeholder="Email or account ID" autoComplete="off" spellCheck={false} />
         )}
       </Field>
       <Field
         label="Amount"
-        hint={`${toFiat && amount > 0 ? `≈ ${toFiat(amount)} · ` : ""}${format(available)} available`}
+        hint={loading ? <Skeleton shape="text" width="11em" /> : `${toFiat && amount > 0 ? `≈ ${toFiat(amount)} · ` : ""}${format(available)} available`}
         error={amountError}
         id={`${id}-amount`}
       >
@@ -80,19 +83,20 @@ export function SendForm({ available, ticker, fees, defaultFee, toFiat, onReview
         )}
       </Field>
       <div className="x-field">
-        <span className="x-field-label" id={`${id}-fee`}>Network fee</span>
+        <span className="x-field-label" id={`${id}-fee`}>Fee</span>
         <OptionCards
-          aria-label="Network fee"
+          aria-label="Payout speed"
           value={fee?.value}
           onValueChange={setFeeValue}
+          loading={loading}
           options={fees.map((f) => ({ value: f.value, title: f.title, description: f.description, detail: format(f.amount) }))}
         />
       </div>
       <dl className="x-send-form-summary">
-        <div><dt>Network fee</dt><dd>{format(fee?.amount ?? 0)}</dd></div>
-        <div><dt>Total</dt><dd><b>{format(total)}</b></dd></div>
+        <div><dt>Fee</dt><dd>{loading ? <Skeleton shape="text" width="4.5em" /> : format(fee?.amount ?? 0)}</dd></div>
+        <div><dt>Total</dt><dd>{loading ? <Skeleton shape="text" width="5.5em" /> : <b>{format(total)}</b>}</dd></div>
       </dl>
-      <Button type="submit" size="lg" fullWidth>{submitLabel}</Button>
+      <Button type="submit" size="lg" fullWidth disabled={loading}>{submitLabel}</Button>
     </form>
   );
 }

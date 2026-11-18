@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { IconButton } from "../button/button";
 import { isBackdropClick, lockScroll, trackScrollbar, unlockScroll } from "./dialog.controller.js";
 import "./dialog.css";
@@ -14,8 +14,12 @@ export type DialogProps = {
   /** Actions, right-aligned on desktop, stacked full-width on phones. Primary action last. */
   footer?: ReactNode;
   size?: "sm" | "md" | "lg";
+  /** Where it opens: centered (default), or near the top of the window for dialogs that grow (search, long forms). */
+  placement?: "center" | "top";
   /** Allow closing by clicking the backdrop. Default true; turn off for destructive or unsaved flows. */
   dismissible?: boolean;
+  /** Render the children while the dialog has never been open. By default they render on first open, then stay. */
+  forceMount?: boolean;
   className?: string;
 };
 
@@ -28,10 +32,14 @@ export function Dialog({
   children,
   footer,
   size = "md",
+  placement = "center",
   dismissible = true,
+  forceMount = false,
   className,
 }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
+  const [seen, setSeen] = useState(open);
+  if (open && !seen) setSeen(true);
   const titleId = useId();
   const descriptionId = useId();
 
@@ -53,6 +61,7 @@ export function Dialog({
       ref={ref}
       className={className ? `x-dialog ${className}` : "x-dialog"}
       data-size={size === "md" ? undefined : size}
+      data-placement={placement === "top" ? "top" : undefined}
       aria-labelledby={titleId}
       aria-describedby={description ? descriptionId : undefined}
       onClose={() => {
@@ -74,7 +83,7 @@ export function Dialog({
       </header>
       <div className="x-dialog-body">
         {description && <p className="x-dialog-description" id={descriptionId}>{description}</p>}
-        {children}
+        {forceMount || seen ? children : null}
       </div>
       {footer && <footer className="x-dialog-footer">{footer}</footer>}
     </dialog>

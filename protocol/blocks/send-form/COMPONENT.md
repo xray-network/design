@@ -4,24 +4,24 @@ name: Send form
 summary: Recipient, amount with Max, network fee options, a live total and the review button.
 motion: 0
 requires: [tokens]
-components: [field, button]
+components: [field, button, skeleton]
 blocks: [option]
 files: [send-form.css, send-form.html, send-form.controller.js, send-form.tsx]
 ---
 
 # Send form
 
-The send step of a wallet: who, how much, how fast, and what it costs in total. It ends in a review
+The send step of a payment: who, how much, how fast, and what it costs in total. It ends in a review
 step (a Dialog, or a page), never in sending directly.
 
 ## Anatomy
 
 ```
 form.x-send-form                          single column, 24px gaps, 560px max
-├── .x-field  Recipient                   Field + Input (mono): address or $handle
+├── .x-field  Recipient                   Field + Input: email or account ID
 ├── .x-field  Amount                      Input lg + chip Button "Max" + ticker; hint: fiat · available
-├── .x-field  Network fee                 Option cards: Slow / Standard / Fast with time and cost
-├── dl.x-send-form-summary                Network fee, Total (bold); hairline above
+├── .x-field  Fee                 Option cards: Slow / Standard / Fast with time and cost
+├── dl.x-send-form-summary                Fee, Total (bold); hairline above
 └── button.x-button[data-size=lg][data-width=full]   "Review transaction"
 ```
 
@@ -34,6 +34,10 @@ form.x-send-form                          single column, 24px gaps, 560px max
 
 HTML: `send-form.controller.js` does the above from `data-available`, `data-ticker`, `data-fee` on each
 fee radio, `[data-x-amount]`, `[data-x-max]`, `[data-x-fee]` and `[data-x-total]`.
+
+## Loading
+
+React `loading` (`aria-busy`): bars in place of the available balance, the fee options' texts and the summary amounts; the fields stay usable and the submit button is disabled.
 
 ## Accessibility
 

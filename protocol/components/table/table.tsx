@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { Pagination } from "../pagination/pagination";
+import { Skeleton } from "../skeleton/skeleton";
 import "./table.css";
 
-export type Column<Row> = {
+export type TableColumn<Row> = {
   key: string;
   header: ReactNode;
   /** Cell content. Defaults to row[key]. */
@@ -14,26 +16,28 @@ export type Column<Row> = {
   sortValue?: (row: Row) => number | string;
 };
 
-export type Sort = { key: string; direction: "ascending" | "descending" };
+export type TableSort = { key: string; direction: "ascending" | "descending" };
 
 export type TableProps<Row> = {
-  columns: Column<Row>[];
+  columns: TableColumn<Row>[];
   rows: Row[];
   rowKey: (row: Row) => string;
   /** Names the table for screen readers. */
   caption: string;
-  /** Visible heading above the table, and a line under it. */
-  title?: ReactNode;
-  description?: ReactNode;
-  /** Makes the first cell a link and the whole row clickable. */
-  rowHref?: (row: Row) => string | undefined;
   /** Shown as one row when there are no rows. */
   empty?: ReactNode;
-  /** Under the rows, usually a Pagination. */
-  footer?: ReactNode;
-  defaultSort?: Sort;
-  sort?: Sort;
-  onSortChange?: (sort: Sort) => void;
+  /** Shows skeleton rows instead of data, marks the table busy and disables paging. */
+  loading?: boolean;
+  /** How many skeleton rows to show while loading. Defaults to the page size, or 5. */
+  loadingRows?: number;
+  /** Rows per page. Pages the rows with Pagination under the table; omit to show all. */
+  pageSize?: number;
+  /** Current page (controlled), starting at 1. */
+  page?: number;
+  onPageChange?: (page: number) => void;
+  defaultSort?: TableSort;
+  sort?: TableSort;
+  onSortChange?: (sort: TableSort) => void;
   className?: string;
 };
 
@@ -42,39 +46,46 @@ const Arrow = () => (
     <path d="M12 4.5v15m0 0 6.75-6.75M12 19.5l-6.75-6.75" />
   </svg>
 );
-const align = (a?: Column<unknown>["align"]) => (a === "end" || a === "center" ? a : undefined);
+const align = (a?: "start" | "center" | "end") => (a === "end" || a === "center" ? a : undefined);
 
+/** A data table like the docs' tables, with optional sorting and paging. */
 export function Table<Row>({
-  columns, rows, rowKey, caption, title, description, rowHref, empty = "Not found", footer, defaultSort, sort, onSortChange, className,
+  columns, rows, rowKey, caption, empty = "Nothing here yet", loading = false, loadingRows, pageSize, page, onPageChange, defaultSort, sort, onSortChange, className,
 }: TableProps<Row>) {
-  const [inner, setInner] = useState<Sort | undefined>(defaultSort);
-  const current = sort ?? inner;
+  const [innerSort, setInnerSort] = useState<TableSort | undefined>(defaultSort);
+  const [innerPage, setInnerPage] = useState(1);
+  const currentSort = sort ?? innerSort;
+  const pageCount = pageSize ? Math.max(1, Math.ceil(rows.length / pageSize)) : 1;
+  const currentPage = Math.min(page ?? innerPage, pageCount);
+
+  // Back to a valid page when the rows shrink.
+  useEffect(() => { if (page === undefined && innerPage > pageCount) setInnerPage(pageCount); }, [page, innerPage, pageCount]);
 
   const sorted = useMemo(() => {
-    const by = columns.find((c) => c.key === current?.key)?.sortValue;
-    if (!by || !current) return rows;
+    const by = columns.find((c) => c.key === currentSort?.key)?.sortValue;
+    if (!by || !currentSort) return rows;
     return [...rows].sort((a, b) => {
       const x = by(a), y = by(b);
       const order = typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y));
-      return current.direction === "ascending" ? order : -order;
+      return currentSort.direction === "ascending" ? order : -order;
     });
-  }, [rows, columns, current]);
+  }, [rows, columns, currentSort]);
+
+  const visible = pageSize ? sorted.slice((currentPage - 1) * pageSize, currentPage * pageSize) : sorted;
 
   const toggle = (key: string) => {
-    const next: Sort = { key, direction: current?.key === key && current.direction === "descending" ? "ascending" : "descending" };
-    if (sort === undefined) setInner(next);
+    const next: TableSort = { key, direction: currentSort?.key === key && currentSort.direction === "descending" ? "ascending" : "descending" };
+    if (sort === undefined) setInnerSort(next);
     onSortChange?.(next);
+  };
+  const goTo = (next: number) => {
+    if (page === undefined) setInnerPage(next);
+    onPageChange?.(next);
   };
 
   return (
-    <section className={className ? `x-table ${className}` : "x-table"} aria-label={title ? undefined : caption}>
-      {title != null && (
-        <div className="x-table-head">
-          <h3 className="x-table-title">{title}</h3>
-          {description != null && <p className="x-table-description">{description}</p>}
-        </div>
-      )}
-      <div className="x-table-scroll">
+    <div className={className ? `x-table ${className}` : "x-table"}>
+      <div className="x-table-frame" aria-busy={loading || undefined}>
         <table>
           <caption>{caption}</caption>
           <colgroup>
@@ -83,39 +94,47 @@ export function Table<Row>({
           <thead>
             <tr>
               {columns.map((c) => (
-                <th key={c.key} scope="col" data-align={align(c.align)} aria-sort={current?.key === c.key ? current.direction : undefined}>
+                <th key={c.key} scope="col" data-align={align(c.align)} aria-sort={currentSort?.key === c.key ? currentSort.direction : undefined}>
                   {c.sortValue ? <button type="button" className="x-table-sort" onClick={() => toggle(c.key)}>{c.header}<Arrow /></button> : c.header}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {sorted.length === 0 ? (
+            {loading ? (
+              Array.from({ length: loadingRows ?? pageSize ?? 5 }, (_, r) => (
+                <tr key={r} className="x-table-loading">
+                  {columns.map((c, i) => {
+                    // Varied widths read as text; the same pattern on every render.
+                    const width = `${[72, 56, 64, 48, 80][(r + i) % 5]}%`;
+                    return i === 0
+                      ? <th key={c.key} scope="row" data-align={align(c.align)}><Skeleton shape="text" width={width} /></th>
+                      : <td key={c.key} data-align={align(c.align)}><Skeleton shape="text" width={width} /></td>;
+                  })}
+                </tr>
+              ))
+            ) : visible.length === 0 ? (
               <tr className="x-table-empty"><td colSpan={columns.length}>{empty}</td></tr>
             ) : (
-              sorted.map((row) => {
-                const href = rowHref?.(row);
-                return (
-                  <tr key={rowKey(row)}>
-                    {columns.map((c, i) => {
-                      const content = c.render ? c.render(row) : String((row as Record<string, unknown>)[c.key] ?? "");
-                      if (i === 0) {
-                        return (
-                          <th key={c.key} scope="row" data-align={align(c.align)}>
-                            {href ? <a className="x-table-link" href={href}>{content}</a> : content}
-                          </th>
-                        );
-                      }
-                      return <td key={c.key} data-align={align(c.align)}>{content}</td>;
-                    })}
-                  </tr>
-                );
-              })
+              visible.map((row) => (
+                <tr key={rowKey(row)}>
+                  {columns.map((c, i) => {
+                    const content = c.render ? c.render(row) : String((row as Record<string, unknown>)[c.key] ?? "");
+                    return i === 0
+                      ? <th key={c.key} scope="row" data-align={align(c.align)}>{content}</th>
+                      : <td key={c.key} data-align={align(c.align)}>{content}</td>;
+                  })}
+                </tr>
+              ))
             )}
           </tbody>
         </table>
       </div>
-      {footer != null && <div className="x-table-foot">{footer}</div>}
-    </section>
+      {pageSize && rows.length > pageSize ? (
+        <div className="x-table-foot">
+          <Pagination page={currentPage} pageCount={pageCount} total={rows.length} onPageChange={goTo} disabled={loading} aria-label={`${caption} pages`} />
+        </div>
+      ) : null}
+    </div>
   );
 }

@@ -1,0 +1,77 @@
+/* Popover: a small panel beside a trigger, with an arrow pointing at it. Requires core/tokens.css.
+   Uses the Popover API (top layer, light dismiss, Esc). popover.controller.js places it on its side, flips it when
+   there is no room, and sets data-side and --x-popover-arrow for the arrow. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-popover {
+    --x-popover-width: 280px;
+
+    /* Reset popover UA styles. */
+    position: fixed;
+    inset: auto;
+    margin: 0;
+
+    width: var(--x-popover-width);
+    max-width: calc(100vw - var(--x-space-4));
+    overflow: visible; /* the arrow sits outside the panel */
+    padding: var(--x-space-4);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-2xl);
+    background: var(--x-bg-panel);
+    color: var(--x-fg-2);
+    font: var(--x-weight-body) var(--x-text-sm) / var(--x-leading-body) var(--x-font-sans);
+    transform-origin: var(--x-popover-origin, bottom left);
+    --x-popover-from: 0 4px; /* where it enters from: toward the trigger */
+
+    opacity: 0;
+    scale: 0.96;
+    translate: var(--x-popover-from);
+    transition:
+      opacity var(--x-duration-fast) var(--x-ease),
+      scale var(--x-duration-fast) var(--x-ease),
+      translate var(--x-duration-fast) var(--x-ease),
+      overlay var(--x-duration-fast) allow-discrete,
+      display var(--x-duration-fast) allow-discrete;
+  }
+  .x-popover:popover-open {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+    transition:
+      opacity var(--x-duration-fast) var(--x-ease),
+      scale var(--x-spring-duration) var(--x-spring),
+      translate var(--x-spring-duration) var(--x-spring),
+      overlay var(--x-duration-fast) allow-discrete,
+      display var(--x-duration-fast) allow-discrete;
+  }
+  @starting-style {
+    .x-popover:popover-open { opacity: 0; scale: 0.96; translate: var(--x-popover-from); }
+  }
+  /* Sides: top (default), bottom, left, right. data-side is the side it took (after flipping). */
+  .x-popover[data-side="bottom"] { --x-popover-from: 0 -4px; --x-popover-origin: top left; }
+  .x-popover[data-side="left"] { --x-popover-from: 4px 0; --x-popover-origin: right center; }
+  .x-popover[data-side="right"] { --x-popover-from: -4px 0; --x-popover-origin: left center; }
+
+  /* The arrow: a rotated square in the panel's fill, with the hairline on its two outer edges, centered on the
+     trigger (--x-popover-arrow, along the facing edge). */
+  .x-popover::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--x-border);
+    background: var(--x-bg-panel);
+    rotate: 45deg;
+  }
+  .x-popover:is(:not([data-side]), [data-side="top"])::after { bottom: -6px; left: calc(var(--x-popover-arrow, 24px) - 5px); border-top: 0; border-left: 0; }
+  .x-popover[data-side="bottom"]::after { top: -6px; left: calc(var(--x-popover-arrow, 24px) - 5px); border-bottom: 0; border-right: 0; }
+  .x-popover[data-side="left"]::after { right: -6px; top: calc(var(--x-popover-arrow, 24px) - 5px); border-bottom: 0; border-left: 0; }
+  .x-popover[data-side="right"]::after { left: -6px; top: calc(var(--x-popover-arrow, 24px) - 5px); border-top: 0; border-right: 0; }
+
+  .x-popover-title { margin: 0 0 var(--x-space-1); color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); }
+  .x-popover-body { margin: 0; }
+  .x-popover-body > :first-child { margin-top: 0; }
+  .x-popover-body > :last-child { margin-bottom: 0; }
+}

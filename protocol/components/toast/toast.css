@@ -1,4 +1,4 @@
-/* Toast: short, non-blocking feedback at the bottom of the screen. Requires core/tokens.css.
+/* Toast: short, non-blocking feedback at the bottom (or top, data-position="top") of the screen. Requires core/tokens.css.
    The region is a manual popover so toasts render above dialogs (top layer). */
 
 @layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
@@ -24,6 +24,9 @@
     translate: -50% 0;
     pointer-events: none;
   }
+  /* Top: under the top edge, the newest toast first, entering from above. */
+  .x-toaster[data-position="top"] { inset: var(--x-space-6) auto auto 50%; flex-direction: column-reverse; }
+  .x-toaster[data-position="top"] .x-toast { --x-toast-enter-y: -16px; }
 
   .x-toast {
     --x-toast-enter-y: 16px;

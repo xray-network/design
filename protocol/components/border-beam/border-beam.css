@@ -1,0 +1,39 @@
+/* BorderBeam: a light traveling around a container's border. Decorative; the motion budget's one decorative loop.
+   Requires core/tokens.css. The container needs position: relative and a border-radius. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-border-beam {
+    --x-border-beam-size: 120px;
+    --x-border-beam-width: 1.5px;
+    --x-border-beam-duration: calc(var(--x-duration-slow) * 22);
+    --x-border-beam-color: var(--x-accent-ink);
+
+    position: absolute;
+    inset: 0;
+    border: var(--x-border-beam-width) solid transparent;
+    border-radius: inherit;
+    pointer-events: none;
+    /* Show only the border ring: the padding box is cut out of the border box. */
+    mask: linear-gradient(currentColor 0 0) padding-box exclude, linear-gradient(currentColor 0 0);
+  }
+  .x-border-beam::after {
+    content: "";
+    position: absolute;
+    width: var(--x-border-beam-size);
+    aspect-ratio: 1;
+    background: linear-gradient(to left, var(--x-border-beam-color), transparent);
+    offset-anchor: 90% 50%;
+    offset-path: rect(0 auto auto 0 round var(--x-border-beam-size));
+    animation: x-border-beam var(--x-border-beam-duration) linear infinite;
+  }
+  .x-border-beam[data-direction="reverse"]::after { animation-direction: reverse; }
+  @keyframes x-border-beam { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+
+  /* Decorative motion: gone entirely when motion is reduced. */
+  [data-motion="reduce"] .x-border-beam { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    :root:not([data-motion="full"]) .x-border-beam { display: none; }
+  }
+}

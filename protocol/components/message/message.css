@@ -22,6 +22,8 @@
     max-width: calc(100vw - var(--x-space-8));
     pointer-events: none;
   }
+  /* Bottom: in the bottom-right corner, the newest message nearest the edge. */
+  .x-messages[data-position="bottom"] { inset: auto var(--x-space-4) var(--x-space-4) auto; flex-direction: column-reverse; }
 
   .x-message {
     --x-message-tone: var(--x-fg-3);
@@ -67,5 +69,6 @@
   /* Phones: full width under the top edge. */
   @media (max-width: 560px) {
     .x-messages { inset: var(--x-space-3) var(--x-space-3) auto; width: auto; max-width: none; }
+    .x-messages[data-position="bottom"] { inset: auto var(--x-space-3) var(--x-space-3); }
   }
 }

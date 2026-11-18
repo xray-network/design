@@ -4,13 +4,13 @@ name: Balance
 summary: The screen's headline amount with its fiat value, change over a period, and main actions.
 motion: 0
 requires: [tokens]
-components: [numeral, tag, button]
+components: [numeral, tag, button, skeleton]
 files: [balance.css, balance.html, balance.tsx]
 ---
 
 # Balance
 
-The top of a wallet or account screen: what the user holds, what it is worth, how it moved, and
+The top of an account screen: what the user holds, what it is worth, how it moved, and
 what they can do next. One per screen.
 
 ## Anatomy
@@ -22,6 +22,10 @@ section.x-balance[aria-label]
 ├── div.x-balance-meta           15px: fiat value · Delta · period
 └── div.x-balance-actions        Buttons: one primary (Send), the rest ghost
 ```
+
+## Loading
+
+React `loading` (`aria-busy`): Skeleton bars of the same height in place of the amount and the fiat line; the label and actions stay.
 
 ## Accessibility
 

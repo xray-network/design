@@ -1,0 +1,24 @@
+/* Spinner: indeterminate progress. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-spinner {
+    --x-spinner-size: 24px;
+    --x-spinner-color: var(--x-accent-ink);
+
+    display: inline-block;
+    flex: none;
+    width: var(--x-spinner-size);
+    height: var(--x-spinner-size);
+    border: 4px solid var(--x-spinner-color);
+    border-right-color: transparent;
+    border-radius: 50%;
+    vertical-align: middle;
+    animation: x-spinner-spin 700ms linear infinite; /* progress: essential motion, kept when reduced */
+  }
+  .x-spinner[data-size="sm"] { --x-spinner-size: var(--x-icon-md); border-width: 3px; }
+  .x-spinner[data-size="lg"] { --x-spinner-size: 32px; border-width: 5px; }
+  .x-spinner[data-tone="muted"] { --x-spinner-color: var(--x-fg-3); }
+  @keyframes x-spinner-spin { to { rotate: 360deg; } }
+}

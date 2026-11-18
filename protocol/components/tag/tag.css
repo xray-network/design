@@ -18,8 +18,28 @@
   }
   .x-tag[data-size="sm"] { border-radius: var(--x-radius-xs); height: var(--x-size-xs); padding: 0 var(--x-space-2); gap: var(--x-space-1-5); font-size: var(--x-text-xs); }
 
+  /* Filled tags: soft (a tint of the color) and solid (the color). data-color picks it; neutral by default.
+     --x-tag-c is the color, --x-tag-ink the soft text, --x-tag-on the text on a solid fill. */
+  .x-tag[data-variant] {
+    --x-tag-c: var(--x-fg-3);
+    --x-tag-ink: var(--x-fg-1);
+    --x-tag-on: var(--x-bg);
+    border-color: transparent;
+  }
+  .x-tag[data-variant="soft"] { background: color-mix(in srgb, var(--x-tag-c) 14%, transparent); color: var(--x-tag-ink); }
+  .x-tag[data-variant="soft"]:not([data-color]) { background: var(--x-bg-chip); }
+  .x-tag[data-variant="solid"] { background: var(--x-tag-c); color: var(--x-tag-on); }
+  .x-tag[data-variant="solid"]:not([data-color]) { --x-tag-c: var(--x-fg-1); }
+  .x-tag[data-color="accent"] { --x-tag-c: var(--x-accent); --x-tag-ink: var(--x-accent-ink); --x-tag-on: var(--x-accent-fg); }
+  .x-tag[data-color="success"] { --x-tag-c: var(--x-success); --x-tag-ink: var(--x-success-fg); --x-tag-on: light-dark(var(--x-fg-1), var(--x-bg)); }
+  .x-tag[data-color="danger"] { --x-tag-c: var(--x-danger); --x-tag-ink: var(--x-danger-fg); --x-tag-on: var(--x-danger-on); }
+  .x-tag[data-color="warning"] { --x-tag-c: var(--x-warning); --x-tag-ink: var(--x-fg-1); --x-tag-on: light-dark(var(--x-fg-1), var(--x-bg)); }
+  /* A status dot on a solid fill takes the text color. */
+  .x-tag[data-variant="solid"] > .x-status-dot { --x-status-color: currentColor; }
+
   /* Status: a colored dot plus text. The text carries the meaning; the dot is extra. */
   .x-status { display: inline-flex; align-items: center; gap: var(--x-space-2); color: var(--x-fg-2); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); white-space: nowrap; }
+  .x-status[data-dot="end"] { flex-direction: row-reverse; } /* the dot after the text: end-aligned columns */
   .x-status-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--x-status-color, var(--x-success)); }
   [data-tone="danger"] > .x-status-dot { --x-status-color: var(--x-danger); }
   [data-tone="warning"] > .x-status-dot { --x-status-color: var(--x-warning); }

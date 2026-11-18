@@ -4,7 +4,7 @@ name: Numeral
 summary: Balance display with a heavy integer, a small muted fraction and a ticker; can be masked.
 motion: 0
 requires: [tokens]
-components: []
+components: [skeleton]
 files: [numeral.css, numeral.html, numeral.tsx]
 ---
 
@@ -31,6 +31,10 @@ span.x-numeral
 | `data-masked` | `true` | value visible |
 
 One `hero` numeral per page.
+
+## Loading
+
+React `loading` (`aria-busy`): a Skeleton bar of the amount's height in place of the digits; the ticker stays.
 
 ## Accessibility
 

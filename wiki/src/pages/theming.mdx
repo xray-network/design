@@ -1,0 +1,33 @@
+---
+title: Theming
+description: "Make XRAY/DESIGN yours: the brand color, fonts, corners and grays, in any GUI framework, without editing kit files."
+---
+
+import { ThemePrompt } from "../demos/ThemePrompt"
+
+# Theming
+
+Theming changes the look of every component at once: your brand color, fonts, corner radius and grays. It works
+the same in every GUI framework. Your agent writes your values into one **theme layer**, a file your project owns,
+applied after the kit's tokens. The kit's own files stay untouched, so upgrades keep your brand.
+
+## Generate a theme prompt
+
+Enter your brand (turn on **Show preview** to see it on kit components), pick your framework, then send the prompt
+to your coding agent. It derives
+the full set of colors for light and dark theme, writes them to your theme layer and checks contrast.
+
+<ThemePrompt />
+
+## What you can change
+
+| Part | How it changes |
+|---|---|
+| Brand color | Buttons, selections, links, focus rings and icons, derived from one color. Fills keep your color; links, focus rings and icons get a lighter shade in dark theme, so they stay readable. |
+| Font | Any font your project already loads, with the system fonts as fallbacks. |
+| Corners | Sharper or rounder, scaled together so nested corners still fit. Round controls stay round. |
+| Grays | Backgrounds, borders and text, cooler, warmer or pure neutral, in both themes. |
+
+Only the brand color is required; font, corners and grays keep the kit's look unless you change them. Everything
+else stays as it is: both themes, readable contrast, status colors, spacing, motion and how components
+work. The full rule is in the [design protocol](/protocol), section 11.

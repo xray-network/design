@@ -1,0 +1,105 @@
+/* Menu Navigation: top navigation with submenus in one shared panel that slides between items.
+   Requires core/tokens.css; menu-navigation.controller.js opens, switches and places the panel. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-menu-navigation {
+    --x-menu-navigation-panel-width: 300px;
+
+    position: relative;
+    color: var(--x-fg-2);
+    font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans);
+  }
+  .x-menu-navigation-list { display: flex; align-items: center; gap: var(--x-space-1); margin: 0; padding: 0; list-style: none; }
+
+  .x-menu-navigation-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--x-space-1-5);
+    height: var(--x-size-md);
+    padding: 0 var(--x-space-3);
+    border: 0;
+    border-radius: var(--x-radius-md);
+    background: none;
+    color: var(--x-fg-2);
+    font: var(--x-weight-label) var(--x-text-md) / 1 var(--x-font-sans);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color var(--x-duration-fast) var(--x-ease), color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-menu-navigation-trigger:hover { background: var(--x-bg-soft); color: var(--x-fg-1); }
+  .x-menu-navigation-trigger:is([aria-expanded="true"], [aria-current="page"]) { background: var(--x-bg-active); color: var(--x-fg-1); }
+  .x-menu-navigation-trigger:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+  .x-menu-navigation-chevron { width: var(--x-icon-sm); height: var(--x-icon-sm); color: var(--x-fg-3); transition: rotate var(--x-duration-fast) var(--x-ease); }
+  .x-menu-navigation-trigger[aria-expanded="true"] .x-menu-navigation-chevron { rotate: 180deg; }
+
+  /* The shared panel: follows the open item (--x-menu-navigation-x) and takes the open submenu's size. */
+  .x-menu-navigation-viewport {
+    position: absolute;
+    top: calc(100% + var(--x-space-1-5));
+    left: 0;
+    z-index: var(--x-z-menu);
+    width: var(--x-menu-navigation-w, auto);
+    height: var(--x-menu-navigation-h, auto);
+    max-width: calc(100vw - var(--x-space-4));
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-2xl);
+    background: var(--x-bg-panel);
+    overflow: hidden;
+    translate: var(--x-menu-navigation-x, 0) 0;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--x-duration-fast) var(--x-ease),
+      visibility var(--x-duration-fast) allow-discrete;
+  }
+  .x-menu-navigation-viewport[data-open] {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity var(--x-duration-fast) var(--x-ease),
+      translate var(--x-duration-base) var(--x-ease),
+      width var(--x-duration-base) var(--x-ease),
+      height var(--x-duration-base) var(--x-ease);
+  }
+  /* The first opening places the panel without travel. */
+  .x-menu-navigation-viewport[data-open="placing"] { transition: opacity var(--x-duration-fast) var(--x-ease); }
+
+  .x-menu-navigation-panel { width: max-content; padding: var(--x-space-2); }
+  .x-menu-navigation-panel[hidden] { display: none; }
+  .x-menu-navigation-panel[data-motion] { animation: x-menu-navigation-in var(--x-spring-soft-duration) var(--x-spring-soft) both; }
+  .x-menu-navigation-panel[data-motion="from-start"] { --x-menu-navigation-from: -24px; }
+  .x-menu-navigation-panel[data-motion="from-end"] { --x-menu-navigation-from: 24px; }
+  @keyframes x-menu-navigation-in { from { opacity: 0; translate: var(--x-menu-navigation-from, 0) 0; } }
+
+  .x-menu-navigation-links {
+    display: grid;
+    grid-template-columns: var(--x-menu-navigation-panel-width);
+    gap: var(--x-space-0-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .x-menu-navigation-links[data-columns="2"] { grid-template-columns: repeat(2, var(--x-menu-navigation-panel-width)); }
+  .x-menu-navigation-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--x-space-0-5);
+    padding: var(--x-space-2-5) var(--x-space-3);
+    border-radius: var(--x-radius-md);
+    color: inherit;
+    text-decoration: none;
+    transition: background-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-menu-navigation-link:is(:hover, [aria-current="page"]) { background: var(--x-bg-soft); }
+  .x-menu-navigation-link:focus-visible { outline: 2px solid var(--x-focus); outline-offset: -2px; }
+  .x-menu-navigation-link-title { color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); }
+  .x-menu-navigation-link-text { color: var(--x-fg-3); font-size: var(--x-text-sm); line-height: var(--x-leading-body); white-space: normal; }
+
+  @media (max-width: 640px) {
+    .x-menu-navigation-links,
+    .x-menu-navigation-links[data-columns="2"] { grid-template-columns: min(var(--x-menu-navigation-panel-width), calc(100vw - var(--x-space-10))); }
+  }
+}

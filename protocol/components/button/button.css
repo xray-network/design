@@ -92,7 +92,7 @@
     width: 16px;
     height: 16px;
     margin: auto;
-    border: 2px solid var(--x-button-fg);
+    border: 3px solid var(--x-button-fg);
     border-right-color: transparent;
     border-radius: 50%;
     animation: x-button-spin 700ms linear infinite; /* progress: essential motion, kept when reduced */

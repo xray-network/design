@@ -12,8 +12,8 @@ files: [tag.css, tag.html, tag.tsx]
 
 Three small, non-interactive labels:
 
-- **Tag** (`.x-tag`): an outlined label for a short fact: network, epoch, role.
-- **Status** (`.x-status`): a colored dot with its text: Delegated, Syncing, Offline.
+- **Tag** (`.x-tag`): an outlined label for a short fact: plan, mode, role.
+- **Status** (`.x-status`): a colored dot with its text: Paid, Syncing, Offline.
 - **Delta** (`.x-delta`): a signed change: +2.4%.
 
 For something the user can press, use a Button (`chip`) or Chips.
@@ -21,7 +21,8 @@ For something the user can press, use a Button (`chip`) or Chips.
 ## Anatomy
 
 ```
-span.x-tag[data-size][data-tone]         32px, 10px radius, outlined, 13/600  (sm: 22px, 6px radius, 12px text)
+span.x-tag[data-size][data-variant][data-color][data-tone]
+                                         32px, 10px radius, outlined or filled, 13/600  (sm: 22px, 6px radius, 12px text)
 └── [span.x-status-dot]  label
 
 span.x-status[data-tone]                 no outline, 13/600
@@ -35,7 +36,10 @@ span.x-delta[data-trend]                 13/600, tabular digits
 | Attribute | Values | Default |
 |---|---|---|
 | `.x-tag` `data-size` | `sm` | 32px |
+| `.x-tag` `data-variant` | `soft` (a 14% tint of the color, its text color), `solid` (the color, contrasting text) | outline |
+| `.x-tag` `data-color` (soft, solid) | `accent`, `success`, `danger`, `warning` | neutral |
 | `data-tone` (on the dot's parent) | `danger`, `warning`, `neutral` | success (green) |
+| `.x-status` `data-dot` | `end`: the dot after the text, for end-aligned columns | start |
 | `.x-delta` `data-trend` | `up`, `down` | flat (muted) |
 
 ## Accessibility
@@ -62,7 +66,7 @@ None. Status dots do not pulse (DESIGN-PROTOCOL.md section 8: nothing loops).
 
 - A leading icon in a tag.
 - New status tones by setting `--x-status-color` to a token.
-- Delta for absolute values ("+12.40 ADA") by writing the text yourself with the same `data-trend`.
+- Delta for absolute values ("+$12.40") by writing the text yourself with the same `data-trend`.
 
 ## Checklist
 

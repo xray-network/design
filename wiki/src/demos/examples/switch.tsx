@@ -7,7 +7,7 @@ export default function SwitchExample() {
     <>
       <Switch checked={hidden} onChange={(e) => setHidden(e.target.checked)}>Hide balances</Switch>
       <Switch labelPosition="start">Lock after 5 minutes</Switch>
-      <Switch size="sm" disabled>Testnet (unavailable)</Switch>
+      <Switch size="sm" disabled>Test mode (unavailable)</Switch>
     </>
   )
 }

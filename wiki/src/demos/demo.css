@@ -20,6 +20,8 @@
   border-bottom: 1px solid var(--x-border);
 }
 
+.wiki-demo-switches { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-5); }
+
 .wiki-demo-stage {
   display: flex;
   flex-direction: column;
@@ -37,9 +39,15 @@
 .wiki-demo-stage > .x-options,
 .wiki-demo-stage > .x-tabs,
 .wiki-demo-stage > .x-table,
+.wiki-demo-stage > .x-table-compact,
+.wiki-demo-stage > .x-collapse,
+.wiki-demo-stage > .x-group,
+.wiki-demo-stage > .x-empty,
+.wiki-demo-stage > .x-result,
+.wiki-demo-stage > .wiki-demo-beam,
 .wiki-demo-stage > .x-send-form,
 .wiki-demo-stage > .x-transactions { align-self: stretch; }
-.wiki-demo-stage > .x-select { width: auto; min-width: 200px; }
+.wiki-demo-stage > :is(.x-select, .x-select-native) { width: auto; min-width: 200px; }
 .wiki-demo-stage > .x-list { margin-inline: var(--x-space-3); } /* room for the rows' overhanging hover fill */
 .wiki-demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5); }
 .wiki-demo-note { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-xs); }
@@ -139,3 +147,40 @@
     stroke-linejoin: round;
   }
 }
+
+/* The Theming page's prompt: the brand inputs fill the stage, side by side on wide screens. */
+.wiki-theme-stage { min-height: 0; }
+.wiki-theme-inputs { align-self: stretch; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--x-space-4); }
+@media (max-width: 560px) { .wiki-theme-inputs { grid-template-columns: minmax(0, 1fr); } }
+
+/* An empty prompt keeps its box, about the height of a short prompt, with the reason centered in it. */
+.wiki-demo .wiki-demo-prompt-text--empty {
+  display: grid;
+  place-items: center;
+  min-height: 160px;
+  color: var(--x-fg-3);
+  font-family: var(--x-font-sans);
+  text-align: center;
+}
+
+/* Theme preview (shown with "Show preview"): a compact panel of accent-bearing components with the entered theme, in
+   the page's current theme. */
+.wiki-theme-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--x-space-3);
+  padding: var(--x-space-4);
+  border: 1px solid var(--x-border);
+  border-radius: var(--x-radius-2xl);
+  background: var(--x-bg);
+  color: var(--x-fg-2);
+  font: var(--x-weight-body) var(--x-text-sm) / var(--x-leading-body) var(--x-font-sans);
+}
+.wiki-theme-preview-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5) var(--x-space-4); }
+.wiki-theme-preview-radios { display: flex; gap: var(--x-space-4); }
+.wiki-theme-preview-link {
+  color: var(--x-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.wiki-theme-preview-link:hover { color: var(--x-accent-ink-hover); }

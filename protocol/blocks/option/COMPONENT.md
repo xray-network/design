@@ -4,7 +4,7 @@ name: Option cards
 summary: Single choice between options that each need a second line, such as fee tiers.
 motion: 0
 requires: [tokens]
-components: []
+components: [skeleton]
 files: [option.css, option.html, option.tsx]
 ---
 
@@ -33,6 +33,10 @@ div.x-options[role=radiogroup][aria-label]     three equal columns, 8px gaps
 | selected | `input:checked` | `--x-accent-ink` border, `--x-accent-wash` fill; the dot fills with `--x-accent` and its center pops in on the spring |
 | focus | `input:focus-visible` | ring around the card |
 | disabled | `input:disabled` | 40% opacity |
+
+## Loading
+
+React `loading` (`aria-busy`, disabled inputs): each card keeps its size with one-line bars of varied widths in place of its texts, and none can be chosen.
 
 ## Accessibility
 

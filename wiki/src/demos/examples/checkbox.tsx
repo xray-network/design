@@ -15,7 +15,7 @@ export default function CheckboxExample() {
       </Checkbox>
       <Checkbox checked={items.received} onChange={(e) => setItems({ ...items, received: e.target.checked })} description="When an address of yours receives funds">Incoming funds</Checkbox>
       <Checkbox checked={items.sent} onChange={(e) => setItems({ ...items, sent: e.target.checked })}>Outgoing transactions</Checkbox>
-      <Checkbox checked={items.rewards} onChange={(e) => setItems({ ...items, rewards: e.target.checked })}>Staking rewards</Checkbox>
+      <Checkbox checked={items.rewards} onChange={(e) => setItems({ ...items, rewards: e.target.checked })}>Refunds</Checkbox>
       <Checkbox disabled>Product updates</Checkbox>
     </CheckboxGroup>
   )

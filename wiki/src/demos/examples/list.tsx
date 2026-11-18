@@ -10,21 +10,21 @@ const ICONS = {
 }
 const token = (letter: string, bg: string) => <span className="x-list-token" style={{ ["--x-list-token-bg" as string]: bg }} aria-hidden="true">{letter}</span>
 
-export default function ListExample() {
+export default function ListExample({ loading = false }: { loading?: boolean }) {
   return (
     <>
       <List aria-label="Recent activity">
         <ListHeading>Today</ListHeading>
-        <ListRow title="Received" sub="14:02 · from addr1q9…7xk2" end="+250.00 ADA" endSub="$175.00" tone="positive" lead={<ListIcon tone="positive"><Icon d={ICONS.down} /></ListIcon>} onClick={() => toast("Transaction details")} />
-        <ListRow title="Sent" sub="09:17 · to addr1qx…m4d1" end="−42.17 ADA" endSub="$29.52" lead={<ListIcon><Icon d={ICONS.up} /></ListIcon>} onClick={() => toast("Transaction details")} />
+        <ListRow loading={loading} title="Received" sub="14:02 · from Jane Cooper" end="+$250.00" endSub="Visa ··4242" tone="positive" lead={<ListIcon tone="positive"><Icon d={ICONS.down} /></ListIcon>} onClick={() => toast("Transaction details")} />
+        <ListRow loading={loading} title="Sent" sub="09:17 · to Acme Inc." end="−$42.17" endSub="Bank transfer" lead={<ListIcon><Icon d={ICONS.up} /></ListIcon>} onClick={() => toast("Transaction details")} />
         <ListHeading>Yesterday</ListHeading>
-        <ListRow title="Staking reward" sub="21:44 · Epoch 666" end="+12.40 ADA" endSub="$8.68" tone="positive" lead={<ListIcon tone="positive"><Icon d={ICONS.bolt} /></ListIcon>} onClick={() => toast("Transaction details")} />
+        <ListRow loading={loading} title="Refund" sub="21:44 · Order #1042" end="+$12.40" endSub="Visa ··4242" tone="positive" lead={<ListIcon tone="positive"><Icon d={ICONS.bolt} /></ListIcon>} onClick={() => toast("Transaction details")} />
       </List>
       <List aria-label="Assets">
         <ListHeading>Assets</ListHeading>
-        <ListRow title="Cardano" sub="12,480.25 ADA" end="$8,736.18" endSub={<Delta value={2.4} />} lead={token("A", "var(--x-accent)")} />
-        <ListRow title="Snek" sub="137,400 SNEK" end="$461.82" endSub={<Delta value={7.8} />} lead={token("S", "var(--x-warning)")} />
-        <ListRow title="World Mobile" sub="1,446.00 WMT" end="$127.28" endSub={<Delta value={-2.6} />} lead={token("W", "var(--x-danger)")} />
+        <ListRow loading={loading} title="US dollar" sub="12,480.25 USD" end="$12,480.25" endSub={<Delta value={2.4} />} lead={token("$", "var(--x-accent)")} />
+        <ListRow loading={loading} title="Euro" sub="5,000.00 EUR" end="$5,430.00" endSub={<Delta value={0.8} />} lead={token("€", "var(--x-warning)")} />
+        <ListRow loading={loading} title="British pound" sub="1,250.00 GBP" end="$1,587.50" endSub={<Delta value={-0.6} />} lead={token("£", "var(--x-danger)")} />
       </List>
     </>
   )

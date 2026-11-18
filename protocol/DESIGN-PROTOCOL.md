@@ -325,7 +325,12 @@ Two families, both defined only by tokens:
 - Liquid motion is allowed for: selection indicators (segmented, tabs, nav), switch thumbs (including their press stretch),
   overlay **entry** (dialog, menu, toast, sheet), list and stack reflow (FLIP), and drag release.
 - Never animate: data values and text content, numbers ticking, page scroll, color on a spring,
-  anything that loops (except progress spinners), or anything over 600ms.
+  anything that loops (except progress: spinners and loading skeletons; and BorderBeam), or anything over 600ms.
+- Skeletons pulse while loading, one pulse per 1.4s (a progress loop, so the 600ms limit does not apply to it);
+  reduced motion stops the pulse and keeps the placeholders.
+- BorderBeam is the one decorative loop: opt-in, at most one per screen, never on controls or text, and removed
+  entirely when motion is reduced.
+- A drawing in steps (Result's ring, then its mark) keeps every step under 600ms and plays once.
 - Exits never overshoot: they use `--x-ease`.
 - Animate `transform`, `scale`, `translate`, `opacity`; small `left`/`right`/`width` only on tiny elements such as indicators and thumbs.
 - One moving thing at a time per region. Stagger only for lists of more than 3 items, by 30ms each, 5 items at most.
@@ -367,15 +372,32 @@ on any ancestor). Components that use the tokens need nothing else. Never hard-c
 - Respect reduced motion (tokens) and forced colors (do not remove outlines or borders in `forced-colors` mode).
 - Errors are text, linked with `aria-describedby`, and announced (`role="alert"`).
 
-## 11. Themes
+## 11. Themes and theming
 
-Light and dark are both first-class. `light-dark()` tokens follow `color-scheme`:
-no attribute follows the OS; `data-theme="light|dark"` forces a theme on the page or any subtree.
+Light and dark are both first-class: every color token has a value for each theme, and every screen is verified in
+both themes before it is done. On the web, `light-dark()` tokens follow `color-scheme`: no attribute follows the OS;
+`data-theme="light|dark"` forces a theme on the page or any subtree. Native targets resolve each pair to the
+platform's dynamic colors.
 
-- Every screen is verified in both themes before it is done.
-- Rebrand by overriding semantic tokens in a host stylesheet (`--x-accent`, `-hover`, `-press`, `-wash`, `--x-accent-ink`, `-ink-hover`, fonts),
-  never by editing component CSS. Override color tokens on `:root, [data-theme]`, the selector the kit declares them
-  on, so forced-theme sections keep them.
+A project themes the kit, in any GUI framework, by overriding semantic tokens. This is the whole theming surface,
+by protocol token name:
+
+| Part | Tokens | Rule |
+|---|---|---|
+| Accent | `accent`, `accent-hover`, `accent-press`, `accent-fg`, `accent-wash`, `accent-ink`, `accent-ink-hover`, `link`, `focus`, `info-fg` | Derive the whole set from one brand color, for both themes. `accent` fills buttons and selections and may stay the same in both themes; `accent-fg` is the text on it. `accent-ink` (focus rings, focused borders, links, icons, check marks) is a lighter shade in dark theme; `link`, `focus` and `info-fg` follow it. |
+| Fonts | `font-sans`, `font-mono` | Bring a font only if the project loads it; keep the system stacks as fallbacks. |
+| Radius | `radius-xs` … `radius-3xl` | Scale them together, so nested corners keep their relationship. `radius-pill` stays. |
+| Neutrals (optional) | `bg*`, `border*`, `fg-*`, `scrim` | Change light/dark pairs together, for a custom palette. |
+
+- **Fixed:** components read semantic tokens, never raw values; both themes; AA contrast for text and focus rings,
+  checked for every changed pair in both themes; status colors (`success`, `danger`, `warning`); space, size,
+  type scale, motion and layer tokens; component anatomy and states.
+- **One theme layer.** Overrides live in one project-owned place that is applied after the kit's tokens and holds only
+  the changed values, keyed by protocol token names. Never edit copied kit files to theme them: upgrades replace
+  those. The UI folder's `design.lock.json` records that place as `theme`, and upgrades never modify it.
+  - Web: a stylesheet loaded after `core/tokens.css` that sets the custom properties (`--x-accent`, …). Set color
+    tokens on `:root, [data-theme]`, the kit's own selector for them, so forced-theme sections keep the values.
+  - Native: the project's theme module or resources, overriding the translated tokens with the same names.
 
 ## 12. Responsive
 

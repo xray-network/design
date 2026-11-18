@@ -9,9 +9,9 @@ export default function ChipsExample() {
         aria-label="Transaction type"
         value={type}
         onValueChange={setType}
-        options={[{ value: "all", label: "All" }, { value: "sent", label: "Sent", count: 3 }, { value: "received", label: "Received", count: 2 }, { value: "staking", label: "Staking", count: 1 }, { value: "tokens", label: "Tokens", disabled: true }]}
+        options={[{ value: "all", label: "All" }, { value: "sent", label: "Sent", count: 3 }, { value: "received", label: "Received", count: 2 }, { value: "refunds", label: "Refunds", count: 1 }, { value: "tokens", label: "Tokens", disabled: true }]}
       />
-      <Chips aria-label="Chains" multiple defaultValue={["cardano", "bitcoin"]} options={[{ value: "cardano", label: "Cardano" }, { value: "bitcoin", label: "Bitcoin" }, { value: "midnight", label: "Midnight" }, { value: "ethereum", label: "Ethereum" }]} />
+      <Chips aria-label="Currencies" multiple defaultValue={["usd", "eur"]} options={[{ value: "usd", label: "USD" }, { value: "eur", label: "EUR" }, { value: "gbp", label: "GBP" }, { value: "jpy", label: "JPY" }]} />
     </>
   )
 }

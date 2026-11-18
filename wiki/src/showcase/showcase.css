@@ -57,43 +57,11 @@
   padding: var(--x-space-8) var(--x-space-6);
 }
 
-.wiki-showcase-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--x-space-3);
-}
-
 .wiki-showcase-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--x-space-3);
-}
-
-.wiki-showcase-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--x-space-4);
-}
-
-.wiki-showcase-section-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--x-space-3);
-}
-
-.wiki-showcase .wiki-showcase-section-head h3 {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  color: var(--x-fg-1);
-  font-size: var(--x-text-lg);
-  font-weight: var(--x-weight-label);
-  line-height: var(--x-leading-body);
 }
 
 /* Settings: label column and controls column on wide frames, stacked on narrow ones. */

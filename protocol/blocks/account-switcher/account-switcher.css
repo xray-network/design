@@ -27,8 +27,8 @@
   .x-account-switcher-trigger[aria-expanded="true"] { background: var(--x-bg-chip-hover); }
 
   .x-account-switcher-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-  .x-account-switcher-label { overflow: hidden; color: var(--x-fg-1); font: var(--x-weight-body) var(--x-text-sm) / 1 var(--x-font-mono); text-overflow: ellipsis; white-space: nowrap; }
-  .x-account-switcher-sub { overflow: hidden; color: var(--x-fg-3); font-size: var(--x-text-xs); line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
+  .x-account-switcher-label { overflow: hidden; color: var(--x-fg-1); font: var(--x-weight-label) var(--x-text-sm) / 1 var(--x-font-sans); text-overflow: ellipsis; white-space: nowrap; }
+  .x-account-switcher-sub { overflow: hidden; color: var(--x-fg-3); font-size: var(--x-text-2xs); line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
   .x-account-switcher-chevron { flex: none; width: var(--x-icon-sm); height: var(--x-icon-sm); color: var(--x-fg-3); stroke-width: 2; }
 
   /* Menu rows: two lines with an avatar, a check on the current account. */

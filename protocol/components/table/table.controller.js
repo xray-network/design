@@ -1,11 +1,10 @@
 /**
  * Sorting for plain HTML tables. Click a sort button to sort by that column; click again to reverse.
  * Cells sort by their data-value attribute when present (numbers, dates), otherwise by their text.
+ * Paging is Pagination's: a GET form, or your own handler.
  *
- *   <th scope="col" aria-sort="descending" data-align="end"><button class="x-table-sort" type="button">Requests …</button></th>
- *   <td data-align="end" data-value="182340">182,340</td>
- *
- * In an app that sorts on the server or in React, set aria-sort yourself and skip this controller.
+ *   <th scope="col" aria-sort="descending" data-align="end"><button class="x-table-sort" type="button">Amount …</button></th>
+ *   <td data-align="end" data-value="250">+$250.00</td>
  *
  * @param {ParentNode} [root]
  * @returns {() => void} cleanup

@@ -29,6 +29,7 @@
   .x-alert[data-tone="danger"] { --x-alert-tone: var(--x-danger); }
 
   .x-alert-icon { flex: none; width: 20px; height: 20px; margin-top: 1px; color: var(--x-alert-tone); }
+  .x-alert[hidden] { display: none; } /* dismissed without removal (React): gone, gap included */
   .x-alert-content { display: grid; flex: 1; gap: var(--x-space-1); min-width: 0; padding-top: 1px; }
   .x-alert-title { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); }
   .x-alert-text { margin: 0; color: var(--x-fg-2); font-size: var(--x-text-sm); }

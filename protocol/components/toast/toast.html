@@ -1,4 +1,5 @@
-<!-- Toast: the controller creates the live region and the toasts. -->
+<!-- Toast: the controller creates the live region and the toasts.
+     createToaster({ position: "top" }), or data-position="top" on the region, shows them under the top edge. -->
 <button class="x-button" type="button" data-variant="ghost" id="copy">Copy address</button>
 <button class="x-button" type="button" data-variant="ghost" id="fail">Send (fails)</button>
 
@@ -8,9 +9,9 @@
 
   document.getElementById("copy").addEventListener("click", () => toast("Address copied", { tone: "success" }));
   document.getElementById("fail").addEventListener("click", () =>
-    toast("Transaction failed: fee too low", {
+    toast("Payment failed: card declined", {
       tone: "danger",
-      action: { label: "Retry", onClick: () => toast("Retrying with a standard fee", { tone: "info" }) },
+      action: { label: "Retry", onClick: () => toast("Retrying the payment", { tone: "info" }) },
     }),
   );
 </script>
@@ -25,4 +26,7 @@
     </button>
   </div>
 </section>
+
+<!-- Top: under the top edge -->
+<section class="x-toaster" popover="manual" aria-live="polite" aria-label="Notifications" data-position="top"></section>
 -->

@@ -7,41 +7,41 @@
     <label class="x-chip"><input type="radio" name="tx-kind" value="all" checked><span>All</span></label>
     <label class="x-chip"><input type="radio" name="tx-kind" value="sent"><span>Sent<i>2</i></span></label>
     <label class="x-chip"><input type="radio" name="tx-kind" value="received"><span>Received<i>2</i></span></label>
-    <label class="x-chip"><input type="radio" name="tx-kind" value="staking"><span>Staking<i>1</i></span></label>
+    <label class="x-chip"><input type="radio" name="tx-kind" value="refund"><span>Refunds<i>1</i></span></label>
   </div>
   <div class="x-transactions-days">
-    <div class="x-list x-transactions-day" role="list" aria-label="Today">
-      <div class="x-list-heading">Today</div>
+    <div class="x-list x-transactions-day" role="list" aria-label="Loading">
+      <div class="x-list-heading"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 4.5em"></span></div>
       <a class="x-list-row" href="#tx" role="listitem" data-kind="received">
         <span class="x-list-icon" data-tone="positive" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M19.5 4.5l-15 15m0 0h11.25m-11.25 0V8.25"/></svg></span>
-        <span class="x-list-text"><span class="x-list-title">Received</span><span class="x-list-sub">14:02 · from addr1q9…7xk2</span></span>
-        <span class="x-list-end" data-tone="positive"><span class="x-list-title">+250.00 ADA</span><span class="x-list-sub">$175.00</span></span>
+        <span class="x-list-text"><span class="x-list-title">Received</span><span class="x-list-sub">14:02 · from Jane Cooper</span></span>
+        <span class="x-list-end" data-tone="positive"><span class="x-list-title">+$250.00</span><span class="x-list-sub">$175.00</span></span>
       </a>
       <a class="x-list-row" href="#tx" role="listitem" data-kind="sent">
         <span class="x-list-icon" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg></span>
-        <span class="x-list-text"><span class="x-list-title">Sent</span><span class="x-list-sub">09:17 · to addr1qx…m4d1</span></span>
-        <span class="x-list-end"><span class="x-list-title">−42.17 ADA</span><span class="x-list-sub">$29.52</span></span>
+        <span class="x-list-text"><span class="x-list-title">Sent</span><span class="x-list-sub">09:17 · to Acme Inc.</span></span>
+        <span class="x-list-end"><span class="x-list-title">−$42.17</span><span class="x-list-sub">$29.52</span></span>
       </a>
     </div>
     <div class="x-list x-transactions-day" role="list" aria-label="Yesterday">
       <div class="x-list-heading">Yesterday</div>
-      <a class="x-list-row" href="#tx" role="listitem" data-kind="staking">
+      <a class="x-list-row" href="#tx" role="listitem" data-kind="refund">
         <span class="x-list-icon" data-tone="positive" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg></span>
-        <span class="x-list-text"><span class="x-list-title">Staking reward</span><span class="x-list-sub">21:44 · Epoch 666</span></span>
-        <span class="x-list-end" data-tone="positive"><span class="x-list-title">+12.40 ADA</span><span class="x-list-sub">$8.68</span></span>
+        <span class="x-list-text"><span class="x-list-title">Refund</span><span class="x-list-sub">21:44 · Order #1042</span></span>
+        <span class="x-list-end" data-tone="positive"><span class="x-list-title">+$12.40</span><span class="x-list-sub">$8.68</span></span>
       </a>
       <a class="x-list-row" href="#tx" role="listitem" data-kind="sent">
         <span class="x-list-icon" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg></span>
-        <span class="x-list-text"><span class="x-list-title">Sent</span><span class="x-list-sub">08:03 · to $alice</span></span>
-        <span class="x-list-end"><span class="x-list-title">−1,000.00 ADA</span><span class="x-list-sub">$700.00</span></span>
+        <span class="x-list-text"><span class="x-list-title">Sent</span><span class="x-list-sub">08:03 · to Robert Fox</span></span>
+        <span class="x-list-end"><span class="x-list-title">−$1,000.00</span><span class="x-list-sub">$700.00</span></span>
       </a>
     </div>
     <div class="x-list x-transactions-day" role="list" aria-label="Nov 9">
       <div class="x-list-heading">Nov 9</div>
       <a class="x-list-row" href="#tx" role="listitem" data-kind="received">
         <span class="x-list-icon" data-tone="positive" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M19.5 4.5l-15 15m0 0h11.25m-11.25 0V8.25"/></svg></span>
-        <span class="x-list-text"><span class="x-list-title">Received</span><span class="x-list-sub">11:50 · from addr1q8…c3f0</span></span>
-        <span class="x-list-end" data-tone="positive"><span class="x-list-title">+75.50 ADA</span><span class="x-list-sub">$52.85</span></span>
+        <span class="x-list-text"><span class="x-list-title">Received</span><span class="x-list-sub">11:50 · from Northwind</span></span>
+        <span class="x-list-end" data-tone="positive"><span class="x-list-title">+$75.50</span><span class="x-list-sub">$52.85</span></span>
       </a>
     </div>
   </div>
@@ -55,5 +55,19 @@
       </span>
       <span class="x-pagination-count">10 pages · 48 items</span>
     </form>
+  </div>
+</section>
+
+<!-- Loading: rows as placeholders -->
+<section class="x-transactions" aria-label="Recent activity" aria-busy="true">
+  <div class="x-transactions-days">
+    <div class="x-list x-transactions-day" role="list" aria-label="Loading">
+      <div class="x-list-heading"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 4.5em"></span></div>
+      <div class="x-list-row" role="listitem" data-kind="received">
+        <span class="x-skeleton" data-shape="circle" aria-hidden="true" style="--x-skeleton-width: 36px"></span>
+        <span class="x-list-text"><span class="x-list-title"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 42%"></span></span><span class="x-list-sub"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 63%"></span></span></span>
+        <span class="x-list-end" data-tone="positive"><span class="x-list-title"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 5.2em"></span></span><span class="x-list-sub"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 4em"></span></span></span>
+      </div>
+    </div>
   </div>
 </section>

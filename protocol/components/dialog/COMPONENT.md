@@ -38,9 +38,11 @@ dialog.x-dialog[aria-labelledby]       460px panel, 20px radius, panel surface, 
 | Attribute | Values | Default |
 |---|---|---|
 | `data-size` | `sm` 380px, `lg` 620px | 460px |
+| `data-placement` | `top`: 48px below the window's top edge, dropping in from above (search, growing forms) | centered |
 | `data-x-dismiss` (HTML) / `dismissible` (React) | `none` / `false`: no backdrop or Esc close | dismissible |
 
-Below 560px every size becomes a full-width bottom sheet with stacked full-width actions.
+Below 560px every size becomes a full-width bottom sheet with stacked full-width actions; `top` becomes a sheet
+16px below the top edge.
 
 ## States
 
@@ -60,6 +62,13 @@ Below 560px every size becomes a full-width bottom sheet with stacked full-width
   React: `data-autofocus` (React strips `autofocus` and focuses on mount, before the dialog opens).
   Without either, the first focusable element (the Close button) gets focus.
 - Focus returns to the opener on close (native).
+
+## Lazy content
+
+The body renders on first open and stays rendered after closing, so a heavy dialog costs nothing until it is
+used. `forceMount` (React) renders it up front, for content that must exist while closed (form state that is
+read before opening, anchors). In HTML, put lazy content in `<template data-lazy>`; `initDialogs` renders it
+right before the first opening.
 
 ## Motion
 

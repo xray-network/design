@@ -1,0 +1,43 @@
+/* Skeleton: placeholders in the shape of loading content. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-skeleton {
+    --x-skeleton-radius: var(--x-radius-md);
+
+    display: block;
+    width: var(--x-skeleton-width, 100%);
+    height: var(--x-skeleton-height, var(--x-size-md));
+    border-radius: var(--x-skeleton-radius);
+    background: var(--x-bg-chip);
+    animation: x-skeleton-pulse calc(var(--x-duration-slow) * 5) ease-in-out infinite;
+  }
+  /* One line of text: a 0.75em bar centered in the line's height, so a placeholder line is exactly as tall as the
+     line it stands for, in any text size. An inline-block aligned to the line's top: its margins fill the line and
+     can never collapse into the parent's, and a percentage width still follows the column. */
+  .x-skeleton[data-shape="text"] {
+    --x-skeleton-radius: var(--x-radius-xs);
+    display: inline-block;
+    height: var(--x-skeleton-height, 0.75em);
+    margin-block: calc((1lh - 0.75em) / 2);
+    vertical-align: top;
+  }
+  .x-skeleton[data-shape="circle"] {
+    --x-skeleton-radius: 50%;
+    width: var(--x-skeleton-width, var(--x-size-md));
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .x-skeleton-text { display: flex; flex-direction: column; }
+  .x-skeleton-text > .x-skeleton:last-child:not(:only-child) { width: 60%; }
+
+  @keyframes x-skeleton-pulse { 50% { opacity: 0.45; } }
+
+  /* Reduced motion: the placeholders stay, the pulse stops. */
+  [data-motion="reduce"] .x-skeleton { animation: none; }
+  @media (prefers-reduced-motion: reduce) {
+    :root:not([data-motion="full"]) .x-skeleton { animation: none; }
+  }
+}

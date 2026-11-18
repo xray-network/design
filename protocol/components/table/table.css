@@ -1,65 +1,58 @@
-/* Table: data in a framed section with an optional title, row dividers, a linked first column and a
-   footer for Pagination. Requires core/tokens.css. */
+/* Table: a data table in a hairline frame with a tinted header row; Pagination under it.
+   Requires core/tokens.css (and pagination for the footer). */
 
 @layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
 
 @layer components {
   .x-table {
-    --x-table-pad-edge: var(--x-space-5);
-    --x-table-pad-cell: var(--x-space-3);
+    --x-table-radius: var(--x-radius-3xl);
+    --x-table-cell-pad: var(--x-space-3) var(--x-space-4);
 
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--x-space-3);
     min-width: 0;
-    border: 1px solid var(--x-border);
-    border-radius: var(--x-radius-3xl);
-    background: light-dark(var(--x-bg), var(--x-bg-panel));
-    color: var(--x-fg-2);
-    overflow: hidden;
+    color: var(--x-fg-1);
   }
 
-  .x-table-head { padding: var(--x-space-5); }
-  .x-table-title { margin: 0; color: var(--x-fg-1); font-size: 18px; font-weight: var(--x-weight-title); line-height: 1.3; }
-  .x-table-description { margin: var(--x-space-1) 0 0; color: var(--x-fg-3); font-size: var(--x-text-xs); }
-
-  .x-table-scroll { overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--x-border) transparent; }
+  .x-table-frame {
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-table-radius);
+    background: var(--x-bg);
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--x-border) transparent;
+  }
   .x-table table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans);
     font-variant-numeric: tabular-nums;
-    white-space: nowrap;
   }
-  /* The caption names the table for screen readers; the visible title is .x-table-title. */
   .x-table caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
   .x-table th,
-  .x-table td { padding: var(--x-space-3) var(--x-table-pad-cell); text-align: left; }
-  .x-table :is(th, td):first-child { padding-left: var(--x-table-pad-edge); }
-  .x-table :is(th, td):last-child { padding-right: var(--x-table-pad-edge); }
+  .x-table td { padding: var(--x-table-cell-pad); border-bottom: 1px solid var(--x-border); text-align: left; vertical-align: middle; }
   .x-table :is(th, td)[data-align="end"] { text-align: right; }
   .x-table :is(th, td)[data-align="center"] { text-align: center; }
 
-  .x-table thead th { color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-body); }
-  .x-table-head + .x-table-scroll thead tr { border-top: 1px solid var(--x-border); }
+  .x-table thead th { background: var(--x-bg-panel); color: var(--x-fg-1); font-weight: var(--x-weight-label); white-space: nowrap; }
+  .x-table tbody th { font-weight: var(--x-weight-body); }
+  .x-table tbody tr:last-child > * { border-bottom: 0; }
+  .x-table tbody tr { transition: background-color var(--x-duration-fast) var(--x-ease); }
+  .x-table tbody tr:hover { background: var(--x-bg-soft); }
+  /* As tall as two rows, so switching between empty and two loading rows does not move anything. */
+  .x-table-empty td { height: calc(2 * (1lh + var(--x-space-3) * 2) + 1px); color: var(--x-fg-3); text-align: center; }
 
-  /* Rows: a hairline between them; the first cell is the row's header. */
-  .x-table tbody tr { position: relative; border-top: 1px solid var(--x-border); }
-  .x-table tbody th { color: var(--x-fg-1); font-weight: var(--x-weight-label); }
+  /* Loading: skeleton lines in place of cell text, aligned like the data they stand for. */
+  .x-table tbody tr.x-table-loading:hover { background: none; }
+  /* Each bar takes a full line's height, so loading rows are exactly as tall as rows of text. */
+  .x-table-loading .x-skeleton { display: block; margin-block: calc((1lh - 0.75em) / 2); }
+  .x-table-loading [data-align="end"] .x-skeleton { margin-left: auto; }
+  .x-table-loading [data-align="center"] .x-skeleton { margin-inline: auto; }
+  .x-table tbody tr.x-table-empty:hover { background: none; }
 
-  /* A link in the first cell makes the whole row clickable. */
-  .x-table-link { color: var(--x-link); text-decoration: none; border-radius: var(--x-radius-xs); transition: color var(--x-duration-fast) var(--x-ease); }
-  .x-table-link::before { content: ""; position: absolute; inset: 0; }
-  .x-table tbody tr:has(.x-table-link) { cursor: pointer; }
-  .x-table tbody tr:hover .x-table-link,
-  .x-table tbody tr:focus-within .x-table-link { color: var(--x-accent-ink-hover); }
-  .x-table-link:focus-visible { outline: none; }
-  .x-table-link:focus-visible::before { outline: 2px solid var(--x-focus); outline-offset: -2px; }
-  /* Controls in other cells stay clickable above the row link. */
-  .x-table tbody :is(td, th) :is(button, a:not(.x-table-link), input, select) { position: relative; z-index: 1; }
-
-  .x-table-empty td { height: 64px; color: var(--x-fg-3); font-size: var(--x-text-md); text-align: center; }
-
-  /* Optional sorting: a button in the header cell; aria-sort on the th turns the arrow. */
   .x-table-sort {
     display: inline-flex;
     align-items: center;
@@ -71,16 +64,12 @@
     color: inherit;
     font: inherit;
     cursor: pointer;
-    transition: color var(--x-duration-fast) var(--x-ease);
   }
-  .x-table-sort:hover,
-  .x-table th[aria-sort] { color: var(--x-fg-1); }
   .x-table-sort .x-icon { width: 12px; height: 12px; stroke-width: 2; opacity: 0; transition: opacity var(--x-duration-fast) var(--x-ease), rotate var(--x-spring-duration) var(--x-spring); }
   .x-table-sort:hover .x-icon { opacity: 0.5; }
   .x-table th[aria-sort] .x-icon { opacity: 1; }
   .x-table th[aria-sort="ascending"] .x-icon { rotate: 180deg; } /* the arrow points down: descending */
-  .x-table :is(th)[data-align="end"] .x-table-sort { flex-direction: row-reverse; }
+  .x-table th[data-align="end"] .x-table-sort { flex-direction: row-reverse; }
 
-  /* Footer: Pagination or a summary, under a hairline. */
-  .x-table-foot { padding: var(--x-space-3) var(--x-space-5); border-top: 1px solid var(--x-border); }
+  .x-table-foot { display: flex; justify-content: flex-end; }
 }

@@ -15,16 +15,16 @@ export const MESSAGE_ICONS = {
  *
  *   import { createMessenger } from "./message.controller.js";
  *   const { message } = createMessenger();
- *   message({ tone: "success", title: "Delegation confirmed", text: "First reward in about 15 days" });
- *   message({ tone: "warning", title: "Pool saturated", action: { label: "Change pool", onClick } , duration: Infinity });
+ *   message({ tone: "success", title: "Payment confirmed", text: "A receipt is on its way to your inbox." });
+ *   message({ tone: "warning", title: "Seat limit reached", action: { label: "Change plan", onClick } , duration: Infinity });
  *
  * - the newest message is on top; it slides in from the right on the liquid spring
  * - the stack reflows with FLIP on the soft spring; at most `max` messages, the oldest leaves first
  * - timers pause while the pointer or focus is inside the region
  *
- * @param {{ region?: HTMLElement, max?: number }} [options]
+ * @param {{ region?: HTMLElement, max?: number, position?: "top" | "bottom" }} [options]
  */
-export function createMessenger({ region, max = 4 } = {}) {
+export function createMessenger({ region, max = 4, position } = {}) {
   const owned = !region;
   if (!region) {
     region = document.createElement("section");
@@ -33,6 +33,7 @@ export function createMessenger({ region, max = 4 } = {}) {
     document.body.append(region);
   }
   const host = region;
+  if (position === "bottom") host.dataset.position = "bottom";
   host.setAttribute("aria-live", "polite");
   if (!host.hasAttribute("popover")) host.setAttribute("popover", "manual");
 

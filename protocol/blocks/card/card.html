@@ -1,16 +1,16 @@
 <!-- Card grid: each card is one button (or link) plus a floating menu button. -->
 <div class="x-card-grid">
   <article class="x-card">
-    <button class="x-card-main" type="button" aria-label="Open Cardano Wallet">
+    <button class="x-card-main" type="button" aria-label="Open Payments">
       <span class="x-tile" aria-hidden="true">C</span>
       <span class="x-card-text">
-        <span class="x-card-title">Cardano Wallet</span>
-        <span class="x-card-description">Official wallet for managing your assets.</span>
-        <span class="x-card-meta">xray/cardano-wallet</span>
+        <span class="x-card-title">Payments</span>
+        <span class="x-card-description">Accept cards and bank transfers.</span>
+        <span class="x-card-meta">acme/payments</span>
       </span>
     </button>
     <span class="x-card-menu">
-      <button class="x-icon-button" type="button" data-size="sm" aria-label="Cardano Wallet actions">
+      <button class="x-icon-button" type="button" data-size="sm" aria-label="Payments actions">
         <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/></svg>
       </button>
     </span>
@@ -34,3 +34,15 @@
 <span class="x-tile" aria-hidden="true">G</span>
 <span class="x-tile" data-size="md" aria-hidden="true">G</span>
 <span class="x-tile" data-size="xs" aria-hidden="true">G</span>
+
+<!-- Loading -->
+<article class="x-card" aria-busy="true">
+  <button class="x-card-main" type="button" aria-label="Open Payments">
+    <span class="x-skeleton" aria-hidden="true" style="--x-skeleton-width: 48px; --x-skeleton-height: 48px; --x-skeleton-radius: 14px"></span>
+    <span class="x-card-text">
+      <span class="x-card-title"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 48%"></span></span>
+      <span class="x-card-description"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 88%"></span><br><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 52%"></span></span>
+      <span class="x-card-meta"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 34%"></span></span>
+    </span>
+  </button>
+</article>

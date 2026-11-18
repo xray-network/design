@@ -1,19 +1,19 @@
 import { SendForm } from "@protocol/blocks/send-form/send-form"
 import { toast } from "@protocol/components/toast/toast"
 
-export default function SendFormExample() {
+export default function SendFormExample({ loading = false }: { loading?: boolean }) {
   return (
-    <SendForm
-      available={12480.254221}
-      ticker="ADA"
+    <SendForm loading={loading}
+      available={12480.25}
+      ticker="USD"
       defaultFee="standard"
-      toFiat={(n) => `$${(n * 0.7).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD`}
+      toFiat={(n) => `≈ €${(n * 0.92).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
       fees={[
-        { value: "slow", title: "Slow", description: "About 5 min", amount: 0.12 },
-        { value: "standard", title: "Standard", description: "About 20 s", amount: 0.17 },
-        { value: "fast", title: "Fast", description: "About 5 s", amount: 0.42 },
+        { value: "slow", title: "Standard", description: "2–3 business days", amount: 0 },
+        { value: "standard", title: "Same day", description: "Before 6 pm", amount: 1 },
+        { value: "fast", title: "Instant", description: "In seconds", amount: 2.5 },
       ]}
-      onReview={({ amount, total, fee }) => toast(`Review: send ${amount} ADA with the ${fee.title.toLowerCase()} fee, ${total.toFixed(2)} ADA in total`, { tone: "info" })}
+      onReview={({ amount, total, fee }) => toast(`Review: send ${amount} USD, ${fee.title.toLowerCase()}, ${total.toFixed(2)} USD in total`, { tone: "info" })}
     />
   )
 }

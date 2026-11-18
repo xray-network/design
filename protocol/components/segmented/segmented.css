@@ -87,4 +87,8 @@
       left calc(var(--x-spring-duration) * 0.85) var(--x-spring),
       right calc(var(--x-spring-soft-duration) * 1.1) var(--x-spring-soft);
   }
+
+  /* Optional views under the control: the selected option's panel shows. */
+  .x-segmented-panels { padding-top: var(--x-space-4); }
+  .x-segmented-panel[hidden] { display: none; }
 }

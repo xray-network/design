@@ -8,6 +8,7 @@
  * - [data-x-dialog-close] (optionally ="<returnValue>") closes the dialog it is in
  * - a click on the backdrop closes the dialog (opt out with data-x-dismiss="none" on the dialog)
  * Esc and focus trapping are native. lockScroll() keeps the page from shifting when the dialog hides its scrollbar.
+ * Lazy content: put it in <template data-lazy> inside the dialog; it is rendered right before the first opening.
  *
  * @param {Document | HTMLElement} [root]
  * @returns {() => void} cleanup
@@ -20,6 +21,7 @@ export function initDialogs(root = document) {
     if (opener) {
       const dialog = document.getElementById(opener.getAttribute("data-x-dialog-open") ?? "");
       if (dialog instanceof HTMLDialogElement && !dialog.open) {
+        for (const template of dialog.querySelectorAll("template[data-lazy]")) template.replaceWith(template.content.cloneNode(true));
         lockScroll();
         dialog.showModal();
       }

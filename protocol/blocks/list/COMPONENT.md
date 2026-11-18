@@ -4,13 +4,13 @@ name: List
 summary: Rows without boxes for transactions, assets and settings, with a soft fill on hover.
 motion: 0
 requires: [tokens]
-components: []
+components: [skeleton]
 files: [list.css, list.html, list.tsx]
 ---
 
 # List
 
-A block: the app's way of showing many items of one kind: transactions, assets, pools, settings. Rows have
+A block: the app's way of showing many items of one kind: payments, currencies, plans, settings. Rows have
 no borders or cards; the hover fill overhangs the content, so text stays on the page's edge.
 
 ## Anatomy
@@ -41,6 +41,10 @@ div.x-list[role=list]                          2px gaps
 |---|---|---|
 | hover | `:hover` | `--x-bg-soft` fill |
 | focus | `:focus-visible` on `a` / `button` rows | global focus ring |
+
+## Loading
+
+`ListRow` `loading`: a 36px round Skeleton for the lead and one-line bars of varied widths for each text (amounts end-aligned), so rows keep their height when the data arrives.
 
 ## Accessibility
 

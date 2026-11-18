@@ -4,14 +4,14 @@ name: Transactions
 summary: Transaction history with type filters, rows grouped by day, and compact paging.
 motion: 0
 requires: [tokens]
-components: [chips, pagination]
+components: [chips, pagination, skeleton]
 blocks: [list]
 files: [transactions.css, transactions.html, transactions.tsx]
 ---
 
 # Transactions
 
-A wallet's history: what moved, when, and how much. Filter by type, read by day, page through older
+An account's history: what moved, when, and how much. Filter by type, read by day, page through older
 entries. Rows open the transaction's details.
 
 ## Anatomy
@@ -19,7 +19,7 @@ entries. Rows open the transaction's details.
 ```
 section.x-transactions[aria-label]
 ├── div.x-transactions-head          h2 title (15/600) + optional action ("View all")
-├── div.x-chips                      All · Sent · Received · Staking, with counts
+├── div.x-chips                      All · Sent · Received · Refunds, with counts
 ├── div.x-transactions-days          20px between days
 │   └── div.x-list.x-transactions-day
 │       ├── .x-list-heading          "Today", "Yesterday", "Nov 9"
@@ -34,13 +34,17 @@ section.x-transactions[aria-label]
 |---|---|---|
 | `sent` | arrow up-right | `−` amount, default color |
 | `received` | arrow down-left, green | `+` amount, `--x-success-fg` |
-| `staking` | bolt, green | `+` reward, `--x-success-fg` |
+| `refund` | return arrow, green | `+` refund, `--x-success-fg` |
 
 ## Behavior
 
 - Filtering: in HTML, CSS `:has()` hides rows of other kinds and day groups left empty, with no JS. In React,
   the filter resets paging and counts come from the data.
 - Paging: React pages the filtered items (`pageSize`, default 8); HTML pages are links to server-rendered pages.
+
+## Loading
+
+React `loading` (`aria-busy`): rows keep their structure as placeholders (List rows' loading state, day headings as bars); with no data yet, `pageSize` placeholder rows (at most 5) in one group. Rows are not clickable and paging is disabled until the data arrives.
 
 ## Accessibility
 

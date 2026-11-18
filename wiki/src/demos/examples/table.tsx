@@ -1,43 +1,35 @@
-import { useState } from "react"
-import { Pagination } from "@protocol/components/pagination/pagination"
 import { Table } from "@protocol/components/table/table"
+import { Status } from "@protocol/components/tag/tag"
 
-type Endpoint = { path: string; method: string; requests: number; errors: number; latency: number }
-const ENDPOINTS: Endpoint[] = [
-  { path: "/accounts/{address}", method: "GET", requests: 182340, errors: 0.2, latency: 41 },
-  { path: "/transactions/{hash}", method: "GET", requests: 96115, errors: 0.4, latency: 58 },
-  { path: "/assets/{policy}", method: "GET", requests: 54220, errors: 0.1, latency: 37 },
-  { path: "/tx/submit", method: "POST", requests: 12804, errors: 1.9, latency: 212 },
-  { path: "/epochs/latest", method: "GET", requests: 9871, errors: 0, latency: 22 },
-  { path: "/pools/{id}/delegators", method: "GET", requests: 6403, errors: 0.7, latency: 133 },
-  { path: "/scripts/{hash}", method: "GET", requests: 3310, errors: 0.3, latency: 64 },
-  { path: "/metadata/{label}", method: "GET", requests: 1288, errors: 0, latency: 49 },
+type Tx = { id: string; type: string; date: string; amount: number; status: "Confirmed" | "Pending" }
+const TX: Tx[] = [
+  { id: "1", type: "Payment received", date: "Today, 14:02", amount: 250, status: "Confirmed" },
+  { id: "2", type: "Sent", date: "Today, 09:17", amount: -42.17, status: "Pending" },
+  { id: "3", type: "Interest", date: "Yesterday", amount: 12.4, status: "Confirmed" },
+  { id: "4", type: "Sent", date: "Yesterday", amount: -1000, status: "Confirmed" },
+  { id: "5", type: "Payment received", date: "Nov 9", amount: 75.5, status: "Confirmed" },
+  { id: "6", type: "Interest", date: "Nov 9", amount: 12.31, status: "Confirmed" },
+  { id: "7", type: "Sent", date: "Nov 8", amount: -3.21, status: "Confirmed" },
 ]
-const PAGE_SIZE = 3
+const usd = (n: number) => `${n > 0 ? "+" : "−"}$${Math.abs(n).toLocaleString("en-US", { minimumFractionDigits: 2 })}`
 
-export default function TableExample() {
-  const [page, setPage] = useState(1)
-  const pageCount = Math.ceil(ENDPOINTS.length / PAGE_SIZE)
+export default function TableExample({ loading = false }: { loading?: boolean }) {
   return (
     <>
       <Table
-        caption="Endpoints"
-        title="Endpoints"
-        description="Requests in the last 30 days"
-        rows={ENDPOINTS.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)}
-        rowKey={(r) => r.path}
-        rowHref={(r) => `#${encodeURIComponent(r.path)}`}
-        defaultSort={{ key: "requests", direction: "descending" }}
+        caption="Transactions"
+        rows={TX}
+        rowKey={(r) => r.id}
+        pageSize={4}
+        loading={loading}
         columns={[
-          { key: "path", header: "Endpoint" },
-          { key: "method", header: "Method", align: "center" },
-          { key: "requests", header: "Requests", align: "end", sortValue: (r) => r.requests, render: (r) => r.requests.toLocaleString("en-US") },
-          { key: "errors", header: "Errors", align: "end", sortValue: (r) => r.errors, render: (r) => `${r.errors}%` },
-          { key: "latency", header: "Latency", align: "end", sortValue: (r) => r.latency, render: (r) => `${r.latency} ms` },
+          { key: "type", header: "Type" },
+          { key: "date", header: "Date" },
+          { key: "amount", header: "Amount", align: "end", sortValue: (r) => r.amount, render: (r) => usd(r.amount) },
+          { key: "status", header: "Status", align: "end", render: (r) => <Status dot="end" tone={r.status === "Pending" ? "warning" : undefined}>{r.status}</Status> },
         ]}
-        footer={<Pagination page={page} pageCount={pageCount} total={ENDPOINTS.length} onPageChange={setPage} aria-label="Endpoints pages" />}
       />
-      <Table caption="Delegations" rows={[] as Endpoint[]} rowKey={(r) => r.path} columns={[{ key: "path", header: "Pool" }, { key: "requests", header: "Stake", align: "end" }]} />
+      <Table caption="Payouts" loading={loading} loadingRows={2} rows={[] as Tx[]} rowKey={(r) => r.id} empty="No payouts yet" columns={[{ key: "type", header: "Bank" }, { key: "amount", header: "Amount", align: "end" }]} />
     </>
   )
 }

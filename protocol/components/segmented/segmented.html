@@ -15,13 +15,26 @@
   <span class="x-segmented-indicator" aria-hidden="true"></span>
 </div>
 
-<!-- Full width: items share the width equally (wallet panes) -->
-<div class="x-segmented" data-width="full" role="radiogroup" aria-label="Wallet action">
-  <label class="x-segmented-item"><input type="radio" name="wallet" value="send" checked><span>Send</span></label>
-  <label class="x-segmented-item"><input type="radio" name="wallet" value="receive"><span>Receive</span></label>
-  <label class="x-segmented-item"><input type="radio" name="wallet" value="stake"><span>Stake</span></label>
-  <label class="x-segmented-item"><input type="radio" name="wallet" value="swap" disabled><span>Swap</span></label>
+<!-- Full width: items share the width equally (payment panes) -->
+<div class="x-segmented" data-width="full" role="radiogroup" aria-label="Payment action">
+  <label class="x-segmented-item"><input type="radio" name="payment" value="send" checked><span>Send</span></label>
+  <label class="x-segmented-item"><input type="radio" name="payment" value="request"><span>Request</span></label>
+  <label class="x-segmented-item"><input type="radio" name="payment" value="schedule"><span>Schedule</span></label>
+  <label class="x-segmented-item"><input type="radio" name="payment" value="split" disabled><span>Split</span></label>
   <span class="x-segmented-indicator" aria-hidden="true"></span>
+</div>
+
+<!-- With views: panels right after the control, matched by data-value; lazy content in <template data-lazy>. -->
+<div class="x-segmented" role="radiogroup" aria-label="Chart">
+  <label class="x-segmented-item" id="chart-balance"><input type="radio" name="chart" value="balance" checked><span>Balance</span></label>
+  <label class="x-segmented-item" id="chart-rewards"><input type="radio" name="chart" value="rewards"><span>Rewards</span></label>
+  <span class="x-segmented-indicator" aria-hidden="true"></span>
+</div>
+<div class="x-segmented-panels">
+  <section class="x-segmented-panel" data-value="balance" aria-labelledby="chart-balance"><p>Balance over 30 days.</p></section>
+  <section class="x-segmented-panel" data-value="rewards" aria-labelledby="chart-rewards" hidden>
+    <template data-lazy><p>Refunds per week.</p></template>
+  </section>
 </div>
 
 <script type="module">

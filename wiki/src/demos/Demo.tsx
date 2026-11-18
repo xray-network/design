@@ -11,8 +11,20 @@ import { useGuiPreference } from "./useGuiPreference"
 import "./demo.css"
 
 /** One interactive visual reference and a prompt for the project's chosen GUI framework. */
-export function Demo({ id, name, kind = "component", children }: Omit<DemoEntry, "kind"> & { kind?: DemoEntry["kind"]; children: ReactNode }) {
+export function Demo({
+  id,
+  name,
+  kind = "component",
+  loading: loadingSwitch,
+  children,
+}: Omit<DemoEntry, "kind"> & {
+  kind?: DemoEntry["kind"]
+  /** Adds a Loading switch next to Reduce motion (true: off at first, "on": on at first); the example gets its state. */
+  loading?: boolean | "on"
+  children: ReactNode | ((state: { loading: boolean }) => ReactNode)
+}) {
   const [reduce, setReduce] = useState(false)
+  const [loading, setLoading] = useState(loadingSwitch === "on")
   const [preference, setPreference] = useGuiPreference()
   const [copyState, setCopyState] = useState<"idle" | "copying" | "copied" | "error">("idle")
   const targetRef = useRef<HTMLDivElement>(null)
@@ -65,9 +77,12 @@ export function Demo({ id, name, kind = "component", children }: Omit<DemoEntry,
     <div className="wiki-demo rp-not-doc" data-motion={reduce ? "reduce" : undefined}>
       <div className="wiki-demo-bar">
         <h2 className="wiki-demo-prompt-title">Preview</h2>
-        <Switch size="sm" checked={reduce} onChange={(event) => setReduce(event.target.checked)}>Reduce motion</Switch>
+        <div className="wiki-demo-switches">
+          {loadingSwitch && <Switch size="sm" checked={loading} onChange={(event) => setLoading(event.target.checked)}>Loading</Switch>}
+          <Switch size="sm" checked={reduce} onChange={(event) => setReduce(event.target.checked)}>Reduce motion</Switch>
+        </div>
       </div>
-      <div className="wiki-demo-stage">{children}</div>
+      <div className="wiki-demo-stage">{typeof children === "function" ? children({ loading }) : children}</div>
       <section className="wiki-demo-prompt" aria-label={`Use ${name} ${kind}`}>
         <div className="wiki-demo-prompt-heading">
           <h2 className="wiki-demo-prompt-title">Generate for</h2>

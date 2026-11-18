@@ -14,9 +14,11 @@ export type TooltipProps = {
    * so it is hidden from screen readers. "description": it adds information, linked with aria-describedby.
    */
   kind?: "label" | "description";
+  /** The side it shows on (default top); it flips to the opposite side when there is no room. */
+  placement?: "top" | "bottom" | "left" | "right";
 };
 
-export function Tooltip({ content, children, kind = "label" }: TooltipProps) {
+export function Tooltip({ content, children, kind = "label", placement = "top" }: TooltipProps) {
   const id = useId();
   const triggerRef = useRef<HTMLElement>(null);
   const tipRef = useRef<HTMLDivElement>(null);
@@ -34,6 +36,7 @@ export function Tooltip({ content, children, kind = "label" }: TooltipProps) {
         id={id}
         popover="manual"
         className="x-tooltip"
+        data-placement={placement === "top" ? undefined : placement}
         role={kind === "description" ? "tooltip" : undefined}
         aria-hidden={kind === "label" ? true : undefined}
       >

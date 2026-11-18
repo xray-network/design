@@ -1,0 +1,62 @@
+/* Select Native: a real <select> in the text input's frame. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-select-native {
+    --x-select-native-height: var(--x-size-xl);
+    --x-select-native-radius: var(--x-radius-lg);
+    --x-select-native-border: var(--x-border);
+    --x-select-native-pad: var(--x-space-4);
+    --x-select-native-font-size: var(--x-text-md);
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+  }
+  .x-select-native > select {
+    appearance: none;
+    width: 100%;
+    height: var(--x-select-native-height);
+    padding: 0 calc(var(--x-select-native-pad) + var(--x-icon-md) + var(--x-space-2)) 0 var(--x-select-native-pad);
+    border: 1px solid var(--x-select-native-border);
+    border-radius: var(--x-select-native-radius);
+    background: none;
+    color: var(--x-fg-1);
+    font: var(--x-weight-body) var(--x-select-native-font-size) / 1 var(--x-font-sans);
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: border-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-select-native > select option { background: var(--x-bg-panel); color: var(--x-fg-1); }
+  .x-select-native:hover { --x-select-native-border: var(--x-border-hover); }
+  .x-select-native > select:focus-visible { outline: none !important; border-color: var(--x-focus); }
+  .x-select-native > select[aria-invalid="true"] { border-color: var(--x-danger); }
+  .x-select-native > select:disabled { opacity: 0.4; cursor: default; }
+
+  .x-select-native-chevron {
+    position: absolute;
+    right: var(--x-space-3);
+    width: var(--x-icon-md);
+    height: var(--x-icon-md);
+    color: var(--x-fg-3);
+    pointer-events: none;
+  }
+  .x-select-native > select:is([multiple], [size]:not([size="1"])) { height: auto; padding: var(--x-space-1-5); }
+  .x-select-native:has(> select:is([multiple], [size]:not([size="1"]))) .x-select-native-chevron { display: none; }
+
+  .x-select-native[data-size="sm"] {
+    --x-select-native-height: var(--x-size-md);
+    --x-select-native-radius: var(--x-radius-md);
+    --x-select-native-pad: var(--x-space-3-5);
+    --x-select-native-font-size: var(--x-text-sm);
+  }
+  .x-select-native[data-size="lg"] {
+    --x-select-native-height: 56px;
+    --x-select-native-radius: var(--x-radius-xl);
+    --x-select-native-pad: var(--x-space-5);
+    --x-select-native-font-size: var(--x-text-xl);
+  }
+}

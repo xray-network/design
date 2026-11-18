@@ -53,7 +53,10 @@ implementation decision changes. It is project documentation, not another design
 Read `DESIGN-PROTOCOL.md`'s YAML header. Generate or implement named values in one theme module or
 resource set, retaining a traceable mapping such as `bg-panel` → `DesignTokens.bgPanel`. Components
 consume semantic tokens; raw palette values belong only in that theme layer. Keep exact light/dark
-color values and alpha. Rebrands override semantic values centrally, including forced-theme subtrees.
+color values and alpha. Rebrands follow the main skill's "Theme or rebrand": project overrides live in one separate
+theme file or resource set that applies over the translated tokens (including forced-theme subtrees) and is
+recorded as the lock's `theme`. Keep it separate from the translated kit tokens, so upgrades can update those
+without touching the project's brand.
 
 | Token kind | Native translation |
 |---|---|
@@ -132,7 +135,8 @@ assuming browser behavior or changing frameworks.
 
 ## Status and upgrades
 
-For status, report the lock's source protocol version, framework/platforms and implemented catalog IDs.
+For status, report the lock's source protocol version, framework/platforms, implemented catalog IDs and, if
+recorded, the `theme` layer with the tokens it overrides.
 Compare each native file with its recorded digest: unchanged since baseline, modified, or missing.
 If no digest exists, report it as untracked; do not claim it matches the catalog. Report adaptations
 and verification gaps. Status never refreshes digests or overwrites source files.
@@ -147,7 +151,8 @@ as `.agents/design/` and use this native procedure in place of the web copying/m
 1. Review the changelog, protocol tokens/rules, and the contracts plus web sources of implemented
    components, blocks and their dependencies against the old catalog. Consult the new skill/reference.
 2. Apply relevant design and behavior changes to the existing native implementation while preserving
-   project adaptations. Do not replace native files with CSS/TSX, compare their bytes with web sources,
+   project adaptations, including the `theme` layer (update an override only when the changelog renames or
+   removes its token). Do not replace native files with CSS/TSX, compare their bytes with web sources,
    or attempt a 3-way merge between different languages. Regenerate into a temporary location only
    when useful for review; merge the intended native changes into project code.
 3. Re-run relevant platform verification. After all tracked implementations have been reviewed and

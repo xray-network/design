@@ -9,18 +9,18 @@ const ICONS = {
   dots: "M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z",
 }
 
-export default function ButtonExample() {
+export default function ButtonExample({ loading = false }: { loading?: boolean }) {
   return (
     <>
       <Row>
-        <Button>Send</Button>
-        <Button variant="ghost">Cancel</Button>
-        <Button size="sm">Stake</Button>
-        <Button variant="ghost" size="sm">Details</Button>
+        <Button loading={loading}>Send</Button>
+        <Button variant="ghost" loading={loading}>Cancel</Button>
+        <Button size="sm" loading={loading}>Pay</Button>
+        <Button variant="ghost" size="sm" loading={loading}>Details</Button>
         <Button variant="chip">Max</Button>
       </Row>
       <Row>
-        <Button variant="danger">Remove account</Button>
+        <Button variant="danger" loading={loading}>Remove account</Button>
         <Button loading>Sending</Button>
         <Button disabled>Send</Button>
       </Row>
@@ -31,11 +31,11 @@ export default function ButtonExample() {
         <IconButton aria-label="More actions" shape="round"><Icon d={ICONS.dots} /></IconButton>
       </Row>
       <Row>
-        <Button shape="round">Get started</Button>
-        <Button variant="ghost" shape="round">Learn more</Button>
+        <Button shape="round" loading={loading}>Get started</Button>
+        <Button variant="ghost" shape="round" loading={loading}>Learn more</Button>
         <Button variant="chip" shape="round">Max</Button>
       </Row>
-      <Button size="lg" fullWidth>Confirm and send</Button>
+      <Button size="lg" fullWidth loading={loading}>Confirm and send</Button>
     </>
   )
 }

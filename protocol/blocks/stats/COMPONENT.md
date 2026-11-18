@@ -4,7 +4,7 @@ name: Stats
 summary: Key figures in a grid, each with a label, a value, and a note or a change.
 motion: 0
 requires: [tokens]
-components: []
+components: [skeleton]
 files: [stats.css, stats.html, stats.tsx]
 ---
 
@@ -16,7 +16,7 @@ how a service is doing. Three or four figures; more belongs in a table.
 ## Anatomy
 
 ```
-dl.x-stats                         grid, --x-stats-columns (default 4), 20px row gap, 24px column gap
+dl.x-stats                         grid, --x-stats-columns (default 4), 20px row gap, 40px column gap
 └── div.x-stat
     ├── dt.x-stat-label            13px, third text color
     ├── dd.x-stat-value[data-tone] 24/800, tabular, one line
@@ -31,6 +31,10 @@ dl.x-stats                         grid, --x-stats-columns (default 4), 20px row
 | columns | `--x-stats-columns` / `columns` | 4; 2 on phones |
 | value tone | `data-tone="positive"` / `"negative"` | regular text color |
 | delta tone | `data-tone="positive"` / `"negative"` | third text color |
+
+## Loading
+
+React `loading` (`aria-busy`): labels stay; one-line bars of varied widths stand in for values, changes and notes.
 
 ## Accessibility
 

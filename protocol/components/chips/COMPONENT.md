@@ -10,7 +10,7 @@ files: [chips.css, chips.html, chips.tsx]
 
 # Chips
 
-Filters above a list or grid: transaction types, chains, categories. Chips wrap, so they suit
+Filters above a list or grid: payment types, currencies, categories. Chips wrap, so they suit
 longer or changing sets. For 2–5 fixed options that switch a view, use Segmented.
 
 ## Anatomy

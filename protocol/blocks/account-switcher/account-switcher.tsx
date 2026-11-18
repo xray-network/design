@@ -14,7 +14,7 @@ export type Account = {
   /** Seed for the avatar. */
   address: string;
   palette?: AvatarPalette;
-  /** Formatted: "12,480.25 ADA". */
+  /** Formatted: "$12,480.25". */
   balance: string;
 };
 
@@ -24,6 +24,8 @@ export type AccountSwitcherProps = {
   onValueChange: (id: string) => void;
   /** Shows an "Add account" row at the end. */
   onAdd?: () => void;
+  /** While the account loads: the avatar in the trigger becomes a placeholder. */
+  loading?: boolean;
   className?: string;
 };
 
@@ -33,7 +35,7 @@ const Check = () => (
   </svg>
 );
 
-export function AccountSwitcher({ accounts, value, onValueChange, onAdd, className }: AccountSwitcherProps) {
+export function AccountSwitcher({ accounts, value, onValueChange, onAdd, loading, className }: AccountSwitcherProps) {
   const menuId = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -53,7 +55,7 @@ export function AccountSwitcher({ accounts, value, onValueChange, onAdd, classNa
   return (
     <div className={className ? `x-account-switcher ${className}` : "x-account-switcher"}>
       <button ref={triggerRef} type="button" className="x-account-switcher-trigger" popoverTarget={menuId} aria-label={`Account ${current?.label}, switch account`}>
-        {current && <Avatar seed={current.address} palette={current.palette} />}
+        {current && <Avatar seed={current.address} palette={current.palette} loading={loading} />}
         <span className="x-account-switcher-text">
           <span className="x-account-switcher-label">{current?.label}</span>
           <span className="x-account-switcher-sub">{current?.balance}</span>

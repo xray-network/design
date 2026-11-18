@@ -116,6 +116,14 @@
   .x-dialog[data-size="sm"] { --x-dialog-width: 380px; }
   .x-dialog[data-size="lg"] { --x-dialog-width: 620px; }
 
+  /* Top: opens near the top of the window, 48px from its edge, and drops in from above. For dialogs that grow
+     (search, command palettes, long forms), so their top never jumps as content changes. */
+  .x-dialog[data-placement="top"] {
+    --x-dialog-enter-y: -10px;
+    margin: var(--x-space-12) auto auto;
+    max-height: calc(100dvh - var(--x-space-12) * 2);
+  }
+
   /* Phones: a bottom sheet that rises from the edge. */
   @media (max-width: 560px) {
     .x-dialog {
@@ -131,6 +139,15 @@
     .x-dialog[open] { scale: 1; }
     @starting-style {
       .x-dialog[open] { scale: 1; }
+    }
+    /* Top on phones: a full-width sheet from the top edge, 16px below it. */
+    .x-dialog[data-placement="top"] {
+      --x-dialog-enter-y: -48px;
+      width: calc(100% - var(--x-space-4) * 2);
+      margin: var(--x-space-4) auto auto;
+      max-height: calc(100dvh - var(--x-space-8));
+      border-width: 1px;
+      border-radius: var(--x-radius-3xl);
     }
     .x-dialog-footer { flex-direction: column-reverse; padding-bottom: max(var(--x-space-4), env(safe-area-inset-bottom)); }
     .x-dialog-footer > .x-button { width: 100%; }

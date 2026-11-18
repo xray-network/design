@@ -2,7 +2,7 @@
  * Send form behavior for plain HTML: Max fills the amount, the summary follows the amount and the fee,
  * and an amount above the available balance shows an error.
  *
- *   <form class="x-send-form" data-available="12480.254221" data-ticker="ADA"> …
+ *   <form class="x-send-form" data-available="12480.254221" data-ticker="USD"> …
  *     amount input [data-x-amount], Max button [data-x-max], fee radios with data-fee="0.17",
  *     summary cells [data-x-fee] and [data-x-total]
  *

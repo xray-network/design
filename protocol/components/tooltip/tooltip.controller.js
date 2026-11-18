@@ -6,7 +6,8 @@
  *
  * - shows at once on hover and on keyboard focus
  * - hides on pointer leave, blur, Esc and click
- * - sits above the trigger, centered; flips below near the top edge; stays inside the viewport
+ * - sits on its data-placement side (top by default, or bottom, left, right), centered; flips to the opposite
+ *   side when there is no room; stays inside the viewport
  */
 
 /**
@@ -18,11 +19,30 @@ export function bindTooltip(trigger, tip) {
   const place = () => {
     const t = trigger.getBoundingClientRect();
     const r = tip.getBoundingClientRect();
-    const gap = 6, edge = 8;
-    const above = t.top - gap - r.height >= edge;
-    tip.dataset.side = above ? "top" : "bottom";
-    tip.style.top = `${Math.round(above ? t.top - gap - r.height : t.bottom + gap)}px`;
-    tip.style.left = `${Math.round(Math.min(Math.max(edge, t.left + t.width / 2 - r.width / 2), innerWidth - edge - r.width))}px`;
+    const gap = 9, edge = 8, inset = 12;
+    const want = tip.dataset.placement || "top";
+    const fits = {
+      top: t.top - gap - r.height >= edge,
+      bottom: t.bottom + gap + r.height <= innerHeight - edge,
+      left: t.left - gap - r.width >= edge,
+      right: t.right + gap + r.width <= innerWidth - edge,
+    };
+    const opposite = { top: "bottom", bottom: "top", left: "right", right: "left" };
+    const side = fits[want] || !fits[opposite[want]] ? want : opposite[want];
+    tip.dataset.side = side;
+    const clamp = (v, min, max) => Math.min(Math.max(min, v), Math.max(min, max));
+    // The arrow points at the trigger's center, kept off the rounded corners.
+    if (side === "top" || side === "bottom") {
+      const left = Math.round(clamp(t.left + t.width / 2 - r.width / 2, edge, innerWidth - edge - r.width));
+      tip.style.top = `${Math.round(side === "top" ? t.top - gap - r.height : t.bottom + gap)}px`;
+      tip.style.left = `${left}px`;
+      tip.style.setProperty("--x-tooltip-arrow", `${Math.round(clamp(t.left + t.width / 2 - left, inset, r.width - inset))}px`);
+    } else {
+      const top = Math.round(clamp(t.top + t.height / 2 - r.height / 2, edge, innerHeight - edge - r.height));
+      tip.style.top = `${top}px`;
+      tip.style.left = `${Math.round(side === "left" ? t.left - gap - r.width : t.right + gap)}px`;
+      tip.style.setProperty("--x-tooltip-arrow", `${Math.round(clamp(t.top + t.height / 2 - top, inset, r.height - inset))}px`);
+    }
   };
   const show = () => {
     if (tip.matches(":popover-open")) return;

@@ -1,0 +1,24 @@
+<!-- Popover: a trigger with popovertarget and a panel with popover. popover.controller.js positions it. -->
+<button class="x-button" type="button" data-variant="ghost" popovertarget="fee-info">Fee details</button>
+<div class="x-popover" id="fee-info" popover role="dialog" aria-labelledby="fee-info-title">
+  <p class="x-popover-title" id="fee-info-title">Processing fee</p>
+  <div class="x-popover-body">
+    <p>$0.59 on this payment: 2.9% plus $0.30, paid to the card network.</p>
+  </div>
+</div>
+
+<button class="x-button" type="button" data-variant="ghost" popovertarget="plan-info">Plan</button>
+<div class="x-popover" id="plan-info" popover role="dialog" aria-label="Pro plan" data-placement="bottom">
+  <div class="x-popover-body"><p>20 seats, billed monthly at $49 per seat.</p></div>
+</div>
+
+<!-- Beside the trigger: left or right, vertically centered -->
+<button class="x-button" type="button" data-variant="ghost" popovertarget="left-info">Left</button>
+<div class="x-popover" id="left-info" popover role="dialog" aria-label="Seats" data-placement="left"><div class="x-popover-body"><p>18 of 20 seats used.</p></div></div>
+<button class="x-button" type="button" data-variant="ghost" popovertarget="right-info">Right</button>
+<div class="x-popover" id="right-info" popover role="dialog" aria-label="Renewal" data-placement="right"><div class="x-popover-body"><p>Renews on the 1st.</p></div></div>
+
+<script type="module">
+  import { initPopovers } from "./popover.controller.js";
+  initPopovers();
+</script>

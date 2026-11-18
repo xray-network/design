@@ -11,7 +11,7 @@ files: [segmented.css, segmented.html, segmented.controller.js, segmented.tsx]
 # Segmented
 
 Picks one of 2–5 short, mutually exclusive options that switch a view in place: periods, filters,
-panes (Send / Receive / Stake). For navigation between pages use links. For more than 5 options
+panes (Send / Request / Schedule). For navigation between pages use links. For more than 5 options
 use a select or a menu.
 
 ## Anatomy
@@ -47,6 +47,13 @@ use a select or a menu.
 - Native radios: arrow keys move the selection, Tab enters and leaves the group, values submit with forms.
 - The group needs an accessible name (`aria-label` or `aria-labelledby`).
 - Without JS the control is fully functional; only the sliding motion is missing.
+
+## Views and lazy content
+
+Options can carry views: `div.x-segmented-panels` right after the control holds one
+`section.x-segmented-panel[data-value][aria-labelledby]` per option, and the selected option's panel shows. A view
+renders the first time its option is selected and then stays rendered; `forceMount` (React) renders every view up
+front. In HTML, lazy content goes in `<template data-lazy>`.
 
 ## Motion
 

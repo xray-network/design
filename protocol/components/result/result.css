@@ -1,0 +1,56 @@
+/* Result: the outcome of a flow with a self-drawing status mark. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-result {
+    --x-result-color: var(--x-success);
+    --x-result-icon-size: 96px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--x-space-6);
+    text-align: center;
+  }
+  .x-result[data-status="error"] { --x-result-color: var(--x-danger); }
+  .x-result[data-status="info"] { --x-result-color: var(--x-accent-ink); }
+  .x-result[data-status="warning"] { --x-result-color: var(--x-warning); }
+  .x-result[data-status="loading"] { --x-result-color: var(--x-accent-ink); }
+
+  .x-result-icon {
+    width: var(--x-result-icon-size);
+    height: var(--x-result-icon-size);
+    margin-bottom: var(--x-space-5);
+    fill: none;
+    stroke: var(--x-result-color);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  /* Each stroke has pathLength="100": dash it fully, then draw it once. */
+  .x-result-ring,
+  .x-result-mark {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: x-result-draw var(--x-spring-soft-duration) var(--x-ease) forwards;
+  }
+  .x-result-mark { animation-duration: var(--x-duration-slow); animation-delay: var(--x-spring-soft-duration); }
+  .x-result-mark[data-step="2"] { animation-delay: calc(var(--x-spring-soft-duration) + var(--x-duration-slow)); }
+  @keyframes x-result-draw { to { stroke-dashoffset: 0; } }
+
+  /* Loading: an open ring that turns until the outcome is known; then the status changes and the mark draws. */
+  .x-result[data-status="loading"] .x-result-ring { stroke-dasharray: 72 28; stroke-dashoffset: 0; stroke-width: 9; animation: none; }
+  .x-result[data-status="loading"] .x-result-icon { animation: x-result-spin 700ms linear infinite; } /* progress: essential motion, kept when reduced */
+  @keyframes x-result-spin { to { rotate: 360deg; } }
+
+  .x-result-title { margin: 0; color: var(--x-fg-1); font: var(--x-weight-title) var(--x-text-2xl) / 1.25 var(--x-font-sans); }
+  .x-result-description { max-width: 42ch; margin: var(--x-space-2) 0 0; color: var(--x-fg-3); font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans); }
+  .x-result-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--x-space-2); margin-top: var(--x-space-6); }
+
+  .x-result[data-size="sm"] { --x-result-icon-size: 64px; padding: var(--x-space-4); }
+  .x-result[data-size="sm"] .x-result-icon { margin-bottom: var(--x-space-3); }
+  .x-result[data-size="sm"] .x-result-title { font-size: 18px; }
+  .x-result[data-size="sm"] .x-result-description { font-size: var(--x-text-sm); }
+  .x-result[data-size="sm"] .x-result-actions { margin-top: var(--x-space-4); }
+}

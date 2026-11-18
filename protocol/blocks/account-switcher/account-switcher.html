@@ -2,25 +2,25 @@
      and swaps the trigger's account on choice. -->
 <div class="x-account-switcher">
   <button class="x-account-switcher-trigger" type="button" popovertarget="accounts-menu" aria-label="Account …lkgc86, switch account">
-    <span class="x-avatar" data-seed="addr1q…lkgc86" data-palette="btc"></span>
-    <span class="x-account-switcher-text"><span class="x-account-switcher-label">…lkgc86</span><span class="x-account-switcher-sub">12,480.25 ADA</span></span>
+    <span class="x-avatar" data-seed="jane@acme.com" data-palette="blue"></span>
+    <span class="x-account-switcher-text"><span class="x-account-switcher-label">Main account</span><span class="x-account-switcher-sub">$12,480.25</span></span>
     <svg class="x-account-switcher-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
   </button>
   <div class="x-menu x-account-switcher-menu" id="accounts-menu" popover role="menu" aria-label="Accounts">
     <div class="x-menu-heading" role="presentation">Accounts</div>
     <button class="x-menu-item" type="button" role="menuitemradio" aria-checked="true" data-id="ada-1">
-      <span class="x-avatar" data-size="sm" data-seed="addr1q…lkgc86" data-palette="btc"></span>
-      <span class="x-account-switcher-text"><span class="x-account-switcher-label">…lkgc86</span><span class="x-account-switcher-sub">12,480.25 ADA</span></span>
+      <span class="x-avatar" data-size="sm" data-seed="jane@acme.com" data-palette="blue"></span>
+      <span class="x-account-switcher-text"><span class="x-account-switcher-label">Main account</span><span class="x-account-switcher-sub">$12,480.25</span></span>
       <svg class="x-account-switcher-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
     </button>
     <button class="x-menu-item" type="button" role="menuitemradio" aria-checked="false" data-id="ngt-1">
-      <span class="x-avatar" data-size="sm" data-seed="mn_addr1…t7n2yd" data-palette="night"></span>
-      <span class="x-account-switcher-text"><span class="x-account-switcher-label">…t7n2yd</span><span class="x-account-switcher-sub">5,000.00 NIGHT</span></span>
+      <span class="x-avatar" data-size="sm" data-seed="billing@acme.com" data-palette="ember"></span>
+      <span class="x-account-switcher-text"><span class="x-account-switcher-label">Acme Inc.</span><span class="x-account-switcher-sub">€5,000.00</span></span>
       <svg class="x-account-switcher-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
     </button>
     <button class="x-menu-item" type="button" role="menuitemradio" aria-checked="false" data-id="btc-1">
-      <span class="x-avatar" data-size="sm" data-seed="bc1q…q8fz4h" data-palette="btc"></span>
-      <span class="x-account-switcher-text"><span class="x-account-switcher-label">…q8fz4h</span><span class="x-account-switcher-sub">0.04215 BTC</span></span>
+      <span class="x-avatar" data-size="sm" data-seed="savings@acme.com" data-palette="blue"></span>
+      <span class="x-account-switcher-text"><span class="x-account-switcher-label">Savings</span><span class="x-account-switcher-sub">£1,250.00</span></span>
       <svg class="x-account-switcher-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
     </button>
     <div class="x-menu-separator" role="separator"></div>
@@ -31,6 +31,11 @@
   </div>
 </div>
 
+<!-- Loading: the trigger's avatar shows a spinner -->
+<button class="x-account-switcher-trigger" type="button" aria-label="Account Main account, switch account">
+  <span class="x-avatar" aria-busy="true"></span>
+  <span class="x-account-switcher-text"><span class="x-account-switcher-label">Main account</span><span class="x-account-switcher-sub">$12,480.25</span></span>
+</button>
 <script type="module">
   import { initAccountSwitchers } from "./account-switcher.controller.js";
   initAccountSwitchers();

@@ -12,7 +12,7 @@ Every color, size and timing in XRAY/DESIGN is a token. They are listed in the h
 custom properties in `core/tokens.css`. The kit check fails if the two ever differ.
 
 Components read **semantic** tokens (colors, type, space), never the palette. To rebrand, override a few semantic
-tokens in your own stylesheet, loaded after `core/tokens.css`. Values that differ by theme are written with
+tokens in your own theme layer: see [Theming](/theming). Values that differ by theme are written with
 `light-dark()`, so a token follows the page's theme, or any subtree with `data-theme="light"` or `data-theme="dark"`.
 
 ## Color
@@ -52,7 +52,7 @@ A 4px grid; 2px and 6px only for optical fixes.
 ## Radius
 
 The radius follows the element's height, and nested corners stay concentric. See section 5 of the
-[design protocol](/design-protocol).
+[design protocol](/protocol).
 
 <RadiusTokens />
 

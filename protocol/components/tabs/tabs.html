@@ -25,6 +25,19 @@
   </button>
 </nav>
 
+<!-- Tabs with views: each tab controls a panel (aria-controls); lazy content in <template data-lazy>
+     renders the first time its panel shows. -->
+<nav class="x-tabs" aria-label="Account">
+  <button class="x-tab" type="button" data-value="assets" id="tab-assets" aria-controls="panel-assets" aria-current="page">Assets</button>
+  <button class="x-tab" type="button" data-value="activity" id="tab-activity" aria-controls="panel-activity">Activity</button>
+</nav>
+<div class="x-tabs-panels">
+  <section class="x-tabs-panel" id="panel-assets" aria-labelledby="tab-assets"><p>$12,480.25</p></section>
+  <section class="x-tabs-panel" id="panel-activity" aria-labelledby="tab-activity" hidden>
+    <template data-lazy><p>38 transactions in the last 30 days.</p></template>
+  </section>
+</div>
+
 <script type="module">
   import { initTabs } from "./tabs.controller.js";
   initTabs();

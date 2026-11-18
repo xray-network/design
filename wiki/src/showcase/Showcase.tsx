@@ -53,13 +53,3 @@ export function Showcase({ id, children }: { id: (typeof showcase)[number]["id"]
   )
 }
 
-/** A titled group inside a screen. */
-export const Section = ({ title, action, children }: { title: string; action?: ReactNode; children: ReactNode }) => (
-  <section className="wiki-showcase-section">
-    <div className="wiki-showcase-section-head">
-      <h3>{title}</h3>
-      {action}
-    </div>
-    {children}
-  </section>
-)

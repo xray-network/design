@@ -43,6 +43,12 @@ section.x-toaster[popover=manual][aria-live=polite]   bottom center, top layer, 
 | closing | `data-state="closing"` | fades and shrinks on `--x-ease`, then removed |
 | paused | pointer or focus inside the region | timers stop |
 
+## Position
+
+At the bottom center by default. `data-position="top"` on the region (React `<Toaster position="top" />`,
+HTML `createToaster({ position: "top" })`) shows toasts under the top edge, the newest first, entering from
+above. An app may mount one region at each edge; `toast(text, { position: "top" })` picks one.
+
 ## Accessibility
 
 - The region is `aria-live="polite"` and exists before the first toast, so screen readers announce messages.

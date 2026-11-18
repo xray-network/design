@@ -10,7 +10,7 @@ files: [switch.css, switch.html, switch.tsx]
 
 # Switch
 
-A setting that takes effect immediately (hide balances, lock app, testnet). For choices that
+A setting that takes effect immediately (hide balances, lock app, test mode). For choices that
 apply on submit, use a checkbox. For one of several options, use Segmented.
 
 ## Anatomy

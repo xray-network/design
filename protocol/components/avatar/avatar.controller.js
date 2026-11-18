@@ -4,14 +4,14 @@
  * seed (an address): the same seed and palette always give the same avatar, on the server and in the browser.
  *
  *   import { initAvatars } from "./avatar.controller.js";
- *   initAvatars(); // fills every <span class="x-avatar" data-seed="addr1…" data-palette="ada">
+ *   initAvatars(); // fills every <span class="x-avatar" data-seed="jane@acme.com" data-palette="amber">
  */
 
 /** Identity palettes: four colors each, from the XRAY palette. */
 export const PALETTES = {
-  ada: ["#f0b000", "#3f5ff0", "#ff6900", "#fa2c37"],
-  btc: ["#1940ed", "#ff6900", "#fa2c37", "#ffb869"],
-  night: ["#ffb869", "#ca3500", "#ff6900", "#fa2c37"],
+  amber: ["#f0b000", "#3f5ff0", "#ff6900", "#fa2c37"],
+  blue: ["#1940ed", "#ff6900", "#fa2c37", "#ffb869"],
+  ember: ["#ffb869", "#ca3500", "#ff6900", "#fa2c37"],
   xray: ["#0cab6b", "#15e4a3", "#1940ed", "#0e0e18"],
   cool: ["#1940ed", "#15e4a3", "#657ff3", "#0b228b"],
 };
@@ -36,8 +36,8 @@ function random(seed) {
  * @param {keyof typeof PALETTES} [palette]
  * @returns {{ background: string, shapes: { fill: string, x: number, y: number, rotate: number }[] }}
  */
-export function avatarShapes(seed, palette = "ada") {
-  const colors = [...(PALETTES[palette] ?? PALETTES.ada)];
+export function avatarShapes(seed, palette = "amber") {
+  const colors = [...(PALETTES[palette] ?? PALETTES.amber)];
   let h = 2166136261; // FNV-1a
   for (const ch of seed) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
   const next = random(h >>> 0);

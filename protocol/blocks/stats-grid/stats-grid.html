@@ -1,0 +1,99 @@
+<!-- Stats grid: one framed grid of cells. A cell can split its total: a bar (role="img", labelled) and a legend. -->
+<div class="x-stats-grid">
+  <dl class="x-stats-grid-list" style="--x-stats-grid-columns: 3">
+    <div class="x-stats-grid-cell">
+      <dt class="x-stats-grid-label">Revenue</dt>
+      <dd class="x-stats-grid-value">$48,210.40</dd>
+      <dd class="x-stats-grid-sub">Last 30 days · Cards and bank</dd>
+    </div>
+    <div class="x-stats-grid-cell">
+      <dt class="x-stats-grid-label">Payouts</dt>
+      <dd class="x-stats-grid-value">$41,880.12</dd>
+      <dd class="x-stats-grid-sub">Last 30 days · To 2 bank accounts</dd>
+    </div>
+    <div class="x-stats-grid-cell">
+      <dt class="x-stats-grid-label">Fees</dt>
+      <dd class="x-stats-grid-value">$1,398.10</dd>
+      <dd class="x-stats-grid-sub">Last 30 days · 2.9% + $0.30</dd>
+    </div>
+    <div class="x-stats-grid-cell">
+      <dt class="x-stats-grid-label">API requests</dt>
+      <dd class="x-stats-grid-value">4,088,746</dd>
+      <dd class="x-stats-grid-sub">Last 30 days · Total</dd>
+      <dd class="x-stats-grid-split">
+        <div class="x-stats-grid-bar" role="img" aria-label="Live 98.1%, Test 1.9%">
+          <span class="x-stats-grid-segment" data-tone="success" style="width: 98.1%"></span>
+          <span class="x-stats-grid-segment" data-tone="accent" style="width: 1.9%"></span>
+        </div>
+        <dl class="x-stats-grid-legend">
+          <div class="x-stats-grid-row"><dt><span class="x-stats-grid-dot" data-tone="success"></span>Live</dt><dd>4,010,362 <span class="x-stats-grid-share">(98.1%)</span></dd></div>
+          <div class="x-stats-grid-row"><dt><span class="x-stats-grid-dot" data-tone="accent"></span>Test</dt><dd>78,384 <span class="x-stats-grid-share">(1.9%)</span></dd></div>
+        </dl>
+      </dd>
+    </div>
+    <div class="x-stats-grid-cell">
+      <dt class="x-stats-grid-label">Traffic</dt>
+      <dd class="x-stats-grid-value">26.32 GiB</dd>
+      <dd class="x-stats-grid-sub">In 838 MiB · Out 25.5 GiB</dd>
+      <dd class="x-stats-grid-split">
+        <div class="x-stats-grid-bar" role="img" aria-label="Cached 48.4%, Origin 51.6%">
+          <span class="x-stats-grid-segment" data-tone="success" style="width: 48.4%"></span>
+          <span class="x-stats-grid-segment" data-tone="accent" style="width: 51.6%"></span>
+        </div>
+        <dl class="x-stats-grid-legend">
+          <div class="x-stats-grid-row"><dt><span class="x-stats-grid-dot" data-tone="success"></span>Cached</dt><dd>12.73 GiB <span class="x-stats-grid-share">(48.4%)</span></dd></div>
+          <div class="x-stats-grid-row"><dt><span class="x-stats-grid-dot" data-tone="accent"></span>Origin</dt><dd>13.59 GiB <span class="x-stats-grid-share">(51.6%)</span></dd></div>
+        </dl>
+      </dd>
+    </div>
+    <div class="x-stats-grid-cell">
+      <dt class="x-stats-grid-label">Webhooks</dt>
+      <dd class="x-stats-grid-value">0</dd>
+      <dd class="x-stats-grid-sub">Last 30 days · None sent</dd>
+      <dd class="x-stats-grid-split">
+        <div class="x-stats-grid-bar" role="img" aria-label="Delivered 0%, Failed 0%"></div>
+        <dl class="x-stats-grid-legend">
+          <div class="x-stats-grid-row"><dt><span class="x-stats-grid-dot" data-tone="success"></span>Delivered</dt><dd>0 <span class="x-stats-grid-share">(0%)</span></dd></div>
+          <div class="x-stats-grid-row"><dt><span class="x-stats-grid-dot" data-tone="danger"></span>Failed</dt><dd>0 <span class="x-stats-grid-share">(0%)</span></dd></div>
+        </dl>
+      </dd>
+    </div>
+  </dl>
+</div>
+
+<!-- Neutral and warning parts -->
+<div class="x-stats-grid">
+  <dl class="x-stats-grid-list" style="--x-stats-grid-columns: 1">
+    <div class="x-stats-grid-cell">
+      <dt class="x-stats-grid-label">Seats</dt>
+      <dd class="x-stats-grid-value">18 of 20</dd>
+      <dd class="x-stats-grid-split">
+        <div class="x-stats-grid-bar" role="img" aria-label="Used 80%, Invited 10%, Free 10%">
+          <span class="x-stats-grid-segment" data-tone="warning" style="width: 80%"></span>
+          <span class="x-stats-grid-segment" data-tone="neutral" style="width: 10%"></span>
+        </div>
+        <dl class="x-stats-grid-legend">
+          <div class="x-stats-grid-row"><dt><span class="x-stats-grid-dot" data-tone="warning"></span>Used</dt><dd>16 <span class="x-stats-grid-share">(80%)</span></dd></div>
+          <div class="x-stats-grid-row"><dt><span class="x-stats-grid-dot" data-tone="neutral"></span>Invited</dt><dd>2 <span class="x-stats-grid-share">(10%)</span></dd></div>
+        </dl>
+      </dd>
+    </div>
+  </dl>
+</div>
+
+<!-- Loading -->
+<div class="x-stats-grid" aria-busy="true">
+  <dl class="x-stats-grid-list" style="--x-stats-grid-columns: 1">
+    <div class="x-stats-grid-cell">
+      <dt class="x-stats-grid-label">API requests</dt>
+      <dd class="x-stats-grid-value"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 48%"></span></dd>
+      <dd class="x-stats-grid-sub"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 66%"></span></dd>
+      <dd class="x-stats-grid-split">
+        <div class="x-stats-grid-bar" role="img" aria-label="Loading"></div>
+        <dl class="x-stats-grid-legend">
+          <div class="x-stats-grid-row"><dt><span class="x-stats-grid-dot" data-tone="success"></span>Live</dt><dd><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 55%"></span></dd></div>
+        </dl>
+      </dd>
+    </div>
+  </dl>
+</div>

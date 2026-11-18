@@ -1,0 +1,45 @@
+<!-- Menu Navigation: triggers own panels through aria-controls; all panels sit in one viewport.
+     menu-navigation.controller.js opens, switches (sliding) and closes them. -->
+<nav class="x-menu-navigation" aria-label="Main">
+  <ul class="x-menu-navigation-list">
+    <li><button class="x-menu-navigation-trigger" type="button" aria-controls="nav-products" aria-expanded="false">Products <svg class="x-menu-navigation-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg></button></li>
+    <li><button class="x-menu-navigation-trigger" type="button" aria-controls="nav-developers" aria-expanded="false">Developers <svg class="x-menu-navigation-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg></button></li>
+    <li><a class="x-menu-navigation-trigger" href="/pricing" aria-current="page">Pricing</a></li>
+  </ul>
+  <div class="x-menu-navigation-viewport">
+    <div class="x-menu-navigation-panel" id="nav-products" hidden>
+      <ul class="x-menu-navigation-links" data-columns="2">
+        <li><a class="x-menu-navigation-link" href="/payments"><span class="x-menu-navigation-link-title">Payments</span><span class="x-menu-navigation-link-text">Accept cards and bank transfers.</span></a></li>
+        <li><a class="x-menu-navigation-link" href="/billing"><span class="x-menu-navigation-link-title">Billing</span><span class="x-menu-navigation-link-text">Subscriptions, invoices and plans.</span></a></li>
+        <li><a class="x-menu-navigation-link" href="/reports"><span class="x-menu-navigation-link-title">Reports</span><span class="x-menu-navigation-link-text">Revenue, refunds and payouts.</span></a></li>
+        <li><a class="x-menu-navigation-link" href="/payouts"><span class="x-menu-navigation-link-title">Payouts</span><span class="x-menu-navigation-link-text">Get paid to your bank in two days.</span></a></li>
+      </ul>
+    </div>
+    <div class="x-menu-navigation-panel" id="nav-developers" hidden>
+      <ul class="x-menu-navigation-links">
+        <li><a class="x-menu-navigation-link" href="/docs"><span class="x-menu-navigation-link-title">Documentation</span><span class="x-menu-navigation-link-text">Guides and API reference.</span></a></li>
+        <li><a class="x-menu-navigation-link" href="/sdk"><span class="x-menu-navigation-link-title">SDK</span><span class="x-menu-navigation-link-text">JavaScript runtime and bridge.</span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hover: pointing opens a submenu; leaving the menu closes it. -->
+<nav class="x-menu-navigation" aria-label="Docs" data-trigger="hover">
+  <ul class="x-menu-navigation-list">
+    <li><button class="x-menu-navigation-trigger" type="button" aria-controls="nav-guides" aria-expanded="false">Guides</button></li>
+    <li><a class="x-menu-navigation-trigger" href="/changelog">Changelog</a></li>
+  </ul>
+  <div class="x-menu-navigation-viewport">
+    <div class="x-menu-navigation-panel" id="nav-guides" hidden>
+      <ul class="x-menu-navigation-links">
+        <li><a class="x-menu-navigation-link" href="/start"><span class="x-menu-navigation-link-title">Get started</span><span class="x-menu-navigation-link-text">Accept your first payment.</span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script type="module">
+  import { initMenuNavigations } from "./menu-navigation.controller.js";
+  initMenuNavigations();
+</script>

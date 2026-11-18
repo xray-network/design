@@ -46,6 +46,9 @@ The project's **UI folder** (`uiRoot`, for example `src/ui/`) holds its UI imple
 { "version": "1.0.0", "stack": "react", "base": true, "components": ["button", "numeral", "tag"], "blocks": ["balance"] }
 ```
 
+Once the project has a theme (see "Theme or rebrand"), the lock also names its theme layer, relative to `uiRoot`:
+`"theme": "theme.css"`. The theme layer belongs to the project; upgrades never modify it.
+
 The lock's location defines `uiRoot`: it is the folder that contains `design.lock.json`. Find it through the
 "UI folder" line of the Design section in `AGENTS.md`; if that is missing, search the project for `design.lock.json`.
 No lock means the kit has not been set up in this project yet: run Setup.
@@ -156,21 +159,37 @@ A new block goes in `<uiRoot>/blocks/<name>/` and may use components and other b
 
 ## Theme or rebrand
 
-Native targets override semantic tokens in their project theme; retain both theme palettes and the mapping
-back to protocol token names. Follow [Translate tokens](references/native-gui.md#translate-tokens).
-The stylesheet instructions below apply to web targets.
+The theming surface (which tokens may change, which stay) is defined in DESIGN-PROTOCOL.md §11. The same steps apply
+to every GUI framework; only the theme layer's form differs.
 
-Override semantic tokens in a project stylesheet loaded after `core/tokens.css`, never in the copied
-files. Override color tokens on `:root, [data-theme]` (the kit's own selector for them), so sections with a forced
-`data-theme` keep your values. Usually you need `--x-accent`, `--x-accent-hover`, `--x-accent-press`, `--x-accent-wash`, `--x-accent-ink` (a lighter
-shade in dark theme, for focus, links and icons; `--x-focus` and `--x-link` follow it), and optionally fonts. For a different dark palette, override the `light-dark()` pairs. Verify contrast (AA).
+1. Get the inputs from the human: the brand color, and optionally fonts (only ones the project loads), a radius
+   preference (sharper or rounder than the kit), and a custom neutral palette. Do not invent a brand color.
+2. Find the theme layer through the lock's `theme`. If there is none, create one in `uiRoot` and record its path
+   there:
+   - Web: a stylesheet such as `<uiRoot>/theme.css`, loaded once, globally, after `core/tokens.css` (next to the
+     tokens import or `<link>`). Set color tokens on `:root, [data-theme]`, the kit's own selector for them, so
+     sections with a forced `data-theme` keep your values. Tailwind projects need nothing more: utilities read the
+     same variables.
+   - Native: a theme file or resource set in the project's theme module that overrides the translated tokens,
+     following [Translate tokens](references/native-gui.md#translate-tokens).
+3. Derive the whole accent set from the brand color, for both themes: `accent` (fills; it may stay the same in both
+   themes), `accent-hover` (lighter), `accent-press` (darker), `accent-fg` (text on the fill), `accent-wash` (the fill
+   at low alpha: about 0.07 light, 0.14 dark), and `accent-ink` with `accent-ink-hover`: the brand color in light
+   theme and a lighter shade in dark theme, for focus rings, links, icons and check marks. `link` and `focus` follow
+   the ink (on the web, `core/tokens.css` already points them at it); set `info-fg` to match the ink. Fonts, radius
+   and neutrals follow the rules in §11.
+4. Write only the changed tokens into the theme layer. Never edit copied kit files, including `core/tokens.css`.
+5. Check AA contrast for every changed pair in both themes: `accent-fg` on `accent`, and the ink and `link` on `bg`
+   and `bg-panel`. Then look at the affected screens in light and dark theme, with keyboard focus visible.
+6. Report the tokens you changed, with their values in both themes, and any pair that failed a check.
 
 ## Status
 
 For native targets, use [Native status and upgrades](references/native-gui.md#status-and-upgrades), not catalog file comparison.
 
 Report the lock's version and components, and for each copied file whether it is unchanged, modified
-or missing (compare with the catalog as described in "How copying works").
+or missing (compare with the catalog as described in "How copying works"). If the lock names a `theme`, report it
+and the tokens it overrides.
 
 ## Upgrade the kit
 
@@ -194,6 +213,9 @@ Only when the human asks. The latest version is the `main` branch; if the human 
      `git merge-file -L project -L "kit <old>" -L "kit <new>" <project file> <base file> <new catalog file>`.
      Conflicts are left marked; list them.
    - file no longer in the new catalog → keep the project file and report it
+
+   The theme layer named by the lock's `theme` is not a kit file: never replace or merge it. If the changelog
+   renames or removes a token it overrides, update that override in step 5 and report it.
 4. Copy any file the new version of an installed component needs that the project does not have yet.
 5. Resolve every conflict, keeping the project's intent and the kit's fixes. Re-run the checklists of changed components.
 6. Set `version` in the lock, delete `<tmp>`, and summarize what changed, using the changelog sections you read.

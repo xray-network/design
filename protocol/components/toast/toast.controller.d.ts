@@ -10,4 +10,4 @@ export type Toaster = {
   dismissAll: () => void;
   destroy: () => void;
 };
-export function createToaster(options?: { region?: HTMLElement; max?: number }): Toaster;
+export function createToaster(options?: { region?: HTMLElement; max?: number; position?: "top" | "bottom" }): Toaster;

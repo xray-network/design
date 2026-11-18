@@ -8,15 +8,15 @@ const CLOSE_ICON = '<svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><
  *   import { createToaster } from "./toast.controller.js";
  *   const { toast } = createToaster();
  *   toast("Address copied", { tone: "success" });
- *   toast("Transaction failed", { tone: "danger", action: { label: "Retry", onClick: retry } });
+ *   toast("Payment failed", { tone: "danger", action: { label: "Retry", onClick: retry } });
  *
  * - new toasts enter from below on the liquid spring; the stack reflows with FLIP on the soft spring
  * - at most `max` toasts; the oldest leaves first
  * - timers pause while the pointer or focus is inside the region
  *
- * @param {{ region?: HTMLElement, max?: number }} [options]
+ * @param {{ region?: HTMLElement, max?: number, position?: "top" | "bottom" }} [options]
  */
-export function createToaster({ region, max = 3 } = {}) {
+export function createToaster({ region, max = 3, position } = {}) {
   const owned = !region;
   if (!region) {
     region = document.createElement("section");
@@ -25,6 +25,7 @@ export function createToaster({ region, max = 3 } = {}) {
     document.body.append(region);
   }
   const host = region;
+  if (position === "top") host.dataset.position = "top";
   host.setAttribute("aria-live", "polite");
   if (!host.hasAttribute("popover")) host.setAttribute("popover", "manual");
 

@@ -1,0 +1,74 @@
+<!-- Table Compact: a framed section. A link in the first cell makes the whole row clickable.
+     table-compact.controller.js adds optional sorting; the footer holds Pagination. -->
+<section class="x-table-compact" aria-labelledby="services-title">
+  <div class="x-table-compact-head">
+    <h3 class="x-table-compact-title" id="services-title">Top services</h3>
+    <p class="x-table-compact-description">By revenue in the last 30 days, in USD</p>
+  </div>
+  <div class="x-table-compact-scroll">
+    <table>
+      <caption>Top services</caption>
+      <thead>
+        <tr>
+          <th scope="col">Service</th>
+          <th scope="col" data-align="end" aria-sort="descending"><button class="x-table-compact-sort" type="button">Requests<svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v15m0 0 6.75-6.75M12 19.5l-6.75-6.75"/></svg></button></th>
+          <th scope="col" data-align="end"><button class="x-table-compact-sort" type="button">Errors<svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v15m0 0 6.75-6.75M12 19.5l-6.75-6.75"/></svg></button></th>
+          <th scope="col" data-align="center">Plan</th><th scope="col" data-align="end">Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><a class="x-table-compact-link" href="#payments-api">payments-api<svg class="x-table-compact-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></a><span class="x-table-compact-sub">Charges, refunds and payouts over REST</span></th>
+          <td data-align="end" data-value="182340">182,340</td><td data-align="end" data-value="0.2">0.2%</td><td data-align="center">Pro</td><td data-align="end">$4,812.40</td>
+        </tr>
+        <tr>
+          <th scope="row"><a class="x-table-compact-link" href="#billing-worker">billing-worker<svg class="x-table-compact-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></a><span class="x-table-compact-sub">Renews subscriptions and sends invoices</span></th>
+          <td data-align="end" data-value="96115">96,115</td><td data-align="end" data-value="0.4">0.4%</td><td data-align="center">Pro</td><td data-align="end">$2,190.05</td>
+        </tr>
+        <tr>
+          <th scope="row"><a class="x-table-compact-link" href="#webhooks">webhooks<svg class="x-table-compact-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></a><span class="x-table-compact-sub">Delivers events to customer endpoints</span></th>
+          <td data-align="end" data-value="12804">12,804</td><td data-align="end" data-value="1.9">1.9%</td><td data-align="center">Pro</td><td data-align="end">$318.77</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="x-table-compact-foot">
+    <form class="x-pagination" method="get" role="navigation" aria-label="Services pages">
+      <span class="x-pagination-control">
+        <a class="x-pagination-step" aria-disabled="true" aria-label="Previous page"><svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 19.5 8.25 12l7.5-7.5"/></svg></a>
+        <input class="x-pagination-input" type="number" inputmode="numeric" name="page" value="1" min="1" max="3" aria-label="Page number">
+        <a class="x-pagination-step" href="?page=2" aria-label="Next page"><svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg></a>
+      </span>
+      <span class="x-pagination-count">3 pages · 8 items</span>
+    </form>
+  </div>
+</section>
+
+<!-- Loading: skeleton rows; the scroll area is busy -->
+<section class="x-table-compact" aria-label="Services">
+  <div class="x-table-compact-scroll" aria-busy="true">
+    <table>
+      <caption>Services</caption>
+      <thead><tr><th scope="col">Service</th><th scope="col" data-align="center">Plan</th><th scope="col" data-align="end">Revenue</th></tr></thead>
+      <tbody>
+        <tr class="x-table-compact-loading"><th scope="row"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 72%"></span><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 40%"></span></th><td data-align="center"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 56%"></span></td><td data-align="end"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 64%"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Empty -->
+<section class="x-table-compact" aria-label="Payouts">
+  <div class="x-table-compact-scroll">
+    <table>
+      <caption>Payouts</caption>
+      <thead><tr><th scope="col">Bank</th><th scope="col" data-align="end">Amount</th></tr></thead>
+      <tbody><tr class="x-table-compact-empty"><td colspan="2">Not found</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+<script type="module">
+  import { initTablesCompact } from "./table-compact.controller.js";
+  initTablesCompact();
+</script>

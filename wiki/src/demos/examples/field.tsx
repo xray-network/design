@@ -13,14 +13,14 @@ export default function InputExample() {
   const error = touched && note.length > 64 ? `Notes are limited to 64 characters (${note.length})` : undefined
   return (
     <>
-      <TextField label="To" placeholder="addr1… or $handle" hint="Cardano address or ADA handle" spellCheck={false} autoComplete="off" />
+      <TextField label="To" placeholder="name@company.com" hint="We send the invoice here" spellCheck={false} autoComplete="off" />
       <TextField
         label="Amount"
         size="lg"
         inputMode="decimal"
         placeholder="0.00"
-        hint="Available 12,480.25 ADA"
-        suffix={<><Button variant="chip">Max</Button><span className="x-input-affix">ADA</span></>}
+        hint="Available $12,480.25"
+        suffix={<><Button variant="chip">Max</Button><span className="x-input-affix">USD</span></>}
       />
       <TextField
         label="Note"
@@ -30,7 +30,7 @@ export default function InputExample() {
         placeholder="Type more than 64 characters, then leave the field"
         error={error}
       />
-      <Field label="Message" hint="Stored on chain and visible to anyone">{(p) => <TextArea {...p} placeholder="Attach a note to this payment" />}</Field>
+      <Field label="Message" hint="Shown on the invoice to your customer">{(p) => <TextArea {...p} placeholder="Attach a note to this payment" />}</Field>
       <Input size="sm" aria-label="Search mini apps" placeholder="Search mini apps" prefix={<Icon d={ICONS.search} />} />
     </>
   )

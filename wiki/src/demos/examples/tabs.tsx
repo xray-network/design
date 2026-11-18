@@ -11,14 +11,14 @@ const ICONS = {
 }
 
 const APPS = [
-  { id: "cardano-wallet", name: "Cardano Wallet", desc: "Official wallet for managing your assets." },
-  { id: "cardano-assets", name: "Cardano Assets", desc: "Track and manage your digital assets seamlessly." },
+  { id: "payments", name: "Payments", desc: "Accept cards and bank transfers." },
+  { id: "invoices", name: "Invoices", desc: "Bill customers and track what is due." },
   { id: "wiki", name: "Wiki", desc: "Access comprehensive documentation and resources." },
-  { id: "graph", name: "Graph", desc: "Robust and scalable APIs for Cardano blockchain developers." },
+  { id: "reports", name: "Reports", desc: "Revenue, refunds and payouts." },
 ]
 
 export default function TabsExample() {
-  const [open, setOpen] = useState(["graph", "cardano-wallet"])
+  const [open, setOpen] = useState(["reports", "payments"])
   const [view, setView] = useState("dashboard")
   const close = (id: string) => {
     setOpen((ids) => ids.filter((x) => x !== id))

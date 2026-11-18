@@ -1,0 +1,69 @@
+/* Collapse: sections that open in place, on native details/summary. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-collapse {
+    --x-collapse-radius: var(--x-radius-2xl);
+    --x-collapse-header-height: var(--x-size-2xl);
+
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-collapse-radius);
+    color: var(--x-fg-2);
+    overflow: hidden;
+  }
+  .x-collapse[data-variant="ghost"] { border: 0; border-radius: 0; overflow: visible; }
+
+  .x-collapse-item + .x-collapse-item { border-top: 1px solid var(--x-border); }
+  .x-collapse[data-variant="ghost"] .x-collapse-item { border-bottom: 1px solid var(--x-border); }
+  .x-collapse[data-variant="ghost"] .x-collapse-item + .x-collapse-item { border-top: 0; }
+
+  .x-collapse-header {
+    display: flex;
+    align-items: center;
+    gap: var(--x-space-3);
+    min-height: var(--x-collapse-header-height);
+    padding: var(--x-space-2) var(--x-space-4);
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+  }
+  .x-collapse-header::-webkit-details-marker { display: none; }
+  .x-collapse-header:hover .x-collapse-chevron { color: var(--x-fg-1); }
+  .x-collapse-header:focus-visible { outline: 2px solid var(--x-focus); outline-offset: -2px; }
+  .x-collapse[data-variant="ghost"] .x-collapse-header { padding-inline: var(--x-space-1); }
+
+  .x-collapse-title { flex: 1; min-width: 0; color: var(--x-fg-1); font: var(--x-weight-label) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans); }
+  .x-collapse-extra { flex: none; color: var(--x-fg-3); font-size: var(--x-text-sm); }
+  .x-collapse-chevron {
+    flex: none;
+    width: var(--x-icon-md);
+    height: var(--x-icon-md);
+    color: var(--x-fg-3);
+    transition: rotate var(--x-duration-fast) var(--x-ease);
+  }
+  .x-collapse-item[open] > .x-collapse-header .x-collapse-chevron { rotate: 180deg; }
+
+  .x-collapse-content {
+    padding: 0 var(--x-space-4) var(--x-space-4);
+    font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans);
+  }
+  .x-collapse[data-variant="ghost"] .x-collapse-content { padding-inline: var(--x-space-1); }
+  .x-collapse-content > :first-child { margin-top: 0; }
+  .x-collapse-content > :last-child { margin-bottom: 0; }
+
+  /* Height animation where the browser can animate details content (instant elsewhere). */
+  @supports (interpolate-size: allow-keywords) {
+    .x-collapse { interpolate-size: allow-keywords; }
+    .x-collapse-item::details-content {
+      block-size: 0;
+      opacity: 0;
+      overflow: clip;
+      transition:
+        block-size var(--x-duration-base) var(--x-ease),
+        opacity var(--x-duration-base) var(--x-ease),
+        content-visibility var(--x-duration-base) allow-discrete;
+    }
+    .x-collapse-item[open]::details-content { block-size: auto; opacity: 1; }
+  }
+}
