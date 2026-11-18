@@ -70,13 +70,14 @@
 }
 
 .wiki-demo-prompt-heading { justify-content: space-between; }
+/* "Preview" and "Generate for": quiet labels, not titles. */
 .wiki-demo .wiki-demo-prompt-title {
   margin: 0;
   padding: 0;
   border: 0;
-  color: var(--x-fg-1);
-  font-size: var(--x-text-md);
-  font-weight: var(--x-weight-label);
+  color: var(--x-fg-3);
+  font-size: var(--x-text-sm);
+  font-weight: var(--x-weight-body);
   line-height: var(--x-leading-body);
 }
 

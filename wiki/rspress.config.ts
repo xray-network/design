@@ -75,6 +75,7 @@ export default defineConfig({
       },
       { text: "Components", link: "/components/" },
       { text: "Blocks", link: "/blocks/" },
+      { text: "Showcase", link: "/showcase/" },
       { text: "Icons", link: "/icons" },
     ],
     sidebar: sidebar(),

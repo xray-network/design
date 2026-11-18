@@ -1,55 +1,5 @@
 import type { Sidebar } from "@rspress/core"
 
-import * as ui from "../../protocol/components/icon/icons.js"
-
-// Sidebar icons come from the kit's Icon component (protocol/components/icon/icons.js). The sidebar renders
-// them as HTML strings, so the stroke is written on the svg here instead of coming from icon.css.
-const svg = ({ body }: { body: string }) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`
-
-export const icons = {
-  overview: svg(ui.home),
-  install: svg(ui.arrowDownTray),
-  catalogComponents: svg(ui.cube),
-  catalogBlocks: svg(ui.rectangleGroup),
-  icons: svg(ui.sparkles),
-  rules: svg(ui.bookOpen),
-  tokens: svg(ui.swatch),
-  tailwind: svg(ui.arrowsRightLeft),
-  releases: svg(ui.documentText),
-  // Components
-  alert: svg(ui.exclamationCircle),
-  avatar: svg(ui.userCircle),
-  button: svg(ui.cursorArrowRays),
-  checkbox: svg(ui.checkSquare),
-  chips: svg(ui.funnel),
-  dialog: svg(ui.window),
-  field: svg(ui.textCursorInput),
-  icon: svg(ui.sparkles),
-  menu: svg(ui.ellipsisHorizontalCircle),
-  message: svg(ui.envelope),
-  numeral: svg(ui.hashtag),
-  pagination: svg(ui.pagination),
-  radio: svg(ui.radioSelected),
-  segmented: svg(ui.viewColumns),
-  select: svg(ui.chevronUpDown),
-  switch: svg(ui.toggleRight),
-  table: svg(ui.tableRows),
-  tabs: svg(ui.windowTabs),
-  tag: svg(ui.tag),
-  toast: svg(ui.bell),
-  tooltip: svg(ui.chatBubbleBottomCenter),
-  // Blocks
-  "account-switcher": svg(ui.users),
-  balance: svg(ui.wallet),
-  card: svg(ui.squares2x2),
-  list: svg(ui.listBullet),
-  option: svg(ui.circleDot),
-  "send-form": svg(ui.paperAirplane),
-  stats: svg(ui.chartBar),
-  transactions: svg(ui.clock),
-}
-
 /** One entry per kit component (primitive): protocol/components/<id> and src/pages/components/<id>.mdx. Alphabetical. */
 export const components = [
   { id: "alert", text: "Alert" },
@@ -87,27 +37,54 @@ export const blocks = [
   { id: "transactions", text: "Transactions" },
 ] as const
 
+/** One entry per showcase screen: src/pages/showcase/<id>.mdx, and the components and blocks it is built from. */
+export const showcase = [
+  { id: "wallet", text: "Wallet", description: "Account, balance, activity and history; Send opens the send form in a modal.", uses: ["account-switcher", "balance", "segmented", "stats", "transactions", "dialog", "send-form", "tag", "button"] },
+  { id: "dashboard", text: "API dashboard", description: "Headline numbers for a period, an incident note and a sortable endpoints table.", uses: ["segmented", "stats", "alert", "table", "pagination", "button"] },
+  { id: "settings", text: "Settings", description: "Grouped preferences: text, select, radio, checkbox and switch controls.", uses: ["field", "select", "radio", "checkbox", "switch", "button"] },
+  { id: "mini-apps", text: "Mini apps", description: "Tabs for views, a category filter, search and a grid of app cards.", uses: ["tabs", "chips", "field", "card", "alert"] },
+] as const
+
 const byName = <T extends { text: string }>(items: readonly T[]) => [...items].sort((a, b) => a.text.localeCompare(b.text))
 
+/** First item of each section menu: back to the home page and the main menu. The arrow is drawn in theme.css. */
+const back = { text: "Back to Home", link: "/" }
+
+/** One menu per section: Rspress shows the menu whose path prefix matches the page best. */
 export function sidebar(): Sidebar {
   return {
+    "/components/": [
+      back,
+      { sectionHeaderText: "Components" },
+      { text: "All components", link: "/components/" },
+      ...byName(components).map(({ id, text }) => ({ text, link: `/components/${id}` })),
+    ],
+    "/blocks/": [
+      back,
+      { sectionHeaderText: "Blocks" },
+      { text: "All blocks", link: "/blocks/" },
+      ...byName(blocks).map(({ id, text }) => ({ text, link: `/blocks/${id}` })),
+    ],
+    "/showcase/": [
+      back,
+      { sectionHeaderText: "Showcase" },
+      { text: "All screens", link: "/showcase/" },
+      ...showcase.map(({ id, text }) => ({ text, link: `/showcase/${id}` })),
+    ],
     "/": [
       { sectionHeaderText: "Get started" },
-      { text: "Overview", link: "/", icon: icons.overview },
-      { text: "Installation", link: "/installation", icon: icons.install },
-      { text: "Components", link: "/components/", icon: icons.catalogComponents },
-      { text: "Blocks", link: "/blocks/", icon: icons.catalogBlocks },
-      { text: "Icons", link: "/icons", icon: icons.icons },
+      { text: "Overview", link: "/" },
+      { text: "Installation", link: "/installation" },
+      { text: "Components", link: "/components/" },
+      { text: "Blocks", link: "/blocks/" },
+      { text: "Showcase", link: "/showcase/" },
+      { text: "Icons", link: "/icons" },
       { sectionHeaderText: "Reference" },
-      { text: "Design protocol", link: "/rules", icon: icons.rules },
-      { text: "Tokens", link: "/tokens", icon: icons.tokens },
-      { text: "Tailwind", link: "/tailwind", icon: icons.tailwind },
-      { text: "Native GUI", link: "/native-gui", icon: icons.tailwind },
-      { text: "Releases", link: "/releases", icon: icons.releases },
-      { sectionHeaderText: "Components" },
-      ...byName(components).map(({ id, text }) => ({ text, link: `/components/${id}`, icon: icons[id] })),
-      { sectionHeaderText: "Blocks" },
-      ...byName(blocks).map(({ id, text }) => ({ text, link: `/blocks/${id}`, icon: icons[id] })),
+      { text: "Design protocol", link: "/design-protocol" },
+      { text: "Tokens", link: "/tokens" },
+      { text: "Tailwind", link: "/tailwind" },
+      { text: "Native GUI", link: "/native-gui" },
+      { text: "Releases", link: "/releases" },
     ],
   }
 }

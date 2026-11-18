@@ -1,4 +1,4 @@
-import { CodeBlock, HeroArtwork, CopyPromptButton, installationPrompt, Link } from '@rspress/core/theme';
+import { CodeBlock, HeroArtwork, HeroLinks, CopyPromptButton, installationPrompt, Link } from '@rspress/core/theme';
 
 <div className="spectre-home rp-not-doc">
   <section className="spectre-hero" aria-labelledby="ui-that-becomes-your-code">
@@ -8,6 +8,7 @@ import { CodeBlock, HeroArtwork, CopyPromptButton, installationPrompt, Link } fr
         <span className="spectre-eyebrow">Interface standard</span>
         <h1 id="ui-that-becomes-your-code">Consistent UI from your coding agent, on every screen.</h1>
         <p className="spectre-lead">One prompt gives your agent a consistent design for any GUI framework: shared colors, spacing and motion, both themes, and UI code you own.</p>
+        <HeroLinks />
         <div className="spectre-actions">
           <a className="spectre-button spectre-button--primary" href="#get-started">Get started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="m12 5 7 7-7 7M19 12H5" /></svg></a>
           <CopyPromptButton />
@@ -20,9 +21,7 @@ import { CodeBlock, HeroArtwork, CopyPromptButton, installationPrompt, Link } fr
     <div className="spectre-section-heading">
       <div><span className="spectre-eyebrow">01 / What is XRAY/DESIGN</span><h2 id="about-design-title" data-outline>A UI kit that becomes your code</h2></div>
     </div>
-    <p>XRAY/DESIGN gives your coding agent one visual standard for web, desktop and mobile apps. Your agent can apply the design in any GUI framework your project uses, including SwiftUI, UIKit, JavaFX and Android.</p>
-    <p>Your agent creates UI code in your app's own framework. For web apps, it copies the supplied HTML or React components. For native apps, it follows the <Link href="/native-gui">native GUI workflow</Link> to build the same design with your platform's controls.</p>
-    <p>The code belongs to your project, so you can change it like any other source file. Your agent handles light and dark themes, accessibility, text scaling and reduced motion, and can update the design later while preserving your customizations.</p>
+    <p>XRAY/DESIGN gives your coding agent one visual standard for web, desktop and mobile apps, in any GUI framework: React, HTML, SwiftUI, UIKit, JavaFX, Android and more. For the web it copies the kit's HTML or React components; for native apps it follows the <Link href="/native-gui">native GUI workflow</Link> with your platform's controls. Either way the code is yours to change, with light and dark themes, accessibility and reduced motion handled, and later design updates keep your customizations.</p>
   </section>
 
   <section className="spectre-start" id="get-started" aria-labelledby="get-started-title">
@@ -44,7 +43,7 @@ import { CodeBlock, HeroArtwork, CopyPromptButton, installationPrompt, Link } fr
 
   <section className="spectre-workflow" id="first-component" aria-labelledby="first-component-title">
     <div className="spectre-section-heading">
-      <div><span className="spectre-eyebrow">03 / The workflow</span><h2 id="first-component-title" data-outline>Add, adapt, and upgrade components</h2></div>
+      <div><span className="spectre-eyebrow">03 / The workflow</span><h2 id="first-component-title" data-outline>Add and adapt components</h2></div>
     </div>
     <p>Ask for components by name or describe the UI in your own words. The agent reads <code>.agents/design/DESIGN-PROTOCOL.md</code> before any UI work, copies components and blocks into your UI folder, and records them, with the protocol version, in <code>design.lock.json</code> in that folder.</p>
     <ol className="spectre-workflow-list">
@@ -66,15 +65,6 @@ import { CodeBlock, HeroArtwork, CopyPromptButton, installationPrompt, Link } fr
           <CodeBlock><pre tabIndex={0}><code>Make the period filter full width and add a 90 days option.</code></pre></CodeBlock>
         </div>
       </li>
-      <li>
-        <span className="spectre-step" aria-hidden="true">03</span>
-        <div className="spectre-workflow-content">
-          <div className="spectre-workflow-title"><h3>Upgrade the kit</h3><span className="spectre-state spectre-state--accepted">UPGRADED</span></div>
-          <p>When a new version ships, the agent replaces files you never touched and merges the kit's changes into the ones you edited. Any conflicts are listed for it to resolve before it finishes.</p>
-          <p className="spectre-workflow-output"><strong>Produced:</strong> merged components + lock at the new version <span aria-hidden="true">→</span> <code>UPGRADED</code></p>
-          <CodeBlock><pre tabIndex={0}><code>Upgrade XRAY/DESIGN to the latest version.</code></pre></CodeBlock>
-        </div>
-      </li>
     </ol>
   </section>
 
@@ -87,14 +77,14 @@ import { CodeBlock, HeroArtwork, CopyPromptButton, installationPrompt, Link } fr
       <span className="spectre-resource-label">BLOCKS <span aria-hidden="true">↗</span></span>
       <h2>Browse blocks</h2><p>Screen sections built from kit components, with previews and prompts for your framework.</p>
     </Link>
+    <Link className="spectre-resource" href="/showcase/">
+      <span className="spectre-resource-label">SHOWCASE <span aria-hidden="true">↗</span></span>
+      <h2>Browse screens</h2><p>Whole app screens built only from kit components and blocks, to start your own from.</p>
+    </Link>
     <Link className="spectre-resource" href="/icons">
       <span className="spectre-resource-label">ICONS <span aria-hidden="true">↗</span></span>
       <h2>Browse icons</h2><p>Search interface, social and crypto icons, and copy their names for your UI.</p>
     </Link>
-    <a className="spectre-resource" href="/design/DESIGN-PROTOCOL.md">
-      <span className="spectre-resource-label">SPECIFICATION <span aria-hidden="true">↗</span></span>
-      <h2>Read the protocol</h2><p>Tokens, color, type, radius, the motion budget, accessibility and the markup contract.</p>
-    </a>
   </nav>
   <div className="spectre-home-footer"><span>XRAY/DESIGN <span aria-hidden="true">·</span> Consistent UI from your coding agent.</span><Link href="/installation">Installation guide <span aria-hidden="true">→</span></Link></div>
 </div>

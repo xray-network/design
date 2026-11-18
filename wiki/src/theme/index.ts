@@ -7,6 +7,27 @@ import { Toaster } from "@protocol/components/toast/toast"
 import { Messages } from "@protocol/components/message/message"
 import pkg from "../../package.json"
 import { PageArrows } from "./PageArrows"
+import { moon, sun } from "@protocol/components/icon/icons.js"
+
+// The theme switch's sun and moon, from the kit's icons (Rspress's SwitchAppearance takes IconSun and IconMoon
+// from this theme). Outline, like every kit icon; the fill Rspress passes is ignored.
+const kitIcon = ({ body }: { body: string }) => {
+  const Icon = ({ className }: { className?: string }) =>
+    createElement("svg", {
+      className,
+      viewBox: "0 0 24 24",
+      width: 20,
+      height: 20,
+      fill: "none",
+      stroke: "currentColor",
+      strokeWidth: 1.5,
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      "aria-hidden": true,
+      dangerouslySetInnerHTML: { __html: body },
+    })
+  return Icon
+}
 
 // Each wiki is an independent app. Cross-wiki links must load its own router.
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) =>
@@ -29,6 +50,9 @@ export const Layout = () =>
   })
 
 export * from "@rspress/core/theme-original"
+export const IconSun = kitIcon(sun)
+export const IconMoon = kitIcon(moon)
 export { HeroArtwork } from "./hero/HeroArtwork"
 export { HeroDiagram } from "./hero/HeroDiagram"
 export { CopyPromptButton, installationPrompt } from "./CopyPromptButton"
+export { HeroLinks } from "./HeroLinks"
