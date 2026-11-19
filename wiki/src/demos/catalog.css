@@ -3,8 +3,8 @@
 .wiki-catalog {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--x-space-1) var(--x-space-6);
-  margin: 32px 0 48px;
+  gap: var(--x-space-2) var(--x-space-6);
+  margin: 36px 0 56px;
   padding: 0;
   list-style: none;
 }
@@ -12,10 +12,12 @@
 
 .wiki-catalog-item {
   display: block;
-  padding: var(--x-space-2) 0;
+  padding: var(--x-space-2-5) 0;
   color: var(--x-fg-1);
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.015em;
   text-decoration: none !important;
   transition: color var(--x-duration-fast) var(--x-ease);
 }

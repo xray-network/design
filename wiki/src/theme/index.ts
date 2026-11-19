@@ -7,6 +7,7 @@ import { Toaster } from "@protocol/components/toast/toast"
 import { Messages } from "@protocol/components/message/message"
 import pkg from "../../package.json"
 import { PageArrows } from "./PageArrows"
+import { NavTitle } from "./NavTitle"
 import { moon, sun } from "@protocol/components/icon/icons.js"
 
 // The theme switch's sun and moon, from the kit's icons (Rspress's SwitchAppearance takes IconSun and IconMoon
@@ -43,6 +44,8 @@ Link.displayName = "Link"
 // (kept equal to DESIGN-PROTOCOL.md's Protocol-Version by check-protocol) goes just before the search box.
 export const Layout = () =>
   createElement(BasicLayout, {
+    // The logo with the product name inside its box.
+    navTitle: createElement(NavTitle),
     beforeNavMenu: pkg.version ? createElement("span", { className: "wiki-version" }, `v${pkg.version}`) : null,
     // Previous / next arrows on the right of the page title.
     beforeDocContent: createElement(PageArrows),

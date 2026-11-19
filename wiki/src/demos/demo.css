@@ -1,8 +1,9 @@
 /* Demo frames. Kit tokens are loaded globally by the theme; components bring their own CSS. */
 
+/* The frame and its bar are wiki chrome (wiki border and label colors); the stage inside is the kit's own canvas. */
 .wiki-demo {
   margin: 24px 0 40px;
-  border: 1px solid var(--x-border);
+  border: 1px solid var(--xr-border);
   border-radius: var(--x-radius-3xl);
   background: var(--x-bg);
   color: var(--x-fg-2);
@@ -17,7 +18,7 @@
   justify-content: space-between;
   gap: var(--x-space-3);
   padding: var(--x-space-3) var(--x-space-4);
-  border-bottom: 1px solid var(--x-border);
+  border-bottom: 1px solid var(--xr-border);
 }
 
 .wiki-demo-switches { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-5); }
@@ -50,7 +51,6 @@
 .wiki-demo-stage > :is(.x-select, .x-select-native) { width: auto; min-width: 200px; }
 .wiki-demo-stage > .x-list { margin-inline: var(--x-space-3); } /* room for the rows' overhanging hover fill */
 .wiki-demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5); }
-.wiki-demo-note { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-xs); }
 
 .wiki-demo-label {
   color: var(--x-fg-3);
@@ -58,27 +58,7 @@
   font-weight: var(--x-weight-label);
 }
 
-.wiki-demo-prompt {
-  display: flex;
-  flex-direction: column;
-  gap: var(--x-space-3);
-  padding: var(--x-space-4);
-  border-top: 1px solid var(--x-border);
-}
-
-.wiki-demo-prompt-heading,
-.wiki-demo-target,
-.wiki-demo-more,
-.wiki-demo-prompt-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--x-space-3);
-  min-width: 0;
-}
-
-.wiki-demo-prompt-heading { justify-content: space-between; }
-/* "Preview" and "Generate for": quiet labels, not titles. */
+/* "Preview" and "Your brand": quiet labels in the frame's bar, not titles. */
 .wiki-demo .wiki-demo-prompt-title {
   margin: 0;
   padding: 0;
@@ -89,48 +69,118 @@
   line-height: var(--x-leading-body);
 }
 
-.wiki-demo-reference {
-  color: var(--x-fg-3);
-  font-size: var(--x-text-xs);
-  text-decoration: none;
-}
-.wiki-demo-reference:hover { color: var(--x-fg-1); text-decoration: underline; }
-.wiki-demo-reference:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 4px; border-radius: var(--x-radius-xs); }
-
-.wiki-demo-target > .x-segmented { min-width: 0; }
-.wiki-demo-more > .x-select { width: auto; min-width: 180px; max-width: 100%; }
-.wiki-demo-more > .x-input { flex: 1 1 180px; }
-
-.wiki-demo .wiki-demo-prompt-text {
-  margin: 0;
+/* A second part inside a frame (the Theming page's live preview). */
+.wiki-demo-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--x-space-3);
   padding: var(--x-space-4);
-  border: 1px solid var(--x-border);
-  border-radius: var(--x-radius-md);
-  background: var(--x-bg-panel);
-  color: var(--x-fg-2);
-  font-size: var(--x-text-sm);
-  line-height: 1.7;
+  border-top: 1px solid var(--xr-border);
+}
+
+@media (max-width: 560px) {
+  .wiki-demo-stage { padding: var(--x-space-6) var(--x-space-4); }
+}
+
+/* ---- The prompt: the lower part of the same frame, in the container of the showcase prompt (theme.css): the brand
+   band as the line between preview and prompt, a mono title bar, the prompt as plain mono text on the page color.
+   The kit controls inside take the wiki's palette (theme/tokens.css, part 3). */
+.wiki-prompt {
+  border-top: 6px solid var(--xr-action);
+  background: var(--xr-canvas);
+  color: var(--xr-fg-secondary);
+  font: 500 14px / 1.5 var(--xr-font-sans);
+}
+
+.wiki-prompt-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--xr-border);
+}
+
+.wiki-prompt .wiki-prompt-title {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--xr-fg-muted);
+  font: 500 11px / 1.5 var(--xr-font-mono);
+}
+
+.wiki-prompt-source {
+  color: var(--xr-fg-muted);
+  font-size: 12px;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.wiki-prompt-source:hover { color: var(--xr-link); }
+.wiki-prompt-source:focus-visible { outline: 2px solid var(--xr-focus); outline-offset: 3px; border-radius: 4px; }
+
+/* The framework row, then the prompt as the code block's content, then the copy button. */
+.wiki-prompt-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.wiki-prompt-target,
+.wiki-prompt-more,
+.wiki-prompt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px 16px 0;
+}
+
+.wiki-prompt-actions { padding: 0 18px 18px; }
+
+.wiki-prompt-label {
+  color: var(--xr-fg-muted);
+  font-size: 13px;
+}
+
+.wiki-prompt-target > .x-segmented { min-width: 0; }
+.wiki-prompt-more > .x-select { width: auto; min-width: 180px; max-width: 100%; }
+.wiki-prompt-more > .x-input { flex: 1 1 180px; }
+
+.wiki-prompt .wiki-prompt-text {
+  margin: 0;
+  padding: 18px;
+  color: var(--xr-fg);
+  font: 400 13px / 1.75 var(--xr-font-mono);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
-.wiki-demo-prompt-text code {
+.wiki-prompt-text code {
   padding: 0;
   border: 0;
   background: none;
   color: inherit;
   font: inherit;
-  font-family: var(--x-font-mono);
   white-space: inherit;
 }
-.wiki-demo-prompt-text:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 2px; }
-.wiki-demo-prompt-actions { justify-content: flex-start; }
-.wiki-demo-copy-error { flex: 1 1 200px; margin: 0; color: var(--x-danger-fg); font-size: var(--x-text-xs); }
+.wiki-prompt-text:focus-visible { outline: 2px solid var(--xr-focus); outline-offset: -2px; }
+
+/* An empty prompt keeps its box, about the height of a short prompt, with the reason centered in it. */
+.wiki-prompt .wiki-prompt-text--empty {
+  display: grid;
+  place-items: center;
+  min-height: 160px;
+  color: var(--xr-fg-muted);
+  font: 500 13px / 1.5 var(--xr-font-sans);
+  text-align: center;
+}
+
+.wiki-prompt-error { flex: 1 1 200px; margin: 0; color: var(--x-danger-fg); font-size: 12px; }
 
 @media (max-width: 560px) {
-  .wiki-demo-stage { padding: var(--x-space-6) var(--x-space-4); }
-  .wiki-demo-target { align-items: flex-start; flex-direction: column; }
-  .wiki-demo-target > .x-segmented { width: 100%; }
-  .wiki-demo-more > .x-select { flex: 1; }
+  .wiki-prompt-target { align-items: flex-start; flex-direction: column; }
+  .wiki-prompt-target > .x-segmented { width: 100%; }
+  .wiki-prompt-more > .x-select { flex: 1; }
 }
 
 /* The kit's icon rule (base.css is not loaded in the wiki, to keep docs styles intact).
@@ -152,16 +202,6 @@
 .wiki-theme-stage { min-height: 0; }
 .wiki-theme-inputs { align-self: stretch; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--x-space-4); }
 @media (max-width: 560px) { .wiki-theme-inputs { grid-template-columns: minmax(0, 1fr); } }
-
-/* An empty prompt keeps its box, about the height of a short prompt, with the reason centered in it. */
-.wiki-demo .wiki-demo-prompt-text--empty {
-  display: grid;
-  place-items: center;
-  min-height: 160px;
-  color: var(--x-fg-3);
-  font-family: var(--x-font-sans);
-  text-align: center;
-}
 
 /* Theme preview (shown with "Show preview"): a compact panel of accent-bearing components with the entered theme, in
    the page's current theme. */

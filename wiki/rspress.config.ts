@@ -42,11 +42,13 @@ export default defineConfig({
   outDir: "build/design",
   base: "/design/",
   siteOrigin: "https://wiki.xraynetwork.io",
-  icon: "/xray-blue.svg",
+  icon: "/xray-x.svg",
   themeDir: "src/theme",
   title: "XRAY/DESIGN",
-  logo: "/xray-blue.svg",
-  logoText: "XRAY/DESIGN",
+  // The XRAY wordmark and its ray, all orange in both themes; the product name follows it inside the logo box
+  // (src/theme/NavTitle.tsx), so the logo and the name are one unit.
+  logo: "/xray-logo.svg",
+  logoText: "Design",
   description: "A copy-in UI kit for agents: rules, tokens, liquid motion and components in HTML and React.",
   route: { cleanUrls: true },
   markdown: { remarkPlugins: [remarkOutlineHeadings] },
@@ -67,8 +69,16 @@ export default defineConfig({
       },
     },
   },
+  // Every page links to its source on GitHub, labelled as in the SPECTRE wiki.
+  i18nSource: (source) => ({
+    ...source,
+    editLinkText: { ...source.editLinkText, en: "Edit on GitHub" },
+  }),
   themeConfig: {
     fallbackHeadingTitle: false,
+    editLink: {
+      docRepoBaseUrl: "https://github.com/xray-network/design/edit/main/wiki/src/pages",
+    },
     darkMode: "dark",
     enableAppearanceAnimation: false,
     socialLinks: [{ icon: "github", mode: "link", content: "https://github.com/xray-network/design" }],

@@ -20,17 +20,17 @@ tokens:
     blue-400: "#3f5ff0"
     blue-500: "#1940ed"
     blue-600: "#0f2fbf"
-    gray-50: "#f9fafb"
-    gray-100: "#f3f4f6"
-    gray-200: "#e5e7eb"
-    gray-300: "#d1d5db"
-    gray-400: "#9ca3af"
-    gray-500: "#6e758d"
-    gray-600: "#55556d"
-    gray-700: "#374151"
-    gray-800: "#1f2937"
-    gray-900: "#1e2232"
-    gray-950: "#0e0e18"
+    gray-50: "#fafafa"
+    gray-100: "#f4f4f4"
+    gray-200: "#e7e6e6"
+    gray-300: "#d5d4d4"
+    gray-400: "#a3a2a2"
+    gray-500: "#767575"
+    gray-600: "#585757"
+    gray-700: "#414040"
+    gray-800: "#292828"
+    gray-900: "#232222"
+    gray-950: "#0f0f0f"
     green-500: "#15e4a3"
     green-800: "#07874d"
     red-200: "#ffa2a2"
@@ -41,21 +41,21 @@ tokens:
   # Semantic colors. { light, dark } when the themes differ.
   color:
     bg: { light: "#ffffff", dark: "#000000" }  # page canvas
-    bg-panel: { light: "#f9fafb", dark: "#0e0e18" }  # cards, menus, dialogs
-    bg-chip: { light: "#f3f4f6", dark: "#1f2937" }  # chips, soft buttons, tracks
-    bg-chip-hover: { light: "#e5e7eb", dark: "#374151" }
-    bg-active: { light: "#e5e7eb", dark: "#1f2937" }  # selected item
-    bg-active-hover: { light: "#d1d5db", dark: "#374151" }
+    bg-panel: { light: "#fafafa", dark: "#0f0f0f" }  # cards, menus, dialogs
+    bg-chip: { light: "#f4f4f4", dark: "#292828" }  # chips, soft buttons, tracks
+    bg-chip-hover: { light: "#e7e6e6", dark: "#414040" }
+    bg-active: { light: "#e7e6e6", dark: "#292828" }  # selected item
+    bg-active-hover: { light: "#d5d4d4", dark: "#414040" }
     bg-soft: { light: "rgb(0 0 0 / 0.06)", dark: "rgb(255 255 255 / 0.06)" }  # hover wash
     bg-faint: { light: "rgb(0 0 0 / 0.03)", dark: "rgb(255 255 255 / 0.04)" }  # resting tabs
     scrim: { light: "rgb(0 0 0 / 0.35)", dark: "rgb(0 0 0 / 0.6)" }
-    border: { light: "#e5e7eb", dark: "#1e2232" }
-    border-hover: { light: "#d1d5db", dark: "#374151" }
-    fg-1: { light: "#0e0e18", dark: "#ffffff" }  # titles, values
-    fg-2: { light: "#374151", dark: "#d1d5db" }  # body
-    fg-3: "#6e758d"  # secondary, labels
-    fg-4: { light: "#9ca3af", dark: "#55556d" }  # placeholders, legal
-    fg-frac: { light: "#6e758d", dark: "#9ca3af" }  # numeral fractions
+    border: { light: "#e7e6e6", dark: "#232222" }
+    border-hover: { light: "#d5d4d4", dark: "#414040" }
+    fg-1: { light: "#0f0f0f", dark: "#ffffff" }  # titles, values
+    fg-2: { light: "#414040", dark: "#d5d4d4" }  # body
+    fg-3: "#767575"  # secondary, labels
+    fg-4: { light: "#a3a2a2", dark: "#585757" }  # placeholders, legal
+    fg-frac: { light: "#767575", dark: "#a3a2a2" }  # numeral fractions
     accent: "#1940ed"
     accent-hover: "#3f5ff0"
     accent-press: "#0f2fbf"

@@ -26,6 +26,8 @@ The first version.
 - **Accent:** `--x-accent` for fills, the same blue in both themes; `--x-accent-ink` (+ `-hover`) for focus
   rings, focused borders, links, icons and check marks, lighter in dark theme. `--x-focus` and `--x-link`
   follow the ink.
+- **Grays:** neutral with the faintest warm tint (oklch chroma 0.0015 at most, hue 65), so chrome and text stay
+  quiet beside any brand color; secondary text keeps 4.5:1 on the canvas in both themes.
 - **Components (34):** Alert, Avatar, BorderBeam, Button (+ icon button, round shape), Checkbox, Chips, Collapse,
   Empty, Group, Icon (interface, social and crypto icons, all outline), Input (field, input, textarea), Menu, Menu Navigation, Message,
   Modal (`dialog`), Numeral, Pagination, Popconfirm, Popover, Radio, Result, Segmented, Select,

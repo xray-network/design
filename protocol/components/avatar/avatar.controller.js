@@ -12,7 +12,7 @@ export const PALETTES = {
   amber: ["#f0b000", "#3f5ff0", "#ff6900", "#fa2c37"],
   blue: ["#1940ed", "#ff6900", "#fa2c37", "#ffb869"],
   ember: ["#ffb869", "#ca3500", "#ff6900", "#fa2c37"],
-  xray: ["#0cab6b", "#15e4a3", "#1940ed", "#0e0e18"],
+  xray: ["#0cab6b", "#15e4a3", "#1940ed", "#0f0f0f"],
   cool: ["#1940ed", "#15e4a3", "#657ff3", "#0b228b"],
 };
 
