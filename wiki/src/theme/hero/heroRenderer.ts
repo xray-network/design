@@ -1,8 +1,9 @@
 import { createGrid, spacing, firstY } from "./heroGrid"
 import { firstRaySymbol, raySymbol, strokeSymbol, symbolAt, symbolCount } from "./heroSymbols"
-import { POINTER_REACH, SLOPE, createRay, pointerHalfWidth, prepareRay, rayFrame, rayHalfWidth, type PreparedRay } from "./heroRays"
+import { POINTER_REACH, SLOPE, createRay, pointerHalfWidth, rayFrame, rayHalfWidth, type Ray, type RayState } from "./heroRays"
 
 const alphaEpsilon = 1 / 1024
+const maxRays = 10
 
 export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCanvasElement, hero: Element): () => void {
   const ctx = canvas.getContext("2d")
@@ -15,16 +16,17 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
   let { columns, rows, points } = createGrid(0, 0)
   let hoverStrength = new Float32Array(points.length)
   let hoverTargets = new Float32Array(points.length)
-  let ambient = new Float32Array(points.length)
+  let rayStrength = new Float32Array(points.length)
+  let rayDissolves = new Uint8Array(points.length)
   let turn = new Float32Array(points.length) // how far each cell's slash has turned toward the ray's lean, 0..1
   let lastAlpha = new Float32Array(points.length)
   let lastSprite = new Uint8Array(points.length)
   let pixelX = new Int32Array(points.length)
   let pixelY = new Int32Array(points.length)
   let frame = 0, lastPaint = 0, lastMove = 0
-  let wakeTimer = 0, nextRay = 0
-  let ray: PreparedRay | undefined
-  const rayState = { front: 0, topY: 0, headY: 0, envelope: 0, dissolving: false }
+  let wakeTimer = 0, nextAmbientRay = 0
+  const rays: Ray[] = []
+  const rayState: RayState = { front: 0, topY: 0, headY: 0, envelope: 0, dissolving: false }
   let hasPointer = false
   let inView = false, disposed = false, hoverActive = false, hoverDirty = false, boundsDirty = false
   let width = 0, height = 0, pixelRatio = 1, tileSize = 1
@@ -86,9 +88,9 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
   const suspend = () => {
     cancelAnimationFrame(frame)
     window.clearTimeout(wakeTimer)
-    wakeTimer = nextRay = 0
-    ray = undefined
-    ambient.fill(0)
+    wakeTimer = nextAmbientRay = 0
+    rays.length = 0
+    rayStrength.fill(0)
     frame = 0
     hasPointer = false
     hoverActive = hoverDirty = false
@@ -107,6 +109,12 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
     if (canAnimate() && !frame) frame = requestAnimationFrame(tick)
   }
   const syncPlayback = () => { if (!canAnimate()) suspend(); else wake() }
+
+  const pruneRays = (now: number) => {
+    for (let i = rays.length - 1; i >= 0; i--) {
+      if (now - rays[i].start >= rays[i].duration) rays.splice(i, 1)
+    }
+  }
 
   const tick = (now: number) => {
     frame = 0
@@ -152,26 +160,35 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
       }
       hoverDirty = false
     }
-    if (ray && now >= ray.start + ray.duration) ray = undefined
-    if (now >= nextRay) {
-      ray = prepareRay(createRay(now, width, height), points)
-      nextRay = now + ray.duration + 1400 + Math.random() * 1600
+    pruneRays(now)
+    if (now >= nextAmbientRay && rays.length < maxRays) {
+      const ray = createRay(now, width, height)
+      rays.push(ray)
+      nextAmbientRay = now + ray.duration + 1400 + Math.random() * 1600
     }
-    ambient.fill(0)
-    if (ray && rayFrame(ray, now, rayState)) {
+    rayStrength.fill(0)
+    for (const ray of rays) {
+      if (!rayFrame(ray, now, rayState)) continue
       for (let row = minRow; row <= maxRow; row++) {
         const start = row * columns
-        const half = rayHalfWidth(ray, rayState, points[start].y)
+        const y = points[start].y
+        const half = rayHalfWidth(ray, rayState, y)
         if (half <= 0) continue
-        const offset = ray.distances[start]
+        const center = rayState.front - SLOPE * y
         // Visit only the columns the ray crosses on this row.
-        const c0 = Math.max(minColumn, Math.ceil((rayState.front - half - offset) / spacing))
-        const c1 = Math.min(maxColumn, Math.floor((rayState.front + half - offset) / spacing))
+        const c0 = Math.max(minColumn, Math.ceil((center - half) / spacing))
+        const c1 = Math.min(maxColumn, Math.floor((center + half) / spacing))
         for (let col = c0; col <= c1; col++) {
           const i = start + col
-          const band = Math.max(0, 1 - Math.abs(ray.distances[i] - rayState.front) / half)
+          const point = points[i]
+          const band = Math.max(0, 1 - Math.abs(point.x - center) / half)
           // Lit across the whole hero, a little softer where the resting grid fades out.
-          ambient[i] = band * band * (3 - 2 * band) * rayState.envelope * (.65 + .35 * points[i].visibility)
+          const strength = band * band * (3 - 2 * band) * rayState.envelope * (.65 + .35 * point.visibility)
+          // In overlaps, the brightest ray controls both the cell's intensity and its glyph.
+          if (strength > rayStrength[i]) {
+            rayStrength[i] = strength
+            rayDissolves[i] = Number(rayState.dissolving)
+          }
         }
       }
     }
@@ -185,17 +202,15 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
         const active = hoverStrength[i]
         // Each slash eases toward its target turn (its strength in a ray), so rotation is smooth frame to frame. Rays
         // dissolve into random symbols as they fade; the pointer's ray just fades, its slashes turning back.
-        const turnTarget = Math.max(ambient[i], active)
+        const turnTarget = Math.max(rayStrength[i], active)
         const turnDifference = turnTarget - turn[i]
         if (Math.abs(turnDifference) < .004) turn[i] = turnTarget
         else { turn[i] += turnDifference * turning; settling = true }
         const pointerValue = active * (.55 + active * .45)
-        const value = Math.max(pointerValue, ambient[i])
+        const value = Math.max(pointerValue, rayStrength[i])
         const alpha = value < .002 ? 0 : value * (2 - value)
         const sprite = alpha > 0
-          ? (ambient[i] > pointerValue
-              ? (rayState.dissolving ? symbolAt(i, now) : raySymbol(turn[i]))
-              : raySymbol(turn[i]))
+          ? (rayStrength[i] > pointerValue && rayDissolves[i] ? symbolAt(i, now) : raySymbol(turn[i]))
           : 0
         if (alpha === lastAlpha[i] || (alpha > 0 && lastAlpha[i] > 0 && Math.abs(alpha - lastAlpha[i]) < alphaEpsilon)) {
           if (sprite === lastSprite[i]) continue
@@ -212,10 +227,10 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
         lastSprite[i] = sprite
       }
     }
-    if (ray || hoverActive || settling) frame = requestAnimationFrame(tick)
+    if (rays.length || hoverActive || settling) frame = requestAnimationFrame(tick)
     else {
       lastPaint = 0
-      wakeTimer = window.setTimeout(() => { wakeTimer = 0; wake() }, Math.max(1, nextRay - now))
+      wakeTimer = window.setTimeout(() => { wakeTimer = 0; wake() }, Math.max(1, nextAmbientRay - now))
     }
   }
 
@@ -238,7 +253,8 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
     points = grid.points
     hoverStrength = new Float32Array(points.length)
     hoverTargets = new Float32Array(points.length)
-    ambient = new Float32Array(points.length)
+    rayStrength = new Float32Array(points.length)
+    rayDissolves = new Uint8Array(points.length)
     turn = new Float32Array(points.length)
     lastAlpha = new Float32Array(points.length)
     lastSprite = new Uint8Array(points.length)
@@ -247,7 +263,7 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
     minColumn = minRow = 0
     maxColumn = columns - 1
     maxRow = rows - 1
-    if (ray) ray = prepareRay({ ...ray, height }, points)
+    for (const ray of rays) ray.height = height
     rebuildImages()
     syncPlayback()
   }
@@ -282,14 +298,20 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
   const onContact = (event: Event) => {
     if ((event as PointerEvent).pointerType !== "mouse") onMove(event)
   }
-  // A click in the hero (not on its links or buttons) launches a ray through that point, replacing the current one.
+  // Clicks add rays without changing the ambient schedule or interrupting a ray in flight.
   const onLaunch = (event: Event) => {
     const { clientX, clientY, target } = event as MouseEvent
     if (!canAnimate() || (target as Element | null)?.closest?.("a, button")) return
-    const rect = canvas.getBoundingClientRect()
     const now = performance.now()
-    ray = prepareRay(createRay(now, width, height, { x: clientX - rect.left, y: clientY - rect.top }), points)
-    nextRay = now + ray.duration + 1400 + Math.random() * 1600
+    pruneRays(now)
+    if (rays.length >= maxRays) return
+    const rect = canvas.getBoundingClientRect()
+    // Start on a grid mark so even a click between marks lights up on the first frame.
+    const col = Math.max(minColumn, Math.min(maxColumn, Math.round((clientX - rect.left) / spacing)))
+    const row = Math.max(minRow, Math.min(maxRow, Math.round((clientY - rect.top - firstY) / spacing)))
+    const point = points[row * columns + col]
+    if (!point) return
+    rays.push(createRay(now, width, height, point))
     wake()
   }
   const onEndContact = (event: Event) => {

@@ -1,10 +1,12 @@
+import { spacing } from "./heroGrid"
+
 // Rays cutting through the hero's symbol grid, shaped like the logo's ray: narrow at the top, widening to the bottom.
 // A ray draws itself from the top edge down (or, launched by a click, out from that point both ways), drifts sideways
-// while it holds, then dissolves into random symbols. One at a time, at a random place across the hero. The pointer
+// while it holds, then dissolves into random symbols. Ambient rays start at random places across the hero. The pointer
 // draws a short ray of the same lean, which simply fades when the pointer stops.
 
 /** Run per unit of drop: the ray's lines satisfy x + SLOPE * y = constant (a wide "/" lean). */
-export const SLOPE = .8
+export const SLOPE = 1
 
 export type Ray = {
   start: number
@@ -16,6 +18,7 @@ export type Ray = {
   width: number
   /** Where the ray starts drawing from: the top edge, or the point that launched it. */
   originY: number
+  clicked: boolean
   height: number
   shoot: number
   hold: number
@@ -23,7 +26,6 @@ export type Ray = {
   duration: number
 }
 
-export type PreparedRay = Ray & { distances: Float32Array }
 export type RayState = { front: number; topY: number; headY: number; envelope: number; dissolving: boolean }
 
 const TOP = -40
@@ -36,28 +38,31 @@ export function createRay(start: number, width: number, height: number, from?: {
   const hold = 1400 + Math.random() * 800
   const dissolve = 900 + Math.random() * 300
   const drift = (Math.random() < .5 ? -1 : 1) * (.03 + Math.random() * .03)
-  const originY = from ? from.y : TOP
-  return { start, front, drift, width: 120 + Math.random() * 50, originY, height, shoot, hold, dissolve, duration: shoot + hold + dissolve }
-}
-
-/** Each point's position across the ray's lines (x + SLOPE * y), so a row's offset is SLOPE * y. */
-export function prepareRay(ray: Ray, points: ReadonlyArray<{ x: number; y: number }>): PreparedRay {
-  const distances = new Float32Array(points.length)
-  for (let i = 0; i < points.length; i++) distances[i] = points[i].x + SLOPE * points[i].y
-  return { ...ray, distances }
+  return {
+    start, front, drift, height, shoot, hold, dissolve,
+    width: 120 + Math.random() * 50,
+    originY: from?.y ?? TOP,
+    clicked: Boolean(from),
+    duration: shoot + hold + dissolve,
+  }
 }
 
 /** Where the ray is now (its center line, the span drawn so far) and how strong; false once it is over. */
 export function rayFrame(ray: Ray, now: number, state: RayState) {
-  const t = now - ray.start
-  if (t <= 0 || t >= ray.duration) return false
+  const t = Math.max(0, now - ray.start)
+  if (t >= ray.duration) return false
   const bottom = ray.height + 40
+  // A click starts with a lit segment around the origin, then grows toward both edges.
+  const reach = ray.clicked ? 2 * spacing : 0
+  const topStart = Math.max(TOP, ray.originY - reach)
+  const bottomStart = Math.min(bottom, ray.originY + reach)
   const grown = 1 - (1 - Math.min(1, t / ray.shoot)) ** 3
-  state.topY = ray.originY + (TOP - ray.originY) * grown
-  state.headY = ray.originY + (bottom - ray.originY) * grown
+  state.topY = topStart + (TOP - topStart) * grown
+  state.headY = bottomStart + (bottom - bottomStart) * grown
   state.front = ray.front + ray.drift * t
   state.dissolving = t > ray.shoot + ray.hold
-  state.envelope = state.dissolving ? 1 - (t - ray.shoot - ray.hold) / ray.dissolve : Math.min(1, t / 160)
+  const fadeIn = ray.clicked ? 1 : Math.min(1, t / 160)
+  state.envelope = state.dissolving ? 1 - (t - ray.shoot - ray.hold) / ray.dissolve : fadeIn
   return true
 }
 
