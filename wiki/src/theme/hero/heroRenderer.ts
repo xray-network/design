@@ -1,6 +1,6 @@
 import { createGrid, spacing, firstY } from "./heroGrid"
-import { strokeSymbol, symbolAt, symbolCount } from "./heroSymbols"
-import { createWave, prepareWave, waveFrame, type PreparedWave } from "./heroWaves"
+import { firstRaySymbol, raySymbol, strokeSymbol, symbolAt, symbolCount } from "./heroSymbols"
+import { POINTER_REACH, SLOPE, createRay, pointerHalfWidth, prepareRay, rayFrame, rayHalfWidth, type PreparedRay } from "./heroRays"
 
 const alphaEpsilon = 1 / 1024
 
@@ -16,14 +16,15 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
   let hoverStrength = new Float32Array(points.length)
   let hoverTargets = new Float32Array(points.length)
   let ambient = new Float32Array(points.length)
+  let turn = new Float32Array(points.length) // how far each cell's slash has turned toward the ray's lean, 0..1
   let lastAlpha = new Float32Array(points.length)
   let lastSprite = new Uint8Array(points.length)
   let pixelX = new Int32Array(points.length)
   let pixelY = new Int32Array(points.length)
   let frame = 0, lastPaint = 0, lastMove = 0
-  let wakeTimer = 0, nextWave = 0
-  let wave: PreparedWave | undefined
-  const waveState = { front: 0, envelope: 0 }
+  let wakeTimer = 0, nextRay = 0
+  let ray: PreparedRay | undefined
+  const rayState = { front: 0, topY: 0, headY: 0, envelope: 0, dissolving: false }
   let hasPointer = false
   let inView = false, disposed = false, hoverActive = false, hoverDirty = false, boundsDirty = false
   let width = 0, height = 0, pixelRatio = 1, tileSize = 1
@@ -55,6 +56,8 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
       atlasCtx.lineWidth = 1 * pixelRatio
       atlasCtx.strokeStyle = blue
       for (let i = 0; i < symbolCount; i++) {
+        // The ray's glyph is drawn heavier, so a ray reads as one stroke.
+        atlasCtx.lineWidth = (i >= firstRaySymbol ? 1.8 : 1) * pixelRatio
         strokeSymbol(atlasCtx, i, tileSize * (i + .5), tileSize / 2, pixelRatio)
       }
       atlasCtx.strokeStyle = neutral
@@ -83,13 +86,14 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
   const suspend = () => {
     cancelAnimationFrame(frame)
     window.clearTimeout(wakeTimer)
-    wakeTimer = nextWave = 0
-    wave = undefined
+    wakeTimer = nextRay = 0
+    ray = undefined
     ambient.fill(0)
     frame = 0
     hasPointer = false
     hoverActive = hoverDirty = false
     hoverStrength.fill(0)
+    turn.fill(0)
     hoverTargets.fill(0)
     lastPaint = 0
     for (let i = 0; i < points.length; i++) if (lastSprite[i] > 0) showRestingMark(i, true)
@@ -110,8 +114,9 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
     const elapsed = lastPaint ? Math.min(now - lastPaint, 50) : 16.67
     const rise = 1 - Math.exp(-elapsed / 90)
     const fade = 1 - Math.exp(-elapsed / 220)
+    const turning = 1 - Math.exp(-elapsed / 110)
     lastPaint = now
-    if (hoverActive && now - lastMove > 80) {
+    if (hoverActive && now - lastMove > 220) {
       hoverActive = false
       hoverDirty = true
     }
@@ -122,45 +127,51 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
       boundsDirty = false
       hoverDirty = true
     }
-    // Distance calculations only happen when the pointer moves, within its 100-unit radius.
+    // The pointer's ray: a short band along the ray's lean through the pointer, recomputed only when it moves.
     if (hoverDirty) {
       hoverTargets.fill(0)
       if (hoverActive) {
         const x = mouseX - left
         const y = mouseY - top
-        const r0 = Math.max(minRow, Math.ceil((y - 100 - firstY) / spacing))
-        const r1 = Math.min(maxRow, Math.floor((y + 100 - firstY) / spacing))
-        const c0 = Math.max(minColumn, Math.ceil((x - 100) / spacing))
-        const c1 = Math.min(maxColumn, Math.floor((x + 100) / spacing))
+        const through = x + SLOPE * y
+        const r0 = Math.max(minRow, Math.ceil((y - POINTER_REACH - firstY) / spacing))
+        const r1 = Math.min(maxRow, Math.floor((y + POINTER_REACH - firstY) / spacing))
         for (let row = r0; row <= r1; row++) {
+          const rowY = firstY + row * spacing
+          const half = pointerHalfWidth(rowY - y)
+          if (half <= 0) continue
+          const center = through - SLOPE * rowY
+          const c0 = Math.max(minColumn, Math.ceil((center - half) / spacing))
+          const c1 = Math.min(maxColumn, Math.floor((center + half) / spacing))
           for (let col = c0; col <= c1; col++) {
             const i = row * columns + col
-            const squared = (points[i].x - x) ** 2 + (points[i].y - y) ** 2
-            if (squared >= 10000) continue
-            const proximity = 1 - Math.sqrt(squared) / 100
-            hoverTargets[i] = proximity * proximity * (3 - 2 * proximity)
+            const band = 1 - Math.abs(points[i].x - center) / half
+            if (band > 0) hoverTargets[i] = band * band * (3 - 2 * band)
           }
         }
       }
       hoverDirty = false
     }
-    if (wave && now >= wave.start + wave.duration) wave = undefined
-    if (now >= nextWave) {
-      wave = prepareWave(createWave(now, width), points)
-      nextWave = now + wave.duration + 1800 + Math.random() * 1200
+    if (ray && now >= ray.start + ray.duration) ray = undefined
+    if (now >= nextRay) {
+      ray = prepareRay(createRay(now, width, height), points)
+      nextRay = now + ray.duration + 1400 + Math.random() * 1600
     }
     ambient.fill(0)
-    if (wave && waveFrame(wave, now, waveState)) {
+    if (ray && rayFrame(ray, now, rayState)) {
       for (let row = minRow; row <= maxRow; row++) {
         const start = row * columns
-        const offset = wave.distances[start]
-        // Visit only the columns touched by this curved wave.
-        const c0 = Math.max(minColumn, Math.ceil((waveState.front - wave.width - offset) / spacing))
-        const c1 = Math.min(maxColumn, Math.floor((waveState.front + wave.width - offset) / spacing))
+        const half = rayHalfWidth(ray, rayState, points[start].y)
+        if (half <= 0) continue
+        const offset = ray.distances[start]
+        // Visit only the columns the ray crosses on this row.
+        const c0 = Math.max(minColumn, Math.ceil((rayState.front - half - offset) / spacing))
+        const c1 = Math.min(maxColumn, Math.floor((rayState.front + half - offset) / spacing))
         for (let col = c0; col <= c1; col++) {
           const i = start + col
-          const band = Math.max(0, 1 - Math.abs(wave.distances[i] - waveState.front) / wave.width)
-          ambient[i] = band * band * (3 - 2 * band) * waveState.envelope * points[i].visibility
+          const band = Math.max(0, 1 - Math.abs(ray.distances[i] - rayState.front) / half)
+          // Lit across the whole hero, a little softer where the resting grid fades out.
+          ambient[i] = band * band * (3 - 2 * band) * rayState.envelope * (.65 + .35 * points[i].visibility)
         }
       }
     }
@@ -172,11 +183,19 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
         if (Math.abs(difference) < .001) hoverStrength[i] = hoverTargets[i]
         else { hoverStrength[i] += difference * (difference > 0 ? rise : fade); settling = true }
         const active = hoverStrength[i]
+        // Each slash eases toward its target turn (its strength in a ray), so rotation is smooth frame to frame. Rays
+        // dissolve into random symbols as they fade; the pointer's ray just fades, its slashes turning back.
+        const turnTarget = Math.max(ambient[i], active)
+        const turnDifference = turnTarget - turn[i]
+        if (Math.abs(turnDifference) < .004) turn[i] = turnTarget
+        else { turn[i] += turnDifference * turning; settling = true }
         const pointerValue = active * (.55 + active * .45)
         const value = Math.max(pointerValue, ambient[i])
         const alpha = value < .002 ? 0 : value * (2 - value)
         const sprite = alpha > 0
-          ? (ambient[i] > pointerValue ? symbolAt(i, now) : hoverActive ? symbolAt(i, lastMove) : lastSprite[i])
+          ? (ambient[i] > pointerValue
+              ? (rayState.dissolving ? symbolAt(i, now) : raySymbol(turn[i]))
+              : raySymbol(turn[i]))
           : 0
         if (alpha === lastAlpha[i] || (alpha > 0 && lastAlpha[i] > 0 && Math.abs(alpha - lastAlpha[i]) < alphaEpsilon)) {
           if (sprite === lastSprite[i]) continue
@@ -193,10 +212,10 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
         lastSprite[i] = sprite
       }
     }
-    if (wave || hoverActive || settling) frame = requestAnimationFrame(tick)
+    if (ray || hoverActive || settling) frame = requestAnimationFrame(tick)
     else {
       lastPaint = 0
-      wakeTimer = window.setTimeout(() => { wakeTimer = 0; wake() }, Math.max(1, nextWave - now))
+      wakeTimer = window.setTimeout(() => { wakeTimer = 0; wake() }, Math.max(1, nextRay - now))
     }
   }
 
@@ -220,6 +239,7 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
     hoverStrength = new Float32Array(points.length)
     hoverTargets = new Float32Array(points.length)
     ambient = new Float32Array(points.length)
+    turn = new Float32Array(points.length)
     lastAlpha = new Float32Array(points.length)
     lastSprite = new Uint8Array(points.length)
     pixelX = new Int32Array(points.length)
@@ -227,7 +247,7 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
     minColumn = minRow = 0
     maxColumn = columns - 1
     maxRow = rows - 1
-    if (wave) wave = prepareWave({ ...wave, extent: width }, points)
+    if (ray) ray = prepareRay({ ...ray, height }, points)
     rebuildImages()
     syncPlayback()
   }
@@ -262,6 +282,16 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
   const onContact = (event: Event) => {
     if ((event as PointerEvent).pointerType !== "mouse") onMove(event)
   }
+  // A click in the hero (not on its links or buttons) launches a ray through that point, replacing the current one.
+  const onLaunch = (event: Event) => {
+    const { clientX, clientY, target } = event as MouseEvent
+    if (!canAnimate() || (target as Element | null)?.closest?.("a, button")) return
+    const rect = canvas.getBoundingClientRect()
+    const now = performance.now()
+    ray = prepareRay(createRay(now, width, height, { x: clientX - rect.left, y: clientY - rect.top }), points)
+    nextRay = now + ray.duration + 1400 + Math.random() * 1600
+    wake()
+  }
   const onEndContact = (event: Event) => {
     const { isPrimary, pointerType } = event as PointerEvent
     if (isPrimary !== false && pointerType !== "mouse") onLeave()
@@ -279,6 +309,7 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
   hero.addEventListener("pointerup", onEndContact, { passive: true })
   hero.addEventListener("pointercancel", onEndContact, { passive: true })
   hero.addEventListener("pointerleave", onLeave)
+  hero.addEventListener("click", onLaunch)
   reducedMotion.addEventListener("change", syncPlayback)
   document.addEventListener("visibilitychange", syncPlayback)
   window.addEventListener("resize", resize)
@@ -296,6 +327,7 @@ export function createHeroRenderer(canvas: HTMLCanvasElement, background: HTMLCa
     hero.removeEventListener("pointerup", onEndContact)
     hero.removeEventListener("pointercancel", onEndContact)
     hero.removeEventListener("pointerleave", onLeave)
+    hero.removeEventListener("click", onLaunch)
     reducedMotion.removeEventListener("change", syncPlayback)
     document.removeEventListener("visibilitychange", syncPlayback)
     window.removeEventListener("resize", resize)
