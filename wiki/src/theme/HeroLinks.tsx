@@ -1,27 +1,25 @@
-import { createElement } from "react"
 import { Link } from "@rspress/core/theme-original"
-import { computerDesktop, cube, rectangleGroup, sparkles } from "@protocol/components/icon/icons.js"
+import * as icons from "@protocol/components/icon/icons.js"
 
-const LINKS = [
-  { text: "Components", href: "/components/", icon: cube },
-  { text: "Blocks", href: "/blocks/", icon: rectangleGroup },
-  { text: "Showcase", href: "/showcase/", icon: computerDesktop },
-  { text: "Icons", href: "/icons", icon: sparkles },
+// Counted when the wiki builds (rspress.config.ts), so the grid follows the kit as it grows.
+const counts: { components: number; blocks: number } = JSON.parse(process.env.KIT_COUNTS ?? "{}")
+const iconCount = Object.values(icons).filter((icon) => typeof icon === "object" && icon !== null && "body" in icon).length
+
+const ITEMS = [
+  { value: String(counts.components), label: "Components", href: "/components/" },
+  { value: String(counts.blocks), label: "Blocks", href: "/blocks/" },
+  { value: "Screens", label: "Showcase", href: "/showcase/" },
+  { value: String(iconCount), label: "Icons", href: "/icons" },
 ]
 
-/** The home hero's quick links to what the kit holds: outlined pills with the kit's icons, above the main buttons. */
+/** The home hero's grid under the buttons: what the kit holds, each cell a link to its section. */
 export function HeroLinks() {
   return (
     <nav className="spectre-hero-links" aria-label="Browse the kit">
-      {LINKS.map(({ text, href, icon }) => (
+      {ITEMS.map(({ value, label, href }) => (
         <Link key={href} className="spectre-hero-link" href={href}>
-          {createElement("svg", {
-            className: "spectre-hero-link__icon",
-            viewBox: "0 0 24 24",
-            "aria-hidden": true,
-            dangerouslySetInnerHTML: { __html: icon.body },
-          })}
-          {text}
+          <span className="spectre-hero-link__value">{value}</span>
+          <span className="spectre-hero-link__label">{label} <span aria-hidden="true">→</span></span>
         </Link>
       ))}
     </nav>

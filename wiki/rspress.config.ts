@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs"
+import { readdirSync, readFileSync } from "node:fs"
 import { resolve } from "node:path"
 import { defineConfig } from "@rspress/core"
 import { parseDocument, isMap, isPair, isScalar } from "yaml"
@@ -33,6 +33,10 @@ const tokenGroups = (() => {
   }))
 })()
 
+// How many components and blocks the kit holds, for the home hero's grid: one directory each.
+const countDirs = (dir: string) => readdirSync(resolve(protocolDir, dir), { withFileTypes: true }).filter((entry) => entry.isDirectory()).length
+const kitCounts = { components: countDirs("components"), blocks: countDirs("blocks") }
+
 export default defineConfig({
   root: "src/pages",
   outDir: "build/design",
@@ -51,6 +55,7 @@ export default defineConfig({
       define: {
         "process.env.KIT_VERSION": JSON.stringify(version),
         "process.env.DESIGN_TOKENS": JSON.stringify(JSON.stringify(tokenGroups)),
+        "process.env.KIT_COUNTS": JSON.stringify(JSON.stringify(kitCounts)),
       },
     },
     resolve: {
