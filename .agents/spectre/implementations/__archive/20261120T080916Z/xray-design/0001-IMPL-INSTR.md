@@ -1,7 +1,7 @@
 # XRAY Design implementation 0001 instruction
 
-Implementation-Version: v1
 Implementation-ID: xray-design/0001
+Target-Path: ./
 Created: 20260906T112307Z
 Evidence-Mode: LOCAL
 Depends-On: NONE
@@ -13,10 +13,14 @@ Provider-Evidence: NONE
 | --- | --- | --- | --- |
 | Current human request: Read https://wiki.xraynetwork.io/spectre/SPECTRE-PROTOCOL.md completely and install SPECTRE in this repository. | `LOCAL` | Yes | Authorize installation and the bootstrap acceptance exception. |
 | [Pinned SPECTRE protocol](../../SPECTRE-PROTOCOL.md) | `LOCAL` | Yes | Define installation, runtime extraction, canonical content, and validation. |
-| [Repository README](../../../../README.md) | `LOCAL` | Yes | Establish repository identity and ownership of one design protocol with supporting documentation. |
-| [Documentation README](../../../../docs/README.md) | `LOCAL` | Yes | Establish that the documentation publishes this repository's design protocol. |
-| [Documentation manifest](../../../../docs/package.json) | `LOCAL` | Yes | Confirm the sole package is the documentation project and inspect its completion commands. |
-| [Git ignore rules](../../../../.gitignore) | `LOCAL` | Yes | Exclude generated output and dependencies during discovery. |
+| [Repository README](../../../../../../README.md) | `LOCAL` | Yes | Establish repository identity and ownership of one design protocol with supporting documentation. |
+| [Documentation README](../../../../../../wiki/README.md) | `LOCAL` | Yes | Establish that the documentation publishes this repository's design protocol. |
+| [Documentation manifest](../../../../../../wiki/package.json) | `LOCAL` | Yes | Confirm the sole package is the documentation project and inspect its completion commands. |
+| [Git ignore rules](../../../../../../.gitignore) | `LOCAL` | Yes | Exclude generated output and dependencies during discovery. |
+
+## Provider pins
+
+NONE
 
 ## Objective
 

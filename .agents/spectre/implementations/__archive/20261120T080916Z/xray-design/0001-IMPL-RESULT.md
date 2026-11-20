@@ -1,6 +1,5 @@
 # XRAY Design implementation 0001 result
 
-Result-Version: v1
 Implementation-ID: xray-design/0001
 Instruction: ./0001-IMPL-INSTR.md
 Evidence-Mode: LOCAL
@@ -19,7 +18,7 @@ Installed SPECTRE 1.0.0 in flat storage for XRAY Design. The sole bootstrap reco
 
 ## Inputs consumed
 
-Consumed the current human installation request and every input declared in the [instruction](./0001-IMPL-INSTR.md): the complete pinned [protocol](../../SPECTRE-PROTOCOL.md), [repository README](../../../../README.md), [documentation README](../../../../docs/README.md), [documentation manifest](../../../../docs/package.json), and [ignore rules](../../../../.gitignore).
+Consumed the current human installation request and every input declared in the [instruction](0001-IMPL-INSTR.md): the complete pinned [protocol](../../SPECTRE-PROTOCOL.md), [repository README](../../../../../../README.md), [documentation README](../../../../docs/README.md), [documentation manifest](../../../../docs/package.json), and [ignore rules](../../../../../../.gitignore).
 Repository file inventory and tracked-file hashes established absence of prior SPECTRE records and preservation of all existing files. The skill-creator guidance and its local validator were used as installation tooling.
 
 ## Project changes
