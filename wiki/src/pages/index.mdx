@@ -10,7 +10,7 @@ import { CodeBlock, HeroArtwork, HeroLinks, CopyPromptButton, installationPrompt
       <HeroArtwork />
       <div className="spectre-hero-copy">
         <span className="spectre-eyebrow">Interface standard</span>
-        <h1 id="ui-that-becomes-your-code">Consistent UI from your coding agent, on every screen.</h1>
+        <h1 id="ui-that-becomes-your-code">Build, adapt, and maintain consistent UI with AI.</h1>
         <p className="spectre-lead">One prompt gives your agent a UI kit for React, HTML, SwiftUI, Android and others: components copied into code you own, both themes and accessibility built in.</p>
         <div className="spectre-actions">
           <CopyPromptButton variant="primary" label="Copy install prompt" />
@@ -23,44 +23,36 @@ import { CodeBlock, HeroArtwork, HeroLinks, CopyPromptButton, installationPrompt
 
   <section className="spectre-start" id="get-started" aria-labelledby="get-started-title">
     <div className="spectre-section-heading">
-      <div><span className="spectre-eyebrow">01 / Installation</span><h2 id="get-started-title" data-outline>Start with a single prompt</h2></div>
+      <div><span className="spectre-eyebrow">Get started</span><h2 id="get-started-title" data-outline>Install with a single prompt</h2></div>
       <Link className="spectre-text-link" href="/installation">Installation guide <span aria-hidden="true">↗</span></Link>
     </div>
-    <p>Open your project in a coding agent, then copy and send this prompt.</p>
-    <div className="spectre-install-panel">
-      <CodeBlock title="Copy into your coding agent" wrapCode>
-        <pre tabIndex={0}><code>{installationPrompt}</code></pre>
-      </CodeBlock>
-      <div className="spectre-install-result">
-        <span className="spectre-check" aria-hidden="true">✓</span>
-        <p>Your agent places the protocol and kit in <code>.agents/design/</code>, then loads the tokens and adds a pointer to <code>AGENTS.md</code>.</p>
-      </div>
-    </div>
+    <p>Open your project in a coding agent and send this prompt.</p>
+    <CodeBlock wrapCode><pre tabIndex={0}><code>{installationPrompt}</code></pre></CodeBlock>
+    <p className="spectre-flow__result">Your agent installs the protocol and kit in <code>.agents/design/</code>, sets up the tokens and links to the protocol from <code>AGENTS.md</code>.</p>
   </section>
 
   <section className="spectre-workflow" id="first-component" aria-labelledby="first-component-title">
     <div className="spectre-section-heading">
-      <div><span className="spectre-eyebrow">02 / The workflow</span><h2 id="first-component-title" data-outline>Add and adapt components</h2></div>
-      <Link className="spectre-text-link" href="/concepts#contracts">Core concepts <span aria-hidden="true">↗</span></Link>
+      <h2 id="first-component-title" data-outline>How to use</h2>
+      <Link className="spectre-text-link" href="/installation#start-with-natural-language">Commands <span aria-hidden="true">↗</span></Link>
     </div>
-    <p>Ask your agent for a component by name or in your own words, then adapt it to your product.</p>
-    <ol className="spectre-workflow-list">
+    <ol className="spectre-flow" role="list">
       <li>
-        <div className="spectre-workflow-title"><span className="spectre-step" aria-hidden="true">01</span><h3>Add a component</h3><span className="spectre-state spectre-state--planned">ADDED</span></div>
-        <p>Copied with its tokens and dependencies into your UI folder, and wired into your stack.</p>
-        <CodeBlock title="Copy into your coding agent" wrapCode><pre tabIndex={0}><code>Add the segmented control for the period filter.</code></pre></CodeBlock>
+        <h3>Add a component</h3>
+        <CodeBlock wrapCode><pre tabIndex={0}><code>Add the segmented control for the period filter.</code></pre></CodeBlock>
+        <p className="spectre-flow__result">Your agent adds the component and its dependencies to your UI folder and wires it into your app.</p>
       </li>
       <li>
-        <div className="spectre-workflow-title"><span className="spectre-step" aria-hidden="true">02</span><h3>Adapt it to your product</h3><span className="spectre-state spectre-state--review">ADAPTED</span></div>
-        <p>Changed within its safe edits, then checked in both themes, by keyboard and at phone width.</p>
-        <CodeBlock title="Copy into your coding agent" wrapCode><pre tabIndex={0}><code>Make the period filter full width and add a 90 days option.</code></pre></CodeBlock>
+        <h3>Adapt it to your product</h3>
+        <CodeBlock wrapCode><pre tabIndex={0}><code>Make the period filter full width and add a 90 days option.</code></pre></CodeBlock>
+        <p className="spectre-flow__result">Your agent adjusts the component within its contract and checks both themes, keyboard use and phone widths.</p>
       </li>
     </ol>
   </section>
 
   <section className="spectre-browse" id="browse" aria-labelledby="browse-title">
     <div className="spectre-section-heading">
-      <div><span className="spectre-eyebrow">03 / Explore the kit</span><h2 id="browse-title" data-outline>Browse what your agent can build</h2></div>
+      <div><span className="spectre-eyebrow">Explore the kit</span><h2 id="browse-title" data-outline>Browse what your agent can build</h2></div>
     </div>
     <p>Preview every component, block, screen and icon in both themes, then copy a prompt for your framework.</p>
     <nav className="spectre-resources" aria-label="Explore XRAY/DESIGN documentation">

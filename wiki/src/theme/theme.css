@@ -420,13 +420,15 @@ html .rp-code-button-group__button {
   color: var(--xr-fg-secondary);
 }
 
-html .rp-code-copy-button {
-  opacity: 1;
-}
-
 html .rp-code-button-group__button:hover {
   background: var(--xr-chip);
   color: var(--xr-fg);
+}
+
+html .rp-code-copy-button,
+html .rp-code-copy-button:hover {
+  background: transparent;
+  opacity: 1;
 }
 
 html .rp-codeblock__content--fold:after {
@@ -834,7 +836,6 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
 
 /* ---- Sections ---- */
 .spectre-section-heading,
-.spectre-workflow-title,
 .spectre-resource-label {
   display: flex;
   align-items: center;
@@ -880,7 +881,6 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
 }
 
 .spectre-section-heading h2 {
-  margin-top: 12px;
   color: var(--rp-c-text-0);
   font-size: clamp(26px, 2.6vw, 34px);
   line-height: 1.2;
@@ -888,18 +888,25 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   font-weight: 600;
 }
 
-/* Section descriptions: one line over a hairline. */
-:is(.spectre-start, .spectre-workflow, .spectre-browse) > p {
-  padding-bottom: 28px;
-  border-bottom: 1px solid var(--xr-border);
+.spectre-section-heading .spectre-eyebrow + h2 {
+  margin-top: 12px;
+}
+
+:is(.spectre-start, .spectre-browse) > p {
   color: var(--xr-fg-secondary);
   font-size: 17px;
+}
+
+.spectre-browse > p {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--xr-border);
 }
 
 .spectre-text-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-height: 24px;
   color: var(--rp-c-link);
   font-size: 13px;
   font-weight: 600;
@@ -909,10 +916,6 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   color: var(--xr-link-hover);
   text-decoration: underline;
   text-underline-offset: 4px;
-}
-
-.spectre-install-panel {
-  margin-top: 28px;
 }
 
 /* Prompt code blocks: the home page's, and the same design for each showcase screen's prompt. */
@@ -925,18 +928,18 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   text-align: left;
 }
 
-:is(.spectre-start, .spectre-workflow, .wiki-showcase-prompt) .rp-codeblock {
+.wiki-showcase-prompt .rp-codeblock {
   margin: 0 0 16px;
-  border-top: 6px solid var(--xr-action); /* a band: the fill blue in both themes */
+  border-top: 6px solid var(--xr-action);
 }
 
-:is(.spectre-start, .spectre-workflow, .wiki-showcase-prompt) .rp-codeblock__title {
+.wiki-showcase-prompt .rp-codeblock__title {
   background: var(--xr-canvas);
   border-bottom: 1px solid var(--xr-border);
   font: 500 11px/1.5 var(--xr-font-mono);
 }
 
-:is(.spectre-start, .spectre-workflow, .wiki-showcase-prompt) .rp-codeblock__content {
+.wiki-showcase-prompt .rp-codeblock__content {
   background: var(--xr-canvas);
 }
 
@@ -967,78 +970,6 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   overflow-wrap: anywhere;
 }
 
-
-.spectre-install-result {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  font-size: 13px;
-}
-
-.spectre-check {
-  color: var(--xr-link);
-  font-weight: 700;
-}
-
-/* The two steps: unframed, like the install prompt, in two columns; subgrid rows keep their headers, texts and
-   prompts level. */
-.spectre-workflow-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 40px 32px;
-  margin: 28px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.spectre-workflow-list > li {
-  display: grid;
-  grid-row: span 3;
-  grid-template-rows: subgrid;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-}
-
-.spectre-step {
-  display: grid;
-  flex: none;
-  width: 26px;
-  height: 26px;
-  place-items: center;
-  background: var(--xr-surface);
-  border: 1px solid var(--xr-border);
-  border-radius: 6px;
-  color: var(--xr-fg-muted);
-  font: 600 10px/1 var(--rp-font-family-mono);
-}
-
-.spectre-workflow-list .spectre-workflow-title {
-  justify-content: flex-start;
-  gap: 10px;
-}
-
-.spectre-workflow-title h3 {
-  color: var(--rp-c-text-0);
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: -.015em;
-}
-
-.spectre-workflow-title .spectre-state {
-  margin-left: auto;
-}
-
-.spectre-workflow-list > li > p {
-  color: var(--rp-c-text-2);
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.spectre-workflow-list > li > .rp-codeblock {
-  margin: 6px 0 0;
-}
 
 .spectre-state {
   padding: 3px 8px;
@@ -1163,14 +1094,8 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
     font-size: 16px;
   }
 
-  .spectre-workflow-list,
   .spectre-resources {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .spectre-workflow-list > li {
-    grid-row: auto;
-    grid-template-rows: none;
   }
 
   .spectre-resources > .spectre-resource:nth-child(even) {
@@ -1646,9 +1571,13 @@ html .rp-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--xr-scrollbar-hover) padding-box;
 }
 
-/* Concepts: a request queue as numbered steps on a dashed rail; each command has its own copy block,
-   followed by what it produced and the resulting state. */
+/* Home and Core concepts: numbered prompts and their results on a dashed rail. */
 html .rp-doc .spectre-flow {
+  --flow-marker-size: 26px;
+  --flow-marker-top: 10px;
+  --flow-marker-gap: 18px;
+  --flow-step-spacing: 24px;
+  --flow-counter-style: decimal-leading-zero;
   margin: 24px 0;
   padding: 0;
   list-style: none;
@@ -1658,18 +1587,18 @@ html .rp-doc .spectre-flow {
 html .rp-doc .spectre-flow > li {
   position: relative;
   margin: 0;
-  padding: 0 0 24px 44px;
+  padding: 0 0 var(--flow-step-spacing) calc(var(--flow-marker-size) + var(--flow-marker-gap));
   counter-increment: spectre-flow;
 }
 
 html .rp-doc .spectre-flow > li::before {
-  content: counter(spectre-flow, decimal-leading-zero);
+  content: counter(spectre-flow, var(--flow-counter-style));
   position: absolute;
-  top: 10px;
+  top: var(--flow-marker-top);
   left: 0;
   display: grid;
-  width: 26px;
-  height: 26px;
+  width: var(--flow-marker-size);
+  height: var(--flow-marker-size);
   place-items: center;
   border: 1px solid var(--xr-border);
   border-radius: 4px;
@@ -1681,9 +1610,9 @@ html .rp-doc .spectre-flow > li::before {
 html .rp-doc .spectre-flow > li:not(:last-child)::after {
   content: "";
   position: absolute;
-  top: 44px;
+  top: calc(var(--flow-marker-top) + var(--flow-marker-size) + 8px);
   bottom: 6px;
-  left: 13px;
+  left: calc(var(--flow-marker-size) / 2);
   border-left: 1px dashed var(--xr-border-strong);
 }
 
@@ -1695,12 +1624,12 @@ html .rp-doc .spectre-flow .rp-codeblock {
   margin: 0;
 }
 
-html .rp-doc .spectre-flow .rp-codeblock pre {
+html .rp-doc .spectre-flow:not(:where(.rp-not-doc *)) .rp-codeblock pre {
   margin: 0;
   padding: 0 4.5rem 0 20px; /* this theme's code block already pads vertically */
 }
 
-html .rp-doc .spectre-flow .rp-codeblock code {
+html .rp-doc .spectre-flow:not(:where(.rp-not-doc *)) .rp-codeblock code {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
@@ -1717,4 +1646,53 @@ html .rp-doc .spectre-flow__result .spectre-state {
   margin-left: 4px;
   vertical-align: 1px;
   line-height: 1.4;
+}
+
+html .spectre-home .spectre-flow {
+  --flow-marker-size: clamp(36px, 4vw, 44px);
+  --flow-marker-top: 0px;
+  --flow-marker-gap: clamp(12px, 2vw, 24px);
+  --flow-step-spacing: 32px;
+  --flow-counter-style: decimal;
+  margin: 28px 0 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--xr-border);
+}
+
+html .spectre-home .spectre-flow > li::before {
+  border: 0;
+  border-radius: var(--xr-radius);
+  background: var(--xr-brand);
+  color: var(--xr-on-action);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.spectre-home .spectre-flow h3 {
+  margin-bottom: 12px;
+  padding-top: calc((var(--flow-marker-size) - 28px) / 2);
+  color: var(--xr-fg);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: -.015em;
+}
+
+.spectre-home .rp-code-button-group {
+  top: 12px;
+  right: 12px;
+  gap: 4px;
+}
+
+.spectre-home .rp-code-button-group__button {
+  min-width: 24px;
+  min-height: 24px;
+}
+
+.spectre-home .rp-code-button-group__button:focus-visible {
+  opacity: 1;
+}
+
+html .spectre-home .spectre-flow__result {
+  font-size: 16px;
 }
