@@ -49,5 +49,7 @@ The first version.
 
 ### Changed
 
+- **Component adaptations:** keep one-place changes at the use site, make shared variants opt-in,
+  and create a new project component when the change goes beyond the shared contract.
 - **Native GUI documentation:** the public page explains requests and automatic agent behavior;
   detailed implementation procedures remain in the skill reference.

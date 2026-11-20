@@ -140,13 +140,23 @@ Blocks are finished screen sections (balance, send form, transaction history) bu
 ## Adapt a component (the human asks for a change)
 
 1. Read the component's COMPONENT.md: **Invariants** and **Safe edits**.
-2. Prefer, in order: overriding component tokens → a variant/size → composition within the safe edits → structural changes.
+2. Find every use of the component in the project before changing it. The copy under `uiRoot` is shared: a change
+   to its files changes every screen that uses it. Decide the scope:
+   - The change is for one place: make it there (props, attributes, data, composition). The shared copy stays as is.
+   - The change would alter other uses: add it as a variant or option, off by default, so other uses keep their look
+     and behavior.
+   - The result no longer fits the component's contract (a different anatomy, purpose or behavior): create a new
+     project component ("Create a new component"), use it where the human asked, and leave the shared copy and
+     its other uses unchanged.
+
+   Change other uses only when the human asks for it, and name the screens that change.
+3. Prefer, in order: overriding component tokens → a variant/size → composition within the safe edits → structural changes.
    Web variants use `data-variant`/`data-size`; native variants use typed properties and theme overrides.
-3. If the change would break an invariant or a rule, say so and propose the closest compliant
+4. If the change would break an invariant or a rule, say so and propose the closest compliant
    option. Do it anyway only if the human confirms.
-4. If both the HTML and React versions are in use, change both the same way. Web state stays in attributes;
+5. If both the HTML and React versions are in use, change both the same way. Web state stays in attributes;
    native state uses the framework's properties/bindings and accessibility semantics.
-5. Re-run the checklist (both themes, keyboard, reduced motion, phone width).
+6. Re-run the checklist (both themes, keyboard, reduced motion, phone width) for every use the change touched.
 
 ## Create a new component
 

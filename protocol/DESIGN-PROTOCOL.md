@@ -432,6 +432,8 @@ declared in its frontmatter `blocks:`; components never use blocks.
 2. Copy the web implementation or implement its contract in the target GUI framework (see the skill).
    Keep the HTML and React versions consistent if both are used.
 3. Adapt within the component's **Safe edits**. Never break its **Invariants** or these rules without the human's explicit request.
+   A project copy is shared by every screen that uses it: keep a one-place change at that place, make a wider one
+   a variant that is off by default, and build a new component when the result no longer fits the contract.
 4. A new component must look like it came from the kit: semantic and component tokens, both themes,
    accessible framework state, keyboard support, a motion tier, and its own COMPONENT.md in the project.
    Web implementations also use attribute state, `x-` naming and `@layer components`.

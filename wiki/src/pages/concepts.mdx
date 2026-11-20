@@ -1,0 +1,139 @@
+---
+title: Core concepts
+description: "How XRAY/DESIGN works: the protocol and the kit, code you own, components and blocks, contracts, tokens and themes, web and native, versions."
+---
+
+import { CodeBlock } from '@rspress/core/theme';
+
+# Core concepts
+
+XRAY/DESIGN is a set of instructions for your coding agent, plus the components it builds from. You ask for UI in
+your own words, and your agent writes the code. This page explains the ideas behind that, so you know what your
+agent does, what it will push back on, and what stays yours.
+
+## One component, end to end
+
+Two requests take a component from the kit into your product. Each changes code you own and the
+record of what you use:
+
+<ol className="spectre-flow">
+<li>
+<CodeBlock wrapCode><pre tabIndex={0}><code>Add the segmented control for the period filter.</code></pre></CodeBlock>
+<p className="spectre-flow__result">Copies it into <code>src/ui/components/segmented/</code> with its tokens and dependencies and adds it to <code>design.lock.json</code> <span className="spectre-state spectre-state--planned">ADDED</span></p>
+</li>
+<li>
+<CodeBlock wrapCode><pre tabIndex={0}><code>Make the period filter full width and add a 90 days option.</code></pre></CodeBlock>
+<p className="spectre-flow__result">Changes your copy within its safe edits and runs its checklist; the file now counts as modified <span className="spectre-state spectre-state--review">ADAPTED</span></p>
+</li>
+</ol>
+
+The sections below explain each piece: the [kit](#protocol-and-kit), the
+[code you own](#you-own-the-code) and the [contract](#contracts) that decides what may change. The
+[components](/components/) show every one with its prompt.
+
+## Protocol and kit
+
+Installation places one folder in your project, `.agents/design/`. It holds three things:
+
+- **The protocol**, `DESIGN-PROTOCOL.md`: every token with its value in both themes, and the design rules: color,
+  type, spacing, motion, accessibility, voice. Your agent reads it before it creates or changes any UI.
+- **The skill**, `SKILL.md`: the workflows your agent follows to add, adapt, create, theme, upgrade and audit.
+- **The kit**: the components and blocks, each with its source and its contract.
+
+Treat the folder as read-only: the agent copies from it and never edits it, and an upgrade replaces it.
+A pointer in `AGENTS.md` tells every agent working in the repository where to find it.
+
+When requests conflict, the order is: the protocol, then the component's contract, then your existing code.
+If you ask for something that breaks a rule, your agent says which rule and offers the closest option that
+follows it. It goes ahead only when you confirm.
+
+You can also install [the protocol alone](/protocol#installation), for projects that keep their own
+components and want only the rules and tokens.
+
+## You own the code
+
+Components are copied into your project, not installed as a package. Nothing is added to `package.json`.
+
+- **UI folder.** Copies go into one folder, for example `src/ui/`, in the same layout as the kit, so their imports
+  keep working. From then on they are your code: change them like any other file.
+- **Lock file.** `design.lock.json` in the UI folder records the kit version, your stack, the components and blocks
+  you use and, if you have one, your theme layer.
+- **Unchanged or modified.** A copied file is unchanged while it is identical to its kit original, and modified
+  once you or your agent edit it. Upgrades use this to replace what you never touched and merge what you did.
+
+## Components, blocks and screens
+
+The kit has three levels, each built only from the one below:
+
+| Level | What it is | Examples |
+|---|---|---|
+| [Components](/components/) | Single controls with their own states, keyboard support and motion | Button, Select, Segmented, Table |
+| [Blocks](/blocks/) | Finished screen sections that add layout, never new controls or tokens | Balance, Send form, Transactions |
+| [Showcase](/showcase/) | Whole app screens to start your own from | Settings form |
+
+Ask for a block and your agent copies the components it uses first. Blocks take data from your code and never
+fetch it. When the kit has nothing that fits, your agent creates a new component in the kit's style, with its own
+contract, in your UI folder.
+
+## Contracts
+
+Every component and block has a contract, `COMPONENT.md`, that your agent reads before it touches the code. Its
+page in this wiki shows the same contract under the preview. Three parts decide what the agent may change:
+
+| Part | What it says | Example from Segmented |
+|---|---|---|
+| **Invariants** | What must not change, because behavior or accessibility depends on it | Native radio inputs stay; they are not replaced with buttons. |
+| **Safe edits** | Changes the component is designed for | Icons and counts inside an item; a tabs look through the radius tokens. |
+| **Checklist** | What to verify after any change | Click, arrow keys and Tab work; both themes; reduced motion. |
+
+To adapt a component, your agent tries the smallest change first: component tokens, then a variant or size,
+then composition within the safe edits, and only then structural changes.
+
+Your app has one copy of each component, shared by every screen that uses it. Before changing it, your agent
+finds those screens and keeps the change to the one you asked about:
+
+- **A change for one screen** is made on that screen. The shared component stays as it is.
+- **A change other screens could use** becomes a variant or option, off by default, so the other screens
+  look and behave as before.
+- **A change that no longer fits the component**, such as a different structure or purpose, becomes a new
+  component in your UI folder, used only where you asked. The original and its other uses stay unchanged.
+
+Your agent changes other screens only when you ask, and names them when it does.
+
+A change that would break an invariant works like any rule break: the agent names it, offers the closest compliant option, and waits for you to confirm.
+After any change it runs the checklist: both themes, keyboard, reduced motion and phone width.
+
+## Tokens and themes
+
+Every color, size and timing is a [token](/tokens). Components read **semantic** tokens, such as `--x-bg`,
+`--x-fg-2` or `--x-accent`, never the palette or raw color values. That is what lets one change restyle every
+component at once.
+
+- **Both themes.** Every color token has a light and a dark value, and every screen is checked in both. On the web,
+  tokens follow the operating system's theme, or `data-theme="light"` or `data-theme="dark"` on the page or any
+  part of it.
+- **One theme layer.** Your brand color, fonts, corners and grays live in a single file your project owns, applied
+  after the kit's tokens. You never edit copied kit files to rebrand, and upgrades never touch your theme layer.
+  [Theming](/theming) generates the prompt that writes it.
+
+## Web and native
+
+The design is the same on every platform. Only the implementation differs:
+
+- **Web** (React, plain HTML or another browser framework): your agent copies the kit's HTML, CSS and React
+  sources and wires them into your stack.
+- **Native** (SwiftUI, UIKit or AppKit, Compose, Android Views, JavaFX and others): your agent maps the tokens into
+  your framework's theme and writes native code from each contract, using your framework's controls and
+  accessibility. No browser or WebView is involved. See [Native GUI](/native-gui).
+
+Either way, the visual standard and the contracts apply in full.
+
+## Versions
+
+A project stays on the version it installed until you ask your agent to upgrade. An upgrade fetches the latest
+kit, replaces the files you never changed, and merges the kit's changes into the files you did. It lists any
+conflicts for the agent to resolve and applies every breaking change from the changelog. Your theme layer is
+never replaced or merged. Commit first: version control is how you roll back. [Releases](/releases) lists what
+each version changed.
+
+[Continue to the design protocol →](./protocol)

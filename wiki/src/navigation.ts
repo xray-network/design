@@ -86,6 +86,7 @@ export function sidebar(): Sidebar {
       { sectionHeaderText: "Get started" },
       { text: "Overview", link: "/" },
       { text: "Installation", link: "/installation" },
+      { text: "Core concepts", link: "/concepts" },
       { sectionHeaderText: "UI kit" },
       { text: "Components", link: "/components/" },
       { text: "Blocks", link: "/blocks/" },

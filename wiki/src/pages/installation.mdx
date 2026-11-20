@@ -23,26 +23,11 @@ Build the settings screen with switches for lock and hidden balances.
 Audit the send form against the design rules.
 ```
 
-The agent reads `.agents/design/DESIGN-PROTOCOL.md` before any UI work. Then it copies the components it needs into
-your UI folder and adapts them there, or implements their contracts in the native framework.
-Project implementations are your code; the kit folder stays read-only.
+See [Core concepts](/concepts) for what your agent reads, what it may change and what stays yours.
 
 ## Native GUI projects
 
-The same installation prompt works for SwiftUI, UIKit/AppKit, JavaFX, Android and other GUI projects.
-The agent uses the existing framework and supported OS versions. The kit ships native porting guidance
-alongside its HTML/React sources; native component libraries are not included.
-
-For example:
-
-```text
-Implement the balance block in this SwiftUI iOS app using XRAY/DESIGN.
-Style this JavaFX settings form with XRAY/DESIGN tokens and component contracts.
-```
-
-The agent maps tokens, control states, accessibility and motion to the framework, keeps a native
-implementation lock, and verifies the UI with platform tooling. See [Native GUI](/native-gui) for
-example requests, framework coverage and what your agent handles automatically.
+The same prompt works for SwiftUI, UIKit/AppKit, JavaFX, Android and other GUI projects. See [Native GUI](/native-gui).
 
 ## What gets installed
 
@@ -65,21 +50,18 @@ example requests, framework coverage and what your agent handles automatically.
 └── blocks/<id>/                   # the blocks you add
 ```
 
-The kit is the installed folder: there is no package dependency. Web components keep the
-kit's folder layout inside your UI folder, so their relative imports keep working. A copied file counts as
-unchanged while it is identical to its copy in the kit folder; that is how the agent knows what you have edited.
-Native targets create theme/resources and framework code instead. Their lock records the framework,
-platforms, implemented component/block IDs and native file baseline digests. Nothing is added to `package.json`.
+Native targets create theme resources and framework code instead of the UI folder files. Their lock also records the
+framework, platforms and a baseline of each native file. [Core concepts](/concepts#you-own-the-code) explains
+the UI folder, the lock and how the agent tells which files you have edited.
 
 ## Upgrade an existing installation
 
 <CodeBlock wrapCode lang="text"><pre className="shiki css-variables" data-lang="text" tabIndex={0}><code><span className="line"><span>{upgradePrompt}</span></span></code></pre></CodeBlock>
 
-Commit first: version control is the upgrade's rollback path. The upgrade always goes to the latest protocol. The
-agent keeps the old kit folder as the merge base, then fetches the latest kit. For web copies, files you never changed are replaced; files you changed get a
-3-way merge, and any conflicts are listed for the agent to resolve. Native implementations review upstream
-token/contract/source changes, update existing native code and re-run platform checks before recording
-the new baseline. See [Releases](/releases) for what each version changed.
+Commit first: version control is the upgrade's rollback path. The agent keeps the old kit folder as the merge base,
+fetches the latest kit and runs a 3-way merge (see [Versions](/concepts#versions)). Native implementations review
+the upstream changes, update the native code and re-run platform checks before recording the new baseline.
+See [Releases](/releases) for what each version changed.
 
 ## Requirements
 
@@ -90,4 +72,4 @@ the new baseline. See [Releases](/releases) for what each version changed.
 - Git, for the agent to clone the kit during installation and upgrade. With the protocol only, nothing is needed.
 - Claude Code reads skills from `.claude/skills/`; setup links the skill there when the project uses it.
 
-[Continue to the design protocol →](./protocol)
+[Continue to Core concepts →](./concepts)

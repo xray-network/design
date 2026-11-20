@@ -563,14 +563,14 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
 
 /* Home frames: rounded panels with a small plus on each corner, drawn as one layer of 1px bars (no glyphs), so the
    frame keeps its own ::before. Hover changes color only, so nothing needs clipping to the rounded corners. */
-:is(.spectre-hero-links, .spectre-workflow-list, .spectre-resources) {
+:is(.spectre-hero-links, .spectre-resources) {
   position: relative;
   border: 1px solid var(--xr-border-strong);
   border-radius: 16px;
   background: var(--xr-panel);
 }
 
-:is(.spectre-hero-links, .spectre-workflow-list, .spectre-resources)::after {
+:is(.spectre-hero-links, .spectre-resources)::after {
   --mark: var(--xr-fg-disabled);
   content: "";
   position: absolute;
@@ -980,10 +980,12 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   font-weight: 700;
 }
 
-/* The two steps: one ruled frame, two cells; subgrid rows keep their headers, texts and prompts level. */
+/* The two steps: unframed, like the install prompt, in two columns; subgrid rows keep their headers, texts and
+   prompts level. */
 .spectre-workflow-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px 32px;
   margin: 28px 0 0;
   padding: 0;
   list-style: none;
@@ -995,11 +997,7 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   grid-template-rows: subgrid;
   gap: 10px;
   margin: 0;
-  padding: 24px;
-}
-
-.spectre-workflow-list > li + li {
-  border-left: 1px solid var(--xr-border);
+  padding: 0;
 }
 
 .spectre-step {
@@ -1170,15 +1168,9 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .spectre-workflow-list > li + li {
-    border-left: 0;
-    border-top: 1px solid var(--xr-border);
-  }
-
   .spectre-workflow-list > li {
     grid-row: auto;
     grid-template-rows: none;
-    padding: 20px;
   }
 
   .spectre-resources > .spectre-resource:nth-child(even) {
@@ -1652,4 +1644,77 @@ html .rp-scrollbar::-webkit-scrollbar-thumb {
 html ::-webkit-scrollbar-thumb:hover,
 html .rp-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--xr-scrollbar-hover) padding-box;
+}
+
+/* Concepts: a request queue as numbered steps on a dashed rail; each command has its own copy block,
+   followed by what it produced and the resulting state. */
+html .rp-doc .spectre-flow {
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: spectre-flow;
+}
+
+html .rp-doc .spectre-flow > li {
+  position: relative;
+  margin: 0;
+  padding: 0 0 24px 44px;
+  counter-increment: spectre-flow;
+}
+
+html .rp-doc .spectre-flow > li::before {
+  content: counter(spectre-flow, decimal-leading-zero);
+  position: absolute;
+  top: 10px;
+  left: 0;
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid var(--xr-border);
+  border-radius: 4px;
+  background: var(--xr-surface);
+  color: var(--xr-fg-muted);
+  font: 600 10px/1 var(--rp-font-family-mono);
+}
+
+html .rp-doc .spectre-flow > li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 44px;
+  bottom: 6px;
+  left: 13px;
+  border-left: 1px dashed var(--xr-border-strong);
+}
+
+html .rp-doc .spectre-flow > li:last-child {
+  padding-bottom: 0;
+}
+
+html .rp-doc .spectre-flow .rp-codeblock {
+  margin: 0;
+}
+
+html .rp-doc .spectre-flow .rp-codeblock pre {
+  margin: 0;
+  padding: 0 4.5rem 0 20px; /* this theme's code block already pads vertically */
+}
+
+html .rp-doc .spectre-flow .rp-codeblock code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+html .rp-doc .spectre-flow__result {
+  margin: 10px 0 0;
+  color: var(--rp-c-text-2);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+html .rp-doc .spectre-flow__result .spectre-state {
+  display: inline-block;
+  margin-left: 4px;
+  vertical-align: 1px;
+  line-height: 1.4;
 }
