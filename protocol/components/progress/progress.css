@@ -1,0 +1,52 @@
+/* Progress: a progress bar (task) and a meter (reading). Requires core/tokens.css. CSS only. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-progress {
+    --x-progress-height: 8px;
+    --x-progress-track: var(--x-bg-chip);
+    --x-progress-fill: var(--x-accent);
+
+    display: grid;
+    gap: var(--x-space-2);
+    min-width: 0;
+  }
+
+  .x-progress-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--x-space-3);
+    font-size: var(--x-text-sm);
+  }
+  .x-progress-label { min-width: 0; overflow: hidden; color: var(--x-fg-2); font-weight: var(--x-weight-label); text-overflow: ellipsis; white-space: nowrap; }
+  .x-progress-value { flex: none; color: var(--x-fg-3); font-variant-numeric: tabular-nums; }
+
+  .x-progress-track {
+    height: var(--x-progress-height);
+    overflow: hidden;
+    border-radius: var(--x-radius-pill);
+    background: var(--x-progress-track);
+  }
+  .x-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--x-progress-fill);
+    transform-origin: left center;
+    scale: var(--x-progress-value, 0) 1;
+  }
+  /* A task moves to its new value; a meter (data) does not animate. */
+  .x-progress[role="progressbar"] .x-progress-fill { transition: scale var(--x-duration-slow) var(--x-ease); }
+  .x-progress:dir(rtl) .x-progress-fill { transform-origin: right center; }
+
+  .x-progress[data-size="sm"] { --x-progress-height: 4px; }
+
+  .x-progress[data-tone="success"] { --x-progress-fill: var(--x-success); }
+  .x-progress[data-tone="warning"] { --x-progress-fill: var(--x-warning); }
+  .x-progress[data-tone="danger"] { --x-progress-fill: var(--x-danger); }
+  .x-progress[data-tone="neutral"] { --x-progress-fill: var(--x-fg-3); }
+
+  /* Loading: the head keeps its height with skeleton bars; the track stays empty. */
+  .x-progress[aria-busy="true"] .x-progress-fill { scale: 0 1; }
+}

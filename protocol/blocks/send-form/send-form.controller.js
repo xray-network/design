@@ -1,5 +1,5 @@
 /**
- * Send form behavior for plain HTML: Max fills the amount, the summary follows the amount and the fee,
+ * SendForm behavior for plain HTML: Max fills the amount, the summary follows the amount and the fee,
  * and an amount above the available balance shows an error.
  *
  *   <form class="x-send-form" data-available="12480.254221" data-ticker="USD"> …

@@ -1,5 +1,5 @@
 import { Button } from "@protocol/components/button/button"
-import { Field, Input } from "@protocol/components/field/field"
+import { Field, Input } from "@protocol/components/input/input"
 import { Popover } from "@protocol/components/popover/popover"
 import { toast } from "@protocol/components/toast/toast"
 import { Row } from "../Demo"

@@ -28,17 +28,18 @@ The first version.
   follow the ink.
 - **Grays:** neutral with the faintest warm tint (oklch chroma 0.0015 at most, hue 65), so chrome and text stay
   quiet beside any brand color; secondary text keeps 4.5:1 on the canvas in both themes.
-- **Components (34):** Alert, Avatar, BorderBeam, Button (+ icon button, round shape), Checkbox, Chips, Collapse,
-  Empty, Group, Icon (interface, social and crypto icons, all outline), Input (field, input, textarea), Menu, Menu Navigation, Message,
-  Modal (`dialog`), Numeral, Pagination, Popconfirm, Popover, Radio, Result, Segmented, Select,
-  Select Native, Skeleton, Spinner, Switch, Table, Table Compact, Tabs, Tag (+ status, delta), Toast, Tooltip, Typography.
+- **Components (47):** Alert, Avatar, BorderBeam, Button (+ icon button, round shape), Card (+ tile),
+  Checkbox, Chips, Collapse, Combobox, Command, Copy, Empty, Icon (interface, social and crypto icons, all outline),
+  Input (field, input, textarea), InputAmount, InputGroup, List, Menu, MenuList, MenuNavigation, Message, Modal (+ side sheet), Numeral,
+  CardOption (with a radio dot in the top-right corner), Pagination, Popconfirm, Popover, Progress (+ meter),
+  Radio, Result, Segmented, Select, SelectNative, Skeleton, Slider, Spinner,
+  Stats, Steps, Switch, Table, TableCompact, Tabs, Tag (+ status, delta), Timeline, Toast, Tooltip, Typography.
 - **Loading states:** Skeleton (shapes, and text bars exactly one line tall with stable varied widths). Table, Table
   Compact, Result, Button, Pagination, Avatar (a spinner on top) and every block take `loading`: placeholders follow
   the structure, not the content, and the layout does not move.
 - **Lazy content:** Modal, Tabs, Segmented and Collapse render hidden content on first show; `forceMount` renders it
   up front. In HTML, lazy content goes in `<template data-lazy>`.
-- **Blocks (9):** Account switcher, Balance, Card and Tile, List, Option cards (with a radio dot in the top-right
-  corner), Send form, Stats, Stats grid, Transactions.
+- **Blocks (5):** Balance, SendForm, StatsGrid, Swap, Transactions.
 - **Protocol:** `DESIGN-PROTOCOL.md`: the version and every token (both themes) in its header; rules for color, type,
   spacing, radius, surfaces, motion, layout, accessibility, theming,
   writing, components and blocks.

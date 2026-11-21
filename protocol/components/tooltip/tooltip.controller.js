@@ -6,9 +6,11 @@
  *
  * - shows at once on hover and on keyboard focus
  * - hides on pointer leave, blur, Esc and click
- * - sits on its data-placement side (top by default, or bottom, left, right), centered; flips to the opposite
- *   side when there is no room; stays inside the viewport
+ * - sits on its data-placement side (top by default, or bottom, left, right), centered; flips when there is no
+ *   room (a side tooltip moves above or below on narrow screens); stays inside the viewport and follows scrolling
  */
+
+import { onViewportChange, placeElement } from "../../core/place.js";
 
 /**
  * @param {HTMLElement} trigger
@@ -17,32 +19,10 @@
  */
 export function bindTooltip(trigger, tip) {
   const place = () => {
-    const t = trigger.getBoundingClientRect();
-    const r = tip.getBoundingClientRect();
-    const gap = 9, edge = 8, inset = 12;
-    const want = tip.dataset.placement || "top";
-    const fits = {
-      top: t.top - gap - r.height >= edge,
-      bottom: t.bottom + gap + r.height <= innerHeight - edge,
-      left: t.left - gap - r.width >= edge,
-      right: t.right + gap + r.width <= innerWidth - edge,
-    };
-    const opposite = { top: "bottom", bottom: "top", left: "right", right: "left" };
-    const side = fits[want] || !fits[opposite[want]] ? want : opposite[want];
-    tip.dataset.side = side;
-    const clamp = (v, min, max) => Math.min(Math.max(min, v), Math.max(min, max));
+    const pos = placeElement(tip, trigger, { side: tip.dataset.placement || "top", align: "center", gap: 9, arrowInset: 12 });
+    tip.dataset.side = pos.side;
     // The arrow points at the trigger's center, kept off the rounded corners.
-    if (side === "top" || side === "bottom") {
-      const left = Math.round(clamp(t.left + t.width / 2 - r.width / 2, edge, innerWidth - edge - r.width));
-      tip.style.top = `${Math.round(side === "top" ? t.top - gap - r.height : t.bottom + gap)}px`;
-      tip.style.left = `${left}px`;
-      tip.style.setProperty("--x-tooltip-arrow", `${Math.round(clamp(t.left + t.width / 2 - left, inset, r.width - inset))}px`);
-    } else {
-      const top = Math.round(clamp(t.top + t.height / 2 - r.height / 2, edge, innerHeight - edge - r.height));
-      tip.style.top = `${top}px`;
-      tip.style.left = `${Math.round(side === "left" ? t.left - gap - r.width : t.right + gap)}px`;
-      tip.style.setProperty("--x-tooltip-arrow", `${Math.round(clamp(t.top + t.height / 2 - top, inset, r.height - inset))}px`);
-    }
+    tip.style.setProperty("--x-tooltip-arrow", `${pos.arrow}px`);
   };
   const show = () => {
     if (tip.matches(":popover-open")) return;
@@ -55,6 +35,7 @@ export function bindTooltip(trigger, tip) {
   };
   const onFocus = () => { if (trigger.matches(":focus-visible")) show(); };
   const onKey = (event) => { if (event.key === "Escape") hide(); };
+  const stopWatching = onViewportChange(() => { if (tip.matches(":popover-open")) place(); });
 
   trigger.addEventListener("pointerenter", show);
   trigger.addEventListener("pointerleave", hide);
@@ -64,6 +45,7 @@ export function bindTooltip(trigger, tip) {
   trigger.addEventListener("keydown", onKey);
   return () => {
     hide();
+    stopWatching();
     trigger.removeEventListener("pointerenter", show);
     trigger.removeEventListener("pointerleave", hide);
     trigger.removeEventListener("focus", onFocus);

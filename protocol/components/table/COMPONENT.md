@@ -13,7 +13,7 @@ files: [table.css, table.html, table.controller.js, table.tsx]
 Rows of comparable data on a page: payments, invoices, customers, endpoints. A hairline frame with a
 tinted header row and dividers between rows, like the tables in these docs. Give it a page size and it
 pages the rows with Pagination under the frame. For a dense table with its own title inside a dashboard
-card, use Table Compact; for one or two facts per object on phones, use List.
+card, use TableCompact; for one or two facts per object on phones, use List.
 
 ## Platform contract
 
@@ -75,9 +75,12 @@ Row hover color on `--x-duration-fast`; the sort arrow turns on `--x-spring`.
 
 - Controls (buttons, menus, tags) in cells.
 - A fixed column width through `width` on a column.
+- A cell that must wrap (a long note): `white-space: normal` on that column. Its rows then vary in height, and
+  loading rows no longer match them.
 
 ## Checklist
 
 - [ ] Caption names the table; first cell is the row header
-- [ ] Wide tables scroll sideways inside the frame on phones
+- [ ] Wide tables scroll sideways inside the frame on phones; cells stay on one line, so rows keep one height
+- [ ] Loading rows are exactly as tall as data rows, at desktop and phone width
 - [ ] Paging and sorting work by keyboard; both themes

@@ -1,0 +1,108 @@
+---
+id: modal
+name: Modal
+summary: Modal dialog on native <dialog>; centered panel on desktop, bottom sheet on phones, or a side sheet.
+motion: 0
+requires: [tokens]
+components: [button]
+files: [modal.css, modal.html, modal.controller.js, modal.controller.d.ts, modal.tsx]
+---
+
+# Modal
+
+Interrupts the flow for one decision or one short task: confirm, rename, add account. Long flows
+belong on a page. Non-blocking information belongs in a toast.
+
+**Side sheet** (`placement="end"` or `"start"`): the same modal as a full-height panel at the window's edge, for
+details, filters and settings that keep the page in view beside them. On phones the start sheet is the app's
+navigation drawer.
+
+## Platform contract
+
+All platforms preserve modal interaction, title/description, initial focus, dismissal policy, one primary
+action placed last, scrollable body and focus return to the opener. Native GUI implementations use the
+framework's modal/presentation mechanisms and accessibility focus support. `<dialog>`, `showModal()`,
+DOM scrollbar handling and CSS transitions below specify the web implementation only. Adapt compact
+presentation to the target OS and available width; record system-controlled sheet styling differences.
+
+## Anatomy
+
+```
+dialog.x-dialog[aria-labelledby]       460px panel, 20px radius, panel surface, hairline
+├── header.x-dialog-header
+│   ├── h2.x-dialog-title
+│   └── .x-icon-button[aria-label=Close]
+├── .x-dialog-body                     scrolls when tall; a hairline appears under the header once it scrolls
+│   └── p.x-dialog-description (optional)
+└── footer.x-dialog-footer             actions; primary last (right on desktop, bottom on phones)
+```
+
+## Variants and sizes
+
+| Attribute | Values | Default |
+|---|---|---|
+| `data-size` | `sm` 380px, `lg` 620px | 460px |
+| `data-placement` | `top`: 48px below the window's top edge, dropping in from above (search, growing forms); `end`, `start`: a full-height side sheet that slides in from that edge (420px; `lg` 560px) | centered |
+| `data-x-dismiss` (HTML) / `dismissible` (React) | `none` / `false`: no backdrop or Esc close | dismissible |
+
+Below 560px every size becomes a full-width bottom sheet with stacked full-width actions; `top` becomes a sheet
+16px below the top edge. Side sheets stay side sheets, 32px short of the full width, so the page shows beside them.
+
+## States
+
+| State | Source | Look |
+|---|---|---|
+| open | `[open]` via `showModal()` | rises from 10px below (48px on phones) at 0.96 scale on `--x-spring`; side sheets slide in 32px from their edge; scrim fades in |
+| closing | `[open]` removed | fades and sinks on `--x-ease`, no overshoot |
+
+## Accessibility
+
+- Always `showModal()`, never `show()` and never the `open` attribute in markup: that gives focus trap, Esc, top layer and an inert page.
+- The page never shifts when a dialog opens, however it is opened: `initDialogs` and the React component keep a
+  `data-x-scrollbar` mark on `<html>` current while the page shows a classic scrollbar, and the scroll lock keeps that
+  space only then.
+- `aria-labelledby` points to the title; `aria-describedby` to the description when there is one.
+- Initial focus: the safest action for destructive dialogs, otherwise the first field. HTML: `autofocus`.
+  React: `data-autofocus` (React strips `autofocus` and focuses on mount, before the dialog opens).
+  Without either, the first focusable element (the Close button) gets focus.
+- Focus returns to the opener on close (native).
+
+## Lazy content
+
+The body renders on first open and stays rendered after closing, so a heavy dialog costs nothing until it is
+used. `forceMount` (React) renders it up front, for content that must exist while closed (form state that is
+read before opening, anchors). In HTML, put lazy content in `<template data-lazy>`; `initDialogs` renders it
+right before the first opening.
+
+## Motion
+
+Tier 0. CSS transitions with `@starting-style` and `allow-discrete` on `display` and `overlay`.
+Entry is liquid (`--x-spring` on scale and translate); exit is geometric (`--x-ease`), because
+overshoot reads as hesitation on the way out. Reduced motion: instant.
+
+## Component tokens
+
+`--x-dialog-width`, `-pad`, `-enter-y`, `-enter-x`.
+
+## Invariants
+
+- Web: native `<dialog>` with `showModal()`. No div-based modal, no custom focus trap.
+- One primary action per dialog, placed last.
+- Shadow-free: separation comes from the scrim and the hairline.
+
+## Safe edits
+
+- Form dialogs: wrap body and footer in `<form method="dialog">`; submit buttons close with their `value` as `returnValue`.
+- Wider custom sizes through `--x-dialog-width`.
+- Header extras: an icon or status tag before the title.
+
+## Checklist
+
+- [ ] Opens with focus inside; Tab stays inside; Esc closes (unless not dismissible); focus returns to the opener
+- [ ] Backdrop click closes; keyboard "click" on the dialog never closes it
+- [ ] Page behind does not scroll, and does not shift sideways when the dialog opens: with a classic scrollbar
+      (its space is kept) and without one (no gutter is added)
+- [ ] Long content scrolls inside the body; header and footer stay put
+- [ ] Phone width: bottom sheet, stacked actions, safe-area padding
+- [ ] Side sheets: full height at their edge, footer at the bottom, slide in from that edge (also right-to-left)
+- [ ] Both themes; reduced motion

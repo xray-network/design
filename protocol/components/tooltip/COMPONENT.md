@@ -3,7 +3,7 @@ id: tooltip
 name: Tooltip
 summary: Short label on hover and keyboard focus, for icon buttons and compact values.
 motion: 0
-requires: [tokens]
+requires: [tokens, place]
 components: []
 files: [tooltip.css, tooltip.html, tooltip.controller.js, tooltip.controller.d.ts, tooltip.tsx]
 ---

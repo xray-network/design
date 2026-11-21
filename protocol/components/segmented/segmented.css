@@ -4,6 +4,10 @@
 
 @layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
 
+/* Registered, so the indicator's insets animate as lengths and its clamp below holds on every frame. */
+@property --x-ind-left { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --x-ind-right { syntax: "<length>"; inherits: true; initial-value: 0px; }
+
 @layer components {
   .x-segmented {
     --x-segmented-pad: 3px;
@@ -56,15 +60,17 @@
 
   /* ---- Liquid indicator (enabled by JS through data-indicator) ----------
      The edge in the direction of travel leads on the liquid spring; the trailing edge follows
-     on the soft spring, so the indicator stretches toward the target and then settles. */
+     on the soft spring, so the indicator stretches toward the target and then settles.
+     The insets animate (not left/right), and left/right clamp them to the scrollable area: a spring's
+     overshoot at either end never pokes out of the track, so the track never shows a scrollbar mid-slide. */
   .x-segmented-indicator {
     display: none;
     position: absolute;
     z-index: -1;
     top: var(--x-segmented-pad);
     bottom: var(--x-segmented-pad);
-    left: var(--x-ind-left, 0);
-    right: var(--x-ind-right, 100%);
+    left: max(var(--x-ind-min, 0px), var(--x-ind-left, 0px));
+    right: max(var(--x-ind-min, 0px), var(--x-ind-right, 100%));
     border-radius: var(--x-segmented-item-radius);
     background: var(--x-segmented-indicator-bg);
     pointer-events: none;
@@ -74,18 +80,18 @@
 
   .x-segmented[data-indicator="ready"] .x-segmented-indicator {
     transition:
-      left var(--x-spring-duration) var(--x-spring),
-      right var(--x-spring-duration) var(--x-spring);
+      --x-ind-left var(--x-spring-duration) var(--x-spring),
+      --x-ind-right var(--x-spring-duration) var(--x-spring);
   }
   .x-segmented[data-indicator="ready"][data-direction="forward"] .x-segmented-indicator {
     transition:
-      right calc(var(--x-spring-duration) * 0.85) var(--x-spring),
-      left calc(var(--x-spring-soft-duration) * 1.1) var(--x-spring-soft);
+      --x-ind-right calc(var(--x-spring-duration) * 0.85) var(--x-spring),
+      --x-ind-left calc(var(--x-spring-soft-duration) * 1.1) var(--x-spring-soft);
   }
   .x-segmented[data-indicator="ready"][data-direction="backward"] .x-segmented-indicator {
     transition:
-      left calc(var(--x-spring-duration) * 0.85) var(--x-spring),
-      right calc(var(--x-spring-soft-duration) * 1.1) var(--x-spring-soft);
+      --x-ind-left calc(var(--x-spring-duration) * 0.85) var(--x-spring),
+      --x-ind-right calc(var(--x-spring-soft-duration) * 1.1) var(--x-spring-soft);
   }
 
   /* Optional views under the control: the selected option's panel shows. */

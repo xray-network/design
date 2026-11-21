@@ -1,0 +1,158 @@
+/* Steps: the stages of a flow. A marker above its title, joined to the next by a line that fills as steps complete.
+   Requires core/tokens.css and spinner (the loading step). CSS only. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-steps {
+    --x-steps-marker: 32px;
+    --x-steps-track: var(--x-border);
+    /* Neutral on purpose: done and current steps are filled in the text color (light on dark, dark on light),
+       so a row of steps never competes with the screen's one accent action. */
+    --x-steps-fill: var(--x-fg-1);
+    --x-steps-on: var(--x-bg); /* the check and the number on a filled marker */
+    --x-steps-halo: var(--x-bg-active);
+    --x-steps-gap: 6px; /* between a marker and its line */
+    --x-steps-pad: var(--x-space-1-5); /* the trigger's padding: room for its hover fill and focus ring */
+    --x-steps-col: 128px; /* one step's column; the row is as wide as its steps and sits at the start */
+
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .x-steps-item {
+    position: relative;
+    display: flex;
+    flex: 0 1 auto;
+    width: var(--x-steps-col); /* a width, not a flex-basis: the row's own width is measured from it */
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+  }
+  /* Full width: equal columns across the container. */
+  .x-steps[data-width="full"] { width: 100%; }
+  .x-steps[data-width="full"] .x-steps-item { flex: 1 1 0; width: auto; }
+
+  /* The line to the next marker. It stops short of both markers and fills from the start once this step is complete. */
+  .x-steps-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: calc(var(--x-steps-pad) + var(--x-steps-marker) / 2 - 1px);
+    inset-inline: calc(50% + var(--x-steps-marker) / 2 + var(--x-steps-gap)) calc(-50% + var(--x-steps-marker) / 2 + var(--x-steps-gap));
+    height: 2px;
+    border-radius: var(--x-radius-pill);
+    background: linear-gradient(var(--x-steps-fill), var(--x-steps-fill)) left / 0% 100% no-repeat var(--x-steps-track);
+    pointer-events: none;
+    transition: background-size var(--x-duration-slow) var(--x-ease);
+  }
+  .x-steps-item:dir(rtl)::after { background-position: right; }
+  .x-steps-item[data-state="complete"]::after { background-size: 100% 100%; }
+
+  /* The trigger holds the marker and the text. A span for a plain step; a button or link when the step can be revisited. */
+  .x-steps-trigger {
+    display: grid;
+    justify-items: center;
+    gap: var(--x-space-2);
+    max-width: 100%;
+    padding: var(--x-steps-pad) var(--x-space-2);
+    border: 0;
+    border-radius: var(--x-radius-xl);
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color var(--x-duration-fast) var(--x-ease);
+  }
+  :is(button, a).x-steps-trigger { cursor: pointer; }
+  :is(button, a).x-steps-trigger:hover { background: var(--x-bg-soft); }
+  :is(button, a).x-steps-trigger:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+
+  .x-steps-marker {
+    position: relative; /* above the line */
+    display: grid;
+    flex: none;
+    width: var(--x-steps-marker);
+    height: var(--x-steps-marker);
+    place-items: center;
+    border: 1px solid var(--x-border);
+    border-radius: 50%;
+    background: var(--x-bg-chip);
+    color: var(--x-fg-3);
+    font: var(--x-weight-label) var(--x-text-xs) / 1 var(--x-font-sans);
+    font-variant-numeric: tabular-nums;
+    /* The halo: a ring that springs out around the step in progress. */
+    outline: 0 solid var(--x-steps-halo);
+    transition:
+      background-color var(--x-duration-base) var(--x-ease),
+      border-color var(--x-duration-base) var(--x-ease),
+      color var(--x-duration-base) var(--x-ease),
+      outline-width var(--x-spring-duration) var(--x-spring);
+  }
+  .x-steps-marker > svg {
+    width: var(--x-icon-md);
+    height: var(--x-icon-md);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: scale var(--x-spring-duration) var(--x-spring), opacity var(--x-duration-fast) var(--x-ease);
+  }
+  /* The check and the cross pop in when a step changes state. */
+  @starting-style {
+    .x-steps-marker > svg { scale: 0.4; opacity: 0; }
+  }
+
+  .x-steps-title { color: var(--x-fg-3); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); line-height: 1.4; transition: color var(--x-duration-base) var(--x-ease); }
+  .x-steps-description { margin-top: calc(var(--x-space-1-5) * -1); color: var(--x-fg-3); font-size: var(--x-text-xs); line-height: 1.4; }
+
+  .x-steps-item[data-state="complete"] .x-steps-marker { border-color: var(--x-steps-fill); background: var(--x-steps-fill); color: var(--x-steps-on); }
+  .x-steps-item[data-state="current"] .x-steps-marker { border-color: var(--x-steps-fill); background: var(--x-steps-fill); color: var(--x-steps-on); outline-width: 4px; }
+  /* Working: the marker stays a chip, with the halo and a spinner in the text color. */
+  .x-steps-item[data-state="loading"] .x-steps-marker { border-color: transparent; color: var(--x-fg-1); outline-width: 4px; }
+  .x-steps-item[data-state="loading"] .x-steps-marker > .x-spinner { --x-spinner-color: var(--x-fg-1); }
+  .x-steps-item[data-state="error"] .x-steps-marker { border-color: var(--x-danger); background: var(--x-danger); color: var(--x-danger-on); }
+  .x-steps-item:not([data-state="upcoming"]) .x-steps-title { color: var(--x-fg-1); }
+  .x-steps-item[data-state="error"] .x-steps-description { color: var(--x-danger-fg); }
+
+  /* Vertical: the marker on the start side, the text beside it, the line running down. */
+  .x-steps[data-orientation="vertical"] { flex-direction: column; width: 100%; }
+  .x-steps[data-orientation="vertical"] .x-steps-item { flex: none; width: auto; align-items: flex-start; padding-bottom: var(--x-space-4); }
+  .x-steps[data-orientation="vertical"] .x-steps-item:last-child { padding-bottom: 0; }
+  .x-steps[data-orientation="vertical"] .x-steps-trigger {
+    grid-template-columns: auto minmax(0, 1fr);
+    justify-items: start;
+    column-gap: var(--x-space-3);
+    row-gap: var(--x-space-0-5);
+    padding-inline-end: var(--x-space-4);
+    text-align: start;
+  }
+  .x-steps[data-orientation="vertical"] .x-steps-marker { grid-row: span 2; }
+  /* Centers a title without a description on the marker, and lines up the first line when there is one. */
+  .x-steps[data-orientation="vertical"] .x-steps-title { margin-top: calc((var(--x-steps-marker) - 1lh) / 2); }
+  .x-steps[data-orientation="vertical"] .x-steps-description { margin-top: 0; }
+  .x-steps[data-orientation="vertical"] .x-steps-item:not(:last-child)::after {
+    top: calc(var(--x-steps-pad) + var(--x-steps-marker) + var(--x-steps-gap));
+    bottom: calc(var(--x-steps-gap) - var(--x-steps-pad));
+    inset-inline: calc(var(--x-space-2) + var(--x-steps-marker) / 2 - 1px) auto;
+    width: 2px;
+    height: auto;
+    background-position: top;
+    background-size: 100% 0%;
+  }
+  .x-steps[data-orientation="vertical"] .x-steps-item[data-state="complete"]::after { background-size: 100% 100%; }
+
+  /* Phones: a horizontal row keeps the markers and titles; descriptions are hidden from view, still read out. */
+  @media (max-width: 560px) {
+    .x-steps:not([data-orientation="vertical"]) .x-steps-trigger { padding-inline: var(--x-space-1); }
+    .x-steps:not([data-orientation="vertical"]) .x-steps-title { font-size: var(--x-text-xs); }
+    .x-steps:not([data-orientation="vertical"]) .x-steps-description {
+      position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+    }
+  }
+}

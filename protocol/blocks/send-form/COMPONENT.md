@@ -1,15 +1,14 @@
 ---
 id: send-form
-name: Send form
+name: SendForm
 summary: Recipient, amount with Max, network fee options, a live total and the review button.
 motion: 0
 requires: [tokens]
-components: [field, button, skeleton]
-blocks: [option]
+components: [input, button, card-option, skeleton]
 files: [send-form.css, send-form.html, send-form.controller.js, send-form.tsx]
 ---
 
-# Send form
+# SendForm
 
 The send step of a payment: who, how much, how fast, and what it costs in total. It ends in a review
 step (a Dialog, or a page), never in sending directly.
@@ -20,7 +19,7 @@ step (a Dialog, or a page), never in sending directly.
 form.x-send-form                          single column, 24px gaps, 560px max
 ├── .x-field  Recipient                   Field + Input: email or account ID
 ├── .x-field  Amount                      Input lg + chip Button "Max" + ticker; hint: fiat · available
-├── .x-field  Fee                 Option cards: Slow / Standard / Fast with time and cost
+├── .x-field  Fee                 CardOption: Slow / Standard / Fast with time and cost
 ├── dl.x-send-form-summary                Fee, Total (bold); hairline above
 └── button.x-button[data-size=lg][data-width=full]   "Review transaction"
 ```
@@ -53,7 +52,7 @@ None beyond its components.
 
 - Review before sending: the button opens a review, it does not send.
 - The total includes the fee and uses the asset's own decimals.
-- Option cards preselect the recommended fee (Standard).
+- CardOption preselects the recommended fee (Standard).
 
 ## Safe edits
 

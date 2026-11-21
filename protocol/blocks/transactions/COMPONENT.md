@@ -4,8 +4,7 @@ name: Transactions
 summary: Transaction history with type filters, rows grouped by day, and compact paging.
 motion: 0
 requires: [tokens]
-components: [chips, pagination, skeleton]
-blocks: [list]
+components: [chips, list, pagination, skeleton]
 files: [transactions.css, transactions.html, transactions.tsx]
 ---
 

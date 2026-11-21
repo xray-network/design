@@ -1,0 +1,94 @@
+/* MenuList: grouped rows of destinations in rounded panels. Requires core/tokens.css. CSS only. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-menu-list {
+    --x-menu-list-item-h: var(--x-size-xl);
+    --x-menu-list-pad: var(--x-space-3-5);
+    --x-menu-list-tile: 30px;
+    --x-menu-list-radius: var(--x-radius-2xl);
+
+    display: grid;
+    gap: var(--x-space-6);
+    min-width: 0;
+  }
+
+  .x-menu-list-section { display: grid; gap: var(--x-space-2); min-width: 0; }
+  .x-menu-list-heading {
+    margin: 0;
+    padding: 0 var(--x-menu-list-pad);
+    color: var(--x-fg-3);
+    font: var(--x-weight-label) var(--x-text-xs) / 1.4 var(--x-font-sans);
+  }
+  .x-menu-list-note { margin: 0; padding: 0 var(--x-menu-list-pad); color: var(--x-fg-3); font-size: var(--x-text-xs); line-height: var(--x-leading-body); }
+
+  .x-menu-list-group {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-menu-list-radius);
+    background: var(--x-bg-panel);
+    list-style: none;
+  }
+
+  .x-menu-list-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--x-space-3);
+    width: 100%;
+    min-height: var(--x-menu-list-item-h);
+    padding: var(--x-space-1-5) var(--x-menu-list-pad);
+    border: 0;
+    background: none;
+    color: var(--x-fg-1);
+    font: var(--x-weight-body) var(--x-text-md) / 1.3 var(--x-font-sans);
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--x-duration-fast) var(--x-ease), color var(--x-duration-fast) var(--x-ease);
+  }
+  /* The divider: a hairline from the label to the end, above every row but the first. */
+  li + li > .x-menu-list-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    inset-inline: var(--x-menu-list-divider-start, calc(var(--x-menu-list-pad) + var(--x-menu-list-tile) + var(--x-space-3))) 0;
+    height: 1px;
+    background: var(--x-border);
+  }
+  .x-menu-list-group:not(:has(.x-menu-list-icon)) { --x-menu-list-divider-start: var(--x-menu-list-pad); }
+
+  .x-menu-list-item:hover { background: var(--x-bg-soft); }
+  .x-menu-list-item:active { background: var(--x-bg-active); }
+  .x-menu-list-item:focus-visible { outline: 2px solid var(--x-focus); outline-offset: -2px; }
+  .x-menu-list-item[aria-disabled="true"] { opacity: 0.4; pointer-events: none; }
+
+  .x-menu-list-icon {
+    display: grid;
+    flex: none;
+    width: var(--x-menu-list-tile);
+    height: var(--x-menu-list-tile);
+    place-items: center;
+    border-radius: var(--x-radius-md);
+    background: var(--x-bg-chip);
+    color: var(--x-fg-1);
+    transition: background-color var(--x-duration-fast) var(--x-ease), color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-menu-list-icon > .x-icon { width: var(--x-icon-md); height: var(--x-icon-md); }
+
+  .x-menu-list-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .x-menu-list-value { flex: none; max-width: 45%; overflow: hidden; color: var(--x-fg-3); text-overflow: ellipsis; white-space: nowrap; }
+  .x-menu-list-chevron { flex: none; width: var(--x-icon-sm); height: var(--x-icon-sm); margin-inline-end: calc(var(--x-space-1) * -1); color: var(--x-fg-4); }
+  .x-menu-list-item:dir(rtl) .x-menu-list-chevron { scale: -1 1; }
+
+  /* Current: the one accent in the list. The dividers next to it disappear. */
+  .x-menu-list-item[aria-current="page"] { background: var(--x-accent); color: var(--x-accent-fg); }
+  .x-menu-list-item[aria-current="page"] :is(.x-menu-list-value, .x-menu-list-chevron) { color: var(--x-accent-fg); }
+  .x-menu-list-item[aria-current="page"] .x-menu-list-icon { background: var(--x-accent-press); color: var(--x-accent-fg); }
+  .x-menu-list-item[aria-current="page"]::before,
+  li:has(> .x-menu-list-item[aria-current="page"]) + li > .x-menu-list-item::before { opacity: 0; }
+  .x-menu-list-item[aria-current="page"]:focus-visible { outline-color: var(--x-accent-fg); outline-offset: -4px; }
+}

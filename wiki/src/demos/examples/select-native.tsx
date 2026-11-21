@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { Field } from "@protocol/components/field/field"
-import { NativeSelect } from "@protocol/components/select-native/select-native"
+import { Field } from "@protocol/components/input/input"
+import { SelectNative } from "@protocol/components/select-native/select-native"
 
 // The same choices as the Select demo. Native options cannot show Select's notes (Virginia, Ireland).
 export default function SelectNativeExample() {
@@ -9,7 +9,7 @@ export default function SelectNativeExample() {
     <>
       <Field label="Region">
         {(p) => (
-          <NativeSelect
+          <SelectNative
             {...p}
             name="region"
             value={region}
@@ -22,7 +22,7 @@ export default function SelectNativeExample() {
           />
         )}
       </Field>
-      <NativeSelect aria-label="Sort by" size="sm" defaultValue="value" options={[{ value: "value", label: "Value" }, { value: "name", label: "Name" }, { value: "change", label: "Change 24h" }]} />
+      <SelectNative aria-label="Sort by" size="sm" defaultValue="value" options={[{ value: "value", label: "Value" }, { value: "name", label: "Name" }, { value: "change", label: "Change 24h" }]} />
     </>
   )
 }

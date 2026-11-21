@@ -424,7 +424,7 @@ visible scrollbar and an edge fade in the canvas color.
 ## 14. Working with components and blocks (for agents)
 
 **Components** are single controls you build with (Button, Select, Table). **Blocks** are finished screen sections
-(Balance, Send form, Transactions) built only from components: they add layout, never new controls or tokens.
+(Balance, SendForm, Transactions) built only from components: they add layout, never new controls or tokens.
 If a block needs a control the kit lacks, that control becomes a component first. A block may build on other blocks,
 declared in its frontmatter `blocks:`; components never use blocks.
 

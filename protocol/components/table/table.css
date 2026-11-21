@@ -34,6 +34,9 @@
 
   .x-table th,
   .x-table td { padding: var(--x-table-cell-pad); border-bottom: 1px solid var(--x-border); text-align: left; vertical-align: middle; }
+  /* Cells keep to one line, so every row is the same height (and as tall as a loading row) at any width; on narrow
+     screens the table scrolls sideways inside its frame instead of wrapping. */
+  .x-table tbody :is(th, td) { white-space: nowrap; }
   .x-table :is(th, td)[data-align="end"] { text-align: right; }
   .x-table :is(th, td)[data-align="center"] { text-align: center; }
 

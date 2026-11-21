@@ -1,6 +1,5 @@
 /* Menu: a popover list of actions anchored to a trigger. Requires core/tokens.css.
-   Uses the Popover API (top layer, light dismiss, Esc). Positioned with CSS anchor positioning
-   where supported; menu.controller.js positions it otherwise. */
+   Uses the Popover API (top layer, light dismiss, Esc); menu.controller.js places it. */
 
 @layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
 
@@ -50,15 +49,6 @@
   }
   @starting-style {
     .x-menu:popover-open { opacity: 0; scale: 0.96; translate: 0 -4px; }
-  }
-
-  /* Anchor positioning: below the trigger, start-aligned; flips when out of room. */
-  @supports (position-area: block-end) {
-    .x-menu[data-anchored] {
-      position-area: block-end span-inline-end;
-      position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-      margin-block-start: var(--x-menu-offset);
-    }
   }
 
   .x-menu-item {

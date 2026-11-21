@@ -3,7 +3,7 @@ id: popover
 name: Popover
 summary: A small panel anchored to a trigger for extra detail or a short form; light-dismissed, never modal.
 motion: 0
-requires: [tokens]
+requires: [tokens, place]
 components: []
 files: [popover.css, popover.html, popover.controller.js, popover.controller.d.ts, popover.tsx]
 ---

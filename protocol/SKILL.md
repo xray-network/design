@@ -18,6 +18,7 @@ This folder (`.agents/design/`) is the **catalog**. It is read-only and replaced
 | `references/native-gui.md` | Native setup, token conversion, component implementation, status and upgrades; read only for native GUI work |
 | `core/tokens.css`, `core/base.css` | Tokens and layers; optional reset |
 | `core/motion.js`, `core/motion.d.ts` | Motion helpers (liquid indicator, FLIP, springs). No dependencies |
+| `core/place.js`, `core/place.d.ts` | Placement for floating boxes (tooltips, popovers, menus, option lists): sides, flipping, the visual viewport. No dependencies |
 | `components/<id>/COMPONENT.md` | Contract: anatomy, states, accessibility, motion, invariants, safe edits, checklist. Its frontmatter lists dependencies (`requires`, `components`) and `files` |
 | `components/<id>/<id>.css` `.html` `.tsx` `.controller.js` | Styles, HTML reference, React version, vanilla controller |
 | `blocks/<id>/` | Blocks: screen sections built only from components. Same files as a component; `COMPONENT.md` lists the components it uses |
@@ -60,6 +61,7 @@ Copied files keep the catalog's layout under `uiRoot`, so relative imports keep 
 ```text
 .agents/design/core/tokens.css                 -> <uiRoot>/core/tokens.css
 .agents/design/core/motion.js                  -> <uiRoot>/core/motion.js
+.agents/design/core/place.js                   -> <uiRoot>/core/place.js
 .agents/design/components/menu/menu.css        -> <uiRoot>/components/menu/menu.css
 ```
 
@@ -69,8 +71,8 @@ Which files to copy for a component:
 - React (`stack: "react"`): its `.tsx`, plus any `.controller.js` and `.d.ts` that the `.tsx` imports.
 - HTML (`stack: "html"`): its `.controller.js`. Paste markup from `<id>.html` into pages; do not copy the file.
 - Never: `COMPONENT.md` and `<id>.html`. They stay in the catalog as the reference.
-- Dependencies first: every component in its frontmatter `components`, and `core/motion.js` (plus `core/motion.d.ts` for React)
-  when `requires` includes `motion`.
+- Dependencies first: every component in its frontmatter `components`; `core/motion.js` (plus `core/motion.d.ts` for React)
+  when `requires` includes `motion`; and `core/place.js` (plus `core/place.d.ts`) when it includes `place`.
 
 Never overwrite a file that already exists under `uiRoot`. A project file is **unchanged** when it is identical to its
 catalog counterpart (`cmp -s <catalog file> <project file>`), and **modified** otherwise.

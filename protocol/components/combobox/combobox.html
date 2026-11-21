@@ -1,0 +1,81 @@
+<!-- Combobox inside a field. combobox.controller.js filters, moves the active option, picks and positions the list.
+     Every option needs an id (for aria-activedescendant). -->
+<div class="x-field">
+  <label class="x-field-label" for="token-input">Token</label>
+  <div class="x-combobox">
+    <div class="x-combobox-field">
+      <input class="x-combobox-input" id="token-input" type="text" role="combobox" aria-controls="token-list" aria-expanded="false" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Search tokens" value="Ether">
+      <svg class="x-combobox-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+    </div>
+    <div class="x-combobox-list" id="token-list" popover="manual" role="listbox" aria-label="Token">
+      <div class="x-combobox-option" role="option" id="token-eth" data-value="eth" aria-selected="true">
+        <svg class="x-combobox-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+        <span>Ether</span><span class="x-combobox-option-note">ETH</span>
+      </div>
+      <div class="x-combobox-option" role="option" id="token-usdc" data-value="usdc" aria-selected="false">
+        <svg class="x-combobox-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+        <span>USD Coin</span><span class="x-combobox-option-note">USDC</span>
+      </div>
+      <div class="x-combobox-option" role="option" id="token-dai" data-value="dai" aria-selected="false" aria-disabled="true">
+        <svg class="x-combobox-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+        <span>Dai</span><span class="x-combobox-option-note">Paused</span>
+      </div>
+      <div class="x-combobox-empty" hidden>No matches</div>
+    </div>
+    <input type="hidden" name="token" value="eth" data-for="token-list">
+  </div>
+</div>
+
+<!-- Small, standalone (aria-label instead of a field label) -->
+<div class="x-combobox">
+  <div class="x-combobox-field" data-size="sm">
+    <input class="x-combobox-input" type="text" role="combobox" aria-controls="country-list" aria-expanded="false" aria-autocomplete="list" aria-label="Country" autocomplete="off" placeholder="Country">
+    <svg class="x-combobox-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+  </div>
+  <div class="x-combobox-list" id="country-list" popover="manual" role="listbox" aria-label="Country">
+    <div class="x-combobox-option" role="option" id="country-pt" data-value="pt" aria-selected="false">
+      <svg class="x-combobox-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+      <span>Portugal</span>
+    </div>
+    <div class="x-combobox-option" role="option" id="country-es" data-value="es" aria-selected="false">
+      <svg class="x-combobox-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+      <span>Spain</span>
+    </div>
+    <div class="x-combobox-empty" hidden>No matches</div>
+  </div>
+</div>
+
+<!-- Multiple: data-multiple on the root. Picked options are chips before the input; data-name submits one hidden
+     input per value. The controller draws chips and hidden inputs from the options' aria-selected. -->
+<div class="x-field">
+  <label class="x-field-label" for="networks-input">Networks</label>
+  <div class="x-combobox" data-multiple="" data-name="networks">
+    <div class="x-combobox-field">
+      <span class="x-combobox-chip" data-value="eth"><span>Ethereum</span><button class="x-combobox-chip-remove" type="button" aria-label="Remove Ethereum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18 18 6M6 6l12 12"/></svg></button></span>
+      <input class="x-combobox-input" id="networks-input" type="text" role="combobox" aria-controls="networks-list" aria-expanded="false" aria-autocomplete="list" autocomplete="off" spellcheck="false">
+      <svg class="x-combobox-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+    </div>
+    <div class="x-combobox-list" id="networks-list" popover="manual" role="listbox" aria-multiselectable="true" aria-label="Networks">
+      <div class="x-combobox-option" role="option" id="network-eth" data-value="eth" aria-selected="true">
+        <svg class="x-combobox-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+        <span>Ethereum</span>
+      </div>
+      <div class="x-combobox-option" role="option" id="network-base" data-value="base" aria-selected="false">
+        <svg class="x-combobox-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+        <span>Base</span>
+      </div>
+      <div class="x-combobox-option" role="option" id="network-arb" data-value="arb" aria-selected="false">
+        <svg class="x-combobox-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+        <span>Arbitrum</span>
+      </div>
+      <div class="x-combobox-empty" hidden>No matches</div>
+    </div>
+    <input type="hidden" name="networks" value="eth" data-for="networks-list">
+  </div>
+</div>
+
+<script type="module">
+  import { initComboboxes } from "./combobox.controller.js";
+  initComboboxes();
+  // document.querySelector(".x-combobox").addEventListener("change", (e) => e.detail.value)  (an array when multiple)
+</script>

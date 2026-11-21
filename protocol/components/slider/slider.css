@@ -1,0 +1,78 @@
+/* Slider: a native range input with a filled track. Requires core/tokens.css.
+   The filled part follows --x-slider-fill, set by slider.controller.js (HTML) or the React component. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-slider {
+    --x-slider-track-h: 4px;
+    --x-slider-thumb: 20px;
+    --x-slider-track: var(--x-bg-chip);
+    --x-slider-fill-bg: var(--x-accent);
+    --x-slider-thumb-bg: var(--x-accent-fg);
+
+    display: grid;
+    gap: var(--x-space-2);
+    min-width: 0;
+  }
+
+  .x-slider-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--x-space-3); }
+  .x-slider-label { color: var(--x-fg-2); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); }
+  .x-slider-value { color: var(--x-fg-1); font-size: var(--x-text-sm); font-variant-numeric: tabular-nums; }
+
+  .x-slider-input {
+    width: 100%;
+    height: var(--x-slider-thumb);
+    margin: 0;
+    background: none;
+    cursor: pointer;
+    appearance: none;
+  }
+  .x-slider-input:focus-visible { outline: none; }
+
+  /* Track: a hard split between the filled part and the rest. */
+  .x-slider-input::-webkit-slider-runnable-track {
+    height: var(--x-slider-track-h);
+    border-radius: var(--x-radius-pill);
+    background: linear-gradient(to right, var(--x-slider-fill-bg) var(--x-slider-fill, 0%), var(--x-slider-track) var(--x-slider-fill, 0%));
+  }
+  .x-slider-input::-moz-range-track { height: var(--x-slider-track-h); border-radius: var(--x-radius-pill); background: var(--x-slider-track); }
+  .x-slider-input::-moz-range-progress { height: var(--x-slider-track-h); border-radius: var(--x-radius-pill); background: var(--x-slider-fill-bg); }
+
+  .x-slider-input::-webkit-slider-thumb {
+    width: var(--x-slider-thumb);
+    height: var(--x-slider-thumb);
+    margin-top: calc((var(--x-slider-track-h) - var(--x-slider-thumb)) / 2);
+    border: 1px solid var(--x-border-hover);
+    border-radius: 50%;
+    background: var(--x-slider-thumb-bg);
+    appearance: none;
+    transition: scale var(--x-spring-duration) var(--x-spring), border-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-slider-input::-moz-range-thumb {
+    width: var(--x-slider-thumb);
+    height: var(--x-slider-thumb);
+    box-sizing: border-box;
+    border: 1px solid var(--x-border-hover);
+    border-radius: 50%;
+    background: var(--x-slider-thumb-bg);
+    transition: scale var(--x-spring-duration) var(--x-spring), border-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-slider-input:hover::-webkit-slider-thumb { border-color: var(--x-fg-4); }
+  .x-slider-input:hover::-moz-range-thumb { border-color: var(--x-fg-4); }
+  .x-slider-input:active::-webkit-slider-thumb { scale: calc(1 + (1 - var(--x-press-scale)) / 0.3); }
+  .x-slider-input:active::-moz-range-thumb { scale: calc(1 + (1 - var(--x-press-scale)) / 0.3); }
+  .x-slider-input:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+  .x-slider-input:focus-visible::-moz-range-thumb { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+  .x-slider-input:disabled { opacity: 0.4; cursor: default; }
+
+  .x-slider-marks {
+    display: flex;
+    justify-content: space-between;
+    color: var(--x-fg-3);
+    font-size: var(--x-text-2xs);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .x-slider[data-size="sm"] { --x-slider-thumb: 16px; }
+}

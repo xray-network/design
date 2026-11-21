@@ -5,13 +5,12 @@
  *   <div class="x-menu" id="row-menu" popover role="menu"> <button class="x-menu-item" role="menuitem">…</button> </div>
  *
  * The Popover API supplies top layer, light dismiss and Esc. This adds:
- * - positioning: CSS anchor positioning when supported, measured placement otherwise
+ * - positioning: under the trigger, start-aligned; above it when there is no room below; always inside the viewport
  * - keyboard: focus the first item on open; ArrowUp/ArrowDown/Home/End move; Tab closes
  * - activating an item closes the menu; aria-expanded on the trigger follows the menu
  */
 
-let anchorCount = 0;
-const supportsAnchor = typeof CSS !== "undefined" && CSS.supports("position-area: block-end");
+import { onViewportChange, placeElement } from "../../core/place.js";
 
 /**
  * @param {HTMLElement} trigger
@@ -21,29 +20,15 @@ const supportsAnchor = typeof CSS !== "undefined" && CSS.supports("position-area
 export function bindMenu(trigger, menu) {
   const items = () => [...menu.querySelectorAll('[role^="menuitem"]:not(:disabled):not([aria-disabled="true"])')];
 
-  if (supportsAnchor) {
-    const name = `--x-menu-${++anchorCount}`;
-    trigger.style.setProperty("anchor-name", name);
-    menu.style.setProperty("position-anchor", name);
-    menu.dataset.anchored = "";
-  }
-
   const place = () => {
-    if (supportsAnchor) return;
-    const t = trigger.getBoundingClientRect();
-    const m = menu.getBoundingClientRect();
-    const gap = 6, edge = 8;
-    const below = t.bottom + gap + m.height <= innerHeight - edge || t.top - gap - m.height < edge;
-    const left = Math.min(Math.max(edge, t.left), innerWidth - edge - m.width);
-    // Whole pixels: text at fractional positions is redrawn slightly differently after animations.
-    menu.style.top = `${Math.round(below ? t.bottom + gap : t.top - gap - m.height)}px`;
-    menu.style.left = `${Math.round(left)}px`;
-    menu.style.setProperty("--x-menu-origin", `${below ? "top" : "bottom"} ${left < t.left ? "right" : "left"}`);
+    const pos = placeElement(menu, trigger, { side: "bottom", align: "start", gap: 6, fitHeight: true });
+    const pushedBack = pos.left < Math.round(trigger.getBoundingClientRect().left);
+    menu.style.setProperty("--x-menu-origin", `${pos.side === "top" ? "bottom" : "top"} ${pushedBack ? "right" : "left"}`);
   };
 
   // Before the menu shows: a first guess (below, start-aligned) so it never flashes elsewhere.
   const onBeforeToggle = (event) => {
-    if (supportsAnchor || event.newState !== "open") return;
+    if (event.newState !== "open") return;
     const t = trigger.getBoundingClientRect();
     menu.style.top = `${Math.round(t.bottom + 6)}px`;
     menu.style.left = `${Math.round(t.left)}px`;
@@ -86,16 +71,14 @@ export function bindMenu(trigger, menu) {
   menu.addEventListener("toggle", onToggle);
   menu.addEventListener("keydown", onKeydown);
   menu.addEventListener("click", onClick);
-  addEventListener("resize", onViewport);
-  addEventListener("scroll", onViewport, true);
+  const stopWatching = onViewportChange(onViewport);
 
   return () => {
     menu.removeEventListener("beforetoggle", onBeforeToggle);
     menu.removeEventListener("toggle", onToggle);
     menu.removeEventListener("keydown", onKeydown);
     menu.removeEventListener("click", onClick);
-    removeEventListener("resize", onViewport);
-    removeEventListener("scroll", onViewport, true);
+    stopWatching();
   };
 }
 

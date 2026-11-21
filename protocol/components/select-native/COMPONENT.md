@@ -1,6 +1,6 @@
 ---
 id: select-native
-name: Select Native
+name: SelectNative
 summary: The browser's own select, styled like the text input; for forms, long option lists and phones.
 motion: 0
 requires: [tokens]
@@ -8,7 +8,7 @@ components: []
 files: [select-native.css, select-native.html, select-native.tsx]
 ---
 
-# Select Native
+# SelectNative
 
 A real `<select>` with the input's height, border, radius and focus, plus a chevron. Use it in forms that
 submit natively, for long option lists, and where the platform picker reads better (phones). For options

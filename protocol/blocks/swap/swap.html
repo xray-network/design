@@ -1,0 +1,78 @@
+<!-- Swap: two InputAmount fields, a flip button, details and review. swap.controller.js turns the flip icon and fires "flip";
+     input-amount.controller.js handles typing and Max. The app quotes the receive side, the rate and the fees. -->
+<form class="x-swap">
+  <div class="x-swap-pair">
+    <div class="x-amount" data-max="2.41" data-decimals="8">
+      <div class="x-amount-head">
+        <label class="x-amount-label" for="swap-pay">You pay</label>
+        <span class="x-amount-balance">Balance 2.41 <button class="x-button" type="button" data-variant="chip" data-x-max>Max</button></span>
+      </div>
+      <div class="x-amount-main">
+        <input class="x-amount-input" id="swap-pay" name="pay" type="text" inputmode="decimal" autocomplete="off" placeholder="0" value="1.5" aria-describedby="swap-pay-foot">
+        <button class="x-amount-currency" type="button" aria-label="Change currency, ETH"><span>ETH</span>
+          <svg class="x-amount-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+      </div>
+      <div class="x-amount-foot" id="swap-pay-foot"><span class="x-amount-fiat">≈ $4,812.60</span></div>
+    </div>
+
+    <button class="x-icon-button x-swap-flip" type="button" aria-label="Switch currencies">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"/></svg>
+    </button>
+
+    <div class="x-amount">
+      <div class="x-amount-head"><label class="x-amount-label" for="swap-receive">You receive</label><span class="x-amount-balance">Balance 120.00</span></div>
+      <div class="x-amount-main">
+        <input class="x-amount-input" id="swap-receive" type="text" inputmode="decimal" value="4802.11" readonly aria-describedby="swap-receive-foot">
+        <button class="x-amount-currency" type="button" aria-label="Change currency, USDC"><span>USDC</span>
+          <svg class="x-amount-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+      </div>
+      <div class="x-amount-foot" id="swap-receive-foot"><span class="x-amount-fiat">≈ $4,802.11</span></div>
+    </div>
+  </div>
+
+  <dl class="x-swap-details">
+    <div><dt>Rate</dt><dd>1 ETH = 3,201.41 USDC</dd></div>
+    <div><dt>Network fee</dt><dd>$1.84</dd></div>
+    <div><dt>Minimum received</dt><dd>4,778.10 USDC</dd></div>
+  </dl>
+
+  <button class="x-button" type="submit" data-size="lg" data-width="full">Review swap</button>
+</form>
+
+<!-- Quoting: skeletons in the receive side and the details; review disabled; the flip icon has turned once -->
+<form class="x-swap" aria-busy="true">
+  <div class="x-swap-pair">
+    <div class="x-amount">
+      <div class="x-amount-head"><label class="x-amount-label" for="swap-pay-2">You pay</label></div>
+      <div class="x-amount-main">
+        <input class="x-amount-input" id="swap-pay-2" type="text" inputmode="decimal" value="250">
+        <span class="x-amount-currency">USDC</span>
+      </div>
+    </div>
+    <button class="x-icon-button x-swap-flip" type="button" aria-label="Switch currencies" data-turned>
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"/></svg>
+    </button>
+    <div class="x-amount" aria-busy="true">
+      <div class="x-amount-head"><label class="x-amount-label" for="swap-receive-2">You receive</label></div>
+      <div class="x-amount-main">
+        <input class="x-amount-input" id="swap-receive-2" type="text" inputmode="decimal" value="0.078" readonly>
+        <span class="x-amount-currency">ETH</span>
+      </div>
+      <div class="x-amount-foot"><span class="x-amount-fiat"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 5em"></span></span></div>
+    </div>
+  </div>
+  <dl class="x-swap-details">
+    <div><dt>Rate</dt><dd><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 6em"></span></dd></div>
+  </dl>
+  <button class="x-button" type="submit" data-size="lg" data-width="full" disabled>Review swap</button>
+</form>
+
+<script type="module">
+  import { initAmounts } from "../../components/input-amount/input-amount.controller.js";
+  import { initSwaps } from "./swap.controller.js";
+  initAmounts();
+  initSwaps();
+  document.querySelector(".x-swap").addEventListener("flip", () => { /* swap the pair, then re-quote */ });
+</script>

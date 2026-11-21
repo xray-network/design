@@ -23,11 +23,11 @@ import { frontMatter, protocolMeta, protocolTokens, resolveTokens, UNLISTED } fr
 
 const WIKI = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const KIT = resolve(WIKI, "../protocol") // installed as-is to <project>/.agents/design/
-const SHARED = { tokens: ["core/tokens.css"], motion: ["core/motion.js", "core/motion.d.ts"] }
+const SHARED = { tokens: ["core/tokens.css"], motion: ["core/motion.js", "core/motion.d.ts"], place: ["core/place.js", "core/place.d.ts"] }
 // The installed layout: root documents and references/, web code in core/, components/ and blocks/.
 const ROOT_FILES = ["SKILL.md", "DESIGN-PROTOCOL.md", "CHANGELOG.md"]
 const REFERENCE_FILES = ["native-gui.md"]
-const CORE_FILES = ["tokens.css", "base.css", "motion.js", "motion.d.ts"]
+const CORE_FILES = ["tokens.css", "base.css", "motion.js", "motion.d.ts", "place.js", "place.d.ts"]
 
 const errors = []
 const error = (where, message) => errors.push(`${where}: ${message}`)
@@ -189,6 +189,7 @@ for (const [where, { kind, id, meta, dir, files }] of Object.entries(entries)) {
         const rel = relative(KIT, target)
         if (rel.startsWith("..")) { error(`${where}/${f}`, `import ${spec} leaves the kit`); continue }
         if (rel.startsWith("core/motion") && !meta.requires.includes("motion")) error(`${where}/${f}`, `imports ${spec} but requires lacks "motion"`)
+        if (rel.startsWith("core/place") && !meta.requires.includes("place")) error(`${where}/${f}`, `imports ${spec} but requires lacks "place"`)
         const other = rel.match(/^components\/([^/]+)\//)?.[1]
         if (other && !(kind === "components" && other === id) && !meta.components.includes(other)) error(`${where}/${f}`, `imports ${spec} but components lacks "${other}"`)
         const block = rel.match(/^blocks\/([^/]+)\//)?.[1]
@@ -227,7 +228,7 @@ await build({
 const { renderToStaticMarkup } = await import("react-dom/server")
 const { examples } = await import(pathToFileURL(OUT).href)
 
-const FREE = new Set(["data-placeholder", "data-for", "data-value", "data-seed", "data-id"])
+const FREE = new Set(["data-placeholder", "data-for", "data-value", "data-seed", "data-id", "data-keywords"])
 const facts = (markup) => {
   const out = new Set()
   for (const m of markup.matchAll(/class(?:Name)?="([^"]*)"/g)) for (const c of m[1].split(/\s+/)) if (c.startsWith("x-")) out.add(`.${c}`)

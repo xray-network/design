@@ -1,4 +1,4 @@
-/* Stats grid: headline figures in a framed grid of cells; a cell can split its total in a bar with a legend.
+/* StatsGrid: headline figures in a framed grid of cells; a cell can split its total in a bar with a legend.
    Requires core/tokens.css. */
 
 @layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */

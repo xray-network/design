@@ -28,7 +28,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--x-space-4);
-  min-height: 160px;
+  min-height: 400px;
   padding: var(--x-space-8) var(--x-space-6);
 }
 .wiki-demo-stage > .x-field,
@@ -47,7 +47,17 @@
 .wiki-demo-stage > .x-result,
 .wiki-demo-stage > .wiki-demo-beam,
 .wiki-demo-stage > .x-send-form,
-.wiki-demo-stage > .x-transactions { align-self: stretch; }
+.wiki-demo-stage > .x-transactions,
+.wiki-demo-stage > .x-progress,
+.wiki-demo-stage > .x-slider,
+.wiki-demo-stage > .x-steps,
+.wiki-demo-stage > .x-timeline,
+.wiki-demo-stage > .x-amount,
+.wiki-demo-stage > .x-combobox,
+.wiki-demo-stage > .x-command,
+.wiki-demo-stage > .x-swap,
+.wiki-demo-stage > .x-copy[data-variant="block"] { align-self: stretch; }
+.wiki-demo-stage > :is(.x-amount, .x-swap, .x-combobox, .x-slider) { max-width: 440px; }
 .wiki-demo-stage > :is(.x-select, .x-select-native) { width: auto; min-width: 200px; }
 .wiki-demo-stage > .x-list { margin-inline: var(--x-space-3); } /* room for the rows' overhanging hover fill */
 .wiki-demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5); }

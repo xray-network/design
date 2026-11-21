@@ -60,7 +60,8 @@ front. In HTML, lazy content goes in `<template data-lazy>`.
 Tier 1. `trackIndicator()` from `core/motion.js` measures the checked item and sets
 `--x-ind-left` / `--x-ind-right`. The edge in the direction of travel moves on `--x-spring`, the
 trailing edge on `--x-spring-soft` (slightly longer), so the indicator stretches toward the target and
-settles. First placement and resizes snap without animation. Reduced motion: instant.
+settles. The overshoot is clamped to the track's scrollable area (`--x-ind-min`), so sliding to an end item never
+shows a scrollbar or scrolls the track. First placement and resizes snap without animation. Reduced motion: instant.
 
 ## Component tokens
 

@@ -9,8 +9,6 @@ export type Column<Row> = {
   header: ReactNode;
   /** Cell content. Defaults to row[key]. */
   render?: (row: Row) => ReactNode;
-  /** First column only: a muted second line under the row's name (a description, an id). */
-  sub?: (row: Row) => ReactNode;
   align?: "start" | "center" | "end";
   width?: number | string;
   /** Value to sort by. Giving one makes the column sortable. */
@@ -108,7 +106,7 @@ export function TableCompact<Row>({
                   {columns.map((c, i) => {
                     const width = `${[72, 56, 64, 48, 80][(r + i) % 5]}%`;
                     return i === 0
-                      ? <th key={c.key} scope="row" data-align={align(c.align)}><Skeleton shape="text" width={width} />{c.sub && <Skeleton shape="text" width="40%" />}</th>
+                      ? <th key={c.key} scope="row" data-align={align(c.align)}><Skeleton shape="text" width={width} /></th>
                       : <td key={c.key} data-align={align(c.align)}><Skeleton shape="text" width={width} /></td>;
                   })}
                 </tr>
@@ -126,7 +124,6 @@ export function TableCompact<Row>({
                         return (
                           <th key={c.key} scope="row" data-align={align(c.align)}>
                             {href ? <a className="x-table-compact-link" href={href}>{content}<LinkArrow /></a> : content}
-                            {c.sub && <span className="x-table-compact-sub">{c.sub(row)}</span>}
                           </th>
                         );
                       }

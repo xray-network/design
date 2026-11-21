@@ -1,0 +1,55 @@
+<!-- InputAmount. input-amount.controller.js keeps the value a clean decimal and wires Max (data-max on the frame).
+     The app supplies the balance, the fiat value and what the currency button opens. -->
+<div class="x-amount" data-max="2.41" data-decimals="8">
+  <div class="x-amount-head">
+    <label class="x-amount-label" for="pay">You pay</label>
+    <span class="x-amount-balance">Balance 2.41 <button class="x-button" type="button" data-variant="chip" data-x-max>Max</button></span>
+  </div>
+  <div class="x-amount-main">
+    <input class="x-amount-input" id="pay" name="pay" type="text" inputmode="decimal" autocomplete="off" placeholder="0" value="1.5" aria-describedby="pay-foot">
+    <button class="x-amount-currency" type="button" aria-label="Change currency, ETH">
+      <span class="x-amount-currency-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="currentColor"/></svg></span>
+      <span>ETH</span>
+      <svg class="x-amount-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+    </button>
+  </div>
+  <div class="x-amount-foot" id="pay-foot"><span class="x-amount-fiat">≈ $4,812.60</span></div>
+</div>
+
+<!-- Read-only result of a quote, small, with a fixed currency -->
+<div class="x-amount" data-size="sm">
+  <div class="x-amount-head"><label class="x-amount-label" for="receive">You receive</label></div>
+  <div class="x-amount-main">
+    <input class="x-amount-input" id="receive" type="text" inputmode="decimal" value="4802.11" readonly aria-describedby="receive-foot">
+    <span class="x-amount-currency">USDC</span>
+  </div>
+  <div class="x-amount-foot" id="receive-foot"><span class="x-amount-fiat">≈ $4,802.11</span></div>
+</div>
+
+<!-- Invalid: the error replaces the fiat value -->
+<div class="x-amount" data-max="2.41">
+  <div class="x-amount-head"><label class="x-amount-label" for="stake">Stake</label><span class="x-amount-balance">Balance 2.41</span></div>
+  <div class="x-amount-main">
+    <input class="x-amount-input" id="stake" type="text" inputmode="decimal" value="3" aria-invalid="true" aria-describedby="stake-foot">
+    <span class="x-amount-currency">ETH</span>
+  </div>
+  <div class="x-amount-foot" id="stake-foot"><p class="x-amount-error" role="alert">More than your balance of 2.41 ETH</p></div>
+</div>
+
+<!-- Loading: the balance and fiat value are skeletons -->
+<div class="x-amount" aria-busy="true">
+  <div class="x-amount-head">
+    <label class="x-amount-label" for="buy">You pay</label>
+    <span class="x-amount-balance"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 6em"></span></span>
+  </div>
+  <div class="x-amount-main">
+    <input class="x-amount-input" id="buy" type="text" inputmode="decimal" placeholder="0">
+    <span class="x-amount-currency">USD</span>
+  </div>
+  <div class="x-amount-foot"><span class="x-amount-fiat"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 5em"></span></span></div>
+</div>
+
+<script type="module">
+  import { initAmounts } from "./input-amount.controller.js";
+  initAmounts();
+</script>

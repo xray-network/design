@@ -1,4 +1,4 @@
-/* Table Compact: data in a framed section with an optional title, row dividers, a linked first column and a
+/* TableCompact: data in a framed section with an optional title, row dividers, a linked first column and a
    footer for Pagination. Requires core/tokens.css. */
 
 @layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
@@ -57,18 +57,6 @@
     transition: color var(--x-duration-fast) var(--x-ease);
   }
   .x-table-compact-arrow { flex: none; width: var(--x-icon-sm); height: var(--x-icon-sm); color: var(--x-fg-3); }
-  /* A second line under the row's name: a muted, single-line description. */
-  .x-table-compact-sub {
-    display: block;
-    max-width: 280px;
-    margin-top: var(--x-space-1);
-    overflow: hidden;
-    color: var(--x-fg-3);
-    font-size: var(--x-text-2xs);
-    font-weight: var(--x-weight-body);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
   .x-table-compact-link::before { content: ""; position: absolute; inset: 0; }
   .x-table-compact tbody tr:has(.x-table-compact-link) { cursor: pointer; }
   .x-table-compact tbody tr:hover .x-table-compact-link,
@@ -80,14 +68,8 @@
 
   /* Loading: skeleton lines in place of cell text, aligned like the data they stand for. */
   .x-table-compact tbody tr.x-table-compact-loading { cursor: default; }
-  /* Each bar takes a full line's height, and a second bar in the first cell takes the description line's size and
-     spacing, so loading rows are exactly as tall as rows of data. */
+  /* Each bar takes a full line's height, so loading rows are exactly as tall as rows of data. */
   .x-table-compact-loading .x-skeleton { display: block; margin-block: calc((1lh - 0.75em) / 2); }
-  /* Sibling margins collapse, so the second bar's top margin carries the first bar's bottom margin too. */
-  .x-table-compact-loading th > .x-skeleton + .x-skeleton {
-    font-size: var(--x-text-2xs);
-    margin-top: calc(var(--x-text-xs) * (var(--x-leading-body) - 0.75) / 2 + var(--x-space-1) + (1lh - 0.75em) / 2);
-  }
   .x-table-compact-loading [data-align="end"] .x-skeleton { margin-left: auto; }
   .x-table-compact-loading [data-align="center"] .x-skeleton { margin-inline: auto; }
 

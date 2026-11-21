@@ -1,5 +1,5 @@
 import { Avatar } from "@protocol/components/avatar/avatar"
-import { List, ListRow } from "@protocol/blocks/list/list"
+import { List, ListRow } from "@protocol/components/list/list"
 import { toast } from "@protocol/components/toast/toast"
 import { Row } from "../Demo"
 

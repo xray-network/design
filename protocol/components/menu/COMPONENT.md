@@ -3,7 +3,7 @@ id: menu
 name: Menu
 summary: Popover list of actions anchored to a trigger.
 motion: 0
-requires: [tokens]
+requires: [tokens, place]
 components: [button]
 files: [menu.css, menu.html, menu.controller.js, menu.controller.d.ts, menu.tsx]
 ---
@@ -53,9 +53,9 @@ points at the trigger corner, so the menu grows out of it. Reduced motion: insta
 
 ## Positioning
 
-CSS anchor positioning (`position-area: block-end span-inline-end` with flip fallbacks) where
-supported. Elsewhere the controller places the menu below the trigger, flipping above and
-clamping to the viewport.
+The controller places the menu below the trigger, start-aligned, with `core/place.js`: above when there is no
+room below, always inside the viewport, and never taller than the room it has (it scrolls). The same measured
+placement runs in every browser.
 
 ## Component tokens
 

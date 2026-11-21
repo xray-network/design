@@ -1,0 +1,23 @@
+<!-- Slider: a native range input. slider.controller.js keeps the filled part and the output current. -->
+<div class="x-slider">
+  <div class="x-slider-head">
+    <label class="x-slider-label" for="share">Amount to stake</label>
+    <output class="x-slider-value" for="share">40%</output>
+  </div>
+  <input class="x-slider-input" id="share" name="share" type="range" min="0" max="100" step="5" value="40" data-x-format="{}%" style="--x-slider-fill: 40%">
+  <div class="x-slider-marks" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div>
+</div>
+
+<!-- Small, no head: name it with aria-label -->
+<div class="x-slider" data-size="sm">
+  <input class="x-slider-input" type="range" min="0" max="10" value="7" aria-label="Volume" style="--x-slider-fill: 70%">
+</div>
+
+<div class="x-slider">
+  <input class="x-slider-input" type="range" min="0" max="100" value="30" aria-label="Fee level (unavailable)" disabled style="--x-slider-fill: 30%">
+</div>
+
+<script type="module">
+  import { initSliders } from "./slider.controller.js";
+  initSliders();
+</script>

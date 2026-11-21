@@ -16,7 +16,7 @@
   .x-result[data-status="error"] { --x-result-color: var(--x-danger); }
   .x-result[data-status="info"] { --x-result-color: var(--x-accent-ink); }
   .x-result[data-status="warning"] { --x-result-color: var(--x-warning); }
-  .x-result[data-status="loading"] { --x-result-color: var(--x-accent-ink); }
+  .x-result[data-status="loading"] { --x-result-color: var(--x-accent); } /* the Spinner's blue */
 
   .x-result-icon {
     width: var(--x-result-icon-size);

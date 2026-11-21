@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { Chips } from "../../components/chips/chips";
-import { List, ListHeading, ListIcon, ListRow } from "../list/list";
+import { List, ListHeading, ListIcon, ListRow } from "../../components/list/list";
 import { Skeleton, skeletonWidth } from "../../components/skeleton/skeleton";
 import { Pagination } from "../../components/pagination/pagination";
 import "./transactions.css";

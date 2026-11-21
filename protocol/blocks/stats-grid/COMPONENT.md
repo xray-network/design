@@ -1,6 +1,6 @@
 ---
 id: stats-grid
-name: Stats grid
+name: StatsGrid
 summary: Headline figures in a framed grid of cells with hairline dividers; a cell can split its total in a bar with a legend.
 motion: 0
 requires: [tokens]
@@ -8,7 +8,7 @@ components: [skeleton]
 files: [stats-grid.css, stats-grid.html, stats-grid.tsx]
 ---
 
-# Stats grid
+# StatsGrid
 
 The overview at the top of a dashboard: revenue, payouts and fees, requests and traffic, each in its own cell
 of one framed grid (after the overview on XRAY Graph). A cell can show how its total splits, as a bar with a

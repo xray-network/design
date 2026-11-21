@@ -1,0 +1,65 @@
+/* Timeline: events in order on a line of dots. Requires core/tokens.css. CSS only. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-timeline {
+    --x-timeline-dot: 8px;
+    --x-timeline-line: var(--x-border);
+    --x-timeline-gap: var(--x-space-5);
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .x-timeline-item {
+    --x-timeline-tone: var(--x-fg-4);
+
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--x-timeline-dot) minmax(0, 1fr);
+    font-size: var(--x-text-sm); /* em offsets below center the dot on the title's first line */
+    column-gap: var(--x-space-3-5);
+    padding-bottom: var(--x-timeline-gap);
+  }
+  .x-timeline-item:last-child { padding-bottom: 0; }
+
+  /* The line: from below this dot to the next dot. */
+  .x-timeline-item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: calc(0.7em + var(--x-timeline-dot));
+    bottom: calc(-0.7em + var(--x-space-1));
+    left: calc(var(--x-timeline-dot) / 2 - 0.5px);
+    width: 1px;
+    background: var(--x-timeline-line);
+  }
+  /* Before a pending item the line is dashed: it has not happened yet. */
+  .x-timeline-item:has(+ [data-state="pending"])::before {
+    background: repeating-linear-gradient(to bottom, var(--x-timeline-line) 0 3px, transparent 3px 6px);
+  }
+
+  .x-timeline-dot {
+    width: var(--x-timeline-dot);
+    height: var(--x-timeline-dot);
+    margin-top: calc(0.7em - var(--x-timeline-dot) / 2);
+    border: 1px solid var(--x-timeline-tone);
+    border-radius: 50%;
+    background: var(--x-timeline-tone);
+  }
+
+  .x-timeline-content { display: grid; gap: var(--x-space-1); min-width: 0; }
+  .x-timeline-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--x-space-3); line-height: 1.4; }
+  .x-timeline-title { min-width: 0; color: var(--x-fg-1); font-weight: var(--x-weight-label); }
+  .x-timeline-time { flex: none; color: var(--x-fg-3); font-size: var(--x-text-xs); font-variant-numeric: tabular-nums; }
+  .x-timeline-text { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-xs); line-height: var(--x-leading-body); }
+
+  .x-timeline-item[data-tone="accent"] { --x-timeline-tone: var(--x-accent); }
+  .x-timeline-item[data-tone="success"] { --x-timeline-tone: var(--x-success); }
+  .x-timeline-item[data-tone="warning"] { --x-timeline-tone: var(--x-warning); }
+  .x-timeline-item[data-tone="danger"] { --x-timeline-tone: var(--x-danger); }
+
+  .x-timeline-item[data-state="pending"] .x-timeline-dot { background: none; }
+  .x-timeline-item[data-state="pending"] .x-timeline-title { color: var(--x-fg-3); }
+}

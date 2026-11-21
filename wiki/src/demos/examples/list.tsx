@@ -1,4 +1,4 @@
-import { List, ListHeading, ListIcon, ListRow } from "@protocol/blocks/list/list"
+import { List, ListHeading, ListIcon, ListRow } from "@protocol/components/list/list"
 import { Delta } from "@protocol/components/tag/tag"
 import { toast } from "@protocol/components/toast/toast"
 

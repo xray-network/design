@@ -1,4 +1,4 @@
-import { Card, CardGrid, Tile } from "@protocol/blocks/card/card"
+import { Card, CardGrid, Tile } from "@protocol/components/card/card"
 import { IconButton } from "@protocol/components/button/button"
 import { Menu } from "@protocol/components/menu/menu"
 import { toast } from "@protocol/components/toast/toast"

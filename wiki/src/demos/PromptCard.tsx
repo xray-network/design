@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 
 import { Button } from "@protocol/components/button/button"
-import { Input } from "@protocol/components/field/field"
+import { Input } from "@protocol/components/input/input"
 import { Segmented } from "@protocol/components/segmented/segmented"
 import { Select } from "@protocol/components/select/select"
 import { moreGuiTargets, primaryGuiTargets } from "../prompts"

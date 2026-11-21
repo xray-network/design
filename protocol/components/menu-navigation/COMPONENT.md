@@ -1,6 +1,6 @@
 ---
 id: menu-navigation
-name: Menu Navigation
+name: MenuNavigation
 summary: A site or app top navigation whose submenus open in one panel that slides between items.
 motion: 0
 requires: [tokens]
@@ -8,7 +8,7 @@ components: []
 files: [menu-navigation.css, menu-navigation.html, menu-navigation.controller.js, menu-navigation.controller.d.ts, menu-navigation.tsx]
 ---
 
-# Menu Navigation
+# MenuNavigation
 
 The main navigation of a site or a large app area: a row of items, some plain links, some opening a
 submenu of links with short descriptions. All submenus share one panel. Moving from one item to the next

@@ -1,5 +1,5 @@
 /**
- * Menu Navigation behavior, shared by the HTML version (initMenuNavigations) and React (bindMenuNavigation).
+ * MenuNavigation behavior, shared by the HTML version (initMenuNavigations) and React (bindMenuNavigation).
  *
  *   <nav class="x-menu-navigation" aria-label="Main">
  *     <ul class="x-menu-navigation-list"><li><button class="x-menu-navigation-trigger" aria-controls="nav-products">…</button></li></ul>

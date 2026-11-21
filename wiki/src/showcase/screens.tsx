@@ -4,7 +4,7 @@
 import { useState, type ReactNode } from "react"
 import { Button } from "@protocol/components/button/button"
 import { Checkbox, CheckboxGroup } from "@protocol/components/checkbox/checkbox"
-import { Field, TextField } from "@protocol/components/field/field"
+import { Field, TextField } from "@protocol/components/input/input"
 import { RadioGroup } from "@protocol/components/radio/radio"
 import { Select } from "@protocol/components/select/select"
 import { Switch } from "@protocol/components/switch/switch"

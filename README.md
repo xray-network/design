@@ -40,7 +40,8 @@ protocol/                 the protocol and kit; installed as-is to <project>/.ag
 ├── core/                 shared code every component builds on
 │   ├── tokens.css        tokens and cascade layers
 │   ├── base.css          optional reset, focus ring, utilities
-│   └── motion.js (+ .d.ts)  spring() -> linear(), trackIndicator, createFlip
+│   ├── motion.js (+ .d.ts)  spring() -> linear(), trackIndicator, createFlip
+│   └── place.js (+ .d.ts)   placeElement: sides, flipping, the visual viewport
 ├── components/<id>/      primitives: COMPONENT.md, <id>.css, <id>.html, [<id>.controller.js], <id>.tsx
 └── blocks/<id>/          screen sections built from components (and other blocks); same files
 wiki/                     docs and live playground (Rspress), deployed with every release
@@ -49,12 +50,14 @@ wiki/                     docs and live playground (Rspress), deployed with ever
 └── scripts/check-protocol.mjs  the one check; runs before every wiki build
 ```
 
-Components in 1.0.0 (21): `alert`, `avatar`, `button` (+ icon button), `checkbox`, `chips`, `dialog` (Modal),
-`field` (+ input, textarea), `icon` (interface, social and crypto icons), `menu`, `message`, `numeral`, `pagination`, `radio`, `segmented`, `select`, `switch`,
-`table`, `tabs`, `tag` (+ status, delta), `toast`, `tooltip`.
+Components in 1.0.0 (47): `alert`, `avatar`, `border-beam`, `button` (+ icon button), `card` (+ tile), `card-option`,
+`checkbox`, `chips`, `collapse`, `combobox`, `command`, `copy`, `empty`, `icon` (interface, social and crypto icons),
+`input` (+ field, textarea), `input-amount`, `input-group`, `list`, `menu`, `menu-list`, `menu-navigation`, `message`,
+`modal` (+ side sheet), `numeral`, `pagination`, `popconfirm`, `popover`, `progress` (+ meter), `radio`, `result`, `segmented`,
+`select`, `select-native`, `skeleton`, `slider`, `spinner`, `stats`, `steps`, `switch`, `table`, `table-compact`, `tabs`,
+`tag` (+ status, delta), `timeline`, `toast`, `tooltip`, `typography`.
 
-Blocks in 1.0.0 (8): `account-switcher`, `balance`, `card` (+ tile), `list`, `option` (option cards), `send-form`, `stats`,
-`transactions`.
+Blocks in 1.0.0 (5): `balance`, `send-form`, `stats-grid`, `swap`, `transactions`.
 
 Their look and markup follow the XRAY app (new UI v6).
 

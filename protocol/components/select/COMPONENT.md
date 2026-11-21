@@ -3,14 +3,14 @@ id: select
 name: Select
 summary: Custom single-choice dropdown with a listbox popover, keyboard and type-to-find.
 motion: 0
-requires: [tokens]
+requires: [tokens, place]
 components: []
 files: [select.css, select.html, select.controller.js, select.controller.d.ts, select.tsx]
 ---
 
 # Select
 
-One choice from a list that is too long for Segmented or Option cards: networks, accounts, sort
+One choice from a list that is too long for Segmented or CardOption: networks, accounts, sort
 orders. The trigger looks like the text input; the list opens below it.
 
 ## Platform contract

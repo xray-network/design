@@ -1,4 +1,4 @@
-/* Menu Navigation: top navigation with submenus in one shared panel that slides between items.
+/* MenuNavigation: top navigation with submenus in one shared panel that slides between items.
    Requires core/tokens.css; menu-navigation.controller.js opens, switches and places the panel. */
 
 @layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */

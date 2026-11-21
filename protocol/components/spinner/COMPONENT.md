@@ -42,7 +42,7 @@ spinning when motion is reduced: it is the only sign of progress.
 
 ## Invariants
 
-- 4px stroke (3px small, 5px large) with a quarter of the ring open; color from `--x-accent-ink` or `--x-fg-3`.
+- 4px stroke (3px small, 5px large) with a quarter of the ring open; color from `--x-accent` (the brand blue, the same in both themes) or `--x-fg-3`.
 - One spinner per loading region.
 
 ## Safe edits

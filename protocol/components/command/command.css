@@ -1,0 +1,131 @@
+/* Command: a framed command menu. A search row, grouped actions with a lead tile and two lines, and a row of key hints.
+   Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-command {
+    --x-command-width: 620px;
+    --x-command-max-height: min(420px, 52vh);
+    --x-command-lead: var(--x-size-md);
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: var(--x-command-width);
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-3xl);
+    background: var(--x-bg-panel);
+    color: var(--x-fg-2);
+    font: var(--x-weight-body) var(--x-text-md) / 1.4 var(--x-font-sans);
+  }
+
+  /* Keys: in the search row, on the active item and in the foot. */
+  .x-command kbd {
+    display: inline-grid;
+    flex: none;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 var(--x-space-1-5);
+    place-items: center;
+    border-radius: var(--x-radius-xs);
+    background: var(--x-bg-chip);
+    color: var(--x-fg-2);
+    font: var(--x-weight-label) var(--x-text-2xs) / 1 var(--x-font-mono);
+  }
+
+  .x-command-search {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--x-space-3);
+    height: 60px;
+    padding: 0 var(--x-space-3-5) 0 18px;
+    border-bottom: 1px solid var(--x-border);
+    color: var(--x-fg-3);
+    cursor: text;
+  }
+  .x-command-icon { flex: none; width: 20px; height: 20px; }
+  .x-command-input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--x-fg-1);
+    font: var(--x-weight-label) var(--x-text-lg) / 1 var(--x-font-sans);
+  }
+  .x-command-input::placeholder { color: var(--x-fg-3); font-weight: var(--x-weight-body); }
+  .x-command-input:focus, .x-command-input:focus-visible { outline: none !important; }
+
+  .x-command-list {
+    max-height: var(--x-command-max-height);
+    padding: var(--x-space-1-5);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--x-border) transparent;
+  }
+
+  .x-command-group[hidden] { display: none; }
+  /* 34px tall: with one 52px item it makes the empty row's 86px, so the menu keeps its height. */
+  .x-command-group-label { padding: var(--x-space-3) var(--x-space-3) var(--x-space-1-5); color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-label); line-height: 16px; }
+
+  .x-command-item {
+    display: flex;
+    align-items: center;
+    gap: var(--x-space-3);
+    min-height: 52px;
+    padding: var(--x-space-2) var(--x-space-3) var(--x-space-2) var(--x-space-2);
+    border-radius: var(--x-radius-lg);
+    cursor: pointer;
+  }
+  .x-command-item[hidden] { display: none; }
+  .x-command-item[data-active] { background: var(--x-bg-active); }
+  .x-command-item[aria-disabled="true"] { opacity: 0.4; cursor: default; background: none; }
+
+  /* The lead: an icon on a chip tile, or the app's own mark (an Avatar or a Tile), which brings its own surface. */
+  .x-command-lead {
+    display: grid;
+    flex: none;
+    width: var(--x-command-lead);
+    height: var(--x-command-lead);
+    place-items: center;
+    border-radius: 11px;
+    background: var(--x-bg-chip);
+    color: var(--x-fg-2);
+  }
+  .x-command-lead:has(.x-avatar, .x-tile) { background: none; }
+  .x-command-lead > .x-icon { width: 18px; height: 18px; }
+
+  .x-command-text { display: grid; flex: 1; min-width: 0; }
+  .x-command-label { overflow: hidden; color: var(--x-fg-1); font-weight: var(--x-weight-label); line-height: 20px; text-overflow: ellipsis; white-space: nowrap; }
+  .x-command-sub { overflow: hidden; color: var(--x-fg-3); font-size: var(--x-text-xs); line-height: 16px; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* The item's own shortcut shows at rest; the active item shows Enter instead. */
+  .x-command-keys { display: inline-flex; flex: none; gap: var(--x-space-1); }
+  .x-command .x-command-enter { display: none; } /* two classes: must beat the kbd rule above */
+  .x-command-item[data-active] > .x-command-enter { display: inline-grid; }
+  .x-command-item[data-active] > .x-command-keys { display: none; }
+
+  .x-command-empty { display: grid; height: 86px; margin: 0; place-items: center; color: var(--x-fg-3); }
+  .x-command-empty[hidden] { display: none; }
+
+  .x-command-foot {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--x-space-4);
+    height: 40px;
+    padding: 0 18px;
+    overflow: hidden;
+    border-top: 1px solid var(--x-border);
+    color: var(--x-fg-3);
+    font-size: var(--x-text-xs);
+    white-space: nowrap;
+  }
+  .x-command-foot > span { display: inline-flex; align-items: center; gap: var(--x-space-1-5); }
+}

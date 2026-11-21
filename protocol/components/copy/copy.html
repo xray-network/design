@@ -1,0 +1,35 @@
+<!-- Copy: the full value in two parts (the tail is the last 6 characters). copy.controller.js copies data-value. -->
+<div class="x-copy" data-value="0x52908400098527886E0F7030069857D2E4169EE7">
+  <span class="x-copy-value"><span class="x-copy-head">0x52908400098527886E0F7030069857D2E4</span><span class="x-copy-tail">169EE7</span></span>
+  <button class="x-icon-button x-copy-button" type="button" data-size="xs" aria-label="Copy address">
+    <svg class="x-icon x-copy-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 17.25v3.38c0 .62-.5 1.12-1.13 1.12h-9.75c-.62 0-1.12-.5-1.12-1.13V7.88c0-.63.5-1.13 1.13-1.13H8.25m7.5 10.5h3.38c.62 0 1.12-.5 1.12-1.13V11.25c0-4.46-3.24-8.16-7.5-8.87a9.06 9.06 0 0 0-1.5-.13H9.38c-.63 0-1.13.5-1.13 1.13v3.37m7.5 10.5h-6.38c-.62 0-1.12-.5-1.12-1.13V6.75"/></svg>
+    <svg class="x-icon x-copy-done" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+  </button>
+  <span class="x-copy-status" role="status"></span>
+</div>
+
+<!-- A link in body type, shortened at the end (empty tail) -->
+<div class="x-copy" data-font="sans" data-value="https://xray.app/invite/7Q2K-ML4P-90ZD">
+  <span class="x-copy-value"><span class="x-copy-head">https://xray.app/invite/7Q2K-ML4P-90ZD</span><span class="x-copy-tail"></span></span>
+  <button class="x-icon-button x-copy-button" type="button" data-size="xs" aria-label="Copy invite link">
+    <svg class="x-icon x-copy-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 17.25v3.38c0 .62-.5 1.12-1.13 1.12h-9.75c-.62 0-1.12-.5-1.12-1.13V7.88c0-.63.5-1.13 1.13-1.13H8.25m7.5 10.5h3.38c.62 0 1.12-.5 1.12-1.13V11.25c0-4.46-3.24-8.16-7.5-8.87a9.06 9.06 0 0 0-1.5-.13H9.38c-.63 0-1.13.5-1.13 1.13v3.37m7.5 10.5h-6.38c-.62 0-1.12-.5-1.12-1.13V6.75"/></svg>
+    <svg class="x-icon x-copy-done" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+  </button>
+  <span class="x-copy-status" role="status"></span>
+</div>
+
+<!-- Block: the full value, wrapped (a receive screen, a key shown once) -->
+<div class="x-copy" data-variant="block" data-value="bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq">
+  <span class="x-copy-value"><span class="x-copy-head">bc1qar0srrr7xfkvy5l643lydnw9re59gtzz</span><span class="x-copy-tail">wf5mdq</span></span>
+  <button class="x-icon-button x-copy-button" type="button" data-size="xs" aria-label="Copy address">
+    <svg class="x-icon x-copy-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 17.25v3.38c0 .62-.5 1.12-1.13 1.12h-9.75c-.62 0-1.12-.5-1.12-1.13V7.88c0-.63.5-1.13 1.13-1.13H8.25m7.5 10.5h3.38c.62 0 1.12-.5 1.12-1.13V11.25c0-4.46-3.24-8.16-7.5-8.87a9.06 9.06 0 0 0-1.5-.13H9.38c-.63 0-1.13.5-1.13 1.13v3.37m7.5 10.5h-6.38c-.62 0-1.12-.5-1.12-1.13V6.75"/></svg>
+    <svg class="x-icon x-copy-done" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+  </button>
+  <span class="x-copy-status" role="status"></span>
+</div>
+
+<script type="module">
+  import { initCopies } from "./copy.controller.js";
+  initCopies();
+  // document.querySelector(".x-copy").addEventListener("copied", (e) => e.detail.value)
+</script>

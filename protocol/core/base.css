@@ -9,6 +9,10 @@
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
 
+  /* Phones never resize text on their own (iOS Safari does in landscape), so text stays the size the layout and its
+     loading placeholders were measured for. */
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
   body {
     margin: 0;
     background: var(--x-bg);

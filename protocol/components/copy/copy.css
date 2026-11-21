@@ -1,0 +1,54 @@
+/* Copy: a value with a copy button; long values shorten in the middle. Requires core/tokens.css and button. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-copy {
+    --x-copy-font-size: var(--x-text-sm);
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--x-space-1-5);
+    max-width: 100%;
+    min-width: 0;
+    vertical-align: middle;
+  }
+
+  .x-copy-value {
+    display: flex;
+    min-width: 0;
+    color: var(--x-fg-1);
+    font: var(--x-weight-body) var(--x-copy-font-size) / 1.5 var(--x-font-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .x-copy[data-font="sans"] .x-copy-value { font-family: var(--x-font-sans); }
+  .x-copy-head { min-width: 1ch; overflow: hidden; text-overflow: ellipsis; }
+  .x-copy-tail { flex: none; }
+
+  .x-copy-button { flex: none; }
+  /* Both icons share one grid cell, so the check replaces the copy icon in place. */
+  .x-copy-button > .x-icon { grid-area: 1 / 1; transition: scale var(--x-duration-fast) var(--x-ease), opacity var(--x-duration-fast) var(--x-ease); }
+  .x-copy-done { color: var(--x-success); opacity: 0; scale: 0.6; }
+  .x-copy[data-copied] .x-copy-icon { opacity: 0; scale: 0.6; }
+  .x-copy[data-copied] .x-copy-done {
+    opacity: 1;
+    scale: 1;
+    transition: scale var(--x-spring-duration) var(--x-spring), opacity var(--x-duration-fast) var(--x-ease);
+  }
+
+  .x-copy-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  /* Block: the full value, wrapped with balanced lines, in a framed panel. */
+  .x-copy[data-variant="block"] {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--x-space-3);
+    padding: var(--x-space-3) var(--x-space-3) var(--x-space-3) var(--x-space-4);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-lg);
+    background: var(--x-bg-faint);
+  }
+  .x-copy[data-variant="block"] .x-copy-value { flex: 1; display: block; padding-block: var(--x-space-0-5); white-space: normal; overflow-wrap: anywhere; text-wrap: balance; }
+  .x-copy[data-variant="block"] .x-copy-head { overflow: visible; }
+}

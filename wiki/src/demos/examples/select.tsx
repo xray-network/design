@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Field } from "@protocol/components/field/field"
+import { Field } from "@protocol/components/input/input"
 import { Select } from "@protocol/components/select/select"
 
 export default function SelectExample() {

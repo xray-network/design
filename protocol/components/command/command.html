@@ -1,0 +1,54 @@
+<!-- Command: a framed command menu. command.controller.js filters, moves the active item and fires "select" with
+     detail.value, and "close" on Esc. Every item needs an id (for aria-activedescendant). -->
+<div class="x-command">
+  <label class="x-command-search">
+    <svg class="x-command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-5.2-5.2m0 0A7.5 7.5 0 1 0 5.2 5.2a7.5 7.5 0 0 0 10.6 10.6Z"/></svg>
+    <input class="x-command-input" type="text" role="combobox" aria-controls="cmd-list" aria-expanded="true" aria-autocomplete="list" aria-label="Commands" autocomplete="off" spellcheck="false" placeholder="Open an app, switch account, run an action">
+    <kbd>esc</kbd>
+  </label>
+  <div class="x-command-list" id="cmd-list" role="listbox" aria-label="Commands">
+    <div class="x-command-group" role="group" aria-labelledby="cmd-apps">
+      <div class="x-command-group-label" id="cmd-apps">Mini Apps</div>
+      <!-- A lead with the app's own mark (a Tile or an Avatar) has no chip behind it -->
+      <div class="x-command-item" role="option" id="cmd-payments" aria-selected="false" data-value="open-payments" data-keywords="pay">
+        <span class="x-command-lead" aria-hidden="true"><span class="x-tile" data-size="md">P</span></span>
+        <span class="x-command-text"><span class="x-command-label">Open Payments</span><span class="x-command-sub">xray/payments</span></span>
+        <kbd class="x-command-enter" aria-hidden="true">Enter</kbd>
+      </div>
+    </div>
+    <div class="x-command-group" role="group" aria-labelledby="cmd-actions">
+      <div class="x-command-group-label" id="cmd-actions">Actions</div>
+      <div class="x-command-item" role="option" id="cmd-copy" aria-selected="false" data-value="copy">
+        <span class="x-command-lead" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M15.75 17.25v3.38c0 .62-.5 1.12-1.13 1.12h-9.75c-.62 0-1.12-.5-1.12-1.13V7.88c0-.63.5-1.13 1.13-1.13H8.25m7.5 10.5h3.38c.62 0 1.12-.5 1.12-1.13V11.25c0-4.46-3.24-8.16-7.5-8.87a9.06 9.06 0 0 0-1.5-.13H9.38c-.63 0-1.13.5-1.13 1.13v3.37m7.5 10.5h-6.38c-.62 0-1.12-.5-1.12-1.13V6.75"/></svg></span>
+        <span class="x-command-text"><span class="x-command-label">Copy address</span><span class="x-command-sub">addr1q…lkgc86</span></span>
+        <kbd class="x-command-enter" aria-hidden="true">Enter</kbd>
+      </div>
+      <!-- One line, with the item's own shortcut (shown at rest; the active item shows Enter) -->
+      <div class="x-command-item" role="option" id="cmd-hide" aria-selected="false" data-value="hide">
+        <span class="x-command-lead" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M3.98 8.22A10.48 10.48 0 0 0 1.93 12C3.23 16.34 7.24 19.5 12 19.5c.99 0 1.95-.14 2.86-.4M6.23 6.23A10.45 10.45 0 0 1 12 4.5c4.76 0 8.77 3.16 10.07 7.5a10.52 10.52 0 0 1-4.3 5.77M6.23 6.23 3 3m3.23 3.23 3.65 3.65m7.89 7.89L21 21m-3.23-3.23-3.65-3.65m0 0a3 3 0 1 0-4.24-4.24m4.24 4.24L9.88 9.88"/></svg></span>
+        <span class="x-command-text"><span class="x-command-label">Hide balances</span></span>
+        <span class="x-command-keys"><kbd>⌘</kbd><kbd>H</kbd></span>
+        <kbd class="x-command-enter" aria-hidden="true">Enter</kbd>
+      </div>
+      <div class="x-command-item" role="option" id="cmd-lock" aria-selected="false" aria-disabled="true" data-value="lock">
+        <span class="x-command-lead" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg></span>
+        <span class="x-command-text"><span class="x-command-label">Lock App</span></span>
+        <kbd class="x-command-enter" aria-hidden="true">Enter</kbd>
+      </div>
+    </div>
+    <p class="x-command-empty" hidden>No results for "<span class="x-command-query"></span>".</p>
+  </div>
+  <div class="x-command-foot" aria-hidden="true">
+    <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
+    <span><kbd>Enter</kbd> Run</span>
+    <span><kbd>esc</kbd> Close</span>
+  </div>
+</div>
+
+<script type="module">
+  import { initCommands } from "./command.controller.js";
+  initCommands();
+  const menu = document.querySelector(".x-command");
+  menu.addEventListener("select", (e) => console.log(e.detail.value));
+  menu.addEventListener("close", () => { /* close whatever holds the menu */ });
+</script>

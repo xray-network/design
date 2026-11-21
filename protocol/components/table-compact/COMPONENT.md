@@ -1,6 +1,6 @@
 ---
 id: table-compact
-name: Table Compact
+name: TableCompact
 summary: A compact data table in a framed section with an optional title, row dividers, row links, an empty row and a pagination footer.
 motion: 0
 requires: [tokens]
@@ -8,7 +8,7 @@ components: [pagination, skeleton]
 files: [table-compact.css, table-compact.html, table-compact.controller.js, table-compact.tsx]
 ---
 
-# Table Compact
+# TableCompact
 
 A dense table inside a framed section with its own title, for dashboards and cards. For a plain data
 table with built-in paging, use Table.
@@ -29,8 +29,7 @@ section.x-table-compact[aria-labelledby|aria-label]         hairline frame, 20px
 │       ├── thead th[scope=col][data-align]         11px muted; a hairline above when there is a title
 │       └── tbody tr                                hairline between rows
 │           ├── th[scope=row]                       600, --x-fg-1; [a.x-table-compact-link] makes the row clickable
-│           │   ├── svg.x-table-compact-arrow       14px arrow after the link, --x-fg-3
-│           │   └── span.x-table-compact-sub        optional second line: 11px, --x-fg-3, one line, max 280px
+│           │   └── svg.x-table-compact-arrow       14px arrow after the link, --x-fg-3
 │           └── td[data-align]
 └── div.x-table-compact-foot (optional)                     hairline above; holds Pagination
 ```
@@ -48,7 +47,7 @@ Cells are 12px from each other and 20px from the frame.
 ## Loading
 
 `loading` (React) shows `loadingRows` skeleton rows (default 5) in `tr.x-table-compact-loading`, a skeleton line
-per cell aligned like the data, two lines in a first column that has a description; the scroll area gets
+per cell aligned like the data; the scroll area gets
 `aria-busy="true"`.
 
 ## States

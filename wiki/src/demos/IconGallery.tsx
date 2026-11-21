@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import { Icon } from "@protocol/components/icon/icon"
 import { allIcons } from "@protocol/components/icon/icon.controller.js"
-import { Input } from "@protocol/components/field/field"
+import { Input } from "@protocol/components/input/input"
 import { Segmented } from "@protocol/components/segmented/segmented"
 import { toast } from "@protocol/components/toast/toast"
 import "./icon-gallery.css"

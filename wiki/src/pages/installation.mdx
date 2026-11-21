@@ -40,12 +40,13 @@ The same prompt works for SwiftUI, UIKit/AppKit, JavaFX, Android and other GUI p
 ├── core/                          # shared code every component builds on
 │   ├── tokens.css                 # tokens and cascade layers
 │   ├── base.css                   # optional reset and focus ring
-│   └── motion.js                  # springs as linear(), indicator and FLIP helpers
+│   ├── motion.js                  # springs as linear(), indicator and FLIP helpers
+│   └── place.js                   # placement for tooltips, popovers, menus and lists
 ├── components/<id>/               # primitives: COMPONENT.md, CSS, HTML, controller, React
 └── blocks/<id>/                   # screen sections built from components
 <ui folder>/                       # web example; native targets follow their framework's source layout
 ├── design.lock.json               # kit version, stack, and the components and blocks you use
-├── core/                          # tokens (and motion helpers when a component needs them)
+├── core/                          # tokens (and motion and placement helpers when a component needs them)
 ├── components/<id>/               # the components you add
 └── blocks/<id>/                   # the blocks you add
 ```

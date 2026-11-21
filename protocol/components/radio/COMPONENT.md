@@ -11,7 +11,7 @@ files: [radio.css, radio.html, radio.tsx]
 # Radio
 
 One choice from a short list of plain labels that applies on submit. For two to five options that
-switch a view, use Segmented; when each option needs details, use Option cards; for long lists, Select.
+switch a view, use Segmented; when each option needs details, use CardOption; for long lists, Select.
 
 ## Anatomy
 

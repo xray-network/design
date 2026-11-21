@@ -2,8 +2,8 @@
 
 import { useId, useState, type FormEvent } from "react";
 import { Button } from "../../components/button/button";
-import { Field, Input } from "../../components/field/field";
-import { OptionCards } from "../option/option";
+import { Field, Input } from "../../components/input/input";
+import { CardOption } from "../../components/card-option/card-option";
 import { Skeleton } from "../../components/skeleton/skeleton";
 import "./send-form.css";
 
@@ -84,7 +84,7 @@ export function SendForm({ available, ticker, fees, defaultFee, toFiat, onReview
       </Field>
       <div className="x-field">
         <span className="x-field-label" id={`${id}-fee`}>Fee</span>
-        <OptionCards
+        <CardOption
           aria-label="Payout speed"
           value={fee?.value}
           onValueChange={setFeeValue}

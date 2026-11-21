@@ -1,0 +1,32 @@
+/* Swap: the amount paid, a flip button, the quoted amount received, details and review.
+   Built from InputAmount and Button. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-swap { display: grid; gap: var(--x-space-4); min-width: 0; }
+
+  .x-swap-pair { position: relative; display: grid; gap: var(--x-space-1-5); }
+
+  /* The flip button sits on the seam between the two amounts, with a canvas ring that cuts into both frames. */
+  .x-swap-flip.x-icon-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    translate: -50% -50%;
+    border: var(--x-space-1) solid var(--x-bg);
+    border-radius: 50%;
+    background: var(--x-bg-chip);
+    color: var(--x-fg-1);
+    box-sizing: content-box;
+  }
+  .x-swap-flip.x-icon-button:hover { background: var(--x-bg-chip-hover); }
+  .x-swap-flip > .x-icon { transition: rotate var(--x-spring-duration) var(--x-spring); }
+  .x-swap-flip[data-turned] > .x-icon { rotate: 180deg; }
+
+  .x-swap-details { display: grid; gap: var(--x-space-2); margin: 0; padding: 0 var(--x-space-1); font-size: var(--x-text-sm); }
+  .x-swap-details > div { display: flex; align-items: baseline; justify-content: space-between; gap: var(--x-space-4); }
+  .x-swap-details dt { color: var(--x-fg-3); }
+  .x-swap-details dd { margin: 0; color: var(--x-fg-1); font-variant-numeric: tabular-nums; text-align: right; overflow-wrap: anywhere; }
+}

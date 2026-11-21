@@ -35,7 +35,7 @@ div.x-result[data-status][role=status]            centered column, 24px padding
 
 | Attribute | Values |
 |---|---|
-| `data-status` | `success` (`--x-success`), `error` (`--x-danger`), `info` (`--x-accent-ink`), `warning` (`--x-warning`), `loading` (an open `--x-accent-ink` ring that turns; `aria-busy="true"`) |
+| `data-status` | `success` (`--x-success`), `error` (`--x-danger`), `info` (`--x-accent-ink`), `warning` (`--x-warning`), `loading` (an open `--x-accent` ring that turns, the Spinner's blue; `aria-busy="true"`) |
 | `data-size` | `sm`: 64px mark, 18px title; for cards and popovers |
 
 ## Accessibility

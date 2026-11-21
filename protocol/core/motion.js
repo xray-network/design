@@ -28,7 +28,8 @@ export function reduced(el) {
  * leading and trailing edges: the edge in the direction of travel moves first and fast, the
  * other edge follows on a softer spring, so the indicator stretches and settles like a drop.
  *
- * The CSS reads --x-ind-left / --x-ind-right (insets from the root's padding box) and
+ * The CSS reads --x-ind-left / --x-ind-right (insets from the root's padding box), --x-ind-min (the most negative
+ * inset that stays inside the root's scrollable area, so a spring's overshoot never adds overflow) and
  * data-direction ("forward" | "backward") on the root; data-indicator="ready" turns the indicator on.
  *
  * @param {HTMLElement} root   Element containing the items and the indicator.
@@ -50,6 +51,7 @@ export function trackIndicator(root, getActive) {
     last = left;
     root.style.setProperty("--x-ind-left", `${left}px`);
     root.style.setProperty("--x-ind-right", `${right}px`);
+    root.style.setProperty("--x-ind-min", `${Math.min(0, root.clientWidth - root.scrollWidth)}px`);
     if (root.dataset.indicator !== "ready") {
       // First placement without transition; motion only between items.
       root.dataset.indicator = "placing";

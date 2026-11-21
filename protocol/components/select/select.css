@@ -92,15 +92,6 @@
   @starting-style {
     .x-select-list:popover-open { opacity: 0; scale: 0.98; translate: 0 -4px; }
   }
-  @supports (position-area: block-end) {
-    .x-select-list[data-anchored] {
-      position-area: block-end span-inline-end;
-      position-try-fallbacks: flip-block;
-      margin-block-start: var(--x-space-1-5);
-      min-width: anchor-size(width);
-    }
-  }
-
   .x-select-option {
     display: flex;
     align-items: center;

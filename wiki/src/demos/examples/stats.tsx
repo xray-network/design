@@ -1,4 +1,4 @@
-import { Stats } from "@protocol/blocks/stats/stats"
+import { Stats } from "@protocol/components/stats/stats"
 
 export default function StatsExample({ loading = false }: { loading?: boolean }) {
   return (

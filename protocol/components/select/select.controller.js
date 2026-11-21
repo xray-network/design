@@ -13,11 +13,11 @@
  * - opening from the keyboard: ArrowDown, ArrowUp, Enter and Space on the trigger
  * - inside: arrows, Home/End and type-to-find move focus; Enter or Space picks; Tab closes
  * - focus starts on the selected option and returns to the trigger on close
- * - positioning: CSS anchor positioning where supported, measured placement otherwise
+ * - positioning: under the trigger and at least as wide, above it when there is no room below, and never taller
+ *   than the room it has (the list scrolls)
  */
 
-let anchorCount = 0;
-const supportsAnchor = typeof CSS !== "undefined" && CSS.supports("position-area: block-end");
+import { onViewportChange, placeElement } from "../../core/place.js";
 
 /**
  * @param {HTMLElement} trigger
@@ -32,23 +32,9 @@ export function bindSelect(trigger, list, { onSelect } = {}) {
   let typed = "";
   let typedAt = 0;
 
-  if (supportsAnchor) {
-    const name = `--x-select-${++anchorCount}`;
-    trigger.style.setProperty("anchor-name", name);
-    list.style.setProperty("position-anchor", name);
-    list.dataset.anchored = "";
-  }
-
   const place = () => {
-    if (supportsAnchor) return;
-    const t = trigger.getBoundingClientRect();
-    list.style.minWidth = `${t.width}px`;
-    const l = list.getBoundingClientRect();
-    const gap = 6, edge = 8;
-    const below = t.bottom + gap + l.height <= innerHeight - edge || t.top - gap - l.height < edge;
-    list.style.top = `${Math.round(below ? t.bottom + gap : t.top - gap - l.height)}px`;
-    list.style.left = `${Math.round(Math.min(Math.max(edge, t.left), innerWidth - edge - l.width))}px`;
-    list.style.setProperty("--x-select-origin", below ? "top center" : "bottom center");
+    const pos = placeElement(list, trigger, { side: "bottom", align: "start", gap: 6, matchWidth: true, fitHeight: true });
+    list.style.setProperty("--x-select-origin", pos.side === "top" ? "bottom center" : "top center");
   };
 
   const pick = (option) => {
@@ -68,7 +54,7 @@ export function bindSelect(trigger, list, { onSelect } = {}) {
   };
 
   const onBeforeToggle = (event) => {
-    if (supportsAnchor || event.newState !== "open") return;
+    if (event.newState !== "open") return;
     const t = trigger.getBoundingClientRect();
     list.style.top = `${Math.round(t.bottom + 6)}px`;
     list.style.left = `${Math.round(t.left)}px`;
@@ -129,8 +115,7 @@ export function bindSelect(trigger, list, { onSelect } = {}) {
   list.addEventListener("toggle", onToggle);
   list.addEventListener("keydown", onListKey);
   list.addEventListener("click", onListClick);
-  addEventListener("resize", onViewport);
-  addEventListener("scroll", onViewport, true);
+  const stopWatching = onViewportChange(onViewport);
 
   return () => {
     trigger.removeEventListener("keydown", onTriggerKey);
@@ -138,8 +123,7 @@ export function bindSelect(trigger, list, { onSelect } = {}) {
     list.removeEventListener("toggle", onToggle);
     list.removeEventListener("keydown", onListKey);
     list.removeEventListener("click", onListClick);
-    removeEventListener("resize", onViewport);
-    removeEventListener("scroll", onViewport, true);
+    stopWatching();
   };
 }
 

@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 import "./select-native.css";
 
-export type NativeSelectProps = Omit<ComponentProps<"select">, "size"> & {
+export type SelectNativeProps = Omit<ComponentProps<"select">, "size"> & {
   size?: "sm" | "md" | "lg";
   /** Options as data; or pass <option> children. */
   options?: { value: string; label: string; disabled?: boolean }[];
@@ -10,7 +10,7 @@ export type NativeSelectProps = Omit<ComponentProps<"select">, "size"> & {
 };
 
 /** The browser's own select in the input's frame. Use Field (or a label) to name it. */
-export function NativeSelect({ size = "md", options, className, children, ...select }: NativeSelectProps) {
+export function SelectNative({ size = "md", options, className, children, ...select }: SelectNativeProps) {
   return (
     <div className={className ? `x-select-native ${className}` : "x-select-native"} data-size={size === "md" ? undefined : size}>
       <select {...select}>
