@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Button } from "@protocol/components/button/button"
 import { Steps } from "@protocol/components/steps/steps"
-import { Row } from "../Demo"
 
 const CHECKOUT = [
   { title: "Basket", description: "3 items" },
@@ -15,14 +14,14 @@ export default function StepsExample() {
   return (
     <>
       <Steps aria-label="Checkout progress" current={current} steps={CHECKOUT} onStepClick={setCurrent} />
-      <Row>
+      {/* Centered under the steps, like the steps themselves. */}
+      <div className="wiki-demo-row" style={{ alignSelf: "stretch", justifyContent: "center" }}>
         <Button variant="ghost" size="sm" disabled={current === 0} onClick={() => setCurrent(current - 1)}>Back</Button>
         <Button size="sm" disabled={current === CHECKOUT.length - 1} onClick={() => setCurrent(current + 1)}>Next</Button>
-      </Row>
+      </div>
       <Steps
         aria-label="Import progress"
         current={1}
-        fullWidth
         steps={[{ title: "Choose files" }, { title: "Upload", state: "loading", description: "Uploading 12 of 38" }, { title: "Process" }, { title: "Done" }]}
       />
       <Steps

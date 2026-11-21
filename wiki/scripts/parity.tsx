@@ -354,7 +354,7 @@ export const examples: Record<string, ReactElement> = {
   steps: (
     <>
       <Steps aria-label="Checkout progress" current={1} onStepClick={noop} steps={[{ title: "Basket" }, { title: "Delivery", description: "Address and date" }, { title: "Payment" }]} />
-      <Steps aria-label="Import progress" current={1} fullWidth steps={[{ title: "Choose files" }, { title: "Upload", state: "loading", description: "Uploading 12 of 38" }, { title: "Done" }]} />
+      <Steps aria-label="Import progress" current={1} steps={[{ title: "Choose files" }, { title: "Upload", state: "loading", description: "Uploading 12 of 38" }, { title: "Done" }]} />
       <Steps aria-label="Verification" orientation="vertical" current={1} steps={[{ title: "Email" }, { title: "Identity document", state: "error", description: "The photo is blurred." }, { title: "Address" }]} />
     </>
   ),

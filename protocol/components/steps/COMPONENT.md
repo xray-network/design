@@ -32,8 +32,7 @@ its step is complete.
 
 | Attribute | Values | Default |
 |---|---|---|
-| `data-orientation` | `vertical`: markers in a column, text beside them | horizontal: text centered under each marker |
-| `data-width` | `full`: equal columns across the container | 128px columns (`--x-steps-col`); the row is as wide as its steps and sits at the start |
+| `data-orientation` | `vertical`: markers in a column, text beside them | horizontal: equal columns across the container, text centered under each marker |
 
 On phones a horizontal row keeps the markers and titles; descriptions are hidden from view and still read out.
 
@@ -63,7 +62,7 @@ Marker colors change on `--x-ease`. Reduced motion: instant.
 
 ## Component tokens
 
-`--x-steps-marker`, `-col`, `-track`, `-fill`, `-on`, `-halo`, `-gap`, `-pad`.
+`--x-steps-marker`, `-track`, `-fill`, `-on`, `-halo`, `-gap`, `-pad`.
 
 ## Invariants
 

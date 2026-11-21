@@ -57,13 +57,18 @@ export function SettingsFormScreen() {
         <Switch defaultChecked>Lock after 5 minutes</Switch>
         <Switch>Hide balances on open</Switch>
       </Setting>
-      <Setting title="Remove account" text="Invoices and payment history stay available to admins.">
-        <Button variant="danger" onClick={() => toast("Account removed", { tone: "success" })}>Remove account</Button>
-      </Setting>
-      <div className="wiki-showcase-row">
+      {/* The form's buttons line up with the controls column, under the fields they save. */}
+      <div className="wiki-showcase-row wiki-showcase-actions">
         <Button onClick={() => toast("Settings saved", { tone: "success" })}>Save changes</Button>
         <Button variant="ghost">Cancel</Button>
       </div>
+      {/* Danger zone: after the form and its buttons, apart from them, so it is never taken for part of saving. */}
+      <section className="wiki-showcase-danger" aria-labelledby="settings-danger">
+        <h2 id="settings-danger">Danger zone</h2>
+        <Setting title="Remove account" text="Invoices and payment history stay available to admins.">
+          <Button variant="danger" onClick={() => toast("Account removed", { tone: "success" })}>Remove account</Button>
+        </Setting>
+      </section>
     </div>
   )
 }

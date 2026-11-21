@@ -67,6 +67,9 @@
   font-size: var(--x-text-xs);
   font-weight: var(--x-weight-label);
 }
+/* A label sits close above the row it names, and further from the row before it. */
+.wiki-demo-stage > .wiki-demo-label + * { margin-top: calc(var(--x-space-2) - var(--x-space-4)); }
+.wiki-demo-stage > * + .wiki-demo-label { margin-top: var(--x-space-2); }
 
 /* "Preview" and "Your brand": quiet labels in the frame's bar, not titles. */
 .wiki-demo .wiki-demo-prompt-title {

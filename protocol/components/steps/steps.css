@@ -14,11 +14,9 @@
     --x-steps-halo: var(--x-bg-active);
     --x-steps-gap: 6px; /* between a marker and its line */
     --x-steps-pad: var(--x-space-1-5); /* the trigger's padding: room for its hover fill and focus ring */
-    --x-steps-col: 128px; /* one step's column; the row is as wide as its steps and sits at the start */
 
     display: flex;
-    width: fit-content;
-    max-width: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -27,15 +25,11 @@
   .x-steps-item {
     position: relative;
     display: flex;
-    flex: 0 1 auto;
-    width: var(--x-steps-col); /* a width, not a flex-basis: the row's own width is measured from it */
+    flex: 1 1 0;
     flex-direction: column;
     align-items: center;
     min-width: 0;
   }
-  /* Full width: equal columns across the container. */
-  .x-steps[data-width="full"] { width: 100%; }
-  .x-steps[data-width="full"] .x-steps-item { flex: 1 1 0; width: auto; }
 
   /* The line to the next marker. It stops short of both markers and fills from the start once this step is complete. */
   .x-steps-item:not(:last-child)::after {
@@ -121,8 +115,8 @@
   .x-steps-item[data-state="error"] .x-steps-description { color: var(--x-danger-fg); }
 
   /* Vertical: the marker on the start side, the text beside it, the line running down. */
-  .x-steps[data-orientation="vertical"] { flex-direction: column; width: 100%; }
-  .x-steps[data-orientation="vertical"] .x-steps-item { flex: none; width: auto; align-items: flex-start; padding-bottom: var(--x-space-4); }
+  .x-steps[data-orientation="vertical"] { flex-direction: column; }
+  .x-steps[data-orientation="vertical"] .x-steps-item { flex: none; align-items: flex-start; padding-bottom: var(--x-space-4); }
   .x-steps[data-orientation="vertical"] .x-steps-item:last-child { padding-bottom: 0; }
   .x-steps[data-orientation="vertical"] .x-steps-trigger {
     grid-template-columns: auto minmax(0, 1fr);

@@ -4,9 +4,12 @@ import { Popover } from "@protocol/components/popover/popover"
 import { toast } from "@protocol/components/toast/toast"
 import { Row } from "../Demo"
 
+const Label = ({ children }: { children: string }) => <span className="wiki-demo-label">{children}</span>
+
 export default function PopoverExample() {
   return (
     <>
+      <Label>Details and short forms</Label>
       <Row>
         <Popover trigger={<Button variant="ghost">Fee details</Button>} title="Processing fee">
           <p>$0.59 on this payment: 2.9% plus $0.30, paid to the card network.</p>
@@ -18,6 +21,7 @@ export default function PopoverExample() {
           </form>
         </Popover>
       </Row>
+      <Label>Sides</Label>
       <Row>
         <Popover trigger={<Button variant="ghost" size="sm">Top</Button>} aria-label="Plan">
           <p>20 seats, billed monthly at $49 per seat.</p>

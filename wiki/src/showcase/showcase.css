@@ -101,6 +101,32 @@
   min-width: 0;
 }
 .wiki-showcase-setting-controls > .x-field { align-self: stretch; }
+/* The form's buttons: after a hairline, like a settings row, and starting where the controls column starts
+   (past the 200px label column and its gap). */
+.wiki-showcase-actions {
+  padding-top: var(--x-space-6);
+  padding-inline-start: calc(min(200px, (100% - var(--x-space-6)) / 2) + var(--x-space-6));
+  border-top: 1px solid var(--x-border);
+}
+
+/* Danger zone: its own section after the form's buttons, under a hairline, with a danger-colored title. */
+.wiki-showcase-danger {
+  display: grid;
+  gap: var(--x-space-4);
+  margin-top: var(--x-space-4);
+  padding-top: var(--x-space-8);
+  border-top: 1px solid var(--x-border);
+}
+.wiki-showcase .wiki-showcase-danger h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--x-danger-fg);
+  font-size: var(--x-text-sm);
+  font-weight: var(--x-weight-label);
+  line-height: var(--x-leading-body);
+}
+.wiki-showcase-danger .wiki-showcase-setting { padding-top: 0; border-top: 0; }
 
 .wiki-showcase-parts {
   display: flex;
@@ -139,4 +165,5 @@
 @media (max-width: 640px) {
   .wiki-showcase-screen { padding: var(--x-space-6) var(--x-space-4); }
   .wiki-showcase-setting { grid-template-columns: minmax(0, 1fr); gap: var(--x-space-3); }
+  .wiki-showcase-actions { padding-inline-start: 0; }
 }

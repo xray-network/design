@@ -3,6 +3,8 @@ import { toast } from "@protocol/components/toast/toast"
 import { Tooltip } from "@protocol/components/tooltip/tooltip"
 import { Row } from "../Demo"
 
+const Label = ({ children }: { children: string }) => <span className="wiki-demo-label">{children}</span>
+
 const Icon = ({ d }: { d: string }) => <svg className="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d={d} /></svg>
 const ICONS = {
   copy: "M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 0 0-2.25 2.25v6",
@@ -13,12 +15,14 @@ const ICONS = {
 export default function TooltipExample() {
   return (
     <>
+      <Label>Labels for icon buttons</Label>
       <Row>
         <Tooltip content="Copy link"><IconButton aria-label="Copy link" onClick={() => toast("Link copied", { tone: "success" })}><Icon d={ICONS.copy} /></IconButton></Tooltip>
         <Tooltip content="Reload"><IconButton aria-label="Reload"><Icon d={ICONS.refresh} /></IconButton></Tooltip>
         <Tooltip content="Open in split view"><IconButton aria-label="Open in split view"><Icon d={ICONS.columns} /></IconButton></Tooltip>
         <Tooltip content="Ends in 4d 07h 06m" kind="description"><span className="x-tag" tabIndex={0}>Trial</span></Tooltip>
       </Row>
+      <Label>Sides</Label>
       <Row>
         <Tooltip content="On top" kind="description"><Button variant="ghost" size="sm">Top</Button></Tooltip>
         <Tooltip content="Below" kind="description" placement="bottom"><Button variant="ghost" size="sm">Bottom</Button></Tooltip>

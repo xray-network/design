@@ -6,11 +6,28 @@ import { toast } from "@protocol/components/toast/toast"
 import { Row } from "../Demo"
 
 export default function DialogExample() {
+  const [rename, setRename] = useState(false)
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState(false)
   const [filters, setFilters] = useState(false)
   return (
     <Row>
+      <Button onClick={() => setRename(true)}>Rename account</Button>
+      <Dialog
+        open={rename}
+        onOpenChange={setRename}
+        size="sm"
+        title="Rename account"
+        description="The name shows in the account switcher and on statements."
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setRename(false)}>Cancel</Button>
+            <Button onClick={() => { setRename(false); toast("Account renamed", { tone: "success" }) }}>Save</Button>
+          </>
+        }
+      >
+        <Input aria-label="Account name" defaultValue="Main account" data-autofocus />
+      </Dialog>
       <Button variant="danger" onClick={() => setOpen(true)}>Remove account</Button>
       <Dialog
         open={open}

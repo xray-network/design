@@ -85,7 +85,7 @@ export const EmptyDemo = () => <Demo id="empty" name="Empty"><EmptyExample /></D
 export const ResultDemo = () => <Demo id="result" name="Result"><ResultExample /></Demo>
 export const BorderBeamDemo = () => <Demo id="border-beam" name="BorderBeam" loading="on">{({ loading }) => <BorderBeamExample loading={loading} />}</Demo>
 export const TableCompactDemo = () => <Demo id="table-compact" name="TableCompact" loading>{({ loading }) => <TableCompactExample loading={loading} />}</Demo>
-export const SkeletonDemo = () => <Demo id="skeleton" name="Skeleton" loading="on">{({ loading }) => <SkeletonExample loading={loading} />}</Demo>
+export const SkeletonDemo = () => <Demo id="skeleton" name="Skeleton"><SkeletonExample /></Demo>
 export const OptionDemo = () => <Demo id="card-option" name="CardOption" loading>{({ loading }) => <OptionExample loading={loading} />}</Demo>
 export const StatsDemo = () => <Demo id="stats" name="Stats" loading>{({ loading }) => <StatsExample loading={loading} />}</Demo>
 export const ProgressDemo = () => <Demo id="progress" name="Progress" loading>{({ loading }) => <ProgressExample loading={loading} />}</Demo>
