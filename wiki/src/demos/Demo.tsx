@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react"
 
 import { Switch } from "@protocol/components/switch/switch"
-import { componentPrompt, type DemoEntry } from "../prompts"
+import { componentPrompt, kitPath, type DemoEntry } from "../prompts"
 import { PromptCard } from "./PromptCard"
 
 import "./demo.css"
@@ -35,7 +35,7 @@ export function Demo({
         <PromptCard
           label={`Prompt for ${name}`}
           build={(preference) => componentPrompt({ id, name, kind }, preference)}
-          source={{ href: `https://github.com/xray-network/design/tree/main/protocol/${kind}s/${id}`, label: `Reference source for ${name}` }}
+          source={{ href: `https://github.com/xray-network/design/tree/main/protocol/${kitPath({ id, kind })}`, label: `Reference source for ${name}` }}
         />
       </div>
   )

@@ -1,0 +1,45 @@
+/* Presence: how a surface arrives and leaves. Requires core/tokens.css. CSS only: show and hide the element with
+   the hidden attribute. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  /* Shown. It arrives from its starting style: faded, and a little small (or a little away, with data-from). The
+     spring carries the size and the place; opacity stays on the ease curve. */
+  .x-presence {
+    --x-presence-scale: 0.96;
+    --x-presence-distance: 8px;
+    --x-presence-away: 0 0;
+
+    transform-origin: var(--x-presence-origin, center);
+    transition:
+      opacity var(--x-duration-base) var(--x-ease),
+      scale var(--x-spring-duration) var(--x-spring),
+      translate var(--x-spring-duration) var(--x-spring),
+      display var(--x-duration-base) allow-discrete;
+  }
+  @starting-style {
+    .x-presence { opacity: 0; scale: var(--x-presence-scale); translate: var(--x-presence-away); }
+  }
+
+  /* Hidden. The exit: the same path back, on the ease curve, with no overshoot. display waits for it to end where
+     the browser can hold it; elsewhere the element simply goes. */
+  .x-presence[hidden] {
+    display: none !important; /* the app's own display for the element (a grid, a flex row) must not keep it in the layout */
+    opacity: 0;
+    scale: var(--x-presence-scale);
+    translate: var(--x-presence-away);
+    transition:
+      opacity var(--x-duration-fast) var(--x-ease),
+      scale var(--x-duration-fast) var(--x-ease),
+      translate var(--x-duration-fast) var(--x-ease),
+      display var(--x-duration-fast) allow-discrete;
+  }
+
+  /* From a side: it keeps its size and travels a short way into place. */
+  .x-presence[data-from] { --x-presence-scale: 1; }
+  .x-presence[data-from="above"] { --x-presence-away: 0 calc(var(--x-presence-distance) * -1); }
+  .x-presence[data-from="below"] { --x-presence-away: 0 var(--x-presence-distance); }
+  .x-presence[data-from="start"] { --x-presence-away: calc(var(--x-presence-distance) * -1) 0; }
+  .x-presence[data-from="end"] { --x-presence-away: var(--x-presence-distance) 0; }
+}

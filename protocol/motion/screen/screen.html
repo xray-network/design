@@ -1,0 +1,16 @@
+<!-- Screen: one container, one screen in view. screen.controller.js shows another with a transition:
+     data-x-screen-to on a control names the screen, data-x-screen-direction the direction (forward by default). -->
+<div class="x-screens">
+  <section class="x-screen" data-screen="list" aria-label="Payouts">
+    <button class="x-button" type="button" data-variant="ghost" data-x-screen-to="detail">Payout to Chase ···· 4821</button>
+  </section>
+  <section class="x-screen" data-screen="detail" aria-label="Payout" hidden>
+    <button class="x-button" type="button" data-variant="ghost" data-x-screen-to="list" data-x-screen-direction="back">Back</button>
+    <h2 data-autofocus tabindex="-1">$1,200.00</h2>
+  </section>
+</div>
+
+<script type="module">
+  import { initScreens } from "./screen.controller.js";
+  initScreens();
+</script>

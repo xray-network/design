@@ -41,6 +41,7 @@ use a select or a menu.
 | disabled item | `input:disabled` | 40% opacity |
 | enhanced | `data-indicator="placing" \| "ready"` (set by JS) | fill moves from the item to the indicator |
 | travel direction | `data-direction="forward" \| "backward"` (set by JS) | picks which edge leads |
+| no room to overshoot | `data-settle` (set by JS) | the leading edge eases to rest instead of springing past it |
 
 ## Accessibility
 
@@ -60,8 +61,9 @@ front. In HTML, lazy content goes in `<template data-lazy>`.
 Tier 1. `trackIndicator()` from `core/motion.js` measures the checked item and sets
 `--x-ind-left` / `--x-ind-right`. The edge in the direction of travel moves on `--x-spring`, the
 trailing edge on `--x-spring-soft` (slightly longer), so the indicator stretches toward the target and
-settles. The overshoot is clamped to the track's scrollable area (`--x-ind-min`), so sliding to an end item never
-shows a scrollbar or scrolls the track. First placement and resizes snap without animation. Reduced motion: instant.
+settles. Between middle items the leading edge overshoots a little. At an end item there is no room for that:
+the resting place, the track's padding away from the edge, is the destination, so the leading edge eases into it
+on `--x-ease` (`data-settle`) and never touches the edge. The slide never shows a scrollbar or scrolls the track. First placement and resizes snap without animation. Reduced motion: instant.
 
 ## Component tokens
 

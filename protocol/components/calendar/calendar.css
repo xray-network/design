@@ -1,0 +1,107 @@
+/* Calendar: a month of days, for picking one day or a range. Requires core/tokens.css. The grid is filled by
+   calendar.controller.js (HTML) or the React component. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-calendar {
+    --x-calendar-cell: var(--x-size-md);
+    --x-calendar-pad: var(--x-space-3);
+    --x-calendar-day-radius: var(--x-radius-md);
+    --x-calendar-range-bg: var(--x-accent-wash);
+
+    display: inline-grid;
+    gap: var(--x-space-2);
+    padding: var(--x-calendar-pad);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-2xl);
+    background: var(--x-bg-panel);
+    color: var(--x-fg-1);
+    font: var(--x-weight-body) var(--x-text-sm) / 1 var(--x-font-sans);
+  }
+  /* Inside a surface that already has a frame: a popover, a card, a dialog. */
+  .x-calendar[data-frame="none"] { padding: 0; border: 0; border-radius: 0; background: none; }
+
+  /* ---- Head: previous month, the month's name, next month */
+  .x-calendar-head { display: flex; align-items: center; justify-content: space-between; gap: var(--x-space-2); }
+  .x-calendar-title { flex: 1; font-size: var(--x-text-md); font-weight: var(--x-weight-label); letter-spacing: var(--x-tracking-tight); text-align: center; }
+  .x-calendar-step {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    width: var(--x-size-sm);
+    height: var(--x-size-sm);
+    padding: 0;
+    border: 0;
+    border-radius: var(--x-radius-sm);
+    background: none;
+    color: var(--x-fg-3);
+    cursor: pointer;
+    transition: background-color var(--x-duration-fast) var(--x-ease), color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-calendar-step .x-icon { width: var(--x-icon-md); height: var(--x-icon-md); }
+  .x-calendar-step:hover { background: var(--x-bg-soft); color: var(--x-fg-1); }
+  .x-calendar-step:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 1px; }
+  .x-calendar-step:disabled { opacity: 0.4; cursor: default; pointer-events: none; }
+
+  /* ---- Grid: seven columns, always six weeks, so the height never changes between months */
+  .x-calendar-grid { border-collapse: collapse; border-spacing: 0; margin: 0; table-layout: fixed; }
+  .x-calendar-weekday {
+    width: var(--x-calendar-cell);
+    height: var(--x-size-sm);
+    padding: 0;
+    color: var(--x-fg-3);
+    font-size: var(--x-text-2xs);
+    font-weight: var(--x-weight-body);
+    text-align: center;
+  }
+  /* 1px above and below each day: the rows of a range stay apart. */
+  .x-calendar-cell { width: var(--x-calendar-cell); height: calc(var(--x-calendar-cell) + 2px); padding: 1px 0; background-clip: content-box; }
+
+  .x-calendar-day {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: var(--x-calendar-cell);
+    padding: 0;
+    border: 0;
+    border-radius: var(--x-calendar-day-radius);
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition: background-color var(--x-duration-fast) var(--x-ease), color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-calendar-day:hover { background: var(--x-bg-soft); }
+  .x-calendar-day:focus-visible { z-index: 1; outline: 2px solid var(--x-focus); outline-offset: 1px; }
+  .x-calendar-day[data-outside] { color: var(--x-fg-4); }
+  .x-calendar-day:disabled { opacity: 0.4; cursor: default; pointer-events: none; }
+  /* Today: heavier, with a dot under the number. */
+  .x-calendar-day[aria-current="date"] { font-weight: var(--x-weight-title); }
+  .x-calendar-day[aria-current="date"]::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--x-accent-ink);
+  }
+
+  /* ---- Selection. A selected day, and both ends of a range, are filled; the days between share a band. */
+  .x-calendar-cell:is([data-range="single"], [data-range="start"], [data-range="end"]) > .x-calendar-day { background: var(--x-accent); color: var(--x-accent-fg); }
+  .x-calendar-cell:is([data-range="single"], [data-range="start"], [data-range="end"]) > .x-calendar-day:hover { background: var(--x-accent-hover); }
+  .x-calendar-cell:is([data-range="single"], [data-range="start"], [data-range="end"]) > .x-calendar-day[aria-current="date"]::after { background: var(--x-accent-fg); }
+  .x-calendar-cell[data-range="middle"] { background-color: var(--x-calendar-range-bg); }
+  /* The band starts and ends under the middle of the end days, and is rounded where a week breaks it. */
+  .x-calendar-cell[data-range="start"] { background-image: linear-gradient(to right, transparent 50%, var(--x-calendar-range-bg) 50%); }
+  .x-calendar-cell[data-range="end"] { background-image: linear-gradient(to left, transparent 50%, var(--x-calendar-range-bg) 50%); }
+  .x-calendar-cell[data-range="middle"]:first-child { border-radius: var(--x-calendar-day-radius) 0 0 var(--x-calendar-day-radius); }
+  .x-calendar-cell[data-range="middle"]:last-child { border-radius: 0 var(--x-calendar-day-radius) var(--x-calendar-day-radius) 0; }
+  .x-calendar-cell[data-range="start"]:last-child,
+  .x-calendar-cell[data-range="end"]:first-child { background-image: none; }
+  /* An open range, following the pointer: the same shape in a quieter fill, until the second day is picked. */
+  .x-calendar-cell[data-preview] { --x-calendar-range-bg: var(--x-bg-soft); }
+}

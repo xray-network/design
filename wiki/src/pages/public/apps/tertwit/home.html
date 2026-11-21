@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Tertwit · Home</title>
+  <!-- A showcase screen of XRAY/DESIGN: plain HTML on the kit's own CSS and controllers. -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="../app.css">
+  <script type="module" src="../app.js"></script>
+</head>
+<body>
+  <header class="app-bar">
+    <span class="x-avatar" data-size="sm" data-seed="you" data-palette="amber" aria-hidden="true"></span>
+    <span class="app-title" data-brand style="text-align:center">Tertwit</span>
+    <button class="x-icon-button" type="button" aria-label="Timeline settings"><svg class="x-icon" data-icon="cog-6-tooth"></svg></button>
+  </header>
+  <main class="app-screen">
+    <div class="x-segmented" role="radiogroup" aria-label="Timeline" data-width="full" data-size="sm" style="margin-top:var(--x-space-3)">
+      <label class="x-segmented-item"><input type="radio" name="tl" checked><span>For you</span></label>
+      <label class="x-segmented-item"><input type="radio" name="tl"><span>Following</span></label>
+    </div>
+    <article class="x-post" aria-labelledby="t1">
+      <header class="x-post-head">
+        <span class="x-post-lead"><span class="x-avatar" data-seed="jane.cooper" data-palette="amber" aria-hidden="true"></span></span>
+        <div class="x-post-author" id="t1"><span class="x-post-name">Jane Cooper</span><span class="x-post-meta">@jane.cooper · 2h</span></div>
+        <button class="x-icon-button" type="button" data-size="sm" aria-label="More"><svg class="x-icon" data-icon="ellipsis-horizontal"></svg></button>
+      </header>
+      <p class="x-post-text">Shipped the new settings screen today. Every row is one sentence and one control, and it reads twice as fast.</p>
+      <footer class="x-post-actions">
+        <button class="x-post-action" type="button" data-action="like" aria-pressed="true" aria-label="Like, 248"><svg class="x-icon" data-icon="heart"></svg><span>248</span></button>
+        <button class="x-post-action" type="button" data-action="reply" aria-label="Reply, 12"><svg class="x-icon" data-icon="chat-bubble-oval-left"></svg><span>12</span></button>
+        <button class="x-post-action" type="button" data-action="repost" aria-pressed="false" aria-label="Repost, 31"><svg class="x-icon" data-icon="arrow-path-rounded-square"></svg><span>31</span></button>
+        <button class="x-post-action" type="button" data-action="share" data-end="" aria-label="Share"><svg class="x-icon" data-icon="paper-airplane"></svg></button>
+      </footer>
+    </article>
+    <article class="x-post" aria-labelledby="t2">
+      <header class="x-post-head">
+        <span class="x-post-lead"><span class="x-avatar" data-seed="acme" data-palette="ember" aria-hidden="true"></span></span>
+        <div class="x-post-author" id="t2"><span class="x-post-name">Acme Studio</span><span class="x-post-meta">@acme · 4h</span></div>
+        <button class="x-icon-button" type="button" data-size="sm" aria-label="More"><svg class="x-icon" data-icon="ellipsis-horizontal"></svg></button>
+      </header>
+      <p class="x-post-text">We are hiring two engineers for the payments team. Remote, four-day weeks in summer.</p>
+      <div class="x-post-media"><span class="app-art" data-art="acme-hiring" data-palette="ember" role="img" aria-label="Abstract picture" style="height:100%"></span></div>
+      <footer class="x-post-actions">
+        <button class="x-post-action" type="button" data-action="like" aria-pressed="false" aria-label="Like, 1024"><svg class="x-icon" data-icon="heart"></svg><span>1024</span></button>
+        <button class="x-post-action" type="button" data-action="reply" aria-label="Reply, 86"><svg class="x-icon" data-icon="chat-bubble-oval-left"></svg><span>86</span></button>
+        <button class="x-post-action" type="button" data-action="repost" aria-pressed="false" aria-label="Repost, 210"><svg class="x-icon" data-icon="arrow-path-rounded-square"></svg><span>210</span></button>
+        <button class="x-post-action" type="button" data-action="share" data-end="" aria-label="Share"><svg class="x-icon" data-icon="paper-airplane"></svg></button>
+      </footer>
+    </article>
+    <article class="x-post" aria-labelledby="t3">
+      <header class="x-post-head">
+        <span class="x-post-lead"><span class="x-avatar" data-seed="kai" data-palette="ember" aria-hidden="true"></span></span>
+        <div class="x-post-author" id="t3"><span class="x-post-name">Kai Nakamura</span><span class="x-post-meta">@kai · 6h</span></div>
+        <button class="x-icon-button" type="button" data-size="sm" aria-label="More"><svg class="x-icon" data-icon="ellipsis-horizontal"></svg></button>
+      </header>
+      <p class="x-post-text">Hot take: a table that wraps is not a table, it is a list having a bad day.</p>
+      <footer class="x-post-actions">
+        <button class="x-post-action" type="button" data-action="like" aria-pressed="false" aria-label="Like, 512"><svg class="x-icon" data-icon="heart"></svg><span>512</span></button>
+        <button class="x-post-action" type="button" data-action="reply" aria-label="Reply, 48"><svg class="x-icon" data-icon="chat-bubble-oval-left"></svg><span>48</span></button>
+        <button class="x-post-action" type="button" data-action="repost" aria-pressed="false" aria-label="Repost, 77"><svg class="x-icon" data-icon="arrow-path-rounded-square"></svg><span>77</span></button>
+        <button class="x-post-action" type="button" data-action="share" data-end="" aria-label="Share"><svg class="x-icon" data-icon="paper-airplane"></svg></button>
+      </footer>
+    </article>
+    <article class="x-post" aria-labelledby="t4">
+      <header class="x-post-head">
+        <span class="x-post-lead"><span class="x-avatar" data-seed="mira" data-palette="cool" aria-hidden="true"></span></span>
+        <div class="x-post-author" id="t4"><span class="x-post-name">Mira Lindqvist</span><span class="x-post-meta">@mira · 9h</span></div>
+        <button class="x-icon-button" type="button" data-size="sm" aria-label="More"><svg class="x-icon" data-icon="ellipsis-horizontal"></svg></button>
+      </header>
+      <p class="x-post-text">Lisbon, 7 am.</p>
+      <div class="x-post-media" data-ratio="square"><span class="app-art" data-art="mira-9" data-palette="cool" role="img" aria-label="Abstract picture" style="height:100%"></span></div>
+      <footer class="x-post-actions">
+        <button class="x-post-action" type="button" data-action="like" aria-pressed="false" aria-label="Like, 96"><svg class="x-icon" data-icon="heart"></svg><span>96</span></button>
+        <button class="x-post-action" type="button" data-action="reply" aria-label="Reply, 5"><svg class="x-icon" data-icon="chat-bubble-oval-left"></svg><span>5</span></button>
+        <button class="x-post-action" type="button" data-action="repost" aria-pressed="false" aria-label="Repost, 8"><svg class="x-icon" data-icon="arrow-path-rounded-square"></svg><span>8</span></button>
+        <button class="x-post-action" type="button" data-action="share" data-end="" aria-label="Share"><svg class="x-icon" data-icon="paper-airplane"></svg></button>
+      </footer>
+    </article>
+  </main>
+  <button class="x-icon-button app-fab" type="button" aria-label="New post"><svg class="x-icon" data-icon="plus"></svg></button>
+  <footer class="app-tabs">
+    <nav class="x-liquid-indicator" aria-label="Tertwit" data-width="full" data-layout="stack">
+      <a class="x-liquid-indicator-item" href="home.html" aria-current="page"><svg class="x-icon" data-icon="home"></svg><span>Home</span></a>
+      <a class="x-liquid-indicator-item" href="post.html"><svg class="x-icon" data-icon="chat-bubble-oval-left"></svg><span>Thread</span></a>
+      <a class="x-liquid-indicator-item" href="profile.html"><svg class="x-icon" data-icon="user"></svg><span>Profile</span></a>
+      <span class="x-liquid-indicator-pill" aria-hidden="true"></span>
+    </nav>
+  </footer>
+</body>
+</html>

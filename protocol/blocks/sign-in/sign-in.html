@@ -1,0 +1,29 @@
+<!-- SignIn: Input, Button and Checkbox. A real form: the app handles submit and answers with an error or a redirect. -->
+<form class="x-sign-in" aria-labelledby="sign-in-title">
+  <header class="x-sign-in-head">
+    <h2 class="x-sign-in-title" id="sign-in-title">Sign in</h2>
+    <p class="x-sign-in-text">Welcome back. Use your work email.</p>
+  </header>
+  <div class="x-sign-in-providers">
+    <button class="x-button" type="button" data-variant="ghost" data-width="full">Continue with Apple</button>
+    <button class="x-button" type="button" data-variant="ghost" data-width="full">Continue with Google</button>
+  </div>
+  <div class="x-sign-in-divider">or</div>
+  <div class="x-field">
+    <label class="x-field-label" for="sign-in-email">Email</label>
+    <div class="x-input"><input id="sign-in-email" name="email" type="email" autocomplete="username" placeholder="you@company.com" required></div>
+  </div>
+  <div class="x-field">
+    <span class="x-sign-in-label"><label class="x-field-label" for="sign-in-password">Password</label><a class="x-sign-in-forgot" href="/reset">Forgot password?</a></span>
+    <div class="x-input"><input id="sign-in-password" name="password" type="password" autocomplete="current-password" required aria-invalid="true" aria-describedby="sign-in-password-error"></div>
+    <p class="x-field-error" id="sign-in-password-error" role="alert">The email or password is wrong.</p>
+  </div>
+  <label class="x-checkbox"><input type="checkbox" name="remember" checked><span class="x-checkbox-text">Keep me signed in</span></label>
+  <button class="x-button" type="submit" data-size="lg" data-width="full">Sign in</button>
+  <p class="x-sign-in-foot">No account? <a href="/sign-up">Create one</a></p>
+</form>
+
+<!-- Submitting: the spinner in the button -->
+<form class="x-sign-in" aria-label="Sign in">
+  <button class="x-button" type="submit" data-size="lg" data-width="full" aria-busy="true">Sign in</button>
+</form>

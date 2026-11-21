@@ -22,6 +22,7 @@ This folder (`.agents/design/`) is the **catalog**. It is read-only and replaced
 | `components/<id>/COMPONENT.md` | Contract: anatomy, states, accessibility, motion, invariants, safe edits, checklist. Its frontmatter lists dependencies (`requires`, `components`) and `files` |
 | `components/<id>/<id>.css` `.html` `.tsx` `.controller.js` | Styles, HTML reference, React version, vanilla controller |
 | `blocks/<id>/` | Blocks: screen sections built only from components. Same files as a component; `COMPONENT.md` lists the components it uses |
+| `motion/<id>/` | Motion patterns: movements any component or block can take on (a surface arriving, a sliding indicator, a list reflowing, a drag, one element becoming another, a screen change). Same files as a component |
 
 Only `core/`, `components/` and `blocks/` hold web code that is copied into the project; root documents and
 `references/` remain guidance in the catalog. Never edit the installed catalog. Edit project implementations under `uiRoot`.
@@ -138,6 +139,20 @@ Blocks are finished screen sections (balance, send form, transaction history) bu
 4. Wire it in like a component (React import, or HTML link, markup and controller), then feed it real data:
    blocks take data through props (React) or markup (HTML) and never fetch it themselves.
 5. Run the block's checklist.
+
+## Add a motion pattern
+
+Motion patterns (`motion/<id>/`) are movements, not controls: Presence, Stagger and Expand (arriving and leaving),
+LiquidIndicator, Reflow and Drag (moving), Morph (becoming) and Screen (navigating). Use one when
+the human asks for that movement, or when a screen needs it and DESIGN-PROTOCOL.md section 8 allows it there.
+
+1. Read `motion/<id>/COMPONENT.md`: its **Motion** section, **Invariants** and the budget it must stay within.
+2. Copy its files into `<uiRoot>/motion/<id>/` the way a component's are copied (and `core/motion.js` when `requires`
+   includes `motion`). Add it to `"motion"` in the lock (create the list if the lock has none).
+3. Apply it to the project's own markup: the pattern's classes go on the elements that move, next to their own.
+   Native targets rebuild the movement with the framework's animation tools: same travel, same curve intent, same
+   reduced-motion behavior.
+4. Run its checklist, with reduced motion on and off.
 
 ## Adapt a component (the human asks for a change)
 

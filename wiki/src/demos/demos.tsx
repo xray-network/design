@@ -41,6 +41,7 @@ import TableCompactExample from "./examples/table-compact"
 import OptionExample from "./examples/card-option"
 import StatsExample from "./examples/stats"
 import ProgressExample from "./examples/progress"
+import CalendarExample from "./examples/calendar"
 import SliderExample from "./examples/slider"
 import StepsExample from "./examples/steps"
 import TimelineExample from "./examples/timeline"
@@ -83,12 +84,13 @@ export const GroupDemo = () => <Demo id="input-group" name="InputGroup"><GroupEx
 export const CollapseDemo = () => <Demo id="collapse" name="Collapse"><CollapseExample /></Demo>
 export const EmptyDemo = () => <Demo id="empty" name="Empty"><EmptyExample /></Demo>
 export const ResultDemo = () => <Demo id="result" name="Result"><ResultExample /></Demo>
-export const BorderBeamDemo = () => <Demo id="border-beam" name="BorderBeam" loading="on">{({ loading }) => <BorderBeamExample loading={loading} />}</Demo>
+export const BorderBeamDemo = () => <Demo id="border-beam" name="BorderBeam"><BorderBeamExample /></Demo>
 export const TableCompactDemo = () => <Demo id="table-compact" name="TableCompact" loading>{({ loading }) => <TableCompactExample loading={loading} />}</Demo>
 export const SkeletonDemo = () => <Demo id="skeleton" name="Skeleton"><SkeletonExample /></Demo>
 export const OptionDemo = () => <Demo id="card-option" name="CardOption" loading>{({ loading }) => <OptionExample loading={loading} />}</Demo>
 export const StatsDemo = () => <Demo id="stats" name="Stats" loading>{({ loading }) => <StatsExample loading={loading} />}</Demo>
 export const ProgressDemo = () => <Demo id="progress" name="Progress" loading>{({ loading }) => <ProgressExample loading={loading} />}</Demo>
+export const CalendarDemo = () => <Demo id="calendar" name="Calendar"><CalendarExample /></Demo>
 export const SliderDemo = () => <Demo id="slider" name="Slider"><SliderExample /></Demo>
 export const StepsDemo = () => <Demo id="steps" name="Steps"><StepsExample /></Demo>
 export const TimelineDemo = () => <Demo id="timeline" name="Timeline"><TimelineExample /></Demo>

@@ -46,6 +46,7 @@ import { Icon } from "../../protocol/components/icon/icon";
 import { Progress, Meter } from "../../protocol/components/progress/progress";
 import { Slider } from "../../protocol/components/slider/slider";
 import { Steps } from "../../protocol/components/steps/steps";
+import { Calendar } from "../../protocol/components/calendar/calendar";
 import { Timeline } from "../../protocol/components/timeline/timeline";
 import { InputAmount } from "../../protocol/components/input-amount/input-amount";
 import { Combobox } from "../../protocol/components/combobox/combobox";
@@ -53,6 +54,18 @@ import { Command } from "../../protocol/components/command/command";
 import { Copy } from "../../protocol/components/copy/copy";
 import { MenuList } from "../../protocol/components/menu-list/menu-list";
 import { Swap } from "../../protocol/blocks/swap/swap";
+import { Profile } from "../../protocol/blocks/profile/profile";
+import { Post } from "../../protocol/blocks/post/post";
+import { Chat } from "../../protocol/blocks/chat/chat";
+import { SignIn } from "../../protocol/blocks/sign-in/sign-in";
+import { LiquidIndicator } from "../../protocol/motion/liquid-indicator/liquid-indicator";
+import { Drag } from "../../protocol/motion/drag/drag";
+import { Expand } from "../../protocol/motion/expand/expand";
+import { Morph } from "../../protocol/motion/morph/morph";
+import { Presence } from "../../protocol/motion/presence/presence";
+import { Screen, Screens } from "../../protocol/motion/screen/screen";
+import { Reflow } from "../../protocol/motion/reflow/reflow";
+import { Stagger } from "../../protocol/motion/stagger/stagger";
 import { bell, envelope } from "../../protocol/components/icon/icons.js";
 import { github } from "../../protocol/components/icon/socials.js";
 
@@ -358,6 +371,13 @@ export const examples: Record<string, ReactElement> = {
       <Steps aria-label="Verification" orientation="vertical" current={1} steps={[{ title: "Email" }, { title: "Identity document", state: "error", description: "The photo is blurred." }, { title: "Address" }]} />
     </>
   ),
+  calendar: (
+    <>
+      <Calendar defaultValue="2026-11-21" defaultMonth="2026-11" />
+      <Calendar mode="range" frame={false} defaultValue={{ start: "2026-11-12", end: "2026-11-18" }} defaultMonth="2026-11" min="2026-11-03" max="2026-12-20" />
+      <Calendar mode="range" defaultValue={{ start: "2026-11-12", end: null }} defaultMonth="2026-11" />
+    </>
+  ),
   timeline: (
     <Timeline
       events={[
@@ -411,6 +431,31 @@ export const examples: Record<string, ReactElement> = {
       <Copy value="bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq" label="address" variant="block" />
     </>
   ),
+  profile: (
+    <>
+      <Profile name="Jane Cooper" handle="@jane.cooper" bio="Product designer." avatar={<Avatar seed="jane" size="lg" />} stats={[{ label: "Posts", value: "128" }]} actions={<><Button>Follow</Button><Button variant="ghost">Message</Button></>} />
+      <Profile name="" handle="" bio="" avatar={null} stats={[{ label: "Posts", value: "" }]} loading />
+    </>
+  ),
+  post: (
+    <>
+      <Post author="Jane Cooper" meta="@jane.cooper · 2h" avatar={<Avatar seed="jane" />} menu={<IconButton size="sm" aria-label="More">{icon}</IconButton>}
+        actions={[{ id: "like", label: "Like", icon, count: "248", pressed: true }, { id: "reply", label: "Reply", icon, count: "12" }, { id: "share", label: "Share", icon, end: true }]}>Shipped the new settings screen.</Post>
+      <Post author="Acme" avatar={<Avatar seed="acme" palette="ember" />} media={<img src="cover.jpg" alt="" />} mediaRatio="square" actions={[{ id: "like", label: "Like", icon, count: "1,024", pressed: false }]} />
+      <Post author="Acme" avatar={<Avatar seed="acme" />} media={<img src="p.jpg" alt="" />} mediaRatio="portrait" />
+      <Post author="Acme" avatar={<Avatar seed="acme" />} media={<img src="w.jpg" alt="" />} />
+      <Post author="" meta="" avatar={null} loading />
+    </>
+  ),
+  chat: (
+    <Chat aria-label="Conversation" onSend={noop} items={[{ id: "d", day: "Today" }, { id: "1", from: "them", text: "Did the payout arrive?", meta: "14:02" }, { id: "2", from: "me", text: "Yes.", meta: "14:03 · Read" }]} />
+  ),
+  "sign-in": (
+    <>
+      <SignIn onSubmit={noop} text="Welcome back." providers={[{ id: "apple", label: "Continue with Apple" }]} error="The email or password is wrong." forgotHref="/reset" signUpHref="/sign-up" />
+      <SignIn onSubmit={noop} submitting remember={false} />
+    </>
+  ),
   swap: (
     <Swap
       pay={{ value: "1.5", onValueChange: noop, currency: "ETH", onCurrencyClick: noop, currencyLabel: "Change currency, ETH", balance: "Balance 2.41", max: "2.41", fiat: "≈ $4,812.60" }}
@@ -420,6 +465,54 @@ export const examples: Record<string, ReactElement> = {
       onReview={noop}
       quoting
     />
+  ),
+  // Motion
+  "liquid-indicator": (
+    <>
+      <LiquidIndicator aria-label="View" items={[{ value: "day", label: "Day" }, { value: "week", label: "Week" }]} />
+      <LiquidIndicator aria-label="Main" fullWidth layout="stack" value="home" items={[{ value: "home", label: "Home", icon, href: "/home" }, { value: "search", label: "Search", icon, href: "/search" }]} />
+    </>
+  ),
+  morph: (
+    <>
+      <Morph open={false} from={<Button variant="ghost">Payout details</Button>} to={<p>Details</p>} />
+      <Morph open cover from={<Button variant="ghost">Open</Button>} to={<p>Details</p>} />
+    </>
+  ),
+  presence: (
+    <>
+      <Presence show={false} origin="top left"><p>Filters</p></Presence>
+      <Presence show from="above"><p>Sent</p></Presence>
+      <Presence show from="below"><p>Saved</p></Presence>
+      <Presence show from="start"><p>Navigation</p></Presence>
+      <Presence show from="end"><p>Details</p></Presence>
+    </>
+  ),
+  expand: (
+    <>
+      <Expand open={false} id="fees"><p>Fees</p></Expand>
+      <Expand open><p>Open</p></Expand>
+      <Expand open={false} peek><p>Terms</p></Expand>
+    </>
+  ),
+  drag: (
+    <>
+      <Drag dismiss="both"><span>Payout sent</span></Drag>
+      <Drag axis="y" snap={[0, 240]} dismiss="end" handle><Button variant="ghost">Close</Button></Drag>
+    </>
+  ),
+  screen: (
+    <Screens current="list">
+      <Screen id="list" aria-label="Payouts"><Button variant="ghost">Payout</Button></Screen>
+      <Screen id="detail" aria-label="Payout"><Button variant="ghost">Back</Button></Screen>
+    </Screens>
+  ),
+  reflow: <Reflow><li key="a">Ether</li><li key="b">USD Coin</li></Reflow>,
+  stagger: (
+    <>
+      <Stagger as="ul"><li>Payments</li><li>Invoices</li></Stagger>
+      <Stagger as="ul" from="start"><li>Home</li></Stagger>
+    </>
   ),
   // Blocks
   balance: (

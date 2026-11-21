@@ -1,7 +1,7 @@
 ---
 id: command
 name: Command
-summary: A command menu in one framed panel: a search row, grouped actions with a lead tile and two lines, and a row of key hints.
+summary: A command menu in one framed panel, with a search row, grouped actions with a lead tile and two lines, and a row of key hints.
 motion: 0
 requires: [tokens]
 components: []

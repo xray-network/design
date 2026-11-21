@@ -865,10 +865,41 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
 
 .spectre-start,
 .spectre-workflow,
+.spectre-screens,
 .spectre-browse {
   padding-top: 88px;
   scroll-margin-top: 128px;
 }
+
+/* Showcase wall: columns of phone-size screens, 300px wide, alternate columns shifted for a masonry look. The wall
+   itself is static: a fixed height, clipped at the sides, and faded out at the top and bottom by a mask, so the
+   screens stay live under it. */
+.spectre-screens-wall {
+  --fade-top: 96px;
+  --fade-bottom: 200px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  height: 760px;
+  margin-top: 28px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent);
+}
+.spectre-screens-column { display: grid; flex: none; align-content: start; gap: 16px; width: 300px; }
+.spectre-screens-column:nth-child(even) { margin-top: -96px; }
+.spectre-screen {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--x-border-hover);
+  border-radius: 32px;
+  background: var(--x-bg);
+  transition: border-color var(--x-duration-fast) var(--x-ease);
+}
+.spectre-screen:hover { border-color: var(--x-fg-4); }
+/* Live screens: each one scrolls and takes taps inside its own frame. */
+.spectre-screen > iframe { display: block; width: 100%; height: 100%; border: 0; }
 
 .spectre-browse {
   padding-bottom: 72px;
@@ -892,7 +923,7 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   margin-top: 12px;
 }
 
-:is(.spectre-start, .spectre-browse) > p {
+:is(.spectre-start, .spectre-screens, .spectre-browse) > p {
   color: var(--xr-fg-secondary);
   font-size: 17px;
 }
@@ -1086,9 +1117,12 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
 
   .spectre-start,
   .spectre-workflow,
+  .spectre-screens,
   .spectre-browse {
     padding-top: 56px;
   }
+
+  .spectre-screens-wall { --fade-top: 64px; --fade-bottom: 140px; height: 600px; }
 
   .spectre-home .spectre-lead {
     font-size: 16px;

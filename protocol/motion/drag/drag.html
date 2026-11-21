@@ -1,0 +1,20 @@
+<!-- Drag: drag.controller.js makes [data-x-drag] follow the pointer and settle when it is let go. It fires
+     "settle" ({ offset, index }) and "dismiss" ({ direction }) on the element.
+     A row that can be swiped away, either way. The button does the same for the keyboard. -->
+<div class="x-drag" data-x-drag data-axis="x" data-dismiss="both">
+  <span>Payout sent to Chase ···· 4821</span>
+  <button class="x-button" type="button" data-variant="ghost" data-size="sm">Dismiss</button>
+</div>
+
+<!-- A sheet with two resting places: open (0) and peeking (240px down). Pulled further down, it is dismissed.
+     Only the grabber starts the drag, so the content can scroll. -->
+<div class="x-drag" data-x-drag data-axis="y" data-snap="0 240" data-dismiss="end" role="dialog" aria-label="Filters">
+  <span class="x-drag-handle" aria-hidden="true"></span>
+  <button class="x-button" type="button" data-variant="ghost">Close</button>
+</div>
+
+<script type="module">
+  import { initDrags } from "./drag.controller.js";
+  initDrags();
+  document.addEventListener("dismiss", (event) => event.target.remove());
+</script>

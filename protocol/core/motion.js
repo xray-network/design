@@ -29,8 +29,14 @@ export function reduced(el) {
  * other edge follows on a softer spring, so the indicator stretches and settles like a drop.
  *
  * The CSS reads --x-ind-left / --x-ind-right (insets from the root's padding box), --x-ind-min (the most negative
- * inset that stays inside the root's scrollable area, so a spring's overshoot never adds overflow) and
- * data-direction ("forward" | "backward") on the root; data-indicator="ready" turns the indicator on.
+ * inset that stays inside the root's scrollable area: the indicator's box spans it and clips the fill, so nothing
+ * the fill does adds overflow), data-direction ("forward" | "backward") and data-settle on the root;
+ * data-indicator="ready" turns the indicator on.
+ *
+ * data-settle: the leading edge has no room to overshoot. Its resting place beside the track's edge (the track's
+ * padding away from it) is the destination, so the CSS moves it there on a curve that does not overshoot. It is
+ * set when the spring's overshoot would take more than half the room past the resting place: always at an end
+ * item, never on a hop between middle items.
  *
  * @param {HTMLElement} root   Element containing the items and the indicator.
  * @param {() => HTMLElement | null} getActive   Returns the active item.
@@ -38,6 +44,12 @@ export function reduced(el) {
  */
 export function trackIndicator(root, getActive) {
   let last = null;
+
+  /** How far past its target --x-spring goes, as a share of the distance (0.05 = 5%). */
+  const overshoot = () => {
+    const stops = (easing(root).match(/-?\d*\.?\d+(?!\d*%)/g) ?? []).map(Number);
+    return Math.max(0, Math.max(1, ...stops) - 1);
+  };
 
   const update = () => {
     const active = getActive();
@@ -47,11 +59,19 @@ export function trackIndicator(root, getActive) {
     }
     const left = active.offsetLeft;
     const right = root.clientWidth - (active.offsetLeft + active.offsetWidth);
-    if (last !== null && left !== last) root.dataset.direction = left > last ? "forward" : "backward";
-    last = left;
+    const min = Math.min(0, root.clientWidth - root.scrollWidth);
+    if (last !== null && left !== last.left) {
+      const forward = left > last.left;
+      root.dataset.direction = forward ? "forward" : "backward";
+      // The leading edge: how far it travels, and the room past its resting place before the scrollable area ends.
+      const travel = Math.abs(forward ? last.right - right : last.left - left);
+      const room = forward ? right - min : left;
+      root.toggleAttribute("data-settle", overshoot() * travel * 2 > room);
+    }
+    last = { left, right };
     root.style.setProperty("--x-ind-left", `${left}px`);
     root.style.setProperty("--x-ind-right", `${right}px`);
-    root.style.setProperty("--x-ind-min", `${Math.min(0, root.clientWidth - root.scrollWidth)}px`);
+    root.style.setProperty("--x-ind-min", `${min}px`);
     if (root.dataset.indicator !== "ready") {
       // First placement without transition; motion only between items.
       root.dataset.indicator = "placing";

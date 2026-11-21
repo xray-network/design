@@ -1,0 +1,53 @@
+---
+title: Motion
+description: "How XRAY/DESIGN moves: three curves, a short budget, and patterns for the things that travel."
+footer: false
+---
+
+import { Catalog } from "../../demos/Catalog"
+import { MotionCurves } from "../../demos/motion"
+
+# Motion
+
+Motion in the kit says one thing: this object went there. A selection slides, a card grows into its detail, a list
+makes room. Everything else changes color and stays put. The rules are in the [design protocol](/protocol), section 8;
+the patterns below are the movements themselves, ready to add like any component.
+
+<MotionCurves />
+
+## The budget
+
+- **What may move:** selection indicators, switch thumbs, surfaces arriving, regions opening, lists reflowing,
+  one element becoming another, an element under the finger, and one screen replacing another. Buttons never
+  move; numbers and text never animate.
+- **How long:** nothing over 600ms, and one moving thing per region.
+- **Exits** use the ease curve and never overshoot.
+- **Reduced motion** sets every duration to 0. Patterns built on the tokens need nothing else.
+
+## Patterns
+
+Eight patterns, grouped by the question they answer.
+
+### Arriving and leaving
+
+Something that was not there now is, or the other way round: a panel, a group of rows, a region that opens.
+
+<Catalog kind="motion" group="arriving" />
+
+### Moving
+
+Something that is already there changes place: a selection, the items of a list, an element under the finger.
+
+<Catalog kind="motion" group="moving" />
+
+### Becoming
+
+One thing turns into another, so the person never loses track of what they opened.
+
+<Catalog kind="motion" group="becoming" />
+
+### Navigating
+
+The whole view changes to another one, and the direction says where it sits in the flow.
+
+<Catalog kind="motion" group="navigating" />

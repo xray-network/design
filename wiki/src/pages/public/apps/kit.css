@@ -1,0 +1,23 @@
+/* The kit files the showcase apps use, in one stylesheet. Each kit file declares the layer order itself. */
+@import url("../kit/core/tokens.css");
+@import url("../kit/core/base.css");
+@import url("../kit/components/avatar/avatar.css");
+@import url("../kit/components/button/button.css");
+@import url("../kit/components/input/input.css");
+@import url("../kit/components/input-amount/input-amount.css");
+@import url("../kit/components/list/list.css");
+@import url("../kit/components/menu-list/menu-list.css");
+@import url("../kit/components/numeral/numeral.css");
+@import url("../kit/components/progress/progress.css");
+@import url("../kit/components/segmented/segmented.css");
+@import url("../kit/components/skeleton/skeleton.css");
+@import url("../kit/components/switch/switch.css");
+@import url("../kit/components/tag/tag.css");
+@import url("../kit/components/chips/chips.css");
+@import url("../kit/blocks/balance/balance.css");
+@import url("../kit/blocks/chat/chat.css");
+@import url("../kit/blocks/post/post.css");
+@import url("../kit/blocks/profile/profile.css");
+@import url("../kit/blocks/swap/swap.css");
+@import url("../kit/motion/liquid-indicator/liquid-indicator.css");
+@import url("../kit/motion/stagger/stagger.css");

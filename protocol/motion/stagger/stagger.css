@@ -1,0 +1,25 @@
+/* Stagger: a group's items enter one after another. Requires core/tokens.css. CSS only. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-stagger {
+    --x-stagger-step: calc(var(--x-duration-fast) / 4); /* 30ms; 0 when motion is reduced */
+    --x-stagger-distance: 8px;
+  }
+  .x-stagger > * {
+    --x-stagger-delay: calc(var(--x-stagger-step) * 0);
+    transition:
+      opacity var(--x-duration-base) var(--x-ease) var(--x-stagger-delay),
+      translate var(--x-spring-soft-duration) var(--x-spring-soft) var(--x-stagger-delay);
+  }
+  @starting-style {
+    .x-stagger > * { opacity: 0; translate: 0 var(--x-stagger-distance); }
+    .x-stagger[data-from="start"] > * { translate: calc(var(--x-stagger-distance) * -1) 0; }
+  }
+  /* Five steps at most: the sixth item and later arrive with the fifth. */
+  .x-stagger > :nth-child(2) { --x-stagger-delay: var(--x-stagger-step); }
+  .x-stagger > :nth-child(3) { --x-stagger-delay: calc(var(--x-stagger-step) * 2); }
+  .x-stagger > :nth-child(4) { --x-stagger-delay: calc(var(--x-stagger-step) * 3); }
+  .x-stagger > :nth-child(n + 5) { --x-stagger-delay: calc(var(--x-stagger-step) * 4); }
+}

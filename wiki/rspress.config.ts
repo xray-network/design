@@ -92,6 +92,7 @@ export default defineConfig({
       { text: "Blocks", link: "/blocks/" },
       { text: "Showcase", link: "/showcase/" },
       { text: "Icons", link: "/icons" },
+      { text: "Motion", link: "/motion/" },
     ],
     sidebar: sidebar(),
   }

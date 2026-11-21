@@ -1,0 +1,11 @@
+/* Reflow: items glide to their new places when a list changes. Requires core/tokens.css and core/motion.js, through
+   reflow.controller.js or the React component. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  /* Positioned and isolated: items are measured against it, and an item on its way out fades beneath the others. */
+  .x-reflow { position: relative; isolation: isolate; margin: 0; padding: 0; list-style: none; }
+  /* A removed item's copy: out of the flow, where the item was, so the others can close the gap at once. */
+  .x-reflow > [data-reflow-exit] { position: absolute; z-index: -1; box-sizing: border-box; margin: 0; pointer-events: none; }
+}

@@ -1,0 +1,28 @@
+<!-- Expand: data-open on the region opens it. expand.controller.js wires any button with data-x-expand and
+     aria-controls to the region it names. -->
+<button class="x-button" type="button" data-variant="ghost" data-x-expand aria-expanded="false" aria-controls="fees">Fee details</button>
+<div class="x-expand" id="fees">
+  <div class="x-expand-content">
+    <p>Network fee $0.42, service fee $1.00. You pay $1.42 in total.</p>
+  </div>
+</div>
+
+<!-- Open from the start -->
+<div class="x-expand" data-open="">
+  <div class="x-expand-content"><p>Shown when the page loads.</p></div>
+</div>
+
+<!-- Peek: closed, the first lines show and fade out; the button opens the rest -->
+<div class="x-expand" data-peek="" id="terms">
+  <div class="x-expand-content">
+    <p>Payouts are sent every business day. A payout started before 4 pm arrives the next business day; later ones
+      arrive the day after. Weekends and bank holidays are not business days. Limits depend on your plan and on the
+      country of the receiving bank.</p>
+  </div>
+</div>
+<button class="x-button" type="button" data-variant="ghost" data-x-expand aria-expanded="false" aria-controls="terms">Show more</button>
+
+<script type="module">
+  import { initExpands } from "./expand.controller.js";
+  initExpands();
+</script>

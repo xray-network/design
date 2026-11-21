@@ -1,0 +1,18 @@
+<!-- Chat: Input and Button. No JS of its own: on submit, the app appends the message and clears the input. -->
+<div class="x-chat" style="height: 420px">
+  <ol class="x-chat-thread" role="log" aria-label="Conversation with Jane Cooper">
+    <li class="x-chat-day">Today</li>
+    <li class="x-chat-message" data-from="them">
+      <div class="x-chat-bubble"><p>Did the payout arrive?</p></div>
+      <span class="x-chat-meta">14:02</span>
+    </li>
+    <li class="x-chat-message" data-from="me">
+      <div class="x-chat-bubble"><p><span class="x-chat-you">You: </span>Yes, this morning. Sending the receipt now.</p></div>
+      <span class="x-chat-meta">14:03 · Read</span>
+    </li>
+  </ol>
+  <form class="x-chat-composer">
+    <div class="x-input"><input type="text" name="message" aria-label="Message" placeholder="Message" autocomplete="off"></div>
+    <button class="x-icon-button" type="submit" data-shape="round" aria-label="Send" disabled><svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12 3.27 3.13a59.77 59.77 0 0 1 18.22 8.87A59.77 59.77 0 0 1 3.27 20.88L6 12Zm0 0h7.5"/></svg></button>
+  </form>
+</div>

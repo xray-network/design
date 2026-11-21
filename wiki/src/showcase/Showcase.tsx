@@ -2,7 +2,7 @@ import { useId, useState, type ReactNode } from "react"
 import { chevronDown } from "@protocol/components/icon/icons.js"
 import { CodeBlock, Link } from "@rspress/core/theme"
 
-import { blocks, components, showcase } from "../navigation"
+import { blocks, components, linkText, showcase } from "../navigation"
 import { showcasePrompt } from "../prompts"
 import "./showcase.css"
 
@@ -44,7 +44,7 @@ export function Showcase({ id, children }: { id: (typeof showcase)[number]["id"]
         <h2 className="wiki-showcase-parts-title">Built from</h2>
         <ul>
           {screen.uses.map((part) => (
-            <li key={part}><Link className="wiki-showcase-part" href={NAMES[part].href}>{NAMES[part].text}</Link></li>
+            <li key={part}><Link className="wiki-showcase-part" href={NAMES[part].href}>{linkText(NAMES[part].text)}</Link></li>
           ))}
         </ul>
       </section>

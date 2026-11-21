@@ -1,0 +1,35 @@
+<!-- Profile: Avatar and Button. No JS of its own (initAvatars draws the avatar). The app supplies the counts. -->
+<section class="x-profile" aria-labelledby="profile-name">
+  <div class="x-profile-top">
+    <span class="x-profile-lead"><span class="x-avatar" data-size="lg" data-seed="jane.cooper" data-palette="amber" aria-hidden="true"></span></span>
+    <dl class="x-profile-stats">
+      <div><dd>128</dd><dt>Posts</dt></div>
+      <div><dd>12.4K</dd><dt>Followers</dt></div>
+      <div><dd>312</dd><dt>Following</dt></div>
+    </dl>
+  </div>
+  <div class="x-profile-id">
+    <h2 class="x-profile-name" id="profile-name">Jane Cooper</h2>
+    <span class="x-profile-handle">@jane.cooper</span>
+  </div>
+  <p class="x-profile-bio">Product designer. Notes on interfaces, type and the small details that make software feel calm.</p>
+  <div class="x-profile-actions">
+    <button class="x-button" type="button">Follow</button>
+    <button class="x-button" type="button" data-variant="ghost">Message</button>
+  </div>
+</section>
+
+<!-- Loading -->
+<section class="x-profile" aria-label="Profile" aria-busy="true">
+  <div class="x-profile-top">
+    <span class="x-profile-lead"><span class="x-skeleton" data-shape="circle" aria-hidden="true" style="--x-skeleton-width: 72px"></span></span>
+    <dl class="x-profile-stats">
+      <div><dd><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 2.5em"></span></dd><dt>Posts</dt></div>
+    </dl>
+  </div>
+  <div class="x-profile-id">
+    <h2 class="x-profile-name"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 9em"></span></h2>
+    <span class="x-profile-handle"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 7em"></span></span>
+  </div>
+  <p class="x-profile-bio"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 90%"></span></p>
+</section>

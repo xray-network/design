@@ -4,9 +4,12 @@ import { allIcons } from "@protocol/components/icon/icon.controller.js"
 import { Input } from "@protocol/components/input/input"
 import { Segmented } from "@protocol/components/segmented/segmented"
 import { toast } from "@protocol/components/toast/toast"
+import { iconSearchWords, matchesIcon } from "./icon-tags"
 import "./icon-gallery.css"
 
 const ICONS = allIcons()
+// What the search matches for each icon: its name, its label and its tags (what it means: "delete" finds trash).
+const SEARCH_WORDS = new Map(ICONS.map((icon) => [icon.name, iconSearchWords(icon)]))
 const SECTIONS = [
   { id: "interface", title: "Icons", test: (icon: (typeof ICONS)[number]) => !icon.brand && !icon.category },
   { id: "social", title: "Socials", test: (icon: (typeof ICONS)[number]) => icon.category === "social" },
@@ -19,8 +22,8 @@ export function IconGallery() {
   const [query, setQuery] = useState("")
   const [size, setSize] = useState("24")
   const sections = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    const match = (icon: (typeof ICONS)[number]) => !q || icon.name.includes(q) || Boolean(icon.label?.toLowerCase().includes(q))
+    // Every word of the query has to be found, in any order: "file download", "arrow left".
+    const match = (icon: (typeof ICONS)[number]) => matchesIcon(SEARCH_WORDS.get(icon.name)!, query)
     return SECTIONS.map((section) => ({ ...section, icons: ICONS.filter((icon) => section.test(icon) && match(icon)) })).filter((s) => s.icons.length)
   }, [query])
 

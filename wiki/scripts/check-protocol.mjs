@@ -57,7 +57,7 @@ for (const f of ROOT_FILES) if (!existsSync(join(KIT, f))) error(`protocol/${f}`
 for (const f of REFERENCE_FILES) if (!existsSync(join(KIT, "references", f))) error(`protocol/references/${f}`, "missing")
 for (const f of CORE_FILES) if (!existsSync(join(KIT, "core", f))) error(`protocol/core/${f}`, "missing")
 const stray = [
-  ...readdirSync(KIT).filter((f) => !["components", "blocks", "core", "references", ...ROOT_FILES].includes(f)),
+  ...readdirSync(KIT).filter((f) => !["components", "blocks", "motion", "core", "references", ...ROOT_FILES].includes(f)),
   ...(existsSync(join(KIT, "core")) ? readdirSync(join(KIT, "core")).filter((f) => !CORE_FILES.includes(f)).map((f) => `core/${f}`) : []),
   ...(existsSync(join(KIT, "references")) ? readdirSync(join(KIT, "references")).filter((f) => !REFERENCE_FILES.includes(f)).map((f) => `references/${f}`) : []),
 ]
@@ -113,8 +113,9 @@ try {
   error("protocol/DESIGN-PROTOCOL.md", e.message)
 }
 
-// Components are primitives; blocks are screen sections built only from components.
-const KINDS = ["components", "blocks"]
+// Components are primitives; blocks are screen sections built only from components; motion patterns are movements
+// (an indicator that slides, one element becoming another) that any of them can take on.
+const KINDS = ["components", "blocks", "motion"]
 const entries = {} // "components/button", "blocks/send-form" -> { kind, id, meta, dir, files }
 const components = {} // components only, by id: what frontmatter `components:` may reference
 for (const kind of KINDS) {
@@ -125,6 +126,8 @@ for (const kind of KINDS) {
     if (!existsSync(doc)) { error(`${kind}/${id}`, "missing COMPONENT.md"); continue }
     const meta = frontmatter(doc)
     if (!meta) { error(`${kind}/${id}/COMPONENT.md`, "missing frontmatter"); continue }
+    // The wiki reads it as YAML: a colon followed by a space inside a value breaks the page.
+    try { parseYaml(read(doc).match(/^---\n([\s\S]*?)\n---/)[1]) } catch (e) { error(`${kind}/${id}/COMPONENT.md`, `frontmatter is not valid YAML (a ": " inside a value?): ${String(e.message).split("\n")[0]}`) }
     for (const key of ["id", "name", "summary", "motion", "requires", "components", "files"]) {
       if (meta[key] === undefined) error(`${kind}/${id}/COMPONENT.md`, `frontmatter needs "${key}"`)
     }
@@ -140,7 +143,8 @@ const ids = Object.values(entries).map((e) => e.id)
 // 2 + 3. CSS and code
 // ---------------------------------------------------------------------------
 const defined = new Set()
-const collect = (css) => { for (const m of css.matchAll(/(--x-[\w-]+)\s*:/g)) defined.add(m[1]) }
+// A token is defined by a declaration, or registered with @property (then it always has a value).
+const collect = (css) => { for (const m of css.matchAll(/(--x-[\w-]+)\s*:|@property\s+(--x-[\w-]+)/g)) defined.add(m[1] ?? m[2]) }
 for (const f of ["core/tokens.css", "core/base.css"]) if (existsSync(join(KIT, f))) collect(read(join(KIT, f)))
 for (const { dir, files } of Object.values(entries)) for (const f of files) if (f.endsWith(".css")) collect(read(join(dir, f)))
 
@@ -228,7 +232,7 @@ await build({
 const { renderToStaticMarkup } = await import("react-dom/server")
 const { examples } = await import(pathToFileURL(OUT).href)
 
-const FREE = new Set(["data-placeholder", "data-for", "data-value", "data-seed", "data-id", "data-keywords"])
+const FREE = new Set(["data-placeholder", "data-for", "data-value", "data-seed", "data-id", "data-keywords", "data-action"])
 const facts = (markup) => {
   const out = new Set()
   for (const m of markup.matchAll(/class(?:Name)?="([^"]*)"/g)) for (const c of m[1].split(/\s+/)) if (c.startsWith("x-")) out.add(`.${c}`)
@@ -275,4 +279,4 @@ if (errors.length) {
   process.exit(1)
 }
 const list = (kind) => Object.values(entries).filter((e) => e.kind === kind).map((e) => e.id)
-console.log(`XRAY/DESIGN protocol ${version} OK: ${list("components").length} components (${list("components").join(", ")}), ${list("blocks").length} blocks${list("blocks").length ? ` (${list("blocks").join(", ")})` : ""}`)
+console.log(`XRAY/DESIGN protocol ${version} OK: ${list("components").length} components (${list("components").join(", ")}), ${list("blocks").length} blocks${list("blocks").length ? ` (${list("blocks").join(", ")})` : ""}, ${list("motion").length} motion patterns${list("motion").length ? ` (${list("motion").join(", ")})` : ""}`)

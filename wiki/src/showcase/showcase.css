@@ -167,3 +167,29 @@
   .wiki-showcase-setting { grid-template-columns: minmax(0, 1fr); gap: var(--x-space-3); }
   .wiki-showcase-actions { padding-inline-start: 0; }
 }
+
+/* ---- Apps: an app's screens side by side, each at phone size in its own scrolling frame. The row starts at the
+   content's left edge and runs to the window's right edge (--wiki-apps-width, set by AppShowcase). */
+.wiki-apps { width: var(--wiki-apps-width, 100%); margin: 24px 0 32px; }
+/* The doc column clips sideways by default; a page with an app strip lets it run out to the window's edge. */
+html .rp-doc-layout__doc:has(.wiki-apps) { overflow: visible; }
+.wiki-apps-strip {
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0 24px 16px 0;
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--x-border-hover) transparent;
+}
+.wiki-app { display: grid; flex: none; gap: 12px; width: 300px; margin: 0; scroll-snap-align: start; }
+.wiki-app-frame { height: 640px; overflow: hidden; border: 1px solid var(--x-border-hover); border-radius: 32px; background: var(--x-bg); }
+.wiki-app-frame > iframe { display: block; width: 100%; height: 100%; border: 0; }
+.wiki-app-foot { display: flex; align-items: center; gap: 8px; padding-inline: 4px; }
+.wiki-app-foot > strong { flex: 1; min-width: 0; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); }
+.wiki-app-foot > a.x-button { text-decoration: none !important; }
+/* The parts list on its own, under the description. */
+.wiki-apps-parts { margin: 24px 0; border: 1px solid var(--x-border); border-radius: var(--x-radius-xl); }
+.wiki-apps-parts .wiki-showcase-parts-title { margin: 0; padding: 0; border: 0; color: var(--x-fg-3); font-size: var(--x-text-sm); font-weight: var(--x-weight-body); line-height: var(--x-leading-body); }

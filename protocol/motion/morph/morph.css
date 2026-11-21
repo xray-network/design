@@ -1,0 +1,19 @@
+/* Morph: one element becomes another. Requires core/tokens.css and core/motion.js, through morph.controller.js or the
+   React component, which measure both forms and move a window from one to the other. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  /* The two forms share one place: the small one at its top left corner, the large one over it. */
+  .x-morph { position: relative; display: grid; min-width: 0; }
+  .x-morph > .x-morph-from,
+  .x-morph > .x-morph-to { grid-area: 1 / 1; min-width: 0; }
+  .x-morph > .x-morph-from { justify-self: start; align-self: start; }
+
+  /* The small form keeps its place while the large one is open, hidden from view and from assistive technology. */
+  .x-morph[data-open] > .x-morph-from { visibility: hidden; }
+  .x-morph-to[hidden] { display: none !important; } /* whatever layout the app gives the large form */
+
+  /* Cover: the large form lies over the whole group instead of opening in the small one's place. */
+  .x-morph[data-cover] > .x-morph-to { grid-area: auto; position: absolute; inset: 0; z-index: 1; overflow: auto; }
+}

@@ -1,0 +1,15 @@
+/* Screen: moving between the screens of a flow. Requires core/tokens.css and core/motion.js, through
+   screen.controller.js or the React components. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  /* The screens share one place. Only the current one is in the layout, except while one replaces another: then
+     both are, stacked, and the container clips what is on its way in or out. */
+  .x-screens { position: relative; display: grid; min-width: 0; overflow: hidden; overflow: clip; }
+  .x-screen { grid-area: 1 / 1; min-width: 0; background: var(--x-screen-bg, var(--x-bg)); }
+  .x-screen[hidden] { display: none !important; } /* whatever layout the app gives a screen, a hidden one is gone */
+  /* The screen that is leaving takes no input and is not read while it goes. */
+  .x-screen[data-leaving] { pointer-events: none; }
+  .x-screen:focus { outline: none; }
+}

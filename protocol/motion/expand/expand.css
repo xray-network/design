@@ -1,0 +1,40 @@
+/* Expand: a region opens and closes by height, and what follows makes room. Requires core/tokens.css. The state is
+   data-open on the root; expand.controller.js or the React component set it. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  /* The height is a grid row that goes from 0fr to 1fr: it animates to the content's real height in every browser,
+     with nothing measured. */
+  .x-expand {
+    --x-expand-peek: 0px;
+
+    display: grid;
+    grid-template-rows: 0fr;
+    min-width: 0;
+    transition: grid-template-rows var(--x-duration-slow) var(--x-ease);
+  }
+  .x-expand[data-open] { grid-template-rows: 1fr; }
+
+  /* Closed, the content is out of sight, out of the tab order and out of the accessibility tree: visibility turns
+     off when the closing ends, and on as the opening starts. */
+  .x-expand-content {
+    min-height: var(--x-expand-peek);
+    overflow: hidden;
+    overflow: clip;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity var(--x-duration-base) var(--x-ease),
+      visibility var(--x-duration-slow);
+  }
+  .x-expand[data-open] > .x-expand-content { visibility: visible; opacity: 1; }
+
+  /* Peek: closed, the first lines stay on show and fade out at the bottom ("Show more"). */
+  .x-expand[data-peek] { --x-expand-peek: 4.5em; }
+  .x-expand[data-peek] > .x-expand-content { visibility: visible; opacity: 1; }
+  .x-expand[data-peek]:not([data-open]) > .x-expand-content {
+    -webkit-mask-image: linear-gradient(to bottom, var(--x-black) 40%, transparent);
+    mask-image: linear-gradient(to bottom, var(--x-black) 40%, transparent);
+  }
+}

@@ -1,0 +1,61 @@
+/* The shell every showcase app shares: a title bar, a scrolling screen and a tab bar, at phone size.
+   Everything inside is kit components and blocks; these rules are layout only. */
+
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; -webkit-tap-highlight-color: transparent; }
+
+.app-bar { display: flex; flex: none; align-items: center; gap: var(--x-space-2); min-height: 52px; padding: 0 var(--x-space-2) 0 var(--x-space-4); border-bottom: 1px solid var(--x-border); }
+.app-bar > .x-icon-button:first-child { margin-inline-start: calc(var(--x-space-2) * -1); }
+.app-title { flex: 1; min-width: 0; overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-lg); font-weight: var(--x-weight-title); letter-spacing: var(--x-tracking-tight); text-overflow: ellipsis; white-space: nowrap; }
+.app-title[data-brand] { font-size: var(--x-text-xl); }
+.app-title > small { display: block; color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-body); letter-spacing: 0; }
+
+.app-screen { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0 var(--x-space-4) var(--x-space-6); scrollbar-width: none; }
+.app-screen::-webkit-scrollbar { display: none; }
+.app-screen[data-flush] { padding: 0; }
+.app-screen > section { padding-top: var(--x-space-4); }
+.app-heading { margin: 0 0 var(--x-space-2); color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-label); }
+.app-pad { padding-inline: var(--x-space-4); }
+
+/* The tab bar: a LiquidIndicator laid flat across the bottom. Tabs are links to the app's other screens. */
+.app-tabs { flex: none; padding: var(--x-space-2) var(--x-space-3) max(var(--x-space-2), env(safe-area-inset-bottom)); border-top: 1px solid var(--x-border); }
+.app-tabs > .x-liquid-indicator { padding: 0; border: 0; background: none; --x-liquid-indicator-pad: 0px; --x-liquid-indicator-radius: var(--x-radius-lg); }
+
+/* Abstract art in place of photographs: the Avatar's generator, filling its box. */
+.app-art { display: block; overflow: hidden; background: var(--x-bg-chip); }
+.app-art > svg { display: block; width: 100%; height: 100%; }
+
+/* A row of round stories. */
+.app-stories { display: flex; gap: var(--x-space-3); margin: 0; padding: var(--x-space-3) var(--x-space-4); overflow-x: auto; border-bottom: 1px solid var(--x-border); list-style: none; scrollbar-width: none; }
+.app-stories::-webkit-scrollbar { display: none; }
+.app-stories > li { display: grid; flex: none; justify-items: center; gap: var(--x-space-1); width: 64px; color: var(--x-fg-2); font-size: var(--x-text-2xs); }
+.app-ring { display: grid; padding: 2px; border: 2px solid var(--x-accent-ink); border-radius: 50%; }
+.app-ring > .x-avatar { --x-avatar-size: 52px; }
+.app-stories [data-seen] .app-ring { border-color: var(--x-border-hover); }
+.app-stories span:last-child { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* A three-column grid of square pictures. */
+.app-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; }
+.app-grid > .app-art { aspect-ratio: 1; }
+.app-grid > .app-art[data-tall] { grid-row: span 2; aspect-ratio: auto; }
+
+/* Chat list rows: an unread count at the far end. */
+.app-count { display: inline-grid; min-width: 20px; height: 20px; padding: 0 var(--x-space-1-5); place-items: center; border-radius: var(--x-radius-pill); background: var(--x-accent); color: var(--x-accent-fg); font: var(--x-weight-label) var(--x-text-2xs) / 1 var(--x-font-sans); font-variant-numeric: tabular-nums; }
+.app-count[data-muted] { background: var(--x-bg-active); color: var(--x-fg-2); }
+
+/* A screen that is one conversation: the Chat block fills it. */
+.app-screen > .x-chat { height: 100%; padding: 0 var(--x-space-4) var(--x-space-3); }
+
+/* Two buttons side by side, each half the width. */
+.app-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--x-space-2); }
+
+/* A price line with its change. */
+.app-price { display: flex; align-items: baseline; gap: var(--x-space-2-5); margin: 0; }
+.app-spark { display: block; width: 100%; height: 120px; margin-block: var(--x-space-3); color: var(--x-accent-ink); }
+.app-spark path { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.app-spark path:first-child { fill: currentColor; fill-opacity: 0.1; stroke: none; }
+
+/* A compose button floating above the tab bar. */
+.app-fab { position: absolute; right: var(--x-space-4); bottom: 84px; z-index: 2; }
+.app-fab.x-icon-button { width: 52px; height: 52px; border-radius: 50%; background: var(--x-accent); color: var(--x-accent-fg); }
+body { position: relative; }

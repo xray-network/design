@@ -1,7 +1,7 @@
 ---
 id: swap
 name: Swap
-summary: Exchange one currency for another: the amount you pay, a flip button, the quoted amount you receive, the rate and fees, and the review button.
+summary: Exchange one currency for another, with the amount you pay, a flip button, the quoted amount you receive, the rate and fees, and the review button.
 motion: 0
 requires: [tokens]
 components: [input-amount, button, skeleton]

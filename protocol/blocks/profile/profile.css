@@ -1,0 +1,24 @@
+/* Profile: avatar, counts, name and handle, bio and actions. Built from Avatar and Button. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-profile { display: grid; gap: var(--x-space-3); min-width: 0; }
+
+  .x-profile-top { display: flex; align-items: center; gap: var(--x-space-5); }
+  .x-profile-lead { flex: none; }
+  .x-profile .x-profile-lead > .x-avatar { --x-avatar-size: 72px; }
+  .x-profile-stats { display: flex; flex: 1; justify-content: space-around; gap: var(--x-space-2); min-width: 0; margin: 0; }
+  .x-profile-stats > div { display: grid; justify-items: center; gap: var(--x-space-0-5); min-width: 0; }
+  .x-profile-stats dd { margin: 0; color: var(--x-fg-1); font: var(--x-weight-stat) var(--x-text-lg) / 1.2 var(--x-font-sans); font-variant-numeric: tabular-nums; }
+  .x-profile-stats dt { color: var(--x-fg-3); font-size: var(--x-text-xs); white-space: nowrap; }
+
+  .x-profile-id { display: grid; gap: var(--x-space-0-5); min-width: 0; }
+  .x-profile-name { margin: 0; overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-lg); font-weight: var(--x-weight-title); line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+  .x-profile-handle { overflow: hidden; color: var(--x-fg-3); font: var(--x-weight-body) var(--x-text-sm) / 1.4 var(--x-font-mono); text-overflow: ellipsis; white-space: nowrap; }
+  .x-profile-bio { display: -webkit-box; margin: 0; overflow: hidden; color: var(--x-fg-2); font-size: var(--x-text-md); line-height: var(--x-leading-body); -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+
+  .x-profile-actions { display: flex; gap: var(--x-space-2); margin-top: var(--x-space-1); }
+  .x-profile-actions > .x-button { flex: 1 1 0; min-width: 0; }
+  .x-profile-actions > .x-icon-button { flex: none; }
+}

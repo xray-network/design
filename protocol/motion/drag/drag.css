@@ -1,0 +1,40 @@
+/* Drag: something follows the finger and settles when it is let go. Requires core/tokens.css and core/motion.js,
+   through drag.controller.js or the React component. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  /* The page keeps scrolling across the drag's axis; along it, the gesture belongs to the element. With a grabber,
+     only the grabber takes the gesture, so the rest of the element scrolls and selects as usual. */
+  .x-drag { touch-action: pan-y; cursor: grab; }
+  .x-drag[data-axis="y"] { touch-action: pan-x; }
+  .x-drag:has(> .x-drag-handle) { touch-action: auto; cursor: auto; }
+  .x-drag[data-dragging] { cursor: grabbing; user-select: none; -webkit-user-select: none; }
+
+  /* Thrown away: it flies from where it was let go to past its own size, fading, and stays gone. A CSS animation,
+     so a copy of the element (a list's fading stand-in for a removed row) carries on the same flight. */
+  .x-drag[data-leaving] { pointer-events: none; animation: x-drag-leave var(--x-duration-slow) var(--x-ease) forwards; }
+  @keyframes x-drag-leave {
+    from { translate: var(--x-drag-from, 0 0); opacity: 1; }
+    to { translate: var(--x-drag-to, 0 0); opacity: 0; }
+  }
+
+  /* The grabber: a strip across the top of a sheet, tall enough for a finger, with the short bar that says it can
+     be pulled drawn in its middle. */
+  .x-drag-handle {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: var(--x-size-sm);
+    cursor: grab;
+    touch-action: none;
+  }
+  .x-drag-handle::before {
+    content: "";
+    width: 36px;
+    height: 4px;
+    border-radius: var(--x-radius-pill);
+    background: var(--x-fg-4);
+  }
+  .x-drag[data-dragging] > .x-drag-handle { cursor: grabbing; }
+}

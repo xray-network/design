@@ -1,0 +1,69 @@
+/* Chat: a thread of bubbles and a composer. Built from Input and Button. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-chat {
+    --x-chat-bubble-radius: 18px;
+    --x-chat-bubble-max: 80%;
+    --x-chat-mine-bg: var(--x-accent);
+    --x-chat-mine-fg: var(--x-accent-fg);
+    --x-chat-theirs-bg: var(--x-bg-chip);
+
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .x-chat-thread {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--x-space-3);
+    min-height: 0;
+    margin: 0;
+    padding: var(--x-space-4) 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    list-style: none;
+    scrollbar-width: none;
+  }
+  .x-chat-day { align-self: center; padding: var(--x-space-1) 0; color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-label); }
+
+  .x-chat-message { display: grid; gap: var(--x-space-1); justify-items: start; max-width: var(--x-chat-bubble-max); }
+  .x-chat-message[data-from="me"] { align-self: flex-end; justify-items: end; }
+  /* The same sender again: closer to the message before it. */
+  .x-chat-message[data-from="me"] + .x-chat-message[data-from="me"],
+  .x-chat-message[data-from="them"] + .x-chat-message[data-from="them"] { margin-top: calc(var(--x-space-2) * -1); }
+  @starting-style {
+    .x-chat-message { opacity: 0; translate: 0 8px; }
+  }
+  .x-chat-message { transition: opacity var(--x-duration-base) var(--x-ease), translate var(--x-spring-soft-duration) var(--x-spring-soft); }
+
+  .x-chat-bubble {
+    padding: var(--x-space-2) var(--x-space-3);
+    border-radius: var(--x-chat-bubble-radius);
+    border-end-start-radius: var(--x-radius-xs);
+    background: var(--x-chat-theirs-bg);
+    color: var(--x-fg-1);
+    font-size: var(--x-text-md);
+    line-height: var(--x-leading-body);
+    overflow-wrap: anywhere;
+  }
+  .x-chat-bubble > p { margin: 0; }
+  .x-chat-message[data-from="me"] .x-chat-bubble {
+    border-end-start-radius: var(--x-chat-bubble-radius);
+    border-end-end-radius: var(--x-radius-xs);
+    background: var(--x-chat-mine-bg);
+    color: var(--x-chat-mine-fg);
+  }
+  .x-chat-meta { padding: 0 var(--x-space-1); color: var(--x-fg-3); font-size: var(--x-text-2xs); font-variant-numeric: tabular-nums; }
+  .x-chat-you { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  .x-chat-composer { display: flex; flex: none; align-items: center; gap: var(--x-space-2); padding-top: var(--x-space-3); border-top: 1px solid var(--x-border); }
+  .x-chat-composer > .x-input { flex: 1; min-width: 0; }
+  .x-chat-composer > .x-icon-button { background: var(--x-accent); color: var(--x-accent-fg); }
+  .x-chat-composer > .x-icon-button:hover { background: var(--x-accent-hover); }
+  .x-chat-composer > .x-icon-button:disabled { background: var(--x-bg-chip); color: var(--x-fg-4); cursor: default; }
+}

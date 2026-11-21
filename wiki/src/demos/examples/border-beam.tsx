@@ -1,5 +1,4 @@
 import { BorderBeam } from "@protocol/components/border-beam/border-beam"
-import { Skeleton } from "@protocol/components/skeleton/skeleton"
 
 const card = { position: "relative", padding: "var(--x-space-5)", border: "1px solid var(--x-border)", borderRadius: "var(--x-radius-2xl)", background: "var(--x-bg-panel)" } as const
 const title = { margin: 0, color: "var(--x-fg-1)", fontWeight: 600 } as const
@@ -10,16 +9,15 @@ const CARDS = [
   { title: "Payout statement", text: "May · Ready to download", color: "var(--x-success)" },
 ]
 
-// Both cards are being prepared: while they load, their texts are placeholders and the beam runs as a progress cue.
-// The second one shows the beam in another color.
-export default function BorderBeamExample({ loading = false }: { loading?: boolean }) {
+// Two cards with the beam running round their borders; the second shows it in another color.
+export default function BorderBeamExample() {
   return (
     <div className="wiki-demo-beam" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "var(--x-space-4)" }}>
       {CARDS.map((item) => (
-        <div key={item.title} style={card} aria-busy={loading || undefined}>
-          <p style={title}>{loading ? <Skeleton shape="text" width="45%" /> : item.title}</p>
-          <p style={text}>{loading ? <Skeleton shape="text" width="70%" /> : item.text}</p>
-          {loading && <BorderBeam color={item.color} />}
+        <div key={item.title} style={card}>
+          <p style={title}>{item.title}</p>
+          <p style={text}>{item.text}</p>
+          <BorderBeam color={item.color} />
         </div>
       ))}
     </div>

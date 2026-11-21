@@ -43,12 +43,14 @@ The same prompt works for SwiftUI, UIKit/AppKit, JavaFX, Android and other GUI p
 │   ├── motion.js                  # springs as linear(), indicator and FLIP helpers
 │   └── place.js                   # placement for tooltips, popovers, menus and lists
 ├── components/<id>/               # primitives: COMPONENT.md, CSS, HTML, controller, React
-└── blocks/<id>/                   # screen sections built from components
+├── blocks/<id>/                   # screen sections built from components
+└── motion/<id>/                   # motion patterns: indicator, morph, reflow, stagger
 <ui folder>/                       # web example; native targets follow their framework's source layout
 ├── design.lock.json               # kit version, stack, and the components and blocks you use
 ├── core/                          # tokens (and motion and placement helpers when a component needs them)
 ├── components/<id>/               # the components you add
-└── blocks/<id>/                   # the blocks you add
+├── blocks/<id>/                   # the blocks you add
+└── motion/<id>/                   # the motion patterns you add
 ```
 
 Native targets create theme resources and framework code instead of the UI folder files. Their lock also records the

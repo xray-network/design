@@ -1,0 +1,23 @@
+<!-- Morph: morph.controller.js opens and closes the group and grows the large form out of the small one.
+     The two share one place; the large one is hidden until it opens. -->
+<div class="x-morph">
+  <div class="x-morph-from">
+    <button class="x-button" type="button" data-variant="ghost" data-x-morph-open aria-expanded="false">Payout details</button>
+  </div>
+  <div class="x-morph-to" hidden>
+    <h3>Payout to Chase ···· 4821</h3>
+    <p>$1,200.00, arriving tomorrow before 9 am.</p>
+    <button class="x-button" type="button" data-variant="ghost" data-x-morph-close>Back</button>
+  </div>
+</div>
+
+<!-- Open, covering the group: the large form lies over the other content of .x-morph -->
+<div class="x-morph" data-open="" data-cover="">
+  <div class="x-morph-from"><button class="x-button" type="button" data-variant="ghost" data-x-morph-open aria-expanded="true">Open</button></div>
+  <div class="x-morph-to"><button class="x-button" type="button" data-variant="ghost" data-x-morph-close>Back</button></div>
+</div>
+
+<script type="module">
+  import { initMorphs } from "./morph.controller.js";
+  initMorphs();
+</script>

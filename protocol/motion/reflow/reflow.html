@@ -1,0 +1,16 @@
+<!-- Reflow: reflow(list, change) from reflow.controller.js measures the items, runs the change, and animates each
+     item from where it was. The container's layout is yours. -->
+<ul class="x-reflow" id="assets" style="display: grid; gap: 8px">
+  <li>Ether</li>
+  <li>USD Coin</li>
+  <li>Wrapped Bitcoin</li>
+</ul>
+<button class="x-button" type="button" data-variant="ghost" id="sort">Sort by name</button>
+
+<script type="module">
+  import { reflow } from "./reflow.controller.js";
+  const list = document.getElementById("assets");
+  document.getElementById("sort").addEventListener("click", () => {
+    reflow(list, () => [...list.children].sort((a, b) => a.textContent.localeCompare(b.textContent)).forEach((item) => list.append(item)));
+  });
+</script>

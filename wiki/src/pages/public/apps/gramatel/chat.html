@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Gramatel · Jane Cooper</title>
+  <!-- A showcase screen of XRAY/DESIGN: plain HTML on the kit's own CSS and controllers. -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="../app.css">
+  <script type="module" src="../app.js"></script>
+</head>
+<body>
+  <header class="app-bar">
+    <a class="x-icon-button" href="chats.html" aria-label="Back to chats"><svg class="x-icon" data-icon="chevron-left"></svg></a>
+    <span class="x-avatar" data-seed="jane.cooper" data-palette="amber" aria-hidden="true"></span>
+    <span class="app-title">Jane Cooper<small>last seen just now</small></span>
+    <button class="x-icon-button" type="button" aria-label="Call"><svg class="x-icon" data-icon="phone"></svg></button>
+  </header>
+  <main class="app-screen" data-flush>
+    <div class="x-chat">
+      <ol class="x-chat-thread" role="log" aria-label="Conversation with Jane Cooper">
+        <li class="x-chat-day">Today</li>
+        <li class="x-chat-message" data-from="them"><div class="x-chat-bubble"><p>Hi! Did the payout arrive?</p></div><span class="x-chat-meta">14:02</span></li>
+        <li class="x-chat-message" data-from="me"><div class="x-chat-bubble"><p><span class="x-chat-you">You: </span>Yes, this morning.</p></div><span class="x-chat-meta">14:03</span></li>
+        <li class="x-chat-message" data-from="me"><div class="x-chat-bubble"><p><span class="x-chat-you">You: </span>Sending the receipt now.</p></div><span class="x-chat-meta">14:03 · Read</span></li>
+        <li class="x-chat-message" data-from="them"><div class="x-chat-bubble"><p>Perfect, thank you!</p></div><span class="x-chat-meta">14:05</span></li>
+        <li class="x-chat-message" data-from="them"><div class="x-chat-bubble"><p>Are we still on for Friday?</p></div><span class="x-chat-meta">14:05</span></li>
+        <li class="x-chat-message" data-from="me"><div class="x-chat-bubble"><p><span class="x-chat-you">You: </span>Friday works. 10 am at the studio?</p></div><span class="x-chat-meta">14:07 · Read</span></li>
+        <li class="x-chat-message" data-from="them"><div class="x-chat-bubble"><p>See you there.</p></div><span class="x-chat-meta">14:08</span></li>
+      </ol>
+      <form class="x-chat-composer">
+        <div class="x-input"><input type="text" name="message" aria-label="Message" placeholder="Message" autocomplete="off"></div>
+        <button class="x-icon-button" type="submit" data-shape="round" aria-label="Send" disabled><svg class="x-icon" data-icon="paper-airplane"></svg></button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

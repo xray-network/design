@@ -1,0 +1,30 @@
+/* SignIn: providers, email and password, submit. Built from Input, Button and Checkbox. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-sign-in {
+    --x-sign-in-width: 380px;
+
+    display: grid;
+    gap: var(--x-space-4);
+    width: 100%;
+    max-width: var(--x-sign-in-width);
+    min-width: 0;
+  }
+  .x-sign-in-head { display: grid; gap: var(--x-space-1); margin-bottom: var(--x-space-2); }
+  .x-sign-in-title { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-2xl); font-weight: var(--x-weight-title); line-height: 1.2; letter-spacing: var(--x-tracking-tight); }
+  .x-sign-in-text { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-md); line-height: var(--x-leading-body); }
+
+  .x-sign-in-providers { display: grid; gap: var(--x-space-2); }
+  .x-sign-in-divider { display: flex; align-items: center; gap: var(--x-space-3); color: var(--x-fg-3); font-size: var(--x-text-xs); }
+  .x-sign-in-divider::before, .x-sign-in-divider::after { content: ""; flex: 1; height: 1px; background: var(--x-border); }
+
+  /* The password's label row: the label, then the reset link at the far end. */
+  .x-sign-in-label { display: flex; align-items: baseline; justify-content: space-between; gap: var(--x-space-3); }
+  .x-sign-in-forgot, .x-sign-in-foot > a { color: var(--x-link); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); text-decoration: none; }
+  .x-sign-in-forgot:hover, .x-sign-in-foot > a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .x-sign-in-forgot:focus-visible, .x-sign-in-foot > a:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 2px; border-radius: var(--x-radius-xs); }
+
+  .x-sign-in-foot { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-sm); text-align: center; }
+}

@@ -323,7 +323,8 @@ Two families, both defined only by tokens:
 **Motion budget**
 
 - Liquid motion is allowed for: selection indicators (segmented, tabs, nav), switch thumbs (including their press stretch),
-  overlay **entry** (dialog, menu, toast, sheet), list and stack reflow (FLIP), and drag release.
+  **entry** of an overlay or a surface (dialog, menu, toast, sheet, a panel that appears), list and stack reflow (FLIP),
+  one element becoming another, drag release, and a screen arriving in a flow (forward and back; tabs fade).
 - Never animate: data values and text content, numbers ticking, page scroll, color on a spring,
   anything that loops (except progress: spinners and loading skeletons; and BorderBeam), or anything over 600ms.
 - Skeletons pulse while loading, one pulse per 1.4s (a progress loop, so the 600ms limit does not apply to it);
@@ -341,7 +342,9 @@ These tiers describe the web implementation. Native targets use their framework'
 the same motion budget, easing intent and reduced-motion behavior.
 
 0. CSS: transitions, `@starting-style`, `linear()` springs. The default.
-1. Kit helpers in `core/motion.js`: `trackIndicator`, `createFlip`, `afterTransition`. No dependencies.
+1. Kit helpers in `core/motion.js`: `trackIndicator`, `createFlip`, `afterTransition`. No dependencies. The kit's
+   motion patterns (`motion/`: Presence, Stagger, Expand, LiquidIndicator, Reflow, Drag, Morph, Screen) are these
+   helpers and tier 0 CSS applied, ready to add.
 2. A JS motion library (for example `motion`), only for gesture physics such as drag-to-dismiss, only in React,
    and only if the project already depends on it or the human approves adding it.
 

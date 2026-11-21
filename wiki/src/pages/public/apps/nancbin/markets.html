@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nancbin · Markets</title>
+  <!-- A showcase screen of XRAY/DESIGN: plain HTML on the kit's own CSS and controllers. -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="../app.css">
+  <script type="module" src="../app.js"></script>
+</head>
+<body>
+  <header class="app-bar">
+    <span class="app-title" data-brand>Nancbin</span>
+    <button class="x-icon-button" type="button" aria-label="Search markets"><svg class="x-icon" data-icon="magnifying-glass"></svg></button>
+    <button class="x-icon-button" type="button" aria-label="Alerts"><svg class="x-icon" data-icon="bell"></svg></button>
+  </header>
+  <main class="app-screen">
+    <section>
+      <div class="x-segmented" role="radiogroup" aria-label="List" data-width="full" data-size="sm">
+        <label class="x-segmented-item"><input type="radio" name="list" checked><span>Top</span></label>
+        <label class="x-segmented-item"><input type="radio" name="list"><span>Gainers</span></label>
+        <label class="x-segmented-item"><input type="radio" name="list"><span>Losers</span></label>
+        <label class="x-segmented-item"><input type="radio" name="list"><span>Favorites</span></label>
+      </div>
+    </section>
+    <div class="x-list x-stagger" role="list" aria-label="Markets" style="padding-top:var(--x-space-2)">
+      <a class="x-list-row" role="listitem" href="trade.html">
+        <span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">B</span>
+        <span class="x-list-text"><span class="x-list-title">BTC</span><span class="x-list-sub">Bitcoin</span></span>
+        <span class="x-list-end"><span class="x-list-title">$96,412.10</span><span class="x-list-sub"><span class="x-delta" data-trend="up">+1.8%</span></span></span>
+      </a>
+      <a class="x-list-row" role="listitem" href="trade.html">
+        <span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">E</span>
+        <span class="x-list-text"><span class="x-list-title">ETH</span><span class="x-list-sub">Ethereum</span></span>
+        <span class="x-list-end"><span class="x-list-title">$3,208.40</span><span class="x-list-sub"><span class="x-delta" data-trend="up">+2.4%</span></span></span>
+      </a>
+      <a class="x-list-row" role="listitem" href="trade.html">
+        <span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">S</span>
+        <span class="x-list-text"><span class="x-list-title">SOL</span><span class="x-list-sub">Solana</span></span>
+        <span class="x-list-end"><span class="x-list-title">$187.53</span><span class="x-list-sub"><span class="x-delta" data-trend="down">−0.9%</span></span></span>
+      </a>
+      <a class="x-list-row" role="listitem" href="trade.html">
+        <span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">A</span>
+        <span class="x-list-text"><span class="x-list-title">ADA</span><span class="x-list-sub">Cardano</span></span>
+        <span class="x-list-end"><span class="x-list-title">$0.7412</span><span class="x-list-sub"><span class="x-delta" data-trend="up">+4.1%</span></span></span>
+      </a>
+      <a class="x-list-row" role="listitem" href="trade.html">
+        <span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">X</span>
+        <span class="x-list-text"><span class="x-list-title">XRP</span><span class="x-list-sub">XRP</span></span>
+        <span class="x-list-end"><span class="x-list-title">$1.12</span><span class="x-list-sub"><span class="x-delta" data-trend="down">−2.2%</span></span></span>
+      </a>
+      <a class="x-list-row" role="listitem" href="trade.html">
+        <span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">L</span>
+        <span class="x-list-text"><span class="x-list-title">LINK</span><span class="x-list-sub">Chainlink</span></span>
+        <span class="x-list-end"><span class="x-list-title">$15.93</span><span class="x-list-sub"><span class="x-delta" data-trend="up">+0.6%</span></span></span>
+      </a>
+      <a class="x-list-row" role="listitem" href="trade.html">
+        <span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">D</span>
+        <span class="x-list-text"><span class="x-list-title">DOT</span><span class="x-list-sub">Polkadot</span></span>
+        <span class="x-list-end"><span class="x-list-title">$6.48</span><span class="x-list-sub"><span class="x-delta" data-trend="down">−1.4%</span></span></span>
+      </a>
+      <a class="x-list-row" role="listitem" href="trade.html">
+        <span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">A</span>
+        <span class="x-list-text"><span class="x-list-title">AVAX</span><span class="x-list-sub">Avalanche</span></span>
+        <span class="x-list-end"><span class="x-list-title">$34.20</span><span class="x-list-sub"><span class="x-delta" data-trend="up">+3.0%</span></span></span>
+      </a>
+    </div>
+  </main>
+  <footer class="app-tabs">
+    <nav class="x-liquid-indicator" aria-label="Nancbin" data-width="full" data-layout="stack">
+      <a class="x-liquid-indicator-item" href="markets.html" aria-current="page"><svg class="x-icon" data-icon="chart-bar"></svg><span>Markets</span></a>
+      <a class="x-liquid-indicator-item" href="trade.html"><svg class="x-icon" data-icon="arrows-right-left"></svg><span>Trade</span></a>
+      <a class="x-liquid-indicator-item" href="wallet.html"><svg class="x-icon" data-icon="wallet"></svg><span>Wallet</span></a>
+      <span class="x-liquid-indicator-pill" aria-hidden="true"></span>
+    </nav>
+  </footer>
+</body>
+</html>

@@ -57,3 +57,5 @@ playwright-report/
 
 # Published by wiki/scripts/publish-protocol.mjs from protocol/DESIGN-PROTOCOL.md
 wiki/src/pages/public/DESIGN-PROTOCOL.md
+# The kit's CSS and controllers, published for the showcase apps by the same script
+wiki/src/pages/public/kit/

@@ -1,0 +1,59 @@
+<!-- Calendar: calendar.controller.js fills the weekday row and the weeks, and keeps data-value (or data-start and
+     data-end) and data-month on the root current. It fires "change" on the root. One week is written out below to
+     show a day's markup; the controller replaces it. -->
+<div class="x-calendar" data-value="2026-11-21" data-month="2026-11">
+  <div class="x-calendar-head">
+    <button class="x-calendar-step" type="button" data-step="previous" aria-label="Previous month">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+    </button>
+    <div class="x-calendar-title" id="cal-title" aria-live="polite">November 2026</div>
+    <button class="x-calendar-step" type="button" data-step="next" aria-label="Next month">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+    </button>
+  </div>
+  <table class="x-calendar-grid" role="grid" aria-labelledby="cal-title">
+    <thead>
+      <tr>
+        <th class="x-calendar-weekday" scope="col" abbr="Monday">Mon</th>
+        <th class="x-calendar-weekday" scope="col" abbr="Tuesday">Tue</th>
+        <th class="x-calendar-weekday" scope="col" abbr="Wednesday">Wed</th>
+        <th class="x-calendar-weekday" scope="col" abbr="Thursday">Thu</th>
+        <th class="x-calendar-weekday" scope="col" abbr="Friday">Fri</th>
+        <th class="x-calendar-weekday" scope="col" abbr="Saturday">Sat</th>
+        <th class="x-calendar-weekday" scope="col" abbr="Sunday">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="x-calendar-cell" role="gridcell" aria-selected="false"><button class="x-calendar-day" type="button" data-date="2026-11-16" tabindex="-1" aria-label="Monday, November 16, 2026">16</button></td>
+        <td class="x-calendar-cell" role="gridcell" aria-selected="false"><button class="x-calendar-day" type="button" data-date="2026-11-17" tabindex="-1" aria-label="Tuesday, November 17, 2026">17</button></td>
+        <td class="x-calendar-cell" role="gridcell" aria-selected="false"><button class="x-calendar-day" type="button" data-date="2026-11-18" tabindex="-1" aria-label="Wednesday, November 18, 2026">18</button></td>
+        <td class="x-calendar-cell" role="gridcell" aria-selected="false"><button class="x-calendar-day" type="button" data-date="2026-11-19" tabindex="-1" aria-label="Thursday, November 19, 2026">19</button></td>
+        <td class="x-calendar-cell" role="gridcell" aria-selected="false"><button class="x-calendar-day" type="button" data-date="2026-11-20" tabindex="-1" aria-label="Friday, November 20, 2026">20</button></td>
+        <td class="x-calendar-cell" role="gridcell" aria-selected="true" data-range="single"><button class="x-calendar-day" type="button" data-date="2026-11-21" tabindex="0" aria-current="date" aria-label="Saturday, November 21, 2026">21</button></td>
+        <td class="x-calendar-cell" role="gridcell" aria-selected="false"><button class="x-calendar-day" type="button" data-date="2026-11-22" tabindex="-1" aria-label="Sunday, November 22, 2026">22</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- A range, with bounds: the first press starts it, the second ends it. Days outside data-min and data-max are off.
+     data-frame="none" drops the calendar's own frame, for use inside a popover or a card. -->
+<div class="x-calendar" data-mode="range" data-frame="none" data-start="2026-11-12" data-end="2026-11-18" data-month="2026-11" data-min="2026-11-03" data-max="2026-12-20" data-week-start="1">
+  <div class="x-calendar-head">
+    <button class="x-calendar-step" type="button" data-step="previous" aria-label="Previous month">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+    </button>
+    <div class="x-calendar-title" id="stay-title" aria-live="polite">November 2026</div>
+    <button class="x-calendar-step" type="button" data-step="next" aria-label="Next month">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+    </button>
+  </div>
+  <table class="x-calendar-grid" role="grid" aria-labelledby="stay-title" aria-multiselectable="true"><thead></thead><tbody></tbody></table>
+</div>
+
+<script type="module">
+  import { initCalendars } from "./calendar.controller.js";
+  initCalendars();
+  document.addEventListener("change", (event) => console.log(event.detail)); // { value } or { start, end }
+</script>

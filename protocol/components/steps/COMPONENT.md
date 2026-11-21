@@ -1,7 +1,7 @@
 ---
 id: steps
 name: Steps
-summary: Where the person is in a multi-step flow: a marker above each title, joined by a line that fills as steps complete.
+summary: Where the person is in a multi-step flow, as a marker above each title, joined by a line that fills as steps complete.
 motion: 0
 requires: [tokens]
 components: [spinner]

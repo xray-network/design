@@ -43,21 +43,25 @@ protocol/                 the protocol and kit; installed as-is to <project>/.ag
 │   ├── motion.js (+ .d.ts)  spring() -> linear(), trackIndicator, createFlip
 │   └── place.js (+ .d.ts)   placeElement: sides, flipping, the visual viewport
 ├── components/<id>/      primitives: COMPONENT.md, <id>.css, <id>.html, [<id>.controller.js], <id>.tsx
-└── blocks/<id>/          screen sections built from components (and other blocks); same files
+├── blocks/<id>/          screen sections built from components (and other blocks); same files
+└── motion/<id>/          motion patterns (an entrance, a sliding indicator, a drag, a screen change); same files
 wiki/                     docs and live playground (Rspress), deployed with every release
 ├── src/pages/            overview (home), installation, protocol, tokens and one page per component
 ├── src/demos/            interactive React previews, reduced-motion toggle and GUI-specific usage prompts
 └── scripts/check-protocol.mjs  the one check; runs before every wiki build
 ```
 
-Components in 1.0.0 (47): `alert`, `avatar`, `border-beam`, `button` (+ icon button), `card` (+ tile), `card-option`,
+Components in 1.0.0 (48): `alert`, `avatar`, `border-beam`, `button` (+ icon button), `calendar`, `card` (+ tile), `card-option`,
 `checkbox`, `chips`, `collapse`, `combobox`, `command`, `copy`, `empty`, `icon` (interface, social and crypto icons),
 `input` (+ field, textarea), `input-amount`, `input-group`, `list`, `menu`, `menu-list`, `menu-navigation`, `message`,
 `modal` (+ side sheet), `numeral`, `pagination`, `popconfirm`, `popover`, `progress` (+ meter), `radio`, `result`, `segmented`,
 `select`, `select-native`, `skeleton`, `slider`, `spinner`, `stats`, `steps`, `switch`, `table`, `table-compact`, `tabs`,
 `tag` (+ status, delta), `timeline`, `toast`, `tooltip`, `typography`.
 
-Blocks in 1.0.0 (5): `balance`, `send-form`, `stats-grid`, `swap`, `transactions`.
+Blocks in 1.0.0 (9): `balance`, `chat`, `post`, `profile`, `send-form`, `sign-in`, `stats-grid`, `swap`, `transactions`.
+
+Motion patterns in 1.0.0 (8): `presence`, `stagger`, `expand` (arriving and leaving), `liquid-indicator`, `reflow`,
+`drag` (moving), `morph` (becoming), `screen` (navigating).
 
 Their look and markup follow the XRAY app (new UI v6).
 

@@ -1,0 +1,21 @@
+<!-- Presence: CSS only. Remove the hidden attribute to show the element, set it to hide it. It grows in from 96%
+     and fades; --x-presence-origin says where it grows from (the corner next to what opened it). -->
+<button class="x-button" type="button" data-variant="ghost" aria-expanded="false" aria-controls="filters" id="filters-toggle">Filters</button>
+<div class="x-presence" id="filters" style="--x-presence-origin: top left" hidden>
+  <p>Status, amount and date.</p>
+</div>
+
+<!-- From a side: a banner drops in from above, a toast rises from below, a rail comes from the start or the end -->
+<div class="x-presence" data-from="above" role="status">Your payout is on its way.</div>
+<div class="x-presence" data-from="below" role="status">Saved.</div>
+<div class="x-presence" data-from="start">Navigation</div>
+<div class="x-presence" data-from="end">Details</div>
+
+<script type="module">
+  const toggle = document.getElementById("filters-toggle");
+  const panel = document.getElementById("filters");
+  toggle.addEventListener("click", () => {
+    panel.hidden = !panel.hidden;
+    toggle.setAttribute("aria-expanded", String(!panel.hidden));
+  });
+</script>

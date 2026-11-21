@@ -28,18 +28,25 @@ The first version.
   follow the ink.
 - **Grays:** neutral with the faintest warm tint (oklch chroma 0.0015 at most, hue 65), so chrome and text stay
   quiet beside any brand color; secondary text keeps 4.5:1 on the canvas in both themes.
-- **Components (47):** Alert, Avatar, BorderBeam, Button (+ icon button, round shape), Card (+ tile),
+- **Components (48):** Alert, Avatar, BorderBeam, Button (+ icon button, round shape), Calendar (a day or a range), Card (+ tile),
   Checkbox, Chips, Collapse, Combobox, Command, Copy, Empty, Icon (interface, social and crypto icons, all outline),
   Input (field, input, textarea), InputAmount, InputGroup, List, Menu, MenuList, MenuNavigation, Message, Modal (+ side sheet), Numeral,
   CardOption (with a radio dot in the top-right corner), Pagination, Popconfirm, Popover, Progress (+ meter),
   Radio, Result, Segmented, Select, SelectNative, Skeleton, Slider, Spinner,
   Stats, Steps, Switch, Table, TableCompact, Tabs, Tag (+ status, delta), Timeline, Toast, Tooltip, Typography.
 - **Loading states:** Skeleton (shapes, and text bars exactly one line tall with stable varied widths). Table, Table
-  Compact, Result, Button, Pagination, Avatar (a spinner on top) and every block take `loading`: placeholders follow
+  Compact, Result, Button, Pagination, Avatar (a spinner on top) and every block that shows data take `loading`: placeholders follow
   the structure, not the content, and the layout does not move.
 - **Lazy content:** Modal, Tabs, Segmented and Collapse render hidden content on first show; `forceMount` renders it
   up front. In HTML, lazy content goes in `<template data-lazy>`.
-- **Blocks (5):** Balance, SendForm, StatsGrid, Swap, Transactions.
+- **Blocks (9):** Balance, Chat, Post, Profile, SendForm, SignIn, StatsGrid, Swap, Transactions.
+- **Motion patterns (8):** a third kind in the kit, `motion/<id>/`, with the same files as a component, in four groups.
+  Arriving and leaving: Presence (a surface grows in and fades out), Stagger (a group's items enter in turn), Expand
+  (a region opens by height). Moving: LiquidIndicator (a pill that slides and stretches between items), Reflow (list
+  items glide to their new places), Drag (an element follows the finger and settles on release). Becoming: Morph (one
+  element becomes another). Navigating: Screen (forward, back and sideways between the screens of a flow).
+- **Placement:** `core/place.js`, one measured placement for every floating box (tooltips, popovers, menus, option
+  lists): sides flip, boxes stay inside the visual viewport, and every browser runs the same code.
 - **Protocol:** `DESIGN-PROTOCOL.md`: the version and every token (both themes) in its header; rules for color, type,
   spacing, radius, surfaces, motion, layout, accessibility, theming,
   writing, components and blocks.

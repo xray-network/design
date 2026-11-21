@@ -1,0 +1,57 @@
+/* Post: one feed item. Author, text, optional media and actions with counts. Built from Avatar and Button.
+   Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-post {
+    --x-post-gap: var(--x-space-3);
+    --x-post-media-radius: var(--x-radius-xl);
+
+    display: grid;
+    gap: var(--x-post-gap);
+    min-width: 0;
+    padding-block: var(--x-space-4);
+    color: var(--x-fg-2);
+  }
+  .x-post + .x-post { border-top: 1px solid var(--x-border); }
+
+  .x-post-head { display: flex; align-items: center; gap: var(--x-space-3); min-width: 0; }
+  .x-post-lead { flex: none; }
+  .x-post-author { display: grid; flex: 1; min-width: 0; }
+  .x-post-name { overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
+  .x-post-meta { overflow: hidden; color: var(--x-fg-3); font-size: var(--x-text-xs); line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
+
+  .x-post-text { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-md); line-height: var(--x-leading-body); overflow-wrap: anywhere; }
+
+  .x-post-media { aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid var(--x-border); border-radius: var(--x-post-media-radius); background: var(--x-bg-chip); }
+  .x-post-media[data-ratio="square"] { aspect-ratio: 1; }
+  .x-post-media[data-ratio="portrait"] { aspect-ratio: 4 / 5; }
+  .x-post-media > :is(img, video, svg) { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  .x-post-actions { display: flex; align-items: center; gap: var(--x-space-1); margin-inline-start: calc(var(--x-space-2) * -1); }
+  .x-post-action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--x-space-1-5);
+    min-width: var(--x-size-md);
+    height: var(--x-size-md);
+    padding: 0 var(--x-space-2);
+    border: 0;
+    border-radius: var(--x-radius-pill);
+    background: none;
+    color: var(--x-fg-3);
+    font: var(--x-weight-body) var(--x-text-sm) / 1 var(--x-font-sans);
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition: background-color var(--x-duration-fast) var(--x-ease), color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-post-action:hover { background: var(--x-bg-soft); color: var(--x-fg-1); }
+  .x-post-action:focus-visible { outline: 2px solid var(--x-focus); outline-offset: -2px; }
+  .x-post-action > .x-icon { width: 18px; height: 18px; transition: scale var(--x-spring-duration) var(--x-spring); }
+  .x-post-action[aria-pressed="true"] { color: var(--x-accent-ink); }
+  .x-post-action[aria-pressed="true"] > .x-icon { fill: currentColor; animation: x-post-pop var(--x-spring-duration) var(--x-spring); }
+  @keyframes x-post-pop { from { scale: 0.6; } }
+  /* The last action (share, save) sits at the far end. */
+  .x-post-action[data-end] { margin-inline-start: auto; }
+}
