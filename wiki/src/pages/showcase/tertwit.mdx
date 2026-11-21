@@ -1,18 +1,18 @@
 ---
-title: Tertwit
+title: Tertwit App
 outline: false
 ---
 
 import { AppShowcase, AppParts } from "../../showcase/Apps"
 
-# Tertwit
+# Tertwit App
 
 <AppShowcase id="tertwit" />
 
-A microblog in three screens. The timeline and the thread are Post blocks with working like and repost toggles; the profile is the Profile block over the person's posts.
+A microblog in three screens. The timeline is Post blocks under a Segmented switch; a thread is a post with its replies and the Composer block docked above the tab bar; the profile is the Profile block over that person's posts.
 
-Every screen is a static HTML page on the kit's own CSS and controllers. The bottom tabs are a LiquidIndicator
-and link the screens to each other, so each frame is a working app. **Open** shows a screen on its own; **Copy
-prompt** gives your agent that page to rebuild in your project.
+The app is one static HTML page on the kit's own CSS and controllers: every screen is a section, and the bottom
+tabs are the TabBar block, a LiquidIndicator that moves between them with the Screen pattern, so nothing reloads.
+**Open** shows a screen on its own; **Copy prompt** gives your agent that page to rebuild in your project.
 
 <AppParts id="tertwit" />

@@ -1,0 +1,44 @@
+<!-- ApiKeys: Input, Button, Copy and Tag. No JS of its own: the app makes and revokes keys; copy.controller.js copies
+     the new one. Show the form and the secret with the Expand or Presence pattern. -->
+<section class="x-api-keys" aria-label="API keys">
+  <form class="x-api-keys-new">
+    <div class="x-field">
+      <label class="x-field-label" for="api-key-name">Name</label>
+      <div class="x-input" data-size="sm"><input id="api-key-name" type="text" placeholder="The service or person using it" autocomplete="off"></div>
+    </div>
+    <button class="x-button" type="submit" data-size="sm">Create key</button>
+    <button class="x-button" type="button" data-variant="ghost" data-size="sm">Cancel</button>
+  </form>
+
+  <div class="x-api-keys-secret" role="status">
+    <div>
+      <p class="x-api-keys-secret-title">Copy your new key now</p>
+      <p class="x-api-keys-secret-note">This is the only time it is shown in full.</p>
+    </div>
+    <div class="x-copy" data-variant="block" data-value="key_live_9f2c41b7d0a84e6f8c3d5b1a7e9081f2">
+      <span class="x-copy-value"><span class="x-copy-head">key_live_9f2c41b7d0a84e6f8c3d5b1a7e</span><span class="x-copy-tail">9081f2</span></span>
+      <button class="x-icon-button x-copy-button" type="button" data-size="xs" aria-label="Copy key"><svg class="x-icon x-copy-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 17.25v3.38c0 .62-.5 1.12-1.13 1.12h-9.75c-.62 0-1.12-.5-1.12-1.13V7.88c0-.63.5-1.13 1.13-1.13H8.25m7.5 10.5h3.38c.62 0 1.12-.5 1.12-1.13V11.25c0-4.46-3.24-8.16-7.5-8.87a9.06 9.06 0 0 0-1.5-.13H9.38c-.63 0-1.13.5-1.13 1.13v3.37m7.5 10.5h-6.38c-.62 0-1.12-.5-1.12-1.13V6.75"/></svg><svg class="x-icon x-copy-done" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg></button>
+      <span class="x-copy-status" role="status"></span>
+    </div>
+    <button class="x-button" type="button" data-variant="ghost" data-size="sm">Done</button>
+  </div>
+
+  <ul class="x-api-keys-list">
+    <li class="x-api-keys-key">
+      <span class="x-api-keys-name">Backend, production</span>
+      <span class="x-api-keys-meta"><code class="x-api-keys-value">key_live_···· 81f2</code><span>Used 2 minutes ago</span></span>
+      <span class="x-tag" data-size="sm" data-tone="success"><span class="x-status-dot" aria-hidden="true"></span>Active</span>
+      <button class="x-button" type="button" data-variant="ghost" data-size="sm">Revoke</button>
+    </li>
+    <li class="x-api-keys-key" data-state="revoked">
+      <span class="x-api-keys-name">Old staging</span>
+      <span class="x-api-keys-meta"><code class="x-api-keys-value">key_test_···· 07bd</code><span>Revoked on Mar 2</span></span>
+      <span class="x-tag" data-size="sm">Revoked</span>
+    </li>
+  </ul>
+</section>
+
+<script type="module">
+  import { initCopies } from "../../components/copy/copy.controller.js";
+  initCopies();
+</script>

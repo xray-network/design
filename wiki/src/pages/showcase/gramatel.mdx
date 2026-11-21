@@ -1,18 +1,18 @@
 ---
-title: Gramatel
+title: Gramatel App
 outline: false
 ---
 
 import { AppShowcase, AppParts } from "../../showcase/Apps"
 
-# Gramatel
+# Gramatel App
 
 <AppShowcase id="gramatel" />
 
-A messenger in three screens. The chat list is List rows with avatars and unread counts, arriving with Stagger; the conversation is the Chat block, and it sends: type a message and press Enter; settings are MenuList groups.
+A messenger in three screens. The chat list is the ChatList block, with unread counts, arriving with Stagger; the conversation is the Chat block, and it sends: type a message and press Enter; settings are MenuList groups.
 
-Every screen is a static HTML page on the kit's own CSS and controllers. The bottom tabs are a LiquidIndicator
-and link the screens to each other, so each frame is a working app. **Open** shows a screen on its own; **Copy
-prompt** gives your agent that page to rebuild in your project.
+The app is one static HTML page on the kit's own CSS and controllers: every screen is a section, and the bottom
+tabs are the TabBar block, a LiquidIndicator that moves between them with the Screen pattern, so nothing reloads.
+**Open** shows a screen on its own; **Copy prompt** gives your agent that page to rebuild in your project.
 
 <AppParts id="gramatel" />

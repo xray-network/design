@@ -1,0 +1,13 @@
+<!-- Stories: Avatar. No JS of its own (initAvatars draws the avatars). -->
+<ul class="x-stories" aria-label="Stories">
+  <li><button class="x-stories-item" type="button"><span class="x-stories-ring"><span class="x-avatar" data-seed="you" data-palette="amber" aria-hidden="true"></span></span><span class="x-stories-name">You</span></button></li>
+  <li><button class="x-stories-item" type="button"><span class="x-stories-ring"><span class="x-avatar" data-seed="mira" data-palette="cool" aria-hidden="true"></span></span><span class="x-stories-name">mira</span></button></li>
+  <li><button class="x-stories-item" type="button"><span class="x-stories-ring"><span class="x-avatar" data-seed="tomas" data-palette="ember" aria-hidden="true"></span></span><span class="x-stories-name">tomas</span></button></li>
+  <li><button class="x-stories-item" type="button" data-seen=""><span class="x-stories-ring"><span class="x-avatar" data-seed="lena" data-palette="blue" aria-hidden="true"></span></span><span class="x-stories-name">lena</span></button></li>
+  <li><a class="x-stories-item" href="#kai" data-seen=""><span class="x-stories-ring"><span class="x-avatar" data-seed="kai" data-palette="amber" aria-hidden="true"></span></span><span class="x-stories-name">kai</span></a></li>
+</ul>
+
+<script type="module">
+  import { initAvatars } from "../../components/avatar/avatar.controller.js";
+  initAvatars();
+</script>

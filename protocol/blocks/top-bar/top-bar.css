@@ -1,0 +1,16 @@
+/* TopBar: brand, section tabs and account in one row. Built on the LiquidIndicator motion pattern. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-top-bar { display: flex; flex: none; align-items: center; gap: var(--x-space-4); min-height: 56px; padding: 0 var(--x-space-5); border-bottom: 1px solid var(--x-border); container-type: inline-size; }
+  .x-top-bar-brand { flex: none; color: var(--x-fg-1); font-size: var(--x-text-xl); font-weight: var(--x-weight-title); letter-spacing: var(--x-tracking-tight); text-decoration: none; }
+  /* The tabs are a quiet LiquidIndicator: no track, only the pill. */
+  .x-top-bar > .x-top-bar-nav { --x-liquid-indicator-item-height: var(--x-size-sm); --x-liquid-indicator-item-pad: var(--x-space-3); --x-liquid-indicator-radius: var(--x-radius-md); margin-inline-end: auto; border: 0; background: none; }
+  .x-top-bar-nav .x-icon { width: var(--x-icon-md); height: var(--x-icon-md); }
+  .x-top-bar-end { display: flex; flex: none; align-items: center; gap: var(--x-space-2); }
+  /* In a narrow bar the tabs keep their icons and drop their labels. */
+  @container (max-width: 560px) {
+    .x-top-bar-nav .x-liquid-indicator-item > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  }
+}

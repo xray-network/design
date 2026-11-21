@@ -1,0 +1,32 @@
+<!-- UsageMeters: Progress as meters, and Button. No JS. Set --x-progress-value (0 to 1) and aria-valuenow together. -->
+<section class="x-usage-meters" aria-labelledby="usage-title">
+  <header class="x-usage-meters-head">
+    <div>
+      <h2 class="x-usage-meters-title" id="usage-title">Usage</h2>
+      <p class="x-usage-meters-period">This billing period ends on Nov 30.</p>
+    </div>
+    <button class="x-button" type="button" data-variant="ghost" data-size="sm">Upgrade</button>
+  </header>
+  <ul class="x-usage-meters-list">
+    <li class="x-usage-meters-item">
+      <div class="x-progress" role="meter" data-size="sm" data-tone="warning" aria-labelledby="usage-bandwidth" aria-valuenow="913" aria-valuemin="0" aria-valuemax="1000" aria-valuetext="913 of 1,000 GB" style="--x-progress-value: 0.913">
+        <div class="x-progress-head"><span class="x-progress-label" id="usage-bandwidth">Bandwidth</span><span class="x-progress-value">913 of 1,000 GB</span></div>
+        <div class="x-progress-track"><div class="x-progress-fill"></div></div>
+      </div>
+      <p class="x-usage-meters-note">87 GB left. Beyond the limit it is $0.15 per GB.</p>
+    </li>
+    <li class="x-usage-meters-item">
+      <div class="x-progress" role="meter" data-size="sm" aria-labelledby="usage-builds" aria-valuenow="3240" aria-valuemin="0" aria-valuemax="6000" aria-valuetext="3,240 of 6,000" style="--x-progress-value: 0.54">
+        <div class="x-progress-head"><span class="x-progress-label" id="usage-builds">Build minutes</span><span class="x-progress-value">3,240 of 6,000</span></div>
+        <div class="x-progress-track"><div class="x-progress-fill"></div></div>
+      </div>
+    </li>
+    <li class="x-usage-meters-item">
+      <div class="x-progress" role="meter" data-size="sm" data-tone="danger" aria-labelledby="usage-seats" aria-valuenow="10" aria-valuemin="0" aria-valuemax="10" aria-valuetext="10 of 10" style="--x-progress-value: 1">
+        <div class="x-progress-head"><span class="x-progress-label" id="usage-seats">Team seats</span><span class="x-progress-value">10 of 10</span></div>
+        <div class="x-progress-track"><div class="x-progress-fill"></div></div>
+      </div>
+      <p class="x-usage-meters-note">No seats left. Upgrade to invite more people.</p>
+    </li>
+  </ul>
+</section>

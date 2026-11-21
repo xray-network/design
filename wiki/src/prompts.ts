@@ -33,7 +33,7 @@ export const moreGuiTargets = [
 const guiTargets = [...primaryGuiTargets, ...moreGuiTargets]
 export type GuiTarget = (typeof guiTargets)[number]["value"]
 export type GuiPreference = { target: GuiTarget; custom: string }
-export type DemoEntry = { id: string; name: string; kind: "component" | "block" | "motion" }
+export type DemoEntry = { id: string; name: string; kind: "component" | "block" | "motion" | "chart" }
 
 /** Where an entry lives in the kit, and what the prompt calls it. */
 export const kitPath = (entry: Pick<DemoEntry, "id" | "kind">) => (entry.kind === "motion" ? `motion/${entry.id}` : `${entry.kind}s/${entry.id}`)
@@ -64,11 +64,6 @@ export function componentPrompt(entry: DemoEntry, preference: GuiPreference): st
   const framework = frameworkFor(preference)
   if (!framework) return ""
   return `Use the installed XRAY/DESIGN design skill. If it is not installed, read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository.\n\nAdd the ${entry.name} ${kindName(entry.kind)} (${kitPath(entry)}) using ${framework}. Follow its contract and the skill's guidance for this framework, preserving the existing app structure.`
-}
-
-/** A showcase screen: the agent adapts the whole screen to the project with the skill, by its wiki URL. */
-export function showcasePrompt(screen: { id: string; text: string }, parts: string[]): string {
-  return `Use the installed XRAY/DESIGN design skill. If it is not installed, read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository.\n\nAdapt the ${screen.text} showcase screen (https://wiki.xraynetwork.io/design/showcase/${screen.id}) to this project. It is built from: ${parts.join(", ")}. Add the components and blocks it needs, follow their contracts and the skill's guidance for this project's GUI framework, and use this project's data, copy and navigation, preserving the existing app structure.`
 }
 
 /** One screen of a showcase app: the agent reads the published page and rebuilds it in the project. */

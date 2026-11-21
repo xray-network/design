@@ -1,0 +1,28 @@
+<!-- Reorder: reorder.controller.js lets an item be dragged by its grip to a new place, and fires "reorder" on the
+     list: detail is { id, from, to, order }. With the grip focused, ArrowUp and ArrowDown move the item. -->
+<ul class="x-reorder" aria-label="Accounts, in the order they are shown">
+  <li data-id="main">
+    <button class="x-reorder-handle" type="button" aria-label="Move Main account">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.75 9h16.5m-16.5 6.75h16.5"/></svg>
+    </button>
+    Main account
+  </li>
+  <li data-id="savings">
+    <button class="x-reorder-handle" type="button" aria-label="Move Savings">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.75 9h16.5m-16.5 6.75h16.5"/></svg>
+    </button>
+    Savings
+  </li>
+  <li data-id="team">
+    <button class="x-reorder-handle" type="button" aria-label="Move Team">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.75 9h16.5m-16.5 6.75h16.5"/></svg>
+    </button>
+    Team
+  </li>
+</ul>
+
+<script type="module">
+  import { initReorders } from "./reorder.controller.js";
+  initReorders();
+  document.addEventListener("reorder", (event) => console.log(event.detail.order));
+</script>

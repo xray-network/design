@@ -1,0 +1,112 @@
+/* Chart frame: what every chart shares. The figure, its title, the legend, the plot's grid and ticks, the tooltip,
+   and the data table that is both the source and the accessible view. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-chart {
+    --x-chart-surface: var(--x-bg); /* what is behind the marks: the gaps and rings between them take it */
+
+    position: relative;
+    display: grid;
+    gap: var(--x-space-3);
+    min-width: 0;
+    margin: 0;
+    color: var(--x-fg-2);
+    font: var(--x-weight-body) var(--x-text-sm) / var(--x-leading-body) var(--x-font-sans);
+  }
+  .x-chart-title { color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); letter-spacing: var(--x-tracking-tight); }
+
+  /* The legend: always there for two or more series, so a series is never told by color alone. */
+  .x-chart-legend { display: flex; flex-wrap: wrap; gap: var(--x-space-1) var(--x-space-4); margin: 0; padding: 0; list-style: none; color: var(--x-fg-2); font-size: var(--x-text-xs); }
+  .x-chart-legend > li { display: inline-flex; }
+  /* Each entry is a button: press it to take its series off the chart, and again to put it back. */
+  .x-chart-legend button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--x-space-1-5);
+    min-height: var(--x-size-xs);
+    margin: 0 calc(var(--x-space-1) * -1);
+    padding: 0 var(--x-space-1);
+    border: 0;
+    border-radius: var(--x-radius-xs);
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    transition: color var(--x-duration-fast) var(--x-ease), background-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-chart-legend button::before { content: ""; box-sizing: border-box; width: 10px; height: 10px; border: 2px solid var(--x-chart-color); border-radius: 3px; background: var(--x-chart-color); transition: background-color var(--x-duration-fast) var(--x-ease); }
+  .x-chart-legend button:hover { background: var(--x-bg-soft); color: var(--x-fg-1); }
+  .x-chart-legend button:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 1px; }
+  /* Off: the swatch is hollow and the name is muted and struck through, so the state is not told by color alone. */
+  .x-chart-legend button[aria-pressed="false"] { color: var(--x-fg-4); text-decoration: line-through; }
+  .x-chart-legend button[aria-pressed="false"]::before { background: transparent; }
+
+  .x-chart-plot { position: relative; min-width: 0; outline: none; }
+  .x-chart-plot:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 4px; border-radius: var(--x-radius-sm); }
+  .x-chart-svg { display: block; width: 100%; overflow: visible; }
+  /* Grid and ticks are quiet: hairlines one step off the surface, and small muted numbers that line up. */
+  .x-chart-grid line { stroke: var(--x-border); stroke-width: 1; shape-rendering: crispEdges; }
+  .x-chart-grid line[data-zero] { stroke: var(--x-border-hover); }
+  .x-chart-tick { fill: var(--x-fg-3); font-size: var(--x-text-2xs); font-variant-numeric: tabular-nums; }
+  /* The readout's own marks travel from one category to the next. The data's marks never move. */
+  .x-chart-cursor { stroke: var(--x-fg-4); stroke-width: 1; shape-rendering: crispEdges; pointer-events: none; transition: translate var(--x-duration-fast) var(--x-ease); }
+
+  /* The readout: the value leads, the series name follows, keyed by a short stroke of its color. */
+  .x-chart-tip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: grid;
+    gap: var(--x-space-0-5);
+    min-width: 96px;
+    padding: var(--x-space-2) var(--x-space-2-5);
+    border: 1px solid var(--x-border);
+    border-radius: var(--x-radius-md);
+    background: var(--x-bg-panel);
+    color: var(--x-fg-3);
+    font-size: var(--x-text-xs);
+    line-height: var(--x-leading-body);
+    white-space: nowrap;
+    pointer-events: none;
+    /* It arrives like any surface (a short fade, growing from 96% on the spring), then glides from mark to mark. */
+    transition:
+      opacity var(--x-duration-fast) var(--x-ease),
+      scale var(--x-spring-duration) var(--x-spring),
+      translate var(--x-duration-base) var(--x-ease),
+      display var(--x-duration-fast) allow-discrete;
+  }
+  @starting-style {
+    .x-chart-tip { opacity: 0; scale: 0.96; }
+  }
+  .x-chart-tip[data-placing] { transition-property: opacity, scale, display; } /* placed, not travelled to */
+  .x-chart-tip[hidden] {
+    display: none;
+    opacity: 0;
+    scale: 0.96;
+    transition: opacity var(--x-duration-fast) var(--x-ease), scale var(--x-duration-fast) var(--x-ease), display var(--x-duration-fast) allow-discrete;
+  }
+  .x-chart-tip > strong { color: var(--x-fg-2); font-weight: var(--x-weight-body); }
+  .x-chart-tip > span { display: flex; align-items: center; gap: var(--x-space-1-5); }
+  .x-chart-tip > span::before { content: ""; width: 10px; height: 2px; border-radius: 1px; background: var(--x-chart-color, transparent); }
+  .x-chart-tip b { color: var(--x-fg-1); font-weight: var(--x-weight-label); font-variant-numeric: tabular-nums; }
+
+  /* The data table. Before the chart is drawn it is the chart; after, it stays for assistive technology, and
+     data-view="table" on the figure shows it in place of the plot. */
+  .x-chart-data { width: 100%; border-collapse: collapse; font-size: var(--x-text-xs); font-variant-numeric: tabular-nums; }
+  .x-chart-data :is(th, td) { padding: var(--x-space-1-5) var(--x-space-2); border-bottom: 1px solid var(--x-border); text-align: end; }
+  .x-chart-data :is(th, td):first-child { padding-inline-start: 0; text-align: start; }
+  .x-chart-data th { color: var(--x-fg-3); font-weight: var(--x-weight-body); }
+  .x-chart-data td { color: var(--x-fg-1); }
+  .x-chart[data-drawn]:not([data-view="table"]) > .x-chart-data {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .x-chart[data-view="table"] > :is(.x-chart-plot, .x-chart-legend) { display: none; }
+}

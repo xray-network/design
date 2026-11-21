@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Gramainst</title>
+  <!-- A showcase app of XRAY/DESIGN: plain HTML on the kit's own CSS and controllers. One file: every screen is
+       a section, shown by the hash (index.html#feed); ../app.js moves between them with the kit's Screen pattern. -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="../app.css">
+  <script type="module" src="../app.js"></script>
+</head>
+<body data-form="mobile">
+  <div class="app-shell">
+    <div class="x-screens app-views">
+      <section class="x-screen app-view" data-screen="feed" aria-label="Feed" tabindex="-1">
+    <header class="app-bar">
+        <span class="app-title" data-brand>Gramainst</span>
+        <button class="x-icon-button" type="button" aria-label="Activity"><svg class="x-icon" data-icon="heart"></svg></button>
+        <button class="x-icon-button" type="button" aria-label="Messages"><svg class="x-icon" data-icon="paper-airplane"></svg></button>
+      </header>
+      <main class="app-screen" data-flush>
+        <ul class="x-stories" aria-label="Stories">
+          <li><button class="x-stories-item" type="button"><span class="x-stories-ring"><span class="x-avatar" data-seed="you" data-palette="amber" aria-hidden="true"></span></span><span class="x-stories-name">You</span></button></li>
+          <li><button class="x-stories-item" type="button"><span class="x-stories-ring"><span class="x-avatar" data-seed="mira" data-palette="cool" aria-hidden="true"></span></span><span class="x-stories-name">mira</span></button></li>
+          <li><button class="x-stories-item" type="button"><span class="x-stories-ring"><span class="x-avatar" data-seed="tomas" data-palette="ember" aria-hidden="true"></span></span><span class="x-stories-name">tomas</span></button></li>
+          <li><button class="x-stories-item" type="button"><span class="x-stories-ring"><span class="x-avatar" data-seed="studio" data-palette="xray" aria-hidden="true"></span></span><span class="x-stories-name">studio</span></button></li>
+          <li><button class="x-stories-item" type="button" data-seen=""><span class="x-stories-ring"><span class="x-avatar" data-seed="lena" data-palette="blue" aria-hidden="true"></span></span><span class="x-stories-name">lena</span></button></li>
+          <li><button class="x-stories-item" type="button" data-seen=""><span class="x-stories-ring"><span class="x-avatar" data-seed="kai" data-palette="amber" aria-hidden="true"></span></span><span class="x-stories-name">kai</span></button></li>
+        </ul>
+        <div class="app-pad">
+        <article class="x-post" aria-labelledby="p1">
+          <header class="x-post-head">
+            <span class="x-post-lead"><span class="x-avatar" data-seed="mira" data-palette="cool" aria-hidden="true"></span></span>
+            <div class="x-post-author" id="p1"><span class="x-post-name">mira</span><span class="x-post-meta">Lisbon · 2h</span></div>
+            <button class="x-icon-button" type="button" data-size="sm" aria-label="More"><svg class="x-icon" data-icon="ellipsis-horizontal"></svg></button>
+          </header>
+          <p class="x-post-text">Morning light on the tiles.</p>
+          <div class="x-post-media" data-ratio="portrait"><span class="app-art" data-art="mira-1" data-palette="cool" role="img" aria-label="Abstract picture" style="height:100%"></span></div>
+          <footer class="x-post-actions">
+            <button class="x-post-action" type="button" data-action="like" aria-pressed="true" aria-label="Like, 248"><svg class="x-icon" data-icon="heart"></svg><span>248</span></button>
+            <button class="x-post-action" type="button" data-action="reply" aria-label="Reply, 12"><svg class="x-icon" data-icon="chat-bubble-oval-left"></svg><span>12</span></button>
+            <button class="x-post-action" type="button" data-action="share" data-end="" aria-label="Share"><svg class="x-icon" data-icon="paper-airplane"></svg></button>
+          </footer>
+        </article>
+        <article class="x-post" aria-labelledby="p2">
+          <header class="x-post-head">
+            <span class="x-post-lead"><span class="x-avatar" data-seed="studio" data-palette="xray" aria-hidden="true"></span></span>
+            <div class="x-post-author" id="p2"><span class="x-post-name">studio</span><span class="x-post-meta">Sponsored · 5h</span></div>
+            <button class="x-icon-button" type="button" data-size="sm" aria-label="More"><svg class="x-icon" data-icon="ellipsis-horizontal"></svg></button>
+          </header>
+          <div class="x-post-media" data-ratio="square"><span class="app-art" data-art="studio-7" data-palette="xray" role="img" aria-label="Abstract picture" style="height:100%"></span></div>
+          <footer class="x-post-actions">
+            <button class="x-post-action" type="button" data-action="like" aria-pressed="false" aria-label="Like, 1024"><svg class="x-icon" data-icon="heart"></svg><span>1024</span></button>
+            <button class="x-post-action" type="button" data-action="reply" aria-label="Reply, 86"><svg class="x-icon" data-icon="chat-bubble-oval-left"></svg><span>86</span></button>
+            <button class="x-post-action" type="button" data-action="share" data-end="" aria-label="Share"><svg class="x-icon" data-icon="paper-airplane"></svg></button>
+          </footer>
+        </article>
+        <article class="x-post" aria-labelledby="p3">
+          <header class="x-post-head">
+            <span class="x-post-lead"><span class="x-avatar" data-seed="tomas" data-palette="ember" aria-hidden="true"></span></span>
+            <div class="x-post-author" id="p3"><span class="x-post-name">tomas</span><span class="x-post-meta">Porto · Yesterday</span></div>
+            <button class="x-icon-button" type="button" data-size="sm" aria-label="More"><svg class="x-icon" data-icon="ellipsis-horizontal"></svg></button>
+          </header>
+          <p class="x-post-text">The bridge at dusk.</p>
+          <div class="x-post-media"><span class="app-art" data-art="tomas-3" data-palette="ember" role="img" aria-label="Abstract picture" style="height:100%"></span></div>
+          <footer class="x-post-actions">
+            <button class="x-post-action" type="button" data-action="like" aria-pressed="false" aria-label="Like, 73"><svg class="x-icon" data-icon="heart"></svg><span>73</span></button>
+            <button class="x-post-action" type="button" data-action="reply" aria-label="Reply, 4"><svg class="x-icon" data-icon="chat-bubble-oval-left"></svg><span>4</span></button>
+            <button class="x-post-action" type="button" data-action="share" data-end="" aria-label="Share"><svg class="x-icon" data-icon="paper-airplane"></svg></button>
+          </footer>
+        </article>
+        </div>
+      </main>
+      </section>
+      <section class="x-screen app-view" data-screen="explore" aria-label="Explore" tabindex="-1" hidden>
+    <header class="app-bar">
+        <div class="x-input" data-size="sm" style="flex:1"><svg class="x-icon" data-icon="magnifying-glass"></svg><input type="search" aria-label="Search" placeholder="Search"></div>
+      </header>
+      <main class="app-screen" data-flush>
+        <div class="x-chips" role="radiogroup" aria-label="Topic" style="flex-wrap:nowrap;overflow-x:auto;padding:var(--x-space-3) var(--x-space-4);scrollbar-width:none"><label class="x-chip"><input type="radio" name="topic" checked><span>For you</span></label><label class="x-chip"><input type="radio" name="topic"><span>Travel</span></label><label class="x-chip"><input type="radio" name="topic"><span>Design</span></label><label class="x-chip"><input type="radio" name="topic"><span>Food</span></label><label class="x-chip"><input type="radio" name="topic"><span>Architecture</span></label><label class="x-chip"><input type="radio" name="topic"><span>Music</span></label></div>
+        <ul class="x-media-grid" aria-label="Posts"><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 1"><span class="app-art" data-art="ex-0" data-palette="cool" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 2"><span class="app-art" data-art="ex-1" data-palette="amber" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell" data-span="tall"><a class="x-media-grid-item" href="#feed" aria-label="Picture 3"><span class="app-art" data-art="ex-2" data-palette="ember" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 4"><span class="app-art" data-art="ex-3" data-palette="xray" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 5"><span class="app-art" data-art="ex-4" data-palette="blue" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 6"><span class="app-art" data-art="ex-5" data-palette="amber" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 7"><span class="app-art" data-art="ex-6" data-palette="cool" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 8"><span class="app-art" data-art="ex-7" data-palette="ember" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 9"><span class="app-art" data-art="ex-8" data-palette="xray" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell" data-span="tall"><a class="x-media-grid-item" href="#feed" aria-label="Picture 10"><span class="app-art" data-art="ex-9" data-palette="blue" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 11"><span class="app-art" data-art="ex-10" data-palette="amber" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 12"><span class="app-art" data-art="ex-11" data-palette="cool" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 13"><span class="app-art" data-art="ex-12" data-palette="ember" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 14"><span class="app-art" data-art="ex-13" data-palette="xray" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 15"><span class="app-art" data-art="ex-14" data-palette="blue" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 16"><span class="app-art" data-art="ex-15" data-palette="cool" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 17"><span class="app-art" data-art="ex-16" data-palette="amber" role="img" aria-label="Abstract picture"></span></a></li></ul>
+      </main>
+      </section>
+      <section class="x-screen app-view" data-screen="profile" aria-label="Profile" tabindex="-1" hidden>
+    <header class="app-bar">
+        <span class="app-title">mira</span>
+        <button class="x-icon-button" type="button" aria-label="New post"><svg class="x-icon" data-icon="plus"></svg></button>
+        <button class="x-icon-button" type="button" aria-label="Menu"><svg class="x-icon" data-icon="bars-3"></svg></button>
+      </header>
+      <main class="app-screen" data-flush>
+        <div class="app-pad">
+        <section class="x-profile" aria-labelledby="who" style="padding-top: var(--x-space-4)">
+          <div class="x-profile-top">
+            <span class="x-profile-lead"><span class="x-avatar" data-size="lg" data-seed="mira" data-palette="cool" aria-hidden="true"></span></span>
+            <dl class="x-profile-stats"><div><dd>128</dd><dt>Posts</dt></div><div><dd>12.4K</dd><dt>Followers</dt></div><div><dd>312</dd><dt>Following</dt></div></dl>
+          </div>
+          <div class="x-profile-id"><h2 class="x-profile-name" id="who">Mira Lindqvist</h2><span class="x-profile-handle">@mira</span></div>
+          <p class="x-profile-bio">Photographer in Lisbon. Tiles, light and quiet streets.</p>
+          <div class="x-profile-actions"><button class="x-button" type="button">Follow</button><button class="x-button" type="button" data-variant="ghost">Message</button></div>
+        </section>
+        </div>
+        <div class="x-segmented" role="radiogroup" aria-label="View" data-width="full" data-size="sm" style="margin:var(--x-space-4)">
+          <label class="x-segmented-item"><input type="radio" name="view" checked><span>Posts</span></label>
+          <label class="x-segmented-item"><input type="radio" name="view"><span>Saved</span></label>
+          <label class="x-segmented-item"><input type="radio" name="view"><span>Tagged</span></label>
+        </div>
+        <ul class="x-media-grid" aria-label="Posts"><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 18"><span class="app-art" data-art="mira-0" data-palette="cool" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 19"><span class="app-art" data-art="mira-1" data-palette="blue" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 20"><span class="app-art" data-art="mira-2" data-palette="cool" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 21"><span class="app-art" data-art="mira-3" data-palette="amber" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 22"><span class="app-art" data-art="mira-4" data-palette="cool" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 23"><span class="app-art" data-art="mira-5" data-palette="xray" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 24"><span class="app-art" data-art="mira-6" data-palette="blue" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 25"><span class="app-art" data-art="mira-7" data-palette="cool" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 26"><span class="app-art" data-art="mira-8" data-palette="ember" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 27"><span class="app-art" data-art="mira-9" data-palette="cool" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 28"><span class="app-art" data-art="mira-10" data-palette="blue" role="img" aria-label="Abstract picture"></span></a></li><li class="x-media-grid-cell"><a class="x-media-grid-item" href="#feed" aria-label="Picture 29"><span class="app-art" data-art="mira-11" data-palette="amber" role="img" aria-label="Abstract picture"></span></a></li></ul>
+      </main>
+      </section>
+    </div>
+  <footer class="x-tab-bar">
+      <nav class="x-liquid-indicator" aria-label="Gramainst" data-width="full" data-layout="stack">
+        <a class="x-liquid-indicator-item" href="#feed" aria-current="page"><svg class="x-icon" data-icon="home"></svg><span>Feed</span></a>
+        <a class="x-liquid-indicator-item" href="#explore"><svg class="x-icon" data-icon="magnifying-glass"></svg><span>Explore</span></a>
+        <a class="x-liquid-indicator-item" href="#profile"><svg class="x-icon" data-icon="user"></svg><span>Profile</span></a>
+        <span class="x-liquid-indicator-pill" aria-hidden="true"></span>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>

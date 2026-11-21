@@ -1,0 +1,16 @@
+/* ChartCard: a headline number, its change and a chart on one panel. Built from Tag (the delta) and Skeleton, around any chart. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-chart-card { --x-chart-surface: var(--x-bg-panel); display: grid; gap: var(--x-space-3); min-width: 0; padding: var(--x-space-4); border: 1px solid var(--x-border); border-radius: var(--x-radius-2xl); background: var(--x-bg-panel); }
+  .x-chart-card-head { display: flex; align-items: center; justify-content: space-between; gap: var(--x-space-3); min-height: var(--x-size-sm); }
+  .x-chart-card-title { margin: 0; overflow: hidden; color: var(--x-fg-2); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); text-overflow: ellipsis; white-space: nowrap; }
+  .x-chart-card-controls { flex: none; }
+  .x-chart-card-figure { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--x-space-1) var(--x-space-2-5); }
+  .x-chart-card-value { color: var(--x-fg-1); font: var(--x-weight-stat) var(--x-text-3xl) / 1.1 var(--x-font-sans); font-variant-numeric: tabular-nums; letter-spacing: var(--x-tracking-tight); }
+  .x-chart-card-note { color: var(--x-fg-3); font-size: var(--x-text-sm); }
+  .x-chart-card-plot { min-width: 0; }
+  /* The chart is on the panel: its gaps and rings take the panel's color, and it needs no title of its own. */
+  .x-chart-card-plot > .x-chart { --x-chart-surface: var(--x-bg-panel); margin: 0; }
+}

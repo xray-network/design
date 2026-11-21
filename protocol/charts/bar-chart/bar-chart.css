@@ -1,0 +1,12 @@
+/* Bar chart: columns grouped by category. Requires core/tokens.css and core/chart.css (the frame every chart shares). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-bar-chart { position: relative; }
+  /* Slim bars with a round cap: the color is a stroke, not a block. */
+  .x-bar-chart-bar { fill: var(--x-chart-color, currentColor); transition: opacity var(--x-duration-fast) var(--x-ease); }
+  /* The category being read gets a soft band behind it, and the others step back a little. */
+  .x-bar-chart-band { fill: var(--x-bg-soft); pointer-events: none; transition: translate var(--x-duration-base) var(--x-ease); }
+  .x-chart-svg[data-active] .x-bar-chart-group:not([data-active]) > .x-bar-chart-bar { opacity: 0.55; }
+}

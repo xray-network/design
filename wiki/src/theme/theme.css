@@ -186,6 +186,11 @@ html .rp-nav__title__link {
   line-height: 1;
 }
 
+/* The logo does not dim under the pointer: it is the mark, not a control that needs a hover state. */
+html .rp-nav__title__link:hover {
+  opacity: 1;
+}
+
 html .rp-nav__title__logo {
   --wiki-logo-h: 23px;
   position: relative;
@@ -723,7 +728,8 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   cursor: progress;
 }
 
-/* What the kit holds: a ruled 2×2 frame of counts beside the copy (a row of four when the band is narrow). */
+/* What the kit holds: a ruled frame of counts beside the copy, three rows of two, each cell low (two rows of three
+   when the frame runs the full width under the copy). */
 .spectre-hero-links {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -734,9 +740,9 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 24px;
-  min-height: 132px;
-  padding: 18px 20px 16px;
+  gap: 8px;
+  min-height: 88px;
+  padding: 14px 20px 12px;
   color: var(--xr-fg-muted);
 }
 
@@ -744,7 +750,7 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   border-right: 1px solid var(--xr-border);
 }
 
-.spectre-hero-link:nth-child(-n + 2) {
+.spectre-hero-link:nth-child(-n + 4) {
   border-bottom: 1px solid var(--xr-border);
 }
 
@@ -766,7 +772,7 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
 
 .spectre-hero-link__value {
   color: var(--xr-fg);
-  font-size: 44px;
+  font-size: 38px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: -.04em;
@@ -798,39 +804,29 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   }
 }
 
-@container (max-width: 899px) {
+/* Under the copy, at full width: two rows of three. On a phone it is three rows of two again (the default). */
+@container (min-width: 421px) and (max-width: 899px) {
   .spectre-hero-links {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .spectre-home .spectre-hero-link {
-    min-height: 104px;
-  }
-
-  .spectre-hero-link:nth-child(-n + 2) {
-    border-bottom: 0;
-  }
-
-  .spectre-hero-link:not(:last-child) {
+  .spectre-home .spectre-hero-link:nth-child(n) {
     border-right: 1px solid var(--xr-border);
-  }
-
-  .spectre-hero-link__value {
-    font-size: 32px;
-  }
-}
-
-@container (max-width: 560px) {
-  .spectre-hero-links {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .spectre-hero-link:nth-child(-n + 2) {
     border-bottom: 1px solid var(--xr-border);
   }
 
-  .spectre-hero-link:nth-child(even) {
+  .spectre-home .spectre-hero-link:nth-child(3n) {
     border-right: 0;
+  }
+
+  .spectre-home .spectre-hero-link:nth-child(n + 4) {
+    border-bottom: 0;
+  }
+}
+
+@container (max-width: 899px) {
+  .spectre-hero-link__value {
+    font-size: 32px;
   }
 }
 
@@ -1561,11 +1557,25 @@ html .rp-doc details:not(:where(.rp-not-doc *)) > :last-child:not(summary) {
   }
 }
 
-/* Middle widths: the top bar's section links and the version badge do not fit beside the search box (the bar would
-   scroll sideways); the sidebar and the menu button carry the same links. */
-@media (max-width: 1000px) {
-  html .rp-nav-menu--right,
+/* Middle widths: the top bar's six section links, the version badge and the search box do not all fit. The badge
+   goes first, then the links (the sidebar and the menu button carry the same ones). The left side never gives way:
+   "Back to Wiki" stays on one line. */
+html .rp-nav__left {
+  flex: none;
+}
+
+html .rp-nav-menu--left .rp-nav-menu__item__container {
+  white-space: nowrap;
+}
+
+@media (max-width: 1140px) {
   html .wiki-version {
+    display: none;
+  }
+}
+
+@media (max-width: 1060px) {
+  html .rp-nav-menu--right {
     display: none;
   }
 }
@@ -1729,4 +1739,34 @@ html .spectre-home .spectre-flow > li::before {
 
 html .spectre-home .spectre-flow__result {
   font-size: 16px;
+}
+
+/* The install prompt is a step of its own: the same orange marker as the numbered steps, with the install icon. */
+.spectre-install {
+  --flow-marker-size: clamp(36px, 4vw, 44px);
+  display: grid;
+  grid-template-columns: var(--flow-marker-size) minmax(0, 1fr);
+  gap: clamp(12px, 2vw, 24px);
+  margin-top: 28px;
+  padding-top: 28px;
+  border-top: 1px solid var(--xr-border);
+}
+
+.spectre-install-mark {
+  display: grid;
+  width: var(--flow-marker-size);
+  height: var(--flow-marker-size);
+  place-items: center;
+  border-radius: var(--xr-radius);
+  background: var(--xr-brand);
+  color: var(--xr-on-action);
+}
+
+.spectre-install-mark > svg {
+  width: 22px;
+  height: 22px;
+}
+
+.spectre-install .rp-codeblock {
+  margin: 0;
 }

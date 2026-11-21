@@ -1,0 +1,10 @@
+/* Heatmap: Amounts across two dimensions as a grid of cells. Requires core/tokens.css and core/chart.css (the frame every chart shares). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-heatmap { position: relative; }
+  /* One hue, mixed into the surface: strength alone carries the amount, in both themes. */
+  .x-heatmap-cell { fill: color-mix(in oklab, var(--x-chart-1) var(--x-heatmap-level, 8%), var(--x-chart-surface, var(--x-bg))); }
+  .x-heatmap-cell[data-active] { stroke: var(--x-fg-1); stroke-width: 2; }
+}

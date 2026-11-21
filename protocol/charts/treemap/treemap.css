@@ -1,0 +1,25 @@
+/* Treemap: The parts of one whole as rectangles that fill a box. Requires core/tokens.css and core/chart.css (the frame every chart shares). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-treemap {
+    --x-treemap-color: var(--x-chart-1);
+    --x-treemap-up: var(--x-success);
+    --x-treemap-down: var(--x-danger);
+
+    position: relative;
+  }
+  .x-treemap-fill { fill: color-mix(in oklab, var(--x-treemap-color) var(--x-treemap-level, 14%), var(--x-chart-surface, var(--x-bg))); transition: opacity var(--x-duration-fast) var(--x-ease); }
+  /* With a column of moves, the color is the direction and its strength the size of the move. */
+  .x-treemap-tile[data-trend="up"] { --x-treemap-color: var(--x-treemap-up); }
+  .x-treemap-tile[data-trend="down"] { --x-treemap-color: var(--x-treemap-down); }
+  .x-treemap-tile[data-trend="flat"] { --x-treemap-color: var(--x-fg-4); }
+  .x-treemap-tile[data-trend] > .x-treemap-share { fill: var(--x-fg-1); fill-opacity: 0.8; }
+  .x-treemap-name { fill: var(--x-fg-1); font-size: var(--x-text-xs); font-weight: var(--x-weight-label); pointer-events: none; }
+  .x-treemap-share { fill: var(--x-fg-3); font-size: var(--x-text-2xs); font-variant-numeric: tabular-nums; pointer-events: none; }
+  /* On a strong fill the text takes the colors made for text on the accent. */
+  .x-treemap-tile[data-strong] > .x-treemap-name { fill: var(--x-accent-fg); }
+  .x-treemap-tile[data-strong] > .x-treemap-share { fill: var(--x-accent-fg); fill-opacity: 0.8; }
+  .x-chart-svg[data-active] .x-treemap-tile:not([data-active]) > .x-treemap-fill { opacity: 0.55; }
+}

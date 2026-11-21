@@ -1,0 +1,13 @@
+/* TableView: search and filters above a table, count and pages below. Built from Input, Segmented, Table, Pagination and Button. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-table-view { display: grid; gap: var(--x-space-3); min-width: 0; }
+  .x-table-view-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-3); }
+  .x-table-view-toolbar > .x-table-view-search { flex: 1 1 220px; max-width: 320px; }
+  .x-table-view-filters { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2); min-width: 0; }
+  .x-table-view-actions { display: flex; align-items: center; gap: var(--x-space-2); margin-inline-start: auto; }
+  .x-table-view-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--x-space-3); }
+  .x-table-view-count { color: var(--x-fg-3); font-size: var(--x-text-sm); font-variant-numeric: tabular-nums; }
+}

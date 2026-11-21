@@ -1,0 +1,32 @@
+/* ApiKeys: make a key, copy it once, see and revoke the others. Built from Input, Button, Copy and Tag. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-api-keys { display: grid; gap: var(--x-space-4); min-width: 0; container-type: inline-size; }
+  .x-api-keys-new { display: flex; align-items: flex-end; gap: var(--x-space-2); }
+  .x-api-keys-new > .x-field { flex: 1; min-width: 0; max-width: 360px; }
+
+  /* The new key, shown once: a panel with the full value and a copy button. */
+  .x-api-keys-secret { display: grid; gap: var(--x-space-3); padding: var(--x-space-4); border: 1px solid var(--x-border-hover); border-radius: var(--x-radius-2xl); background: var(--x-bg-panel); }
+  .x-api-keys-secret-title { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); }
+  .x-api-keys-secret-note { margin: var(--x-space-0-5) 0 0; color: var(--x-fg-3); font-size: var(--x-text-sm); }
+  .x-api-keys-secret > .x-button { justify-self: start; }
+
+  .x-api-keys-list { display: grid; margin: 0; padding: 0; list-style: none; }
+  .x-api-keys-key { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: var(--x-space-1) var(--x-space-4); padding-block: var(--x-space-3); border-top: 1px solid var(--x-border); }
+  .x-api-keys-key:first-child { border-top: 0; }
+  .x-api-keys-name { min-width: 0; overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); text-overflow: ellipsis; white-space: nowrap; }
+  .x-api-keys-meta { grid-column: 1; display: flex; flex-wrap: wrap; gap: var(--x-space-0-5) var(--x-space-3); color: var(--x-fg-3); font-size: var(--x-text-xs); }
+  .x-api-keys-value { color: var(--x-fg-2); font: var(--x-weight-body) var(--x-text-xs) / 1.4 var(--x-font-mono); }
+  .x-api-keys-key > .x-tag { grid-area: 1 / 2 / span 2; }
+  .x-api-keys-key > .x-button { grid-area: 1 / 3 / span 2; }
+  /* A revoked key stays in the list, struck out of use. */
+  .x-api-keys-key[data-state="revoked"] .x-api-keys-name { color: var(--x-fg-3); }
+  .x-api-keys-key[data-state="revoked"] .x-api-keys-value { text-decoration: line-through; }
+  @container (max-width: 420px) {
+    .x-api-keys-key { grid-template-columns: minmax(0, 1fr) auto; }
+    .x-api-keys-key > .x-tag { grid-area: auto; justify-self: start; }
+    .x-api-keys-key > .x-button { grid-area: 1 / 2 / span 3; }
+  }
+}

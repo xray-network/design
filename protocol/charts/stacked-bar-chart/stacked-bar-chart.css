@@ -1,0 +1,10 @@
+/* StackedBarChart: Totals compared across categories. Requires core/tokens.css and core/chart.css (the frame every chart shares). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-stacked-bar-chart { position: relative; }
+  .x-stacked-bar-chart-part { fill: var(--x-chart-color, currentColor); transition: opacity var(--x-duration-fast) var(--x-ease); }
+  .x-stacked-bar-chart-band { fill: var(--x-bg-soft); pointer-events: none; transition: translate var(--x-duration-base) var(--x-ease); }
+  .x-chart-svg[data-active] .x-stacked-bar-chart-stack:not([data-active]) > .x-stacked-bar-chart-part { opacity: 0.55; }
+}

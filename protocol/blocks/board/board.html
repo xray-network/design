@@ -1,0 +1,35 @@
+<!-- Board: Tag, Avatar and Button. No JS of its own (initAvatars draws the avatars). Cards are links or buttons. -->
+<div class="x-board" role="group" aria-label="Sprint 24">
+  <section class="x-board-column" aria-labelledby="board-todo">
+    <header class="x-board-head">
+      <h3 class="x-board-title" id="board-todo">Todo</h3>
+      <span class="x-board-count">2</span>
+      <button class="x-icon-button" type="button" data-size="sm" aria-label="Add to Todo"><svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v15m7.5-7.5h-15"/></svg></button>
+    </header>
+    <ol class="x-board-cards">
+      <li><a class="x-board-card" href="#eng-142">
+        <span class="x-board-key">ENG-142</span>
+        <span class="x-board-name">Tab bar hides under the keyboard</span>
+        <span class="x-board-foot"><span class="x-board-tags"><span class="x-tag" data-size="sm">Bug</span><span class="x-tag" data-size="sm">Mobile</span></span><span class="x-avatar" data-seed="tomas" data-palette="ember" aria-hidden="true"></span></span>
+      </a></li>
+      <li><button class="x-board-card" type="button">
+        <span class="x-board-key">ENG-150</span>
+        <span class="x-board-name">Export payments as CSV</span>
+        <span class="x-board-foot"><span class="x-board-tags"><span class="x-tag" data-size="sm">Feature</span></span></span>
+      </button></li>
+    </ol>
+  </section>
+  <section class="x-board-column" aria-labelledby="board-done">
+    <header class="x-board-head">
+      <h3 class="x-board-title" id="board-done">Done</h3>
+      <span class="x-board-count">0</span>
+    </header>
+    <ol class="x-board-cards"></ol>
+    <p class="x-board-empty">Nothing here yet</p>
+  </section>
+</div>
+
+<script type="module">
+  import { initAvatars } from "../../components/avatar/avatar.controller.js";
+  initAvatars();
+</script>

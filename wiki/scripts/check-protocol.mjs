@@ -23,11 +23,11 @@ import { frontMatter, protocolMeta, protocolTokens, resolveTokens, UNLISTED } fr
 
 const WIKI = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const KIT = resolve(WIKI, "../protocol") // installed as-is to <project>/.agents/design/
-const SHARED = { tokens: ["core/tokens.css"], motion: ["core/motion.js", "core/motion.d.ts"], place: ["core/place.js", "core/place.d.ts"] }
+const SHARED = { tokens: ["core/tokens.css"], motion: ["core/motion.js", "core/motion.d.ts"], place: ["core/place.js", "core/place.d.ts"], chart: ["core/chart.js", "core/chart.d.ts", "core/chart.css"] }
 // The installed layout: root documents and references/, web code in core/, components/ and blocks/.
 const ROOT_FILES = ["SKILL.md", "DESIGN-PROTOCOL.md", "CHANGELOG.md"]
 const REFERENCE_FILES = ["native-gui.md"]
-const CORE_FILES = ["tokens.css", "base.css", "motion.js", "motion.d.ts", "place.js", "place.d.ts"]
+const CORE_FILES = ["tokens.css", "base.css", "motion.js", "motion.d.ts", "place.js", "place.d.ts", "chart.js", "chart.d.ts", "chart.css"]
 
 const errors = []
 const error = (where, message) => errors.push(`${where}: ${message}`)
@@ -57,7 +57,7 @@ for (const f of ROOT_FILES) if (!existsSync(join(KIT, f))) error(`protocol/${f}`
 for (const f of REFERENCE_FILES) if (!existsSync(join(KIT, "references", f))) error(`protocol/references/${f}`, "missing")
 for (const f of CORE_FILES) if (!existsSync(join(KIT, "core", f))) error(`protocol/core/${f}`, "missing")
 const stray = [
-  ...readdirSync(KIT).filter((f) => !["components", "blocks", "motion", "core", "references", ...ROOT_FILES].includes(f)),
+  ...readdirSync(KIT).filter((f) => !["components", "blocks", "motion", "charts", "core", "references", ...ROOT_FILES].includes(f)),
   ...(existsSync(join(KIT, "core")) ? readdirSync(join(KIT, "core")).filter((f) => !CORE_FILES.includes(f)).map((f) => `core/${f}`) : []),
   ...(existsSync(join(KIT, "references")) ? readdirSync(join(KIT, "references")).filter((f) => !REFERENCE_FILES.includes(f)).map((f) => `references/${f}`) : []),
 ]
@@ -113,9 +113,11 @@ try {
   error("protocol/DESIGN-PROTOCOL.md", e.message)
 }
 
-// Components are primitives; blocks are screen sections built only from components; motion patterns are movements
-// (an indicator that slides, one element becoming another) that any of them can take on.
-const KINDS = ["components", "blocks", "motion"]
+// Components are primitives; blocks are screen sections built from components (and, declared in their frontmatter,
+// other blocks, motion patterns and charts); motion patterns are movements (an indicator that slides, one element
+// becoming another) that any of them can take on.
+// Charts draw data: each is a figure whose data table a controller turns into a plot, on the shared frame in core/chart.
+const KINDS = ["components", "blocks", "motion", "charts"]
 const entries = {} // "components/button", "blocks/send-form" -> { kind, id, meta, dir, files }
 const components = {} // components only, by id: what frontmatter `components:` may reference
 for (const kind of KINDS) {
@@ -167,6 +169,10 @@ for (const [where, { kind, id, meta, dir, files }] of Object.entries(entries)) {
     if (!entries[`blocks/${b}`]) error(where, `depends on unknown block "${b}"`)
     if (b === id) error(where, "a block cannot depend on itself")
   }
+  // A block may also hold motion patterns and charts, declared in `patterns:` and `charts:`.
+  for (const key of ["patterns", "charts"]) if (meta[key] !== undefined && kind !== "blocks") error(where, `only blocks may declare ${key}: dependencies`)
+  for (const p of meta.patterns ?? []) if (!entries[`motion/${p}`]) error(where, `depends on unknown motion pattern "${p}"`)
+  for (const c of meta.charts ?? []) if (!entries[`charts/${c}`]) error(where, `depends on unknown chart "${c}"`)
 
   for (const f of files) {
     const text = read(join(dir, f))
@@ -194,11 +200,17 @@ for (const [where, { kind, id, meta, dir, files }] of Object.entries(entries)) {
         if (rel.startsWith("..")) { error(`${where}/${f}`, `import ${spec} leaves the kit`); continue }
         if (rel.startsWith("core/motion") && !meta.requires.includes("motion")) error(`${where}/${f}`, `imports ${spec} but requires lacks "motion"`)
         if (rel.startsWith("core/place") && !meta.requires.includes("place")) error(`${where}/${f}`, `imports ${spec} but requires lacks "place"`)
+        if (rel.startsWith("core/chart") && !meta.requires.includes("chart")) error(`${where}/${f}`, `imports ${spec} but requires lacks "chart"`)
         const other = rel.match(/^components\/([^/]+)\//)?.[1]
         if (other && !(kind === "components" && other === id) && !meta.components.includes(other)) error(`${where}/${f}`, `imports ${spec} but components lacks "${other}"`)
         const block = rel.match(/^blocks\/([^/]+)\//)?.[1]
         if (block && kind === "components") error(`${where}/${f}`, `imports the block "${block}": components may only import components`)
         else if (block && block !== id && !(meta.blocks ?? []).includes(block)) error(`${where}/${f}`, `imports ${spec} but blocks lacks "${block}"`)
+        // A motion pattern or a chart that a component or a block imports is a dependency too: only blocks may have one.
+        const pattern = rel.match(/^motion\/([^/]+)\//)?.[1]
+        if (pattern && kind !== "motion" && !(meta.patterns ?? []).includes(pattern)) error(`${where}/${f}`, `imports ${spec} but patterns lacks "${pattern}"`)
+        const chart = rel.match(/^charts\/([^/]+)\//)?.[1]
+        if (chart && kind !== "charts" && !(meta.charts ?? []).includes(chart)) error(`${where}/${f}`, `imports ${spec} but charts lacks "${chart}"`)
       }
       if (f.endsWith(".tsx") && /\b(useState|useEffect|useLayoutEffect|useRef|useId)\b/.test(text) && !text.startsWith('"use client"')) {
         error(`${where}/${f}`, 'uses hooks, so it must start with "use client"')
@@ -232,7 +244,7 @@ await build({
 const { renderToStaticMarkup } = await import("react-dom/server")
 const { examples } = await import(pathToFileURL(OUT).href)
 
-const FREE = new Set(["data-placeholder", "data-for", "data-value", "data-seed", "data-id", "data-keywords", "data-action"])
+const FREE = new Set(["data-placeholder", "data-for", "data-value", "data-values", "data-seed", "data-id", "data-keywords", "data-action", "data-height", "data-total"])
 const facts = (markup) => {
   const out = new Set()
   for (const m of markup.matchAll(/class(?:Name)?="([^"]*)"/g)) for (const c of m[1].split(/\s+/)) if (c.startsWith("x-")) out.add(`.${c}`)
@@ -249,6 +261,8 @@ const controllerFacts = (js) => {
   const out = new Set()
   for (const m of js.matchAll(/className\s*=\s*"([^"]+)"/g)) for (const c of m[1].split(/\s+/)) out.add(`.${c}`)
   for (const m of js.matchAll(/class="([^"]+)"/g)) for (const c of m[1].split(/\s+/)) out.add(`.${c}`)
+  // svg("path", { class: "x-…" }): the attribute maps the chart controllers build their marks from.
+  for (const m of js.matchAll(/\bclass:\s*"([^"]+)"/g)) for (const c of m[1].split(/\s+/)) out.add(`.${c}`)
   for (const m of js.matchAll(/dataset\.(\w+)\s*=\s*"([^"]*)"/g)) out.add(`[data-${m[1].replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}="${m[2]}"]`)
   for (const m of js.matchAll(/dataset\.(\w+)\s*=\s*(\w+)/g)) out.add(`[data-${m[1]}=*]`)
   return out
@@ -279,4 +293,4 @@ if (errors.length) {
   process.exit(1)
 }
 const list = (kind) => Object.values(entries).filter((e) => e.kind === kind).map((e) => e.id)
-console.log(`XRAY/DESIGN protocol ${version} OK: ${list("components").length} components (${list("components").join(", ")}), ${list("blocks").length} blocks${list("blocks").length ? ` (${list("blocks").join(", ")})` : ""}, ${list("motion").length} motion patterns${list("motion").length ? ` (${list("motion").join(", ")})` : ""}`)
+console.log(`XRAY/DESIGN protocol ${version} OK: ${list("components").length} components (${list("components").join(", ")}), ${list("blocks").length} blocks${list("blocks").length ? ` (${list("blocks").join(", ")})` : ""}, ${list("motion").length} motion patterns${list("motion").length ? ` (${list("motion").join(", ")})` : ""}, ${list("charts").length} charts${list("charts").length ? ` (${list("charts").join(", ")})` : ""}`)

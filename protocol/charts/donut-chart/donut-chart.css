@@ -1,0 +1,12 @@
+/* Donut chart: the parts of one whole. Requires core/tokens.css and core/chart.css (the frame every chart shares). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-donut-chart { position: relative; }
+  /* The gap between parts is a stroke in the surface color, not a border around them. */
+  .x-donut-chart-slice { fill: var(--x-chart-color, currentColor); stroke: var(--x-chart-surface, var(--x-bg)); stroke-width: 2; stroke-linejoin: round; transition: opacity var(--x-duration-fast) var(--x-ease); }
+  .x-chart-svg[data-active] .x-donut-chart-slice:not([data-active]) { opacity: 0.4; }
+  .x-donut-chart-total { fill: var(--x-fg-1); font-size: var(--x-text-2xl); font-weight: var(--x-weight-title); letter-spacing: var(--x-tracking-tight); }
+  .x-donut-chart-caption { fill: var(--x-fg-3); font-size: var(--x-text-xs); }
+}

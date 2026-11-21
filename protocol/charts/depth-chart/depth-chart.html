@@ -1,0 +1,35 @@
+<!-- Depth Chart: depth-chart.controller.js draws the table. The table is the data and the accessible view; without JavaScript it
+     simply shows. Needs core/chart.css as well as its own. -->
+<figure class="x-chart x-depth-chart">
+  <figcaption class="x-chart-title">ETH / USDC order book</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Price</th><th scope="col">Bids</th><th scope="col">Asks</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">3,190</th><td data-value="140">140</td><td data-value="0">0</td></tr>
+      <tr><th scope="row">3,192</th><td data-value="126">126</td><td data-value="0">0</td></tr>
+      <tr><th scope="row">3,194</th><td data-value="104">104</td><td data-value="0">0</td></tr>
+      <tr><th scope="row">3,196</th><td data-value="95">95</td><td data-value="0">0</td></tr>
+      <tr><th scope="row">3,198</th><td data-value="64">64</td><td data-value="0">0</td></tr>
+      <tr><th scope="row">3,200</th><td data-value="46">46</td><td data-value="0">0</td></tr>
+      <tr><th scope="row">3,202</th><td data-value="20">20</td><td data-value="0">0</td></tr>
+      <tr><th scope="row">3,204</th><td data-value="8">8</td><td data-value="0">0</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- With the table shown in place of the plot -->
+<figure class="x-chart x-depth-chart" data-view="table" aria-label="ETH / USDC order book">
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Price</th><th scope="col">Bids</th><th scope="col">Asks</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">3,190</th><td data-value="140">140</td><td data-value="0">0</td></tr>
+      <tr><th scope="row">3,192</th><td data-value="126">126</td><td data-value="0">0</td></tr>
+      <tr><th scope="row">3,194</th><td data-value="104">104</td><td data-value="0">0</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<script type="module">
+  import { initDepthCharts } from "./depth-chart.controller.js";
+  initDepthCharts();
+</script>

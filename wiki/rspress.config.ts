@@ -90,6 +90,7 @@ export default defineConfig({
       },
       { text: "Components", link: "/components/" },
       { text: "Blocks", link: "/blocks/" },
+      { text: "Charts", link: "/charts/" },
       { text: "Showcase", link: "/showcase/" },
       { text: "Icons", link: "/icons" },
       { text: "Motion", link: "/motion/" },

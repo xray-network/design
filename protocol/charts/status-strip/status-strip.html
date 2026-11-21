@@ -1,0 +1,35 @@
+<!-- Status Strip: status-strip.controller.js draws the table. The table is the data and the accessible view; without JavaScript it
+     simply shows. Needs core/chart.css as well as its own. -->
+<figure class="x-chart x-status-strip">
+  <figcaption class="x-chart-title">API, last 60 days</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Day</th><th scope="col">State</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Day 1</th><td>ok</td></tr>
+      <tr><th scope="row">Day 2</th><td>ok</td></tr>
+      <tr><th scope="row">Day 3</th><td>ok</td></tr>
+      <tr><th scope="row">Day 4</th><td>ok</td></tr>
+      <tr><th scope="row">Day 5</th><td>ok</td></tr>
+      <tr><th scope="row">Day 6</th><td>ok</td></tr>
+      <tr><th scope="row">Day 7</th><td>ok</td></tr>
+      <tr><th scope="row">Day 8</th><td>degraded</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- With the table shown in place of the plot -->
+<figure class="x-chart x-status-strip" data-view="table" aria-label="API, last 60 days">
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Day</th><th scope="col">State</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Day 1</th><td>ok</td></tr>
+      <tr><th scope="row">Day 2</th><td>ok</td></tr>
+      <tr><th scope="row">Day 3</th><td>ok</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<script type="module">
+  import { initStatusStrips } from "./status-strip.controller.js";
+  initStatusStrips();
+</script>

@@ -15,7 +15,6 @@
   }
   @starting-style {
     .x-stagger > * { opacity: 0; translate: 0 var(--x-stagger-distance); }
-    .x-stagger[data-from="start"] > * { translate: calc(var(--x-stagger-distance) * -1) 0; }
   }
   /* Five steps at most: the sixth item and later arrive with the fifth. */
   .x-stagger > :nth-child(2) { --x-stagger-delay: var(--x-stagger-step); }

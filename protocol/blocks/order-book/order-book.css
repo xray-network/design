@@ -1,0 +1,23 @@
+/* OrderBook: asks above, bids below, the last price and the spread between. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-order-book { --x-order-book-row: 26px; display: grid; gap: var(--x-space-1); min-width: 0; font: var(--x-weight-body) var(--x-text-xs) / 1 var(--x-font-mono); font-variant-numeric: tabular-nums; }
+  .x-order-book-head, .x-order-book-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; gap: var(--x-space-2); padding-inline: var(--x-space-2); }
+  .x-order-book-head { padding-block: var(--x-space-1); color: var(--x-fg-3); font-family: var(--x-font-sans); }
+  .x-order-book-head > :not(:first-child), .x-order-book-row > :not(:first-child) { text-align: end; }
+  .x-order-book-side { display: grid; gap: 1px; margin: 0; padding: 0; list-style: none; }
+  .x-order-book-row { position: relative; width: 100%; height: var(--x-order-book-row); border: 0; border-radius: var(--x-radius-xs); background: none; color: var(--x-fg-2); font: inherit; cursor: pointer; }
+  /* How much stands at this price or better: a wash from the far edge, in the side's color. */
+  .x-order-book-row::before { content: ""; position: absolute; inset: 0 0 0 auto; width: calc(var(--x-order-book-depth, 0) * 100%); border-radius: inherit; background: color-mix(in oklab, var(--x-order-book-color) 26%, var(--x-chart-surface, var(--x-bg))); transition: background-color var(--x-duration-fast) var(--x-ease); }
+  .x-order-book-row:hover::before { background: color-mix(in oklab, var(--x-order-book-color) 40%, var(--x-chart-surface, var(--x-bg))); }
+  .x-order-book-row:focus-visible { outline: 2px solid var(--x-focus); outline-offset: -2px; }
+  .x-order-book-row > * { position: relative; }
+  .x-order-book-side[data-side="ask"] { --x-order-book-color: var(--x-danger); }
+  .x-order-book-side[data-side="bid"] { --x-order-book-color: var(--x-success); }
+  .x-order-book-side[data-side="ask"] .x-order-book-price { color: var(--x-danger-fg); }
+  .x-order-book-side[data-side="bid"] .x-order-book-price { color: var(--x-success-fg); }
+  .x-order-book-spread { display: flex; align-items: baseline; justify-content: space-between; gap: var(--x-space-3); padding: var(--x-space-2); border-block: 1px solid var(--x-border); color: var(--x-fg-3); font-family: var(--x-font-sans); }
+  .x-order-book-last { color: var(--x-fg-1); font: var(--x-weight-stat) var(--x-text-lg) / 1.2 var(--x-font-sans); font-variant-numeric: tabular-nums; }
+}

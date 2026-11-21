@@ -34,5 +34,5 @@ const copyWeb = (dir) => {
     }
   }
 }
-for (const dir of ["core", "components", "blocks", "motion"]) copyWeb(dir)
+for (const dir of ["core", "components", "blocks", "motion", "charts"]) copyWeb(dir)
 console.log(`Published XRAY/DESIGN protocol ${version}.`)

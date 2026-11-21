@@ -1,0 +1,12 @@
+/* StatusStrip: A row of thin bars. Requires core/tokens.css and core/chart.css (the frame every chart shares). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-status-strip { position: relative; }
+  .x-status-strip-bar { fill: var(--x-bg-chip); transition: opacity var(--x-duration-fast) var(--x-ease); }
+  .x-status-strip-bar[data-state="ok"] { fill: var(--x-success); }
+  .x-status-strip-bar[data-state="degraded"] { fill: var(--x-warning); }
+  .x-status-strip-bar[data-state="down"] { fill: var(--x-danger); }
+  .x-chart-svg:has([data-active]) .x-status-strip-bar:not([data-active]) { opacity: 0.55; }
+}

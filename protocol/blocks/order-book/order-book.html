@@ -1,0 +1,16 @@
+<!-- OrderBook: no JS. --x-order-book-depth on a row is the amount standing at that price or better, as a share of
+     the deepest row on either side (0 to 1). A row is a button: it picks its price for the order form. -->
+<section class="x-order-book" aria-label="Order book, ETH / USDC">
+  <div class="x-order-book-head" aria-hidden="true"><span>Price (USDC)</span><span>Amount (ETH)</span><span>Total</span></div>
+  <ol class="x-order-book-side" data-side="ask" aria-label="Asks">
+    <li><button class="x-order-book-row" type="button" style="--x-order-book-depth: 0.62" aria-label="Sell 4.120 at 3,209.80, 9.014 in total"><span class="x-order-book-price">3,209.80</span><span>4.120</span><span>9.014</span></button></li>
+    <li><button class="x-order-book-row" type="button" style="--x-order-book-depth: 0.34" aria-label="Sell 2.894 at 3,209.20, 4.894 in total"><span class="x-order-book-price">3,209.20</span><span>2.894</span><span>4.894</span></button></li>
+    <li><button class="x-order-book-row" type="button" style="--x-order-book-depth: 0.14" aria-label="Sell 2.000 at 3,208.80, 2.000 in total"><span class="x-order-book-price">3,208.80</span><span>2.000</span><span>2.000</span></button></li>
+  </ol>
+  <div class="x-order-book-spread"><span class="x-order-book-last">3,208.40</span><span>Spread 0.70 (0.02%)</span></div>
+  <ol class="x-order-book-side" data-side="bid" aria-label="Bids">
+    <li><button class="x-order-book-row" type="button" style="--x-order-book-depth: 0.21" aria-label="Buy 3.050 at 3,208.10, 3.050 in total"><span class="x-order-book-price">3,208.10</span><span>3.050</span><span>3.050</span></button></li>
+    <li><button class="x-order-book-row" type="button" style="--x-order-book-depth: 0.55" aria-label="Buy 4.900 at 3,207.60, 7.950 in total"><span class="x-order-book-price">3,207.60</span><span>4.900</span><span>7.950</span></button></li>
+    <li><button class="x-order-book-row" type="button" style="--x-order-book-depth: 1" aria-label="Buy 6.540 at 3,207.00, 14.490 in total"><span class="x-order-book-price">3,207.00</span><span>6.540</span><span>14.490</span></button></li>
+  </ol>
+</section>

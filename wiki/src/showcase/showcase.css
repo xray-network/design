@@ -187,6 +187,9 @@ html .rp-doc-layout__doc:has(.wiki-apps) { overflow: visible; }
 .wiki-app { display: grid; flex: none; gap: 12px; width: 300px; margin: 0; scroll-snap-align: start; }
 .wiki-app-frame { height: 640px; overflow: hidden; border: 1px solid var(--x-border-hover); border-radius: 32px; background: var(--x-bg); }
 .wiki-app-frame > iframe { display: block; width: 100%; height: 100%; border: 0; }
+/* Desktop apps: frames 640px wide (the app itself stops at 740px when opened on its own). */
+.wiki-apps[data-form="desktop"] .wiki-app { width: 640px; max-width: calc(100vw - 48px); }
+.wiki-apps[data-form="desktop"] .wiki-app-frame { height: 560px; border-radius: 20px; }
 .wiki-app-foot { display: flex; align-items: center; gap: 8px; padding-inline: 4px; }
 .wiki-app-foot > strong { flex: 1; min-width: 0; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); }
 .wiki-app-foot > a.x-button { text-decoration: none !important; }

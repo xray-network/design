@@ -1,0 +1,24 @@
+/* Sparkline: a small line with no axes, for a trend beside a number. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-sparkline {
+    --x-sparkline-color: var(--x-fg-3);
+    --x-sparkline-dot: var(--x-accent-ink);
+
+    display: inline-block;
+    flex: none;
+    width: 96px;
+    height: 24px;
+    vertical-align: middle;
+  }
+  .x-sparkline > svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  /* The line is quiet; the dot on the last value is the one accent. */
+  .x-sparkline-line { fill: none; stroke: var(--x-sparkline-color); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .x-sparkline-dot { fill: var(--x-sparkline-dot); }
+
+  /* By direction: the line itself takes the meaning, so say the direction in words too (the label, a Delta). */
+  .x-sparkline[data-trend="up"] { --x-sparkline-color: var(--x-success-fg); --x-sparkline-dot: var(--x-success-fg); }
+  .x-sparkline[data-trend="down"] { --x-sparkline-color: var(--x-danger-fg); --x-sparkline-dot: var(--x-danger-fg); }
+}

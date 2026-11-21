@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Gramatel</title>
+  <!-- A showcase app of XRAY/DESIGN: plain HTML on the kit's own CSS and controllers. One file: every screen is
+       a section, shown by the hash (index.html#chats); ../app.js moves between them with the kit's Screen pattern. -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="../app.css">
+  <script type="module" src="../app.js"></script>
+</head>
+<body data-form="mobile">
+  <div class="app-shell">
+    <div class="x-screens app-views">
+      <section class="x-screen app-view" data-screen="chats" aria-label="Chats" tabindex="-1">
+    <header class="app-bar">
+        <span class="app-title" data-brand>Gramatel</span>
+        <button class="x-icon-button" type="button" aria-label="Search"><svg class="x-icon" data-icon="magnifying-glass"></svg></button>
+        <button class="x-icon-button" type="button" aria-label="New message"><svg class="x-icon" data-icon="pencil-square"></svg></button>
+      </header>
+      <main class="app-screen">
+        <div class="x-list x-chat-list x-stagger" role="list" aria-label="Chats" style="padding-top:var(--x-space-2)">
+          <a class="x-list-row" role="listitem" href="#chat" data-unread="">
+            <span class="x-avatar" data-seed="jane.cooper" data-palette="amber" aria-hidden="true"></span>
+            <span class="x-list-text"><span class="x-list-title">Jane Cooper</span><span class="x-list-sub">Perfect, thank you!</span></span>
+            <span class="x-list-end"><span class="x-list-sub">14:05</span><span class="x-chat-list-count">2</span></span>
+          </a>
+          <a class="x-list-row" role="listitem" href="#chat" data-unread="">
+            <span class="x-avatar" data-seed="team" data-palette="cool" aria-hidden="true"></span>
+            <span class="x-list-text"><span class="x-list-title">Design team</span><span class="x-list-sub">Tomas: the new tab bar is in</span></span>
+            <span class="x-list-end"><span class="x-list-sub">13:40</span><span class="x-chat-list-count" data-muted="">12</span></span>
+          </a>
+          <a class="x-list-row" role="listitem" href="#chat">
+            <span class="x-avatar" data-seed="mira" data-palette="cool" aria-hidden="true"></span>
+            <span class="x-list-text"><span class="x-list-title">Mira Lindqvist</span><span class="x-list-sub">Photo</span></span>
+            <span class="x-list-end"><span class="x-list-sub">12:18</span></span>
+          </a>
+          <a class="x-list-row" role="listitem" href="#chat">
+            <span class="x-avatar" data-seed="support" data-palette="xray" aria-hidden="true"></span>
+            <span class="x-list-text"><span class="x-list-title">Support</span><span class="x-list-sub">Your ticket is resolved</span></span>
+            <span class="x-list-end"><span class="x-list-sub">Yesterday</span></span>
+          </a>
+          <a class="x-list-row" role="listitem" href="#chat">
+            <span class="x-avatar" data-seed="kai" data-palette="ember" aria-hidden="true"></span>
+            <span class="x-list-text"><span class="x-list-title">Kai Nakamura</span><span class="x-list-sub">See you on Friday</span></span>
+            <span class="x-list-end"><span class="x-list-sub">Yesterday</span></span>
+          </a>
+          <a class="x-list-row" role="listitem" href="#chat">
+            <span class="x-avatar" data-seed="lena" data-palette="blue" aria-hidden="true"></span>
+            <span class="x-list-text"><span class="x-list-title">Lena Fischer</span><span class="x-list-sub">Voice message, 0:42</span></span>
+            <span class="x-list-end"><span class="x-list-sub">Mon</span></span>
+          </a>
+          <a class="x-list-row" role="listitem" href="#chat" data-unread="">
+            <span class="x-avatar" data-seed="family" data-palette="amber" aria-hidden="true"></span>
+            <span class="x-list-text"><span class="x-list-title">Family</span><span class="x-list-sub">Dad: dinner on Sunday?</span></span>
+            <span class="x-list-end"><span class="x-list-sub">Mon</span><span class="x-chat-list-count">1</span></span>
+          </a>
+          <a class="x-list-row" role="listitem" href="#chat">
+            <span class="x-avatar" data-seed="acme" data-palette="ember" aria-hidden="true"></span>
+            <span class="x-list-text"><span class="x-list-title">Acme Billing</span><span class="x-list-sub">Invoice INV-2041 is paid</span></span>
+            <span class="x-list-end"><span class="x-list-sub">Nov 12</span></span>
+          </a>
+        </div>
+      </main>
+      </section>
+      <section class="x-screen app-view" data-screen="settings" aria-label="Settings" tabindex="-1" hidden>
+    <header class="app-bar"><span class="app-title">Settings</span><button class="x-icon-button" type="button" aria-label="My QR code"><svg class="x-icon" data-icon="qr-code"></svg></button></header>
+      <main class="app-screen">
+        <section>
+          <a class="x-list-row" role="listitem" href="#" style="margin-bottom:var(--x-space-4)">
+            <span class="x-avatar" data-size="lg" data-seed="you" data-palette="amber" aria-hidden="true"></span>
+            <span class="x-list-text"><span class="x-list-title">Alex Morgan</span><span class="x-list-sub">+1 415 555 0134 · @alexm</span></span>
+          </a>
+          <nav class="x-menu-list" aria-label="Settings">
+            <div class="x-menu-list-section"><ul class="x-menu-list-group">
+              <li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="bell"></svg></span><span class="x-menu-list-label">Notifications and Sounds</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li>
+              <li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="lock-closed"></svg></span><span class="x-menu-list-label">Privacy and Security</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li>
+              <li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="circle-stack"></svg></span><span class="x-menu-list-label">Data and Storage</span><span class="x-menu-list-value">1.2 GB</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li>
+              <li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="swatch"></svg></span><span class="x-menu-list-label">Appearance</span><span class="x-menu-list-value">System</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li>
+              <li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="language"></svg></span><span class="x-menu-list-label">Language</span><span class="x-menu-list-value">English</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li>
+            </ul></div>
+            <div class="x-menu-list-section"><ul class="x-menu-list-group">
+              <li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="folder"></svg></span><span class="x-menu-list-label">Chat Folders</span><span class="x-menu-list-value">3</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li>
+              <li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="device-phone-mobile"></svg></span><span class="x-menu-list-label">Devices</span><span class="x-menu-list-value">2</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li>
+            </ul><p class="x-menu-list-note">Sign out other devices from Devices.</p></div>
+          </nav>
+        </section>
+      </main>
+      </section>
+      <section class="x-screen app-view" data-screen="chat" data-tab="chats" aria-label="Conversation" tabindex="-1" hidden>
+    <header class="app-bar">
+        <a class="x-icon-button" href="#chats" aria-label="Back to chats"><svg class="x-icon" data-icon="chevron-left"></svg></a>
+        <span class="x-avatar" data-seed="jane.cooper" data-palette="amber" aria-hidden="true"></span>
+        <span class="app-title">Jane Cooper<small>last seen just now</small></span>
+        <button class="x-icon-button" type="button" aria-label="Call"><svg class="x-icon" data-icon="phone"></svg></button>
+      </header>
+      <main class="app-screen" data-flush>
+        <div class="x-chat">
+          <ol class="x-chat-thread" role="log" aria-label="Conversation with Jane Cooper">
+            <li class="x-chat-day">Today</li>
+            <li class="x-chat-message" data-from="them"><div class="x-chat-bubble"><p>Hi! Did the payout arrive?</p></div><span class="x-chat-meta">14:02</span></li>
+            <li class="x-chat-message" data-from="me"><div class="x-chat-bubble"><p><span class="x-chat-you">You: </span>Yes, this morning.</p></div><span class="x-chat-meta">14:03</span></li>
+            <li class="x-chat-message" data-from="me"><div class="x-chat-bubble"><p><span class="x-chat-you">You: </span>Sending the receipt now.</p></div><span class="x-chat-meta">14:03 · Read</span></li>
+            <li class="x-chat-message" data-from="them"><div class="x-chat-bubble"><p>Perfect, thank you!</p></div><span class="x-chat-meta">14:05</span></li>
+            <li class="x-chat-message" data-from="them"><div class="x-chat-bubble"><p>Are we still on for Friday?</p></div><span class="x-chat-meta">14:05</span></li>
+            <li class="x-chat-message" data-from="me"><div class="x-chat-bubble"><p><span class="x-chat-you">You: </span>Friday works. 10 am at the studio?</p></div><span class="x-chat-meta">14:07 · Read</span></li>
+            <li class="x-chat-message" data-from="them"><div class="x-chat-bubble"><p>See you there.</p></div><span class="x-chat-meta">14:08</span></li>
+          </ol>
+          <form class="x-chat-composer">
+            <div class="x-input"><input type="text" name="message" aria-label="Message" placeholder="Message" autocomplete="off"></div>
+            <button class="x-icon-button" type="submit" data-shape="round" aria-label="Send" disabled><svg class="x-icon" data-icon="paper-airplane"></svg></button>
+          </form>
+        </div>
+      </main>
+      </section>
+    </div>
+  <footer class="x-tab-bar">
+      <nav class="x-liquid-indicator" aria-label="Gramatel" data-width="full" data-layout="stack">
+        <a class="x-liquid-indicator-item" href="#chats" aria-current="page"><svg class="x-icon" data-icon="chat-bubble-left-right"></svg><span>Chats</span></a>
+        <a class="x-liquid-indicator-item" href="#settings"><svg class="x-icon" data-icon="cog-6-tooth"></svg><span>Settings</span></a>
+        <span class="x-liquid-indicator-pill" aria-hidden="true"></span>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>

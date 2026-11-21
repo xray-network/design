@@ -63,6 +63,12 @@ tokens:
     accent-wash: { light: "rgb(25 64 237 / 0.07)", dark: "rgb(25 64 237 / 0.14)" }  # selected option fill
     accent-ink: { light: "#1940ed", dark: "#657ff3" }
     accent-ink-hover: { light: "#3f5ff0", dark: "#8b9ef6" }
+    chart-1: { light: "#1940ed", dark: "#3f5ff0" }  # chart series, in a fixed order; never cycled
+    chart-2: { light: "#ff6900", dark: "#e8590c" }
+    chart-3: { light: "#1baf7a", dark: "#199e70" }
+    chart-4: { light: "#eda100", dark: "#c98500" }
+    chart-5: { light: "#e87ba4", dark: "#d55181" }
+    chart-6: { light: "#6250d6", dark: "#9085e9" }
     link: { light: "#1940ed", dark: "#657ff3" }
     focus: { light: "#1940ed", dark: "#657ff3" }
     success: "#15e4a3"  # fills, dots
@@ -343,8 +349,8 @@ the same motion budget, easing intent and reduced-motion behavior.
 
 0. CSS: transitions, `@starting-style`, `linear()` springs. The default.
 1. Kit helpers in `core/motion.js`: `trackIndicator`, `createFlip`, `afterTransition`. No dependencies. The kit's
-   motion patterns (`motion/`: Presence, Stagger, Expand, LiquidIndicator, Reflow, Drag, Morph, Screen) are these
-   helpers and tier 0 CSS applied, ready to add.
+   motion patterns (`motion/`: Presence, Stagger, Expand, LiquidIndicator, Reflow, Drag, Reorder, Morph, Replace,
+   Screen, Pager) are these helpers and tier 0 CSS applied, ready to add.
 2. A JS motion library (for example `motion`), only for gesture physics such as drag-to-dismiss, only in React,
    and only if the project already depends on it or the human approves adding it.
 
@@ -391,6 +397,7 @@ by protocol token name:
 | Fonts | `font-sans`, `font-mono` | Bring a font only if the project loads it; keep the system stacks as fallbacks. |
 | Radius | `radius-xs` … `radius-3xl` | Scale them together, so nested corners keep their relationship. `radius-pill` stays. |
 | Neutrals (optional) | `bg*`, `border*`, `fg-*`, `scrim` | Change light/dark pairs together, for a custom palette. |
+| Chart series (optional) | `chart-1` … `chart-6` | Change them as a set, and check the set for color-blind separation in both themes. The first follows the brand color. |
 
 - **Fixed:** components read semantic tokens, never raw values; both themes; AA contrast for text and focus rings,
   checked for every changed pair in both themes; status colors (`success`, `danger`, `warning`); space, size,
@@ -427,9 +434,11 @@ visible scrollbar and an edge fade in the canvas color.
 ## 14. Working with components and blocks (for agents)
 
 **Components** are single controls you build with (Button, Select, Table). **Blocks** are finished screen sections
-(Balance, SendForm, Transactions) built only from components: they add layout, never new controls or tokens.
-If a block needs a control the kit lacks, that control becomes a component first. A block may build on other blocks,
-declared in its frontmatter `blocks:`; components never use blocks.
+(Balance, SendForm, TabBar, TableView) built from components: they add layout, never new controls or tokens.
+If a block needs a control the kit lacks, that control becomes a component first. A block may build on other
+blocks, and hold a motion pattern or a chart, each declared in its frontmatter (`blocks:`, `patterns:`,
+`charts:`); components never use blocks. A block that restyles a part it holds writes that rule with two classes
+(`.x-top-bar > .x-top-bar-nav`), so it holds whatever order the stylesheets load in.
 
 1. Start from the catalog (`.agents/design/components/<id>` or `blocks/<id>`). Read its COMPONENT.md.
 2. Copy the web implementation or implement its contract in the target GUI framework (see the skill).
@@ -461,3 +470,85 @@ declared in its frontmatter `blocks:`; components never use blocks.
 - Don't add photography, illustration, textures, patterns or emoji.
 - Don't hard-code colors, durations or radii in components.
 - Don't animate numbers, text or anything that loops.
+
+## 16. Charts
+
+Charts follow every rule above, and add these. They exist because a chart is read: nothing in one is decoration.
+
+**Form**
+
+- Pick the chart by the question. Change along an ordered scale is a line, or stacked areas when a total and its
+  makeup change together. Amounts compared across categories are bars: a list of horizontal bars when the names
+  are long, stacked when each total has parts. The parts of one whole are a donut or a share bar (six at most), or
+  a treemap for many. Steps people drop out of are a funnel; amounts across two dimensions are a heatmap; two
+  measures against each other are a scatter; a state per period is a status strip; a traded price is candlesticks,
+  with its order book as a depth chart; a trend beside a number is a sparkline. One number is not a chart: use Stats.
+- One value axis. Two measures on different scales are two charts, never two axes.
+- Bars start at zero. Lines may fit their data, unless they are filled (an area), which starts at zero.
+
+**Color**
+
+- Series take `chart-1` to `chart-6`, in that order, and keep their color whatever is filtered out. The order is
+  what keeps neighbours apart for color-blind readers, so it is never shuffled and never cycled: a seventh series
+  is folded into "Other", in a muted gray.
+- Green, red and yellow stay out of series: they mean status and direction (section 2). Charts that show exactly
+  that use them: up and down candles, bids and asks, the states of a status strip, always named in words as well.
+- An amount shown as strength (a heatmap, a treemap) uses one hue, from a faint tint to the full color. Never a
+  rainbow.
+- Text never takes a series color. Values, labels and legends use the text tokens; a swatch beside them carries
+  the identity.
+
+**Marks**
+
+- Lines are 2px with round joins; an area is a 10% wash of its line. Bars are slim, 10px thick at most, with a
+  fully round cap at the data end and a square base on the baseline. Dots have a radius of 4px.
+- Marks that touch are parted by the surface color: 3px between the bars of a category, 2px between the parts of
+  a donut, a 2px ring round a dot. Never a border.
+- Gridlines and axes are hairlines one step off the surface. Ticks are few, round and tabular; numbers are
+  written in full under 10,000 and compact from there.
+- No gradients, shadows, 3D or decoration (section 15).
+
+**Reading**
+
+- Two or more series always have a legend, so a series is never told by color alone. Its entries switch their
+  series off and on; a series that is off is shown as off in more than color, and the others keep their colors.
+- Every chart has a readout: on a line it snaps to the nearest category and lists every series there; on bars
+  and parts it reads the one pointed at. It works the same from the keyboard, and nothing it shows is missing
+  from the data table.
+- Every chart carries its data as a table: it is what assistive technology reads, and it can be shown in place
+  of the plot. On the web the table is the chart's source.
+- A sparkline has no axis and no readout: it says what it shows in its label, and sits beside its number.
+
+**Motion and states**
+
+- Data never animates (section 8): a chart is simply drawn, and redrawn when its data changes. No draw-in, no
+  growing bars, no morphing between data sets.
+- The readout is not data, and it moves: it fades in and grows from 96% where it is first wanted, then glides from
+  mark to mark with its crosshair, dots or band, on `--x-ease`, and fades out when the chart is left.
+- While it loads, a Skeleton of the plot's size; with nothing to show, Empty.
+
+**Implementation**
+
+The kit's charts are the reference design: whatever draws a chart in a project, it looks and reads like these.
+
+- Web, with no charting library in the project: `charts/<id>/` on the shared frame in `core/chart.js` and
+  `core/chart.css` (scales, ticks, the legend, the readout, the table). Do not add a library for a chart the kit has.
+- A project that already draws charts with a library (Recharts, Chart.js, ECharts, Nivo, Victory, Swift Charts,
+  Compose or any other) keeps it. Configure it to this section through its own options, and use the kit's chart of
+  the same form as the picture to match. Never restyle a library by overriding its markup from outside.
+- Native targets with no chart library draw with their framework's own canvas or drawing tools, to the same rules.
+
+Whatever the library, set these, in its own terms:
+
+| Rule | What to set |
+|---|---|
+| Series colors | The six `chart-*` tokens, in order, as each series' stroke or fill. Turn off the library's own palette. |
+| Lines | 2px, round joins, straight segments between points. No dots on every point: one on the last, and on the one being read. |
+| Areas | The line's color at 10% opacity. No gradient. |
+| Bars | 10px wide at most; the data end fully rounded, the base square; 3px between the bars of a category. |
+| Donut | The ring about a quarter of the radius thick; 2px between parts, in the surface color; the total in the middle. |
+| Grid and axes | Horizontal gridlines only, hairlines in `border`. No axis lines, no tick marks. Tick text in `fg-3` at `text-2xs`, tabular. |
+| Legend | Shown for two or more series, above the plot, in text colors with a swatch. Its entries switch series off and on. |
+| Readout | The library's tooltip, restyled as a panel (`bg-panel`, hairline, `radius-md`): the category, then each value with its series name. A crosshair on lines; a soft band behind bars. |
+| Animation | The library's draw-in and data animations off. Only the readout moves. |
+| Table | Render the same data as a table for assistive technology, and offer it as a view. |

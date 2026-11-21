@@ -1,0 +1,18 @@
+/* TabBar: a floating capsule of tabs at the foot of a screen. Built on the LiquidIndicator motion pattern. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-tab-bar {
+    --x-tab-bar-inset: max(var(--x-space-3), env(safe-area-inset-bottom));
+    --x-tab-bar-surface: var(--x-bg);
+
+    position: absolute;
+    inset: auto var(--x-space-4) var(--x-tab-bar-inset);
+    z-index: 3;
+  }
+  /* The screen scrolls on under the bar and fades out behind it. No blur and no shadow: the surface step and the
+     hairline lift the capsule. */
+  .x-tab-bar::before { content: ""; position: absolute; inset: calc(var(--x-space-8) * -1) calc(var(--x-space-4) * -1) calc(var(--x-tab-bar-inset) * -1); z-index: -1; background: linear-gradient(to bottom, transparent, var(--x-tab-bar-surface) 55%); pointer-events: none; }
+  .x-tab-bar > .x-liquid-indicator { border-color: var(--x-border-hover); }
+}

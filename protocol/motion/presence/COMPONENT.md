@@ -59,7 +59,8 @@ Size and place move on `--x-spring`; opacity, and the whole exit, on `--x-ease`.
 - Entry may overshoot a little; the exit never does, and is shorter than the entry.
 - It moves 8px or grows from 96%: enough to say where it came from. It never slides across the screen; a sheet or
   a drawer is a Modal.
-- Shown and hidden only through `hidden`. The content stays mounted.
+- Shown and hidden only through `hidden`. The content stays mounted; in React, `unmount` takes the children
+  out of the tree once the exit has ended, for content that should not keep its state or its cost.
 
 ## Safe edits
 

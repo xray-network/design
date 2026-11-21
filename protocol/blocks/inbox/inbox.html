@@ -1,0 +1,28 @@
+<!-- Inbox: Avatar. No JS of its own (initAvatars draws the avatars). Rows are links to the message, or buttons. -->
+<ul class="x-inbox" aria-label="Inbox">
+  <li>
+    <a class="x-inbox-row" href="#message-1" data-unread="" aria-current="true">
+      <span class="x-avatar" data-seed="acme" data-palette="ember" aria-hidden="true"></span>
+      <span class="x-inbox-body">
+        <span class="x-inbox-head"><span class="x-inbox-from">Acme Billing</span><span class="x-inbox-marks"><svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"/></svg></span><span class="x-inbox-time">09:41</span></span>
+        <span class="x-inbox-subject">Invoice INV-2041 is paid</span>
+        <span class="x-inbox-snippet">Thanks for your payment. The receipt is attached, and the next invoice is due on December 20.</span>
+      </span>
+    </a>
+  </li>
+  <li>
+    <button class="x-inbox-row" type="button">
+      <span class="x-avatar" data-seed="mira" data-palette="cool" aria-hidden="true"></span>
+      <span class="x-inbox-body">
+        <span class="x-inbox-head"><span class="x-inbox-from">Mira Lindqvist</span><span class="x-inbox-time">Yesterday</span></span>
+        <span class="x-inbox-subject">Photos from Lisbon</span>
+        <span class="x-inbox-snippet">Here are the ones we talked about. Tell me which you want printed.</span>
+      </span>
+    </button>
+  </li>
+</ul>
+
+<script type="module">
+  import { initAvatars } from "../../components/avatar/avatar.controller.js";
+  initAvatars();
+</script>

@@ -1,0 +1,22 @@
+/* Comments: a thread of comments and changes, with a box to add one. Built from Avatar and the Composer block. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-comments { display: grid; gap: var(--x-space-4); min-width: 0; }
+  .x-comments-list { display: grid; gap: var(--x-space-4); margin: 0; padding: 0; list-style: none; }
+  .x-comments-item { display: flex; align-items: flex-start; gap: var(--x-space-3); min-width: 0; }
+  .x-comments-item > .x-avatar { flex: none; }
+  .x-comments-body { display: grid; flex: 1; gap: var(--x-space-1); min-width: 0; }
+  .x-comments-head { display: flex; align-items: baseline; gap: var(--x-space-2); min-width: 0; }
+  .x-comments-author { overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); text-overflow: ellipsis; white-space: nowrap; }
+  .x-comments-time { flex: none; color: var(--x-fg-3); font-size: var(--x-text-xs); }
+  .x-comments-text { color: var(--x-fg-2); font-size: var(--x-text-md); line-height: var(--x-leading-body); overflow-wrap: anywhere; }
+  .x-comments-text > p { margin: 0; }
+  .x-comments-text > p + p { margin-top: var(--x-space-2); }
+  /* A change, between comments: one quiet line, its mark under the avatars. */
+  .x-comments-event { display: flex; align-items: baseline; gap: var(--x-space-3); min-width: 0; color: var(--x-fg-3); font-size: var(--x-text-sm); }
+  .x-comments-event::before { content: ""; flex: none; align-self: center; width: 6px; height: 6px; margin-inline: calc((var(--x-size-md) - 6px) / 2); border-radius: 50%; background: var(--x-fg-4); }
+  .x-comments-event > p { flex: 1; min-width: 0; margin: 0; }
+  .x-comments-event strong { color: var(--x-fg-2); font-weight: var(--x-weight-label); }
+}

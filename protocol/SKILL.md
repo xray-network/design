@@ -21,8 +21,9 @@ This folder (`.agents/design/`) is the **catalog**. It is read-only and replaced
 | `core/place.js`, `core/place.d.ts` | Placement for floating boxes (tooltips, popovers, menus, option lists): sides, flipping, the visual viewport. No dependencies |
 | `components/<id>/COMPONENT.md` | Contract: anatomy, states, accessibility, motion, invariants, safe edits, checklist. Its frontmatter lists dependencies (`requires`, `components`) and `files` |
 | `components/<id>/<id>.css` `.html` `.tsx` `.controller.js` | Styles, HTML reference, React version, vanilla controller |
-| `blocks/<id>/` | Blocks: screen sections built only from components. Same files as a component; `COMPONENT.md` lists the components it uses |
+| `blocks/<id>/` | Blocks: screen sections built from components. Same files as a component; `COMPONENT.md` lists the components it uses, and any other blocks, motion patterns and charts it holds |
 | `motion/<id>/` | Motion patterns: movements any component or block can take on (a surface arriving, a sliding indicator, a list reflowing, a drag, one element becoming another, a screen change). Same files as a component |
+| `charts/<id>/` | Charts drawn from a data table: lines, bars, parts of a whole, heatmap, scatter, status, prices. Same files as a component. They need `core/chart.js`, `core/chart.d.ts` and `core/chart.css` (`requires: chart`) |
 
 Only `core/`, `components/` and `blocks/` hold web code that is copied into the project; root documents and
 `references/` remain guidance in the catalog. Never edit the installed catalog. Edit project implementations under `uiRoot`.
@@ -129,12 +130,16 @@ Native targets follow [Implement components and blocks](references/native-gui.md
 
 Native targets use the same [native implementation workflow](references/native-gui.md#implement-components-and-blocks).
 
-Blocks are finished screen sections (balance, send form, transaction history) built only from components.
+Blocks are finished screen sections (a balance, a send form, a tab bar, a table with its search and pages) built
+from components. Some also hold another block, a motion pattern or a chart.
 
-1. Read `blocks/<id>/COMPONENT.md`. Its frontmatter `components` lists the components the block uses, and the
-   optional `blocks` lists other blocks it builds on.
-2. Add those components ("Add a component") and those blocks (this section) first, then copy the block's files the
-   same way into `<uiRoot>/blocks/<id>/`. Its imports (`../../components/<id>/<id>`, `../<block>/<block>`) then resolve.
+1. Read `blocks/<id>/COMPONENT.md`. Its frontmatter `components` lists the components the block uses. Three
+   optional keys list what else it holds: `blocks` (other blocks), `patterns` (motion patterns, from `motion/`)
+   and `charts` (from `charts/`).
+2. Add those components ("Add a component"), those blocks (this section), those motion patterns and those charts
+   ("Add a chart") first, then copy the block's files the same way into `<uiRoot>/blocks/<id>/`. Its imports
+   (`../../components/<id>/<id>`, `../<block>/<block>`, `../../motion/<id>/<id>`) then resolve. A chart listed
+   there is the one its reference shows: where the block takes the chart as a slot, any kit chart fits.
 3. Add the block to `blocks` in the lock.
 4. Wire it in like a component (React import, or HTML link, markup and controller), then feed it real data:
    blocks take data through props (React) or markup (HTML) and never fetch it themselves.
@@ -143,7 +148,7 @@ Blocks are finished screen sections (balance, send form, transaction history) bu
 ## Add a motion pattern
 
 Motion patterns (`motion/<id>/`) are movements, not controls: Presence, Stagger and Expand (arriving and leaving),
-LiquidIndicator, Reflow and Drag (moving), Morph (becoming) and Screen (navigating). Use one when
+LiquidIndicator, Reflow, Drag and Reorder (moving), Morph and Replace (becoming), Screen and Pager (navigating). Use one when
 the human asks for that movement, or when a screen needs it and DESIGN-PROTOCOL.md section 8 allows it there.
 
 1. Read `motion/<id>/COMPONENT.md`: its **Motion** section, **Invariants** and the budget it must stay within.
@@ -153,6 +158,25 @@ the human asks for that movement, or when a screen needs it and DESIGN-PROTOCOL.
    Native targets rebuild the movement with the framework's animation tools: same travel, same curve intent, same
    reduced-motion behavior.
 4. Run its checklist, with reduced motion on and off.
+
+## Add a chart
+
+Charts (`charts/<id>/`) show data: fifteen forms, from LineChart and BarChart to CandlestickChart and Treemap. Read DESIGN-PROTOCOL.md section 16
+first: it decides which chart fits the question, and sometimes the answer is Stats, not a chart.
+
+1. Read `charts/<id>/COMPONENT.md`.
+2. Copy its files into `<uiRoot>/charts/<id>/` the way a component's are copied, and `core/chart.js`,
+   `core/chart.d.ts` and `core/chart.css` when `requires` includes `chart`. Add it to `"charts"` in the lock (create
+   the list if the lock has none).
+3. Give it data: a `<table class="x-chart-data">` inside the figure (HTML), or the `data` prop (React). Native
+   targets draw with their framework's own drawing tools, to the rules in section 16.
+4. Keep the series order and the six colors as they are; a seventh series is folded into "Other".
+5. Run its checklist: the readout by pointer and by keyboard, the table view, both themes.
+
+If the project already draws charts with a library (Recharts, Chart.js, ECharts, Swift Charts or any other), do
+not replace it and do not add the kit's chart beside it. Keep the library and configure it to section 16, using
+its own options (the table under "Implementation" lists what to set), with the kit's chart of the same form as the
+reference for the result. Do not add a charting library to a project that has none: use the kit's charts.
 
 ## Adapt a component (the human asks for a change)
 
@@ -182,7 +206,8 @@ semantic and component tokens, framework-native controls first, a motion tier fr
 Web implementations use `x-<name>` classes, attribute state and `@layer components`; native implementations
 follow [Native GUI](references/native-gui.md). Put it in the project's component folder under `uiRoot` with its
 own COMPONENT.md in the same format. Do not add it to the lock (the lock lists kit components only).
-A new block goes in `<uiRoot>/blocks/<name>/` and may use components and other blocks; components never use blocks.
+A new block goes in `<uiRoot>/blocks/<name>/` and may use components, other blocks, motion patterns and charts;
+components never use blocks.
 
 ## Theme or rebrand
 

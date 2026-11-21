@@ -1,0 +1,14 @@
+/* UsageMeters: usage against the limits of a plan. Built from Progress (as meters) and Button. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-usage-meters { display: grid; gap: var(--x-space-4); min-width: 0; }
+  .x-usage-meters-head { display: flex; align-items: center; justify-content: space-between; gap: var(--x-space-3); }
+  .x-usage-meters-title { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); letter-spacing: var(--x-tracking-tight); }
+  .x-usage-meters-period { margin: var(--x-space-0-5) 0 0; color: var(--x-fg-3); font-size: var(--x-text-sm); }
+  .x-usage-meters-list { display: grid; gap: var(--x-space-4); margin: 0; padding: 0; list-style: none; }
+  .x-usage-meters-item { display: grid; gap: var(--x-space-1-5); }
+  /* What is left, or what going over costs: said under the meter that needs it. */
+  .x-usage-meters-note { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-xs); }
+}

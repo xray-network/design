@@ -3,14 +3,19 @@
 import { useEffect, useRef, useState } from "react"
 import { Button } from "@protocol/components/button/button"
 import { Switch } from "@protocol/components/switch/switch"
+import { Slider } from "@protocol/components/slider/slider"
+import { SPRINGS, spring } from "@protocol/core/motion.js"
 import { Demo } from "./Demo"
 
 import DragExample from "./examples/drag"
 import ExpandExample from "./examples/expand"
 import LiquidIndicatorExample from "./examples/liquid-indicator"
 import MorphExample from "./examples/morph"
+import PagerExample from "./examples/pager"
 import PresenceExample from "./examples/presence"
 import ReflowExample from "./examples/reflow"
+import ReorderExample from "./examples/reorder"
+import ReplaceExample from "./examples/replace"
 import ScreenExample from "./examples/screen"
 import StaggerExample from "./examples/stagger"
 
@@ -21,6 +26,9 @@ export const PresenceDemo = () => <Demo id="presence" name="Presence" kind="moti
 export const ExpandDemo = () => <Demo id="expand" name="Expand" kind="motion"><ExpandExample /></Demo>
 export const DragDemo = () => <Demo id="drag" name="Drag" kind="motion"><DragExample /></Demo>
 export const ScreenDemo = () => <Demo id="screen" name="Screen" kind="motion"><ScreenExample /></Demo>
+export const ReplaceDemo = () => <Demo id="replace" name="Replace" kind="motion"><ReplaceExample /></Demo>
+export const ReorderDemo = () => <Demo id="reorder" name="Reorder" kind="motion"><ReorderExample /></Demo>
+export const PagerDemo = () => <Demo id="pager" name="Pager" kind="motion"><PagerExample /></Demo>
 export const StaggerDemo = () => <Demo id="stagger" name="Stagger" kind="motion"><StaggerExample /></Demo>
 
 const CURVES = [
@@ -103,6 +111,47 @@ export function MotionCurves() {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  )
+}
+
+/** Springs, made here: two numbers in, a linear() curve and a duration out, drawn and played on the spot. */
+export function SpringLab() {
+  const [stiffness, setStiffness] = useState(SPRINGS.liquid.stiffness)
+  const [damping, setDamping] = useState(Math.round(SPRINGS.liquid.dampingRatio * 100))
+  const [end, setEnd] = useState(false)
+  const made = spring({ stiffness, dampingRatio: damping / 100 })
+  const css = `--x-spring: ${made.easing};\n--x-spring-duration: ${Math.round(made.duration)}ms;`
+  const copy = async () => { try { await navigator.clipboard.writeText(css) } catch { /* the text is on the page */ } }
+  return (
+    <div className="wiki-demo rp-not-doc">
+      <div className="wiki-demo-bar">
+        <h2 className="wiki-demo-prompt-title">Make a spring</h2>
+        <div className="wiki-demo-switches">
+          <Button size="sm" variant="ghost" onClick={() => setEnd(!end)}>Play</Button>
+          <Button size="sm" variant="ghost" onClick={copy}>Copy CSS</Button>
+        </div>
+      </div>
+      <div className="wiki-demo-stage wiki-motion-lab">
+        <div className="wiki-motion-lab-controls">
+          <Slider label="Stiffness" size="sm" min={80} max={600} step={10} value={stiffness} onValueChange={setStiffness} />
+          <Slider label="Damping" size="sm" min={40} max={120} step={1} value={damping} onValueChange={setDamping} format={(value) => (value / 100).toFixed(2) + (value >= 100 ? " · no overshoot" : "")} />
+        </div>
+        <div className="wiki-motion-curve">
+          <svg className="wiki-motion-curve-plot" viewBox="0 0 72 48" aria-hidden="true">
+            <path className="wiki-motion-curve-grid" d={`M${PLOT.x0} ${PLOT.y0}H${PLOT.x1}M${PLOT.x0} ${PLOT.y1}H${PLOT.x1}`} />
+            <path d={curvePath(made.easing)} />
+          </svg>
+          <div className="wiki-motion-curve-text">
+            <div className="wiki-motion-curve-name"><strong>Your spring</strong><span>{Math.round(made.duration)}ms</span></div>
+            <code>{made.easing.slice(0, 34)}…</code>
+            <p>{damping < 100 ? "It passes its target and comes back." : "It arrives without passing its target."}{made.duration > 600 ? " Over 600ms: too slow for the motion budget." : ""}</p>
+          </div>
+          <div className="wiki-motion-curve-track" data-end={end ? "" : undefined}>
+            <span style={{ transition: `left ${Math.round(made.duration)}ms ${made.easing}` }} />
+          </div>
+        </div>
       </div>
     </div>
   )

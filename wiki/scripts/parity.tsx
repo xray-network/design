@@ -59,15 +59,54 @@ import { Post } from "../../protocol/blocks/post/post";
 import { Chat } from "../../protocol/blocks/chat/chat";
 import { SignIn } from "../../protocol/blocks/sign-in/sign-in";
 import { LiquidIndicator } from "../../protocol/motion/liquid-indicator/liquid-indicator";
+import { BarChart } from "../../protocol/charts/bar-chart/bar-chart";
+import { BarList } from "../../protocol/charts/bar-list/bar-list";
+import { FunnelChart } from "../../protocol/charts/funnel-chart/funnel-chart";
+import { ShareBar } from "../../protocol/charts/share-bar/share-bar";
+import { StatusStrip } from "../../protocol/charts/status-strip/status-strip";
+import { StackedBarChart } from "../../protocol/charts/stacked-bar-chart/stacked-bar-chart";
+import { StackedAreaChart } from "../../protocol/charts/stacked-area-chart/stacked-area-chart";
+import { CandlestickChart } from "../../protocol/charts/candlestick-chart/candlestick-chart";
+import { Heatmap } from "../../protocol/charts/heatmap/heatmap";
+import { ScatterChart } from "../../protocol/charts/scatter-chart/scatter-chart";
+import { DepthChart } from "../../protocol/charts/depth-chart/depth-chart";
+import { Treemap } from "../../protocol/charts/treemap/treemap";
+import { DonutChart } from "../../protocol/charts/donut-chart/donut-chart";
+import { LineChart } from "../../protocol/charts/line-chart/line-chart";
+import { Sparkline } from "../../protocol/charts/sparkline/sparkline";
 import { Drag } from "../../protocol/motion/drag/drag";
 import { Expand } from "../../protocol/motion/expand/expand";
 import { Morph } from "../../protocol/motion/morph/morph";
+import { Pager } from "../../protocol/motion/pager/pager";
 import { Presence } from "../../protocol/motion/presence/presence";
+import { Reorder } from "../../protocol/motion/reorder/reorder";
+import { Replace } from "../../protocol/motion/replace/replace";
 import { Screen, Screens } from "../../protocol/motion/screen/screen";
 import { Reflow } from "../../protocol/motion/reflow/reflow";
 import { Stagger } from "../../protocol/motion/stagger/stagger";
 import { bell, envelope } from "../../protocol/components/icon/icons.js";
 import { github } from "../../protocol/components/icon/socials.js";
+import { TabBar } from "../../protocol/blocks/tab-bar/tab-bar";
+import { TopBar } from "../../protocol/blocks/top-bar/top-bar";
+import { PageHeader } from "../../protocol/blocks/page-header/page-header";
+import { Stories } from "../../protocol/blocks/stories/stories";
+import { MediaGrid } from "../../protocol/blocks/media-grid/media-grid";
+import { ChatList } from "../../protocol/blocks/chat-list/chat-list";
+import { Composer } from "../../protocol/blocks/composer/composer";
+import { Settings } from "../../protocol/blocks/settings/settings";
+import { MarketList } from "../../protocol/blocks/market-list/market-list";
+import { ApiKeys } from "../../protocol/blocks/api-keys/api-keys";
+import { UsageMeters } from "../../protocol/blocks/usage-meters/usage-meters";
+import { ChartCard } from "../../protocol/blocks/chart-card/chart-card";
+import { TableView } from "../../protocol/blocks/table-view/table-view";
+import { RecordDetail, RecordSection } from "../../protocol/blocks/record-detail/record-detail";
+import { AssetList } from "../../protocol/blocks/asset-list/asset-list";
+import { Player } from "../../protocol/blocks/player/player";
+import { Checkout } from "../../protocol/blocks/checkout/checkout";
+import { Inbox } from "../../protocol/blocks/inbox/inbox";
+import { Board } from "../../protocol/blocks/board/board";
+import { Comments } from "../../protocol/blocks/comments/comments";
+import { OrderBook } from "../../protocol/blocks/order-book/order-book";
 
 const icon = <svg className="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v15" /></svg>;
 const noop = () => {};
@@ -507,11 +546,111 @@ export const examples: Record<string, ReactElement> = {
       <Screen id="detail" aria-label="Payout"><Button variant="ghost">Back</Button></Screen>
     </Screens>
   ),
+  replace: <Replace id="a" role="status">Checking</Replace>,
+  reorder: <Reorder items={[{ id: "main" }, { id: "savings" }]} onReorder={noop} label={(item) => `Move ${item.id}`}>{(item, grip) => <>{grip}{item.id}</>}</Reorder>,
+  pager: (
+    <>
+      <Pager aria-label="What is new"><p>One</p><p>Two</p></Pager>
+      <Pager aria-label="Cards" peek dots={false}><p>One</p></Pager>
+    </>
+  ),
   reflow: <Reflow><li key="a">Ether</li><li key="b">USD Coin</li></Reflow>,
   stagger: (
     <>
       <Stagger as="ul"><li>Payments</li><li>Invoices</li></Stagger>
-      <Stagger as="ul" from="start"><li>Home</li></Stagger>
+    </>
+  ),
+  // Charts
+  "line-chart": (
+    <>
+      <LineChart title="Revenue" category="Month" data={{ labels: ["Jan", "Feb"], series: [{ name: "2026", values: [42000, 48500] }, { name: "2025", values: [31000, 33800] }] }} />
+      <LineChart aria-label="Payments per month" area height={160} view="table" data={{ labels: ["Jan", "Feb"], series: [{ name: "Payments", values: [1020, 1180] }] }} />
+    </>
+  ),
+  "bar-chart": (
+    <>
+      <BarChart title="Payouts and refunds" data={{ labels: ["Jan", "Feb"], series: [{ name: "Payouts", values: [18200, 21400] }, { name: "Refunds", values: [1200, 900] }] }} />
+      <BarChart aria-label="New customers per month" height={160} view="table" data={{ labels: ["Jan"], series: [{ name: "Customers", values: [38] }] }} />
+    </>
+  ),
+  "donut-chart": (
+    <>
+      <DonutChart title="Holdings" total="Portfolio" data={{ labels: ["Ether", "USD Coin"], series: [{ name: "Value", values: [4812, 1200] }] }} />
+      <DonutChart aria-label="Payment methods" height={140} view="table" data={{ labels: ["Card"], series: [{ name: "Share", values: [62] }] }} />
+    </>
+  ),
+  sparkline: (
+    <>
+      <Sparkline aria-label="Up 12% over 7 days" values={[3, 5, 4, 8, 7, 11, 12]} />
+      <Sparkline aria-label="Rising" trend="up" values={[12, 14, 13, 17]} />
+      <Sparkline aria-label="Falling" trend="down" values={[22, 19, 20, 15]} />
+    </>
+  ),
+  "bar-list": (
+    <>
+      <BarList title="Requests by endpoint" data={{"labels": ["/v1/accounts", "/v1/transactions", "/v1/transfers"], "series": [{"name": "Requests", "values": [18420, 12904, 3118]}]}} />
+      <BarList aria-label="Requests by endpoint" view="table" data={{"labels": ["/v1/accounts", "/v1/transactions", "/v1/transfers"], "series": [{"name": "Requests", "values": [18420, 12904, 3118]}]}} />
+    </>
+  ),
+  "funnel-chart": (
+    <>
+      <FunnelChart title="Checkout, last 30 days" data={{"labels": ["Opened checkout", "Entered details", "Chose a method"], "series": [{"name": "People", "values": [4820, 3610, 2940]}]}} />
+      <FunnelChart aria-label="Checkout, last 30 days" view="table" data={{"labels": ["Opened checkout", "Entered details", "Chose a method"], "series": [{"name": "People", "values": [4820, 3610, 2940]}]}} />
+    </>
+  ),
+  "share-bar": (
+    <>
+      <ShareBar title="Portfolio" data={{"labels": ["Wrapped Bitcoin", "Ether", "USD Coin"], "series": [{"name": "Value", "values": [9640, 4812, 1200]}]}} />
+      <ShareBar aria-label="Portfolio" view="table" data={{"labels": ["Wrapped Bitcoin", "Ether", "USD Coin"], "series": [{"name": "Value", "values": [9640, 4812, 1200]}]}} />
+    </>
+  ),
+  "status-strip": (
+    <>
+      <StatusStrip title="API, last 60 days" data={{"labels": ["Day 1", "Day 2", "Day 3"], "series": [{"name": "State", "values": [0, 0, 0], "texts": ["ok", "ok", "ok"]}]}} />
+      <StatusStrip aria-label="API, last 60 days" view="table" data={{"labels": ["Day 1", "Day 2", "Day 3"], "series": [{"name": "State", "values": [0, 0, 0], "texts": ["ok", "ok", "ok"]}]}} />
+    </>
+  ),
+  "stacked-bar-chart": (
+    <>
+      <StackedBarChart title="Volume by payment method" data={{"labels": ["Jan", "Feb", "Mar"], "series": [{"name": "Card", "values": [26100, 29800, 28400]}, {"name": "Bank transfer", "values": [11600, 13200, 12900]}, {"name": "Wallet", "values": [4300, 5500, 4900]}]}} />
+      <StackedBarChart aria-label="Volume by payment method" view="table" data={{"labels": ["Jan", "Feb", "Mar"], "series": [{"name": "Card", "values": [26100, 29800, 28400]}, {"name": "Bank transfer", "values": [11600, 13200, 12900]}, {"name": "Wallet", "values": [4300, 5500, 4900]}]}} />
+    </>
+  ),
+  "stacked-area-chart": (
+    <>
+      <StackedAreaChart title="Balance by account" data={{"labels": ["Jan", "Feb", "Mar"], "series": [{"name": "Main", "values": [8200, 9100, 8700]}, {"name": "Savings", "values": [31000, 33500, 36200]}, {"name": "Trading", "values": [5200, 6900, 6100]}]}} />
+      <StackedAreaChart aria-label="Balance by account" view="table" data={{"labels": ["Jan", "Feb", "Mar"], "series": [{"name": "Main", "values": [8200, 9100, 8700]}, {"name": "Savings", "values": [31000, 33500, 36200]}, {"name": "Trading", "values": [5200, 6900, 6100]}]}} />
+    </>
+  ),
+  "candlestick-chart": (
+    <>
+      <CandlestickChart title="ETH / USDC, daily" data={{"labels": ["Nov 2", "Nov 3", "Nov 4"], "series": [{"name": "Open", "values": [3050, 3078, 3037]}, {"name": "High", "values": [3092, 3101, 3124]}, {"name": "Low", "values": [3039, 3019, 3012]}, {"name": "Close", "values": [3078, 3037, 3092]}]}} />
+      <CandlestickChart aria-label="ETH / USDC, daily" view="table" data={{"labels": ["Nov 2", "Nov 3", "Nov 4"], "series": [{"name": "Open", "values": [3050, 3078, 3037]}, {"name": "High", "values": [3092, 3101, 3124]}, {"name": "Low", "values": [3039, 3019, 3012]}, {"name": "Close", "values": [3078, 3037, 3092]}]}} />
+    </>
+  ),
+  "heatmap": (
+    <>
+      <Heatmap title="Payments by weekday and hour" data={{"labels": ["Mon", "Tue", "Wed"], "series": [{"name": "06", "values": [12, 10, 14]}, {"name": "08", "values": [48, 52, 55]}, {"name": "10", "values": [96, 101, 108]}, {"name": "12", "values": [121, 134, 140]}, {"name": "14", "values": [104, 118, 122]}, {"name": "16", "values": [88, 93, 97]}, {"name": "18", "values": [64, 70, 66]}, {"name": "20", "values": [31, 36, 33]}, {"name": "22", "values": [14, 12, 15]}]}} />
+      <Heatmap aria-label="Payments by weekday and hour" view="table" data={{"labels": ["Mon", "Tue", "Wed"], "series": [{"name": "06", "values": [12, 10, 14]}, {"name": "08", "values": [48, 52, 55]}, {"name": "10", "values": [96, 101, 108]}, {"name": "12", "values": [121, 134, 140]}, {"name": "14", "values": [104, 118, 122]}, {"name": "16", "values": [88, 93, 97]}, {"name": "18", "values": [64, 70, 66]}, {"name": "20", "values": [31, 36, 33]}, {"name": "22", "values": [14, 12, 15]}]}} />
+    </>
+  ),
+  "scatter-chart": (
+    <>
+      <ScatterChart title="Orders and revenue per customer" data={{"labels": ["Acme Studio", "Northwind", "Delta Works"], "series": [{"name": "Orders", "values": [42, 31, 58]}, {"name": "Revenue", "values": [18400, 12100, 26300]}]}} />
+      <ScatterChart aria-label="Orders and revenue per customer" view="table" data={{"labels": ["Acme Studio", "Northwind", "Delta Works"], "series": [{"name": "Orders", "values": [42, 31, 58]}, {"name": "Revenue", "values": [18400, 12100, 26300]}]}} />
+    </>
+  ),
+  "depth-chart": (
+    <>
+      <DepthChart title="ETH / USDC order book" data={{"labels": ["3,190", "3,192", "3,194"], "series": [{"name": "Bids", "values": [140, 126, 104]}, {"name": "Asks", "values": [0, 0, 0]}]}} />
+      <DepthChart aria-label="ETH / USDC order book" view="table" data={{"labels": ["3,190", "3,192", "3,194"], "series": [{"name": "Bids", "values": [140, 126, 104]}, {"name": "Asks", "values": [0, 0, 0]}]}} />
+    </>
+  ),
+  "treemap": (
+    <>
+      <Treemap title="Holdings" data={{"labels": ["Wrapped Bitcoin", "Ether", "Solana"], "series": [{"name": "Value", "values": [9640, 4812, 1875]}]}} />
+      <Treemap title="Largest companies" category="Company" data={{"labels": ["NVDA", "MSFT", "AAPL"], "series": [{"name": "Market cap", "values": [4300, 3800, 3500]}, {"name": "Today", "values": [3.4, 1.2, 0.8], "texts": ["+3.4%", "+1.2%", "+0.8%"]}]}} />
+      <Treemap aria-label="Holdings" view="table" data={{"labels": ["Wrapped Bitcoin", "Ether", "Solana"], "series": [{"name": "Value", "values": [9640, 4812, 1875]}]}} />
     </>
   ),
   // Blocks
@@ -578,5 +717,68 @@ export const examples: Record<string, ReactElement> = {
       <Skeleton height={120} />
       <SkeletonText lines={3} />
     </>
+  ),
+  "tab-bar": (
+    <TabBar aria-label="Main" items={[{ value: "home", label: "Home", icon, href: "#home" }, { value: "search", label: "Search", icon, href: "#search" }]} />
+  ),
+  "top-bar": (
+    <><TopBar aria-label="Pestri" brand="Pestri" brandHref="#home" items={[{ value: "home", label: "Home", icon, href: "#home" }]} end={<IconButton size="sm" aria-label="Notifications">{icon}</IconButton>} /><TopBar aria-label="Pestri" brand="Pestri" items={[{ value: "home", label: "Home", icon, href: "#home" }]} /></>
+  ),
+  "page-header": (
+    <><PageHeader title="Payments" description="312 this month" actions={<Button size="sm">New</Button>} /><PageHeader title="Payment" back={{ label: "Back to payments", href: "#payments" }} /><PageHeader title="Payment" back={{ label: "Back", onClick: noop }} /></>
+  ),
+  "stories": (
+    <Stories aria-label="Stories" items={[{ id: "a", name: "mira", avatar: <Avatar seed="mira" /> }, { id: "b", name: "kai", seen: true, avatar: <Avatar seed="kai" /> }, { id: "c", name: "lena", href: "#lena", avatar: <Avatar seed="lena" /> }]} />
+  ),
+  "media-grid": (
+    <MediaGrid aria-label="Posts" columns={3} items={[{ id: "1", label: "One", media: <img src="one.jpg" alt="" /> }, { id: "2", label: "Two, video", media: <img src="two.jpg" alt="" />, mark: icon, tall: true, href: "#2" }]} />
+  ),
+  "chat-list": (
+    <ChatList aria-label="Chats" items={[{ id: "1", name: "Jane", last: "Hi", time: "14:05", unread: 2, avatar: <Avatar seed="jane" />, href: "#chat" }, { id: "2", name: "Team", last: "Ok", time: "13:40", unread: 12, muted: true, avatar: <Avatar seed="team" /> }, { id: "3", name: "Mira", last: "Photo", time: "Mon", avatar: <Avatar seed="mira" /> }]} />
+  ),
+  "composer": (
+    <><Composer label="New post" max={280} avatar={<Avatar seed="you" />} tools={<IconButton size="sm" aria-label="Add">{icon}</IconButton>} onPost={noop} /><Composer variant="inline" label="Reply" submit="Reply" onPost={noop} /></>
+  ),
+  "settings": (
+    <Settings actions={<Button type="submit" size="sm">Save</Button>} sections={[{ title: "Profile", description: "Shown on receipts.", fields: <Button size="sm">Edit</Button> }, { title: "Danger zone", tone: "danger", fields: <Button variant="danger" size="sm">Close account</Button> }]} />
+  ),
+  "market-list": (
+    <MarketList aria-label="Markets" items={[{ id: "btc", symbol: "BTC", name: "Bitcoin", price: "$96,412.10", change: 1.8, trend: <span />, href: "#btc" }, { id: "sol", symbol: "SOL", price: "$187.52", change: -3.1, trend: <span /> }, { id: "usdc", symbol: "USDC", price: "$1.00", change: 0 }]} />
+  ),
+  "api-keys": (
+    <ApiKeys creating secret="key_live_9f2c41b7d0a84e6f8c3d5b1a7e9081f2" keys={[{ id: "1", name: "Backend", masked: "key_live_···· 81f2", note: "Used 2 minutes ago" }, { id: "2", name: "Old", masked: "key_test_···· 07bd", revoked: true }]} />
+  ),
+  "usage-meters": (
+    <UsageMeters title="Usage" period="Ends on Nov 30." action={<Button variant="ghost" size="sm">Upgrade</Button>} items={[{ label: "Bandwidth", used: 913, limit: 1000, unit: "GB", note: "87 GB left." }, { label: "Builds", used: 10, limit: 100 }, { label: "Seats", used: 10, limit: 10 }]} />
+  ),
+  "chart-card": (
+    <><ChartCard title="Gross volume" value="$84,120" delta={12} note="on the 30 days before" controls={<span />}><span /></ChartCard><ChartCard title="Net" value="$1" delta={-2}><span /></ChartCard><ChartCard title="Gross volume" value="" loading><span /></ChartCard></>
+  ),
+  "table-view": (
+    <><TableView aria-label="Payments" search={{ value: "", onChange: noop, label: "Search payments" }} filters={<span />} actions={<Button variant="ghost" size="sm">Export</Button>} count="1–3 of 312" pagination={<span />}><span /></TableView><TableView aria-label="Keys"><span /></TableView></>
+  ),
+  "record-detail": (
+    <><RecordDetail title="$1,200.00" status={<span />} sub="Payment" actions={<Button variant="ghost" size="sm">Refund</Button>} facts={[{ label: "ID", value: "pi_1" }]}><RecordSection title="Timeline"><span /></RecordSection></RecordDetail><RecordDetail title="" sub="" facts={[{ label: "ID", value: "" }]} loading /></>
+  ),
+  "asset-list": (
+    <AssetList aria-label="Assets" items={[{ id: "btc", name: "Bitcoin", amount: "0.1 BTC", value: "$9,641.21", change: 1.8, share: 0.6, href: "#btc" }, { id: "eth", name: "Ether", amount: "1.5 ETH", value: "$4,812.60", change: -0.9 }, { id: "usdc", name: "USD Coin", amount: "1,200 USDC", value: "$1,200.00", change: 0 }]} />
+  ),
+  "player": (
+    <><Player title="Night Drive" artist="Lena Fischer" art={<img src="cover.jpg" alt="" />} position={72} duration={228} playing onPlayingChange={noop} liked onLikedChange={noop} /><Player variant="mini" title="Night Drive" artist="Lena Fischer" art={<img src="cover.jpg" alt="" />} position={72} duration={228} playing={false} onPlayingChange={noop} /></>
+  ),
+  "checkout": (
+    <Checkout title="Your stay" items={[{ id: "1", name: "Loft", detail: "Nov 24 to 27", price: "$420.00", thumb: <img src="loft.jpg" alt="" /> }]} rows={[{ label: "Fee", value: "$38.00" }]} total="$458.00" method={<span />} action={<Button fullWidth>Pay $458.00</Button>} note="Free cancellation." />
+  ),
+  "inbox": (
+    <Inbox aria-label="Inbox" current="1" items={[{ id: "1", from: "Acme", subject: "Invoice", snippet: "Thanks", time: "09:41", unread: true, marks: icon, avatar: <Avatar seed="acme" />, href: "#1" }, { id: "2", from: "Mira", subject: "Photos", time: "Mon" }]} />
+  ),
+  "board": (
+    <Board aria-label="Sprint" onAdd={noop} columns={[{ id: "todo", title: "Todo", cards: [{ id: "1", key: "ENG-1", title: "One", tags: <span />, assignee: <Avatar seed="a" />, href: "#1" }, { id: "2", title: "Two" }] }, { id: "done", title: "Done", cards: [] }]} />
+  ),
+  "comments": (
+    <Comments avatar={<Avatar seed="you" size="sm" />} onComment={noop} items={[{ kind: "comment", id: "1", author: "Jane", avatar: <Avatar seed="jane" />, time: "2h", text: "Hello" }, { kind: "event", id: "2", text: "Moved", time: "1h" }]} />
+  ),
+  "order-book": (
+    <OrderBook aria-label="Order book" columns={["Price", "Amount", "Total"]} asks={[{ price: 3208.8, amount: 2 }]} bids={[{ price: 3208.1, amount: 3.05 }]} last="3,208.40" spread="Spread 0.70" />
   ),
 };

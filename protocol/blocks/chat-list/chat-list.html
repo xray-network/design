@@ -1,0 +1,23 @@
+<!-- ChatList: List and Avatar. No JS of its own (initAvatars draws the avatars). Rows are links to the conversation. -->
+<div class="x-list x-chat-list" role="list" aria-label="Chats">
+  <a class="x-list-row" role="listitem" href="#chat" data-unread="">
+    <span class="x-avatar" data-seed="jane.cooper" data-palette="amber" aria-hidden="true"></span>
+    <span class="x-list-text"><span class="x-list-title">Jane Cooper</span><span class="x-list-sub">Perfect, thank you!</span></span>
+    <span class="x-list-end"><span class="x-list-sub">14:05</span><span class="x-chat-list-count" aria-label="2 unread">2</span></span>
+  </a>
+  <a class="x-list-row" role="listitem" href="#chat" data-unread="">
+    <span class="x-avatar" data-seed="team" data-palette="cool" aria-hidden="true"></span>
+    <span class="x-list-text"><span class="x-list-title">Design team</span><span class="x-list-sub">Tomas: the new tab bar is in</span></span>
+    <span class="x-list-end"><span class="x-list-sub">13:40</span><span class="x-chat-list-count" data-muted="" aria-label="12 unread, muted">12</span></span>
+  </a>
+  <button class="x-list-row" role="listitem" type="button">
+    <span class="x-avatar" data-seed="mira" data-palette="cool" aria-hidden="true"></span>
+    <span class="x-list-text"><span class="x-list-title">Mira Lindqvist</span><span class="x-list-sub">Photo</span></span>
+    <span class="x-list-end"><span class="x-list-sub">12:18</span></span>
+  </button>
+</div>
+
+<script type="module">
+  import { initAvatars } from "../../components/avatar/avatar.controller.js";
+  initAvatars();
+</script>

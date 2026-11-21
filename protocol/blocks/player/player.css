@@ -1,0 +1,30 @@
+/* Player: artwork, title, a scrubber and transport controls; or a mini bar. Built from Button, Icon and Slider. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-player { display: grid; gap: var(--x-space-4); min-width: 0; }
+  .x-player-art { aspect-ratio: 1; overflow: hidden; border: 1px solid var(--x-border); border-radius: var(--x-radius-3xl); background: var(--x-bg-chip); }
+  .x-player-art > * { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .x-player-meta { display: flex; align-items: center; gap: var(--x-space-3); min-width: 0; }
+  .x-player-text { flex: 1; min-width: 0; }
+  .x-player-title { display: block; margin: 0; overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-xl); font-weight: var(--x-weight-title); letter-spacing: var(--x-tracking-tight); line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+  .x-player-artist { display: block; margin: 0; overflow: hidden; color: var(--x-fg-3); font-size: var(--x-text-md); text-overflow: ellipsis; white-space: nowrap; }
+  .x-player-progress { display: grid; gap: var(--x-space-1); }
+  .x-player-times { display: flex; justify-content: space-between; color: var(--x-fg-3); font-size: var(--x-text-xs); font-variant-numeric: tabular-nums; }
+  .x-player-controls { display: flex; align-items: center; justify-content: center; gap: var(--x-space-5); }
+  /* Play is the one filled control. */
+  .x-player .x-player-play { --x-icon-button-size: var(--x-size-2xl); --x-icon-button-icon: var(--x-icon-lg); border-radius: 50%; background: var(--x-fg-1); color: var(--x-bg); }
+  .x-player .x-player-play:hover { background: var(--x-fg-2); color: var(--x-bg); }
+
+  /* Mini: one row at the foot of a screen, with a hairline of progress along its lower edge. */
+  .x-player[data-variant="mini"] { position: relative; grid-template-columns: var(--x-size-lg) minmax(0, 1fr) auto; align-items: center; gap: var(--x-space-3); padding: var(--x-space-2); overflow: hidden; border: 1px solid var(--x-border); border-radius: var(--x-radius-2xl); background: var(--x-bg-panel); }
+  .x-player[data-variant="mini"] .x-player-art { border-radius: var(--x-radius-md); }
+  .x-player[data-variant="mini"] .x-player-title { font-size: var(--x-text-md); font-weight: var(--x-weight-label); letter-spacing: 0; }
+  .x-player[data-variant="mini"] .x-player-artist { font-size: var(--x-text-sm); }
+  .x-player[data-variant="mini"] .x-player-controls { gap: var(--x-space-1); }
+  .x-player[data-variant="mini"] .x-player-play { --x-icon-button-size: var(--x-size-md); --x-icon-button-icon: var(--x-icon-md); }
+  .x-player-open { display: contents; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: start; cursor: pointer; }
+  .x-player-line { position: absolute; inset: auto 0 0; height: 2px; background: var(--x-bg-soft); pointer-events: none; }
+  .x-player-line::before { content: ""; display: block; width: calc(var(--x-player-progress, 0) * 100%); height: 100%; background: var(--x-fg-1); }
+}

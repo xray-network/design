@@ -1,0 +1,27 @@
+/* RecordDetail: one record's state, facts and history. Built from Tag, Button, Timeline and Skeleton. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-record-detail { display: grid; gap: var(--x-space-5); min-width: 0; container-type: inline-size; }
+  .x-record-detail-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2) var(--x-space-3); }
+  .x-record-detail-id { flex: 1; min-width: 0; }
+  .x-record-detail-line { display: flex; align-items: center; gap: var(--x-space-2-5); min-width: 0; }
+  .x-record-detail-title { margin: 0; overflow: hidden; color: var(--x-fg-1); font: var(--x-weight-stat) var(--x-text-3xl) / 1.15 var(--x-font-sans); font-variant-numeric: tabular-nums; letter-spacing: var(--x-tracking-tight); text-overflow: ellipsis; white-space: nowrap; }
+  .x-record-detail-sub { margin: var(--x-space-1) 0 0; color: var(--x-fg-3); font-size: var(--x-text-sm); }
+  .x-record-detail-actions { display: flex; flex: none; gap: var(--x-space-2); }
+
+  /* Facts: a label column and a value column, a hairline between rows. */
+  .x-record-detail-facts { display: grid; margin: 0; border-block: 1px solid var(--x-border); }
+  .x-record-detail-fact { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: var(--x-space-4); padding-block: var(--x-space-2-5); border-top: 1px solid var(--x-border); font-size: var(--x-text-sm); }
+  .x-record-detail-fact:first-child { border-top: 0; }
+  .x-record-detail-fact > dt { color: var(--x-fg-3); }
+  .x-record-detail-fact > dd { min-width: 0; margin: 0; color: var(--x-fg-1); overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+
+  .x-record-detail-section { display: grid; gap: var(--x-space-3); min-width: 0; }
+  .x-record-detail-heading { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); letter-spacing: var(--x-tracking-tight); }
+  @container (max-width: 420px) {
+    .x-record-detail-fact { grid-template-columns: minmax(0, 1fr); gap: var(--x-space-0-5); }
+    .x-record-detail-title { font-size: var(--x-text-2xl); }
+  }
+}

@@ -1,0 +1,12 @@
+<!-- Sparkline: sparkline.controller.js draws the line from data-values. It has no axis, so its label says what it
+     shows in words. -->
+<span class="x-sparkline" data-values="3 5 4 8 7 11 12" role="img" aria-label="Up 12% over 7 days"></span>
+
+<!-- Colored by direction, beside the number it explains -->
+<span class="x-sparkline" data-trend="up" data-values="12 14 13 17 19 22" role="img" aria-label="Rising for 6 weeks"></span>
+<span class="x-sparkline" data-trend="down" data-values="22 19 20 15 12 9" role="img" aria-label="Falling for 6 weeks"></span>
+
+<script type="module">
+  import { initSparklines } from "./sparkline.controller.js";
+  initSparklines();
+</script>

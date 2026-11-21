@@ -1,0 +1,35 @@
+<!-- Candlestick Chart: candlestick-chart.controller.js draws the table. The table is the data and the accessible view; without JavaScript it
+     simply shows. Needs core/chart.css as well as its own. -->
+<figure class="x-chart x-candlestick-chart">
+  <figcaption class="x-chart-title">ETH / USDC, daily</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Day</th><th scope="col">Open</th><th scope="col">High</th><th scope="col">Low</th><th scope="col">Close</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Nov 2</th><td data-value="3050">3,050</td><td data-value="3092">3,092</td><td data-value="3039">3,039</td><td data-value="3078">3,078</td></tr>
+      <tr><th scope="row">Nov 3</th><td data-value="3078">3,078</td><td data-value="3101">3,101</td><td data-value="3019">3,019</td><td data-value="3037">3,037</td></tr>
+      <tr><th scope="row">Nov 4</th><td data-value="3037">3,037</td><td data-value="3124">3,124</td><td data-value="3012">3,012</td><td data-value="3092">3,092</td></tr>
+      <tr><th scope="row">Nov 5</th><td data-value="3092">3,092</td><td data-value="3118">3,118</td><td data-value="3060">3,060</td><td data-value="3104">3,104</td></tr>
+      <tr><th scope="row">Nov 6</th><td data-value="3104">3,104</td><td data-value="3127">3,127</td><td data-value="3030">3,030</td><td data-value="3041">3,041</td></tr>
+      <tr><th scope="row">Nov 7</th><td data-value="3041">3,041</td><td data-value="3110">3,110</td><td data-value="3023">3,023</td><td data-value="3078">3,078</td></tr>
+      <tr><th scope="row">Nov 8</th><td data-value="3078">3,078</td><td data-value="3141">3,141</td><td data-value="3053">3,053</td><td data-value="3127">3,127</td></tr>
+      <tr><th scope="row">Nov 9</th><td data-value="3127">3,127</td><td data-value="3150">3,150</td><td data-value="3077">3,077</td><td data-value="3109">3,109</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- With the table shown in place of the plot -->
+<figure class="x-chart x-candlestick-chart" data-view="table" aria-label="ETH / USDC, daily">
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Day</th><th scope="col">Open</th><th scope="col">High</th><th scope="col">Low</th><th scope="col">Close</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Nov 2</th><td data-value="3050">3,050</td><td data-value="3092">3,092</td><td data-value="3039">3,039</td><td data-value="3078">3,078</td></tr>
+      <tr><th scope="row">Nov 3</th><td data-value="3078">3,078</td><td data-value="3101">3,101</td><td data-value="3019">3,019</td><td data-value="3037">3,037</td></tr>
+      <tr><th scope="row">Nov 4</th><td data-value="3037">3,037</td><td data-value="3124">3,124</td><td data-value="3012">3,012</td><td data-value="3092">3,092</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<script type="module">
+  import { initCandlestickCharts } from "./candlestick-chart.controller.js";
+  initCandlestickCharts();
+</script>

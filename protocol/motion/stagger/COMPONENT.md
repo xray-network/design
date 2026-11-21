@@ -23,9 +23,7 @@ first five items are staggered; the rest arrive with the fifth, so a long list n
 
 ## Variants and sizes
 
-| Attribute | Values | Default |
-|---|---|---|
-| `data-from` | `start`: items slide in from the start side (side panels, rails) | items rise from 8px below |
+None. Items always rise from 8px below: one direction, so every list in an app arrives the same way.
 
 ## States
 
@@ -57,7 +55,7 @@ Tier 0, CSS only: `@starting-style` gives each child its start, and `transition-
 
 ## Safe edits
 
-- The distance (`--x-stagger-distance`) and the direction (`data-from`).
+- The distance (`--x-stagger-distance`).
 - Which container gets it: usually the list inside a panel that just opened.
 
 ## Checklist

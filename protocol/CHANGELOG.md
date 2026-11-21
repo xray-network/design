@@ -39,12 +39,28 @@ The first version.
   the structure, not the content, and the layout does not move.
 - **Lazy content:** Modal, Tabs, Segmented and Collapse render hidden content on first show; `forceMount` renders it
   up front. In HTML, lazy content goes in `<template data-lazy>`.
-- **Blocks (9):** Balance, Chat, Post, Profile, SendForm, SignIn, StatsGrid, Swap, Transactions.
-- **Motion patterns (8):** a third kind in the kit, `motion/<id>/`, with the same files as a component, in four groups.
+- **Blocks (30):** finished screen sections, built from components.
+  App shell: TabBar (the floating tab bar of a phone screen), TopBar (the header of a desktop app), PageHeader.
+  Social: Profile, Post, Stories, MediaGrid, Composer (a post or a reply, growing with its text), Comments.
+  Messaging: Chat, ChatList, Inbox.
+  Money: Balance, SendForm, Swap, Transactions, AssetList, MarketList, OrderBook, Checkout.
+  Consoles: StatsGrid, ChartCard, TableView (a table with its search, filters, count and pages), RecordDetail,
+  Settings, ApiKeys, UsageMeters, Board.
+  And SignIn and Player (full size, or a mini bar).
+  A block declares the other blocks (`blocks:`), motion patterns (`patterns:`) and charts (`charts:`) it holds.
+- **Motion patterns (11):** a third kind in the kit, `motion/<id>/`, with the same files as a component, in four groups.
   Arriving and leaving: Presence (a surface grows in and fades out), Stagger (a group's items enter in turn), Expand
   (a region opens by height). Moving: LiquidIndicator (a pill that slides and stretches between items), Reflow (list
-  items glide to their new places), Drag (an element follows the finger and settles on release). Becoming: Morph (one
-  element becomes another). Navigating: Screen (forward, back and sideways between the screens of a flow).
+  items glide to their new places), Drag (an element follows the finger and settles on release), Reorder (drag to
+  sort). Becoming: Morph (one element becomes another), Replace (content changes in place). Navigating: Screen (forward, back and sideways between the screens of a flow), Pager (pages swiped
+  through, snapping).
+- **Charts (15):** a fourth kind, `charts/<id>/`, drawn from a data table on a shared frame (`core/chart.js`,
+  `core/chart.css`) with no charting library: LineChart (+ area), StackedAreaChart, BarChart, BarList,
+  StackedBarChart, DonutChart, ShareBar, Treemap, FunnelChart, Heatmap, ScatterChart, StatusStrip, CandlestickChart,
+  DepthChart and Sparkline. Six series colors (`chart-1` … `chart-6`) in a fixed order checked for color-blind
+  separation in both themes; legend entries switch series off and on; a readout that works from the keyboard and
+  glides between marks; and the data as a table behind every chart. Rules, and how to set up a charting library a
+  project already has: protocol section 16.
 - **Placement:** `core/place.js`, one measured placement for every floating box (tooltips, popovers, menus, option
   lists): sides flip, boxes stay inside the visual viewport, and every browser runs the same code.
 - **Protocol:** `DESIGN-PROTOCOL.md`: the version and every token (both themes) in its header; rules for color, type,

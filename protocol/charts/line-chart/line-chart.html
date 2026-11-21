@@ -1,0 +1,36 @@
+<!-- Line chart: line-chart.controller.js draws the table as lines. The table is the data and the accessible
+     view; without JavaScript it simply shows. Needs core/chart.css as well as its own. -->
+<figure class="x-chart x-line-chart">
+  <figcaption class="x-chart-title">Revenue</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Month</th><th scope="col">2026</th><th scope="col">2025</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Jan</th><td data-value="42000">42,000</td><td data-value="31000">31,000</td></tr>
+      <tr><th scope="row">Feb</th><td data-value="48500">48,500</td><td data-value="33800">33,800</td></tr>
+      <tr><th scope="row">Mar</th><td data-value="46200">46,200</td><td data-value="36100">36,100</td></tr>
+      <tr><th scope="row">Apr</th><td data-value="53900">53,900</td><td data-value="35200">35,200</td></tr>
+      <tr><th scope="row">May</th><td data-value="61900">61,900</td><td data-value="41700">41,700</td></tr>
+      <tr><th scope="row">Jun</th><td data-value="64200">64,200</td><td data-value="45900">45,900</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- An area: a wash under the line, from a zero baseline. data-view="table" shows the table in place of the plot. -->
+<figure class="x-chart x-line-chart" data-area="" data-height="160" data-view="table" aria-label="Payments per month">
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Month</th><th scope="col">Payments</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Jan</th><td data-value="1020">1,020</td></tr>
+      <tr><th scope="row">Feb</th><td data-value="1180">1,180</td></tr>
+      <tr><th scope="row">Mar</th><td data-value="1090">1,090</td></tr>
+      <tr><th scope="row">Apr</th><td data-value="1284">1,284</td></tr>
+      <tr><th scope="row">May</th><td data-value="1410">1,410</td></tr>
+      <tr><th scope="row">Jun</th><td data-value="1502">1,502</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<script type="module">
+  import { initLineCharts } from "./line-chart.controller.js";
+  initLineCharts();
+</script>

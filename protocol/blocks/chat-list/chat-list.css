@@ -1,0 +1,13 @@
+/* ChatList: conversations with their last message, time and unread count. Built from List and Avatar. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-chat-list .x-list-end { display: grid; justify-items: end; align-content: start; gap: var(--x-space-1); align-self: stretch; padding-top: var(--x-space-0-5); }
+  .x-chat-list .x-list-end > .x-list-sub { font-size: var(--x-text-xs); }
+  /* Unread: the last message steps forward and the count shows. */
+  .x-chat-list .x-list-row[data-unread] .x-list-text > .x-list-sub { color: var(--x-fg-1); }
+  .x-chat-list-count { display: inline-grid; min-width: 20px; height: 20px; padding: 0 var(--x-space-1-5); place-items: center; border-radius: var(--x-radius-pill); background: var(--x-accent); color: var(--x-accent-fg); font: var(--x-weight-label) var(--x-text-2xs) / 1 var(--x-font-sans); font-variant-numeric: tabular-nums; }
+  /* A muted conversation still counts, quietly. */
+  .x-chat-list-count[data-muted] { background: var(--x-bg-active); color: var(--x-fg-2); }
+}

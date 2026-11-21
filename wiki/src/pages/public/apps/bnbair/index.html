@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bnbair</title>
+  <!-- A showcase app of XRAY/DESIGN: plain HTML on the kit's own CSS and controllers. One file: every screen is
+       a section, shown by the hash (index.html#explore); ../app.js moves between them with the kit's Screen pattern.
+       Classes that start with x- are kit components, blocks, charts and motion; app- classes are layout only. -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="../app.css">
+  <script type="module" src="../app.js"></script>
+</head>
+<body data-form="mobile">
+  <div class="app-shell">
+    <div class="x-screens app-views">
+      <section class="x-screen app-view" data-screen="explore" aria-label="Explore" tabindex="-1">
+<header class="app-bar"><div class="x-input" data-size="sm" style="flex:1"><svg class="x-icon" data-icon="magnifying-glass"></svg><input type="search" aria-label="Where to" placeholder="Where to?"></div><button class="x-icon-button" type="button" aria-label="Filters"><svg class="x-icon" data-icon="adjustments-horizontal"></svg></button></header>
+      <main class="app-screen" data-flush>
+        <div class="x-chips app-chips" role="radiogroup" aria-label="Kind"><label class="x-chip"><input type="radio" name="chip48" checked><span>All</span></label><label class="x-chip"><input type="radio" name="chip48"><span>Cabins</span></label><label class="x-chip"><input type="radio" name="chip48"><span>By the sea</span></label><label class="x-chip"><input type="radio" name="chip48"><span>City</span></label><label class="x-chip"><input type="radio" name="chip48"><span>Countryside</span></label><label class="x-chip"><input type="radio" name="chip48"><span>Design</span></label></div>
+        <div class="app-pad app-stays x-stagger"><a class="app-stay" href="#listing"><span class="app-art" data-art="loft" data-palette="amber" role="img" aria-label="Abstract picture"></span><span class="x-list-text"><span class="x-list-title">Loft by the river</span><span class="x-list-sub">Lisbon, Portugal</span></span><span class="x-list-end"><span class="x-list-title">$140</span><span class="x-list-sub">night · ★ 4.92</span></span></a><a class="app-stay" href="#listing"><span class="app-art" data-art="cabin" data-palette="cool" role="img" aria-label="Abstract picture"></span><span class="x-list-text"><span class="x-list-title">Cabin in the pines</span><span class="x-list-sub">Bled, Slovenia</span></span><span class="x-list-end"><span class="x-list-title">$96</span><span class="x-list-sub">night · ★ 4.87</span></span></a><a class="app-stay" href="#listing"><span class="app-art" data-art="studio" data-palette="ember" role="img" aria-label="Abstract picture"></span><span class="x-list-text"><span class="x-list-title">Studio near the market</span><span class="x-list-sub">Porto, Portugal</span></span><span class="x-list-end"><span class="x-list-title">$72</span><span class="x-list-sub">night · ★ 4.78</span></span></a></div>
+      </main>
+      </section>
+      <section class="x-screen app-view" data-screen="listing" data-tab="explore" aria-label="Listing" tabindex="-1" hidden>
+<header class="app-bar"><a class="x-icon-button" href="#explore" aria-label="Back to Explore"><svg class="x-icon" data-icon="chevron-left"></svg></a><span class="app-title">Loft by the river</span><button class="x-icon-button" type="button" aria-label="Save"><svg class="x-icon" data-icon="heart"></svg></button></header>
+      <main class="app-screen" data-flush>
+        <div class="x-pager app-photos" role="group" aria-roledescription="carousel" aria-label="Photos"><ul class="x-pager-track" tabindex="0"><li class="x-pager-page" role="group" aria-roledescription="slide" aria-label="1 of 4"><span class="app-art" data-art="loft-0" data-palette="amber" role="img" aria-label="Abstract picture"></span></li><li class="x-pager-page" role="group" aria-roledescription="slide" aria-label="2 of 4"><span class="app-art" data-art="loft-1" data-palette="cool" role="img" aria-label="Abstract picture"></span></li><li class="x-pager-page" role="group" aria-roledescription="slide" aria-label="3 of 4"><span class="app-art" data-art="loft-2" data-palette="ember" role="img" aria-label="Abstract picture"></span></li><li class="x-pager-page" role="group" aria-roledescription="slide" aria-label="4 of 4"><span class="app-art" data-art="loft-3" data-palette="blue" role="img" aria-label="Abstract picture"></span></li></ul><div class="x-pager-dots"><button class="x-pager-dot" type="button" aria-label="Photo 1" aria-current="true"></button><button class="x-pager-dot" type="button" aria-label="Photo 2"></button><button class="x-pager-dot" type="button" aria-label="Photo 3"></button><button class="x-pager-dot" type="button" aria-label="Photo 4"></button></div></div>
+        <div class="app-pad">
+          <section><div class="x-list-row" role="listitem"><span class="x-list-text"><span class="x-list-title">Loft by the river</span><span class="x-list-sub">Lisbon, Portugal · ★ 4.92 (128)</span></span><span class="x-list-end"><span class="x-list-title">$140</span><span class="x-list-sub">night</span></span></div></section>
+          <section><div class="x-list x-stagger" role="list" aria-label="What this place has"><div class="x-list-row" role="listitem"><span class="x-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="home-modern"></svg></span><span class="x-list-text"><span class="x-list-title">Entire loft</span><span class="x-list-sub">2 guests · 1 bedroom · 1 bath</span></span></div><div class="x-list-row" role="listitem"><span class="x-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="wifi"></svg></span><span class="x-list-text"><span class="x-list-title">Fast wifi</span><span class="x-list-sub">240 Mbps, a desk by the window</span></span></div><div class="x-list-row" role="listitem"><span class="x-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="key"></svg></span><span class="x-list-text"><span class="x-list-title">Self check-in</span><span class="x-list-sub">A key box by the door</span></span></div><div class="x-list-row" role="listitem"><span class="x-avatar" data-seed="mira" data-palette="cool" aria-hidden="true"></span><span class="x-list-text"><span class="x-list-title">Hosted by Mira</span><span class="x-list-sub">Replies within an hour</span></span></div></div></section>
+          <section><a class="x-button" data-size="lg" data-width="full" href="#book">Reserve</a></section>
+        </div>
+      </main>
+      </section>
+      <section class="x-screen app-view" data-screen="book" data-tab="explore" aria-label="Book" tabindex="-1" hidden>
+<header class="app-bar"><a class="x-icon-button" href="#listing" aria-label="Back to the listing"><svg class="x-icon" data-icon="chevron-left"></svg></a><span class="app-title">Your dates</span></header>
+      <main class="app-screen">
+        <section><div class="x-calendar" data-mode="range" data-start="2026-11-24" data-end="2026-11-27" data-month="2026-11" data-min="2026-11-22" data-week-start="1"><div class="x-calendar-head"><button class="x-calendar-step" type="button" data-step="previous" aria-label="Previous month"><svg class="x-icon" data-icon="chevron-left"></svg></button><div class="x-calendar-title" id="stay-dates" aria-live="polite">November 2026</div><button class="x-calendar-step" type="button" data-step="next" aria-label="Next month"><svg class="x-icon" data-icon="chevron-right"></svg></button></div><table class="x-calendar-grid" role="grid" aria-labelledby="stay-dates"><thead><tr></tr></thead><tbody></tbody></table></div></section>
+        <section><section class="x-checkout" aria-labelledby="co49"><h2 class="x-checkout-title" id="co49">Your stay</h2><ul class="x-checkout-items"><li class="x-checkout-item"><span class="x-checkout-thumb"><span class="app-art" data-art="loft" data-palette="amber" role="img" aria-label="Abstract picture"></span></span><span class="x-checkout-text"><span class="x-checkout-name">Loft by the river</span><span class="x-checkout-detail">Nov 24 to 27 · 2 guests</span></span><span class="x-checkout-price">$420.00</span></li></ul><dl class="x-checkout-totals"><div class="x-checkout-row"><dt>3 nights at $140.00</dt><dd>$420.00</dd></div><div class="x-checkout-row"><dt>Cleaning</dt><dd>$30.00</dd></div><div class="x-checkout-row"><dt>Service fee</dt><dd>$38.00</dd></div><div class="x-checkout-row" data-total=""><dt>Total</dt><dd>$488.00</dd></div></dl><div class="x-checkout-method"><button class="x-list-row" type="button"><span class="x-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="credit-card"></svg></span><span class="x-list-text"><span class="x-list-title">Visa ···· 4821</span><span class="x-list-sub">Expires 08/28</span></span><span class="x-list-end"><span class="x-list-sub">Change</span></span></button></div><div class="x-checkout-pay"><button class="x-button" type="button" data-width="full">Pay $488.00</button><p class="x-checkout-note">Free cancellation until Nov 22.</p></div></section></section>
+      </main>
+      </section>
+      <section class="x-screen app-view" data-screen="trips" aria-label="Trips" tabindex="-1" hidden>
+<header class="app-bar"><span class="app-title">Trips</span></header>
+      <main class="app-screen">
+        <section><h2 class="app-heading">Upcoming</h2><div class="x-list x-stagger" role="list" aria-label="Upcoming trips"><a class="x-list-row" role="listitem" href="#listing"><span class="app-art app-thumb" data-art="loft" data-palette="amber" role="img" aria-label="Abstract picture"></span><span class="x-list-text"><span class="x-list-title">Loft by the river</span><span class="x-list-sub">Nov 24 to 27 · Lisbon</span></span><span class="x-list-end"><span class="x-list-sub"><span class="x-tag" data-size="sm" data-tone="success"><span class="x-status-dot" aria-hidden="true"></span>Confirmed</span></span></span></a><a class="x-list-row" role="listitem" href="#listing"><span class="app-art app-thumb" data-art="cabin" data-palette="cool" role="img" aria-label="Abstract picture"></span><span class="x-list-text"><span class="x-list-title">Cabin in the pines</span><span class="x-list-sub">Dec 28 to Jan 2 · Bled</span></span><span class="x-list-end"><span class="x-list-sub"><span class="x-tag" data-size="sm" data-tone="warning"><span class="x-status-dot" aria-hidden="true"></span>Request sent</span></span></span></a></div></section>
+        <section><h2 class="app-heading">Past</h2><div class="x-empty" data-size="sm"><span class="x-empty-icon" aria-hidden="true"><svg class="x-icon" data-icon="map"></svg></span><p class="x-empty-title">No past trips</p><p class="x-empty-description">Places you have stayed will show up here.</p></div></section>
+      </main>
+      </section>
+      <section class="x-screen app-view" data-screen="profile" aria-label="Profile" tabindex="-1" hidden>
+<header class="app-bar"><span class="app-title">Profile</span><button class="x-icon-button" type="button" aria-label="Settings"><svg class="x-icon" data-icon="cog-6-tooth"></svg></button></header>
+      <main class="app-screen">
+        <section><section class="x-profile" aria-labelledby="profile-name">
+  <div class="x-profile-top">
+    <span class="x-profile-lead"><span class="x-avatar" data-size="lg" data-seed="you" data-palette="amber" aria-hidden="true"></span></span>
+    <dl class="x-profile-stats">
+      <div><dd>14</dd><dt>Trips</dt></div>
+      <div><dd>9</dd><dt>Reviews</dt></div>
+      <div><dd>27</dd><dt>Saved</dt></div>
+    </dl>
+  </div>
+  <div class="x-profile-id">
+    <h2 class="x-profile-name" id="profile-name">Alex Morgan</h2>
+    <span class="x-profile-handle">Joined in 2021</span>
+  </div>
+  <p class="x-profile-bio">Travels light, books late. Mostly cities by the water.</p>
+  <div class="x-profile-actions">
+    <button class="x-button" type="button">Edit profile</button>
+    <button class="x-button" type="button" data-variant="ghost">Share</button>
+  </div>
+</section></section>
+        <section><nav class="x-menu-list" aria-label="Account"><div class="x-menu-list-section"><ul class="x-menu-list-group"><li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="credit-card"></svg></span><span class="x-menu-list-label">Payments</span><span class="x-menu-list-value">Visa ···· 4821</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li><li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="bell"></svg></span><span class="x-menu-list-label">Notifications</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li><li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="globe-alt"></svg></span><span class="x-menu-list-label">Language and currency</span><span class="x-menu-list-value">English · USD</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li></ul></div><div class="x-menu-list-section"><ul class="x-menu-list-group"><li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="home-modern"></svg></span><span class="x-menu-list-label">Host a place</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li><li><a class="x-menu-list-item" href="#"><span class="x-menu-list-icon" aria-hidden="true"><svg class="x-icon" data-icon="lifebuoy"></svg></span><span class="x-menu-list-label">Help</span><svg class="x-menu-list-chevron" data-icon="chevron-right"></svg></a></li></ul></div></nav></section>
+      </main>
+      </section>
+    </div>
+    <footer class="x-tab-bar">
+      <nav class="x-liquid-indicator" aria-label="Bnbair" data-width="full" data-layout="stack"><a class="x-liquid-indicator-item" href="#explore" aria-current="page"><svg class="x-icon" data-icon="magnifying-glass"></svg><span>Explore</span></a><a class="x-liquid-indicator-item" href="#trips"><svg class="x-icon" data-icon="calendar-days"></svg><span>Trips</span></a><a class="x-liquid-indicator-item" href="#profile"><svg class="x-icon" data-icon="user"></svg><span>Profile</span></a><span class="x-liquid-indicator-pill" aria-hidden="true"></span></nav>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+/* MediaGrid: square pictures in a tight grid. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-media-grid { --x-media-grid-columns: 3; --x-media-grid-gap: 2px; display: grid; grid-template-columns: repeat(var(--x-media-grid-columns), minmax(0, 1fr)); gap: var(--x-media-grid-gap); margin: 0; padding: 0; list-style: none; }
+  .x-media-grid-cell { position: relative; aspect-ratio: 1; min-width: 0; }
+  /* A tall cell takes two rows: one feature among the squares. */
+  .x-media-grid-cell[data-span="tall"] { grid-row: span 2; aspect-ratio: auto; }
+  .x-media-grid-item { position: absolute; inset: 0; display: block; padding: 0; overflow: hidden; border: 0; background: var(--x-bg-chip); cursor: pointer; }
+  .x-media-grid-item > :first-child { display: block; width: 100%; height: 100%; object-fit: cover; transition: opacity var(--x-duration-fast) var(--x-ease); }
+  .x-media-grid-item:hover > :first-child { opacity: 0.85; }
+  .x-media-grid-item:focus-visible { outline: 2px solid var(--x-focus); outline-offset: -2px; }
+  /* What kind of post it is, when it is not one still picture. Always on a picture, so it takes the on-accent white. */
+  .x-media-grid-mark { position: absolute; top: var(--x-space-2); right: var(--x-space-2); display: grid; color: var(--x-white); pointer-events: none; }
+  .x-media-grid-mark > .x-icon { width: var(--x-icon-md); height: var(--x-icon-md); }
+}

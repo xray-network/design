@@ -1,11 +1,28 @@
-/* The shell every showcase app shares: a title bar, a scrolling screen and a tab bar, at phone size.
-   Everything inside is kit components and blocks; these rules are layout only. */
+/* The shell every showcase app shares. One HTML file per app: every screen is a section of .app-views (the kit's
+   Screen pattern), and the tabs move between them without a page load. Mobile apps are a title bar, a scrolling
+   screen and the TabBar block; desktop apps are the TopBar block and pages that start with a PageHeader.
+   Everything inside is kit components, blocks, charts and motion; these rules are layout only. */
 
 html, body { height: 100%; }
-body { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; -webkit-tap-highlight-color: transparent; }
+body { margin: 0; height: 100dvh; overflow: hidden; -webkit-tap-highlight-color: transparent; }
 
+/* The app is as wide as its form asks and no wider, so it also looks right opened on its own in a big window:
+   a phone column, or a 740px desktop column, centered, with a hairline at each side. */
+.app-shell { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 430px; height: 100dvh; margin-inline: auto; overflow: hidden; background: var(--x-bg); }
+body[data-form="desktop"] > .app-shell { max-width: 740px; }
+@media (min-width: 432px) { body[data-form="mobile"] > .app-shell { border-inline: 1px solid var(--x-border); } }
+@media (min-width: 742px) { body[data-form="desktop"] > .app-shell { border-inline: 1px solid var(--x-border); } }
+
+/* The screens: one in view, filling the space between the bars. */
+.app-views { flex: 1 1 auto; grid-template-rows: minmax(0, 1fr); min-height: 0; }
+.app-view { display: flex; flex-direction: column; min-height: 0; }
+/* A screen that is not a tab (a conversation, a detail) hides the tab bar while it is open. */
+body[data-deep] .x-tab-bar { display: none; }
+
+/* ---- Mobile: a title bar, then the screen ---- */
 .app-bar { display: flex; flex: none; align-items: center; gap: var(--x-space-2); min-height: 52px; padding: 0 var(--x-space-2) 0 var(--x-space-4); border-bottom: 1px solid var(--x-border); }
 .app-bar > .x-icon-button:first-child { margin-inline-start: calc(var(--x-space-2) * -1); }
+.app-bar > .x-button { margin-inline-end: var(--x-space-2); }
 .app-title { flex: 1; min-width: 0; overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-lg); font-weight: var(--x-weight-title); letter-spacing: var(--x-tracking-tight); text-overflow: ellipsis; white-space: nowrap; }
 .app-title[data-brand] { font-size: var(--x-text-xl); }
 .app-title > small { display: block; color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-body); letter-spacing: 0; }
@@ -13,49 +30,69 @@ body { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; 
 .app-screen { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0 var(--x-space-4) var(--x-space-6); scrollbar-width: none; }
 .app-screen::-webkit-scrollbar { display: none; }
 .app-screen[data-flush] { padding: 0; }
-.app-screen > section { padding-top: var(--x-space-4); }
+.app-screen > section, .app-pad > section { padding-top: var(--x-space-4); }
 .app-heading { margin: 0 0 var(--x-space-2); color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-label); }
 .app-pad { padding-inline: var(--x-space-4); }
+/* Room at the end of every screen, so its last rows can be scrolled clear of the floating TabBar. */
+body[data-form="mobile"]:not([data-deep]) .app-screen { padding-bottom: calc(var(--x-space-8) * 3); }
+.app-screen > .x-stories { border-bottom: 1px solid var(--x-border); }
+.app-screen .x-chart { margin-block: var(--x-space-2); }
+/* A screen that is one conversation: the Chat block fills it. */
+.app-screen > .x-chat { height: 100%; padding: 0 var(--x-space-4) var(--x-space-3); }
 
-/* The tab bar: a LiquidIndicator laid flat across the bottom. Tabs are links to the app's other screens. */
-.app-tabs { flex: none; padding: var(--x-space-2) var(--x-space-3) max(var(--x-space-2), env(safe-area-inset-bottom)); border-top: 1px solid var(--x-border); }
-.app-tabs > .x-liquid-indicator { padding: 0; border: 0; background: none; --x-liquid-indicator-pad: 0px; --x-liquid-indicator-radius: var(--x-radius-lg); }
+/* Something docked at the foot of a screen, just above the floating TabBar: a reply box, a mini player. */
+.app-dock { position: relative; z-index: 4; flex: none; margin: 0 var(--x-space-4) calc(max(var(--x-space-3), env(safe-area-inset-bottom)) + 55px + var(--x-space-2)); }
+body[data-deep] .app-dock { margin-bottom: max(var(--x-space-3), env(safe-area-inset-bottom)); }
+.app-view:has(> .app-dock) > .app-screen { padding-bottom: var(--x-space-3) !important; }
 
 /* Abstract art in place of photographs: the Avatar's generator, filling its box. */
 .app-art { display: block; overflow: hidden; background: var(--x-bg-chip); }
 .app-art > svg { display: block; width: 100%; height: 100%; }
+.app-thumb { flex: none; width: var(--x-size-lg); height: var(--x-size-lg); border-radius: var(--x-radius-md); }
+.x-table .app-thumb { width: var(--x-size-sm); height: var(--x-size-sm); border-radius: var(--x-radius-sm); }
 
-/* A row of round stories. */
-.app-stories { display: flex; gap: var(--x-space-3); margin: 0; padding: var(--x-space-3) var(--x-space-4); overflow-x: auto; border-bottom: 1px solid var(--x-border); list-style: none; scrollbar-width: none; }
-.app-stories::-webkit-scrollbar { display: none; }
-.app-stories > li { display: grid; flex: none; justify-items: center; gap: var(--x-space-1); width: 64px; color: var(--x-fg-2); font-size: var(--x-text-2xs); }
-.app-ring { display: grid; padding: 2px; border: 2px solid var(--x-accent-ink); border-radius: 50%; }
-.app-ring > .x-avatar { --x-avatar-size: 52px; }
-.app-stories [data-seen] .app-ring { border-color: var(--x-border-hover); }
-.app-stories span:last-child { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-/* A three-column grid of square pictures. */
-.app-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; }
-.app-grid > .app-art { aspect-ratio: 1; }
-.app-grid > .app-art[data-tall] { grid-row: span 2; aspect-ratio: auto; }
-
-/* Chat list rows: an unread count at the far end. */
-.app-count { display: inline-grid; min-width: 20px; height: 20px; padding: 0 var(--x-space-1-5); place-items: center; border-radius: var(--x-radius-pill); background: var(--x-accent); color: var(--x-accent-fg); font: var(--x-weight-label) var(--x-text-2xs) / 1 var(--x-font-sans); font-variant-numeric: tabular-nums; }
-.app-count[data-muted] { background: var(--x-bg-active); color: var(--x-fg-2); }
-
-/* A screen that is one conversation: the Chat block fills it. */
-.app-screen > .x-chat { height: 100%; padding: 0 var(--x-space-4) var(--x-space-3); }
+/* A row of chips that scrolls sideways instead of wrapping. */
+.app-chips { flex-wrap: nowrap; padding: var(--x-space-3) var(--x-space-4); overflow-x: auto; scrollbar-width: none; }
+.app-chips::-webkit-scrollbar { display: none; }
+/* Cards that scroll sideways: a cover, a title and a line under it. */
+.app-cards { display: flex; gap: var(--x-space-3); margin-inline: calc(var(--x-space-4) * -1); padding-inline: var(--x-space-4); overflow-x: auto; scrollbar-width: none; }
+.app-cards::-webkit-scrollbar { display: none; }
+.app-card { display: grid; flex: none; gap: var(--x-space-0-5); width: 132px; color: inherit; text-decoration: none; }
+.app-card > .app-art { aspect-ratio: 1; margin-bottom: var(--x-space-1-5); border-radius: var(--x-radius-xl); }
+.app-card-title { overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); text-overflow: ellipsis; white-space: nowrap; }
+.app-card-sub { overflow: hidden; color: var(--x-fg-3); font-size: var(--x-text-xs); text-overflow: ellipsis; white-space: nowrap; }
+/* A place to stay: a wide picture, then its name and its price on one row. */
+.app-stays { display: grid; gap: var(--x-space-5); padding-bottom: var(--x-space-4); }
+.app-stay { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--x-space-2-5) var(--x-space-3); color: inherit; font-size: var(--x-text-md); text-decoration: none; }
+.app-stay > .app-art { grid-column: 1 / -1; aspect-ratio: 16 / 10; border-radius: var(--x-radius-2xl); }
+/* Photos edge to edge at the top of a listing. */
+.app-photos .x-pager-page { padding: 0; }
+.app-photos .x-pager-page > .app-art { aspect-ratio: 4 / 3; }
+/* A letter: the body of a message. */
+.app-letter { color: var(--x-fg-1); font-size: var(--x-text-md); line-height: var(--x-leading-prose); }
+.app-letter > p { margin: 0 0 var(--x-space-3); }
+.app-fields { display: grid; gap: var(--x-space-4); }
 
 /* Two buttons side by side, each half the width. */
 .app-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--x-space-2); }
-
 /* A price line with its change. */
 .app-price { display: flex; align-items: baseline; gap: var(--x-space-2-5); margin: 0; }
-.app-spark { display: block; width: 100%; height: 120px; margin-block: var(--x-space-3); color: var(--x-accent-ink); }
-.app-spark path { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.app-spark path:first-child { fill: currentColor; fill-opacity: 0.1; stroke: none; }
-
 /* A compose button floating above the tab bar. */
-.app-fab { position: absolute; right: var(--x-space-4); bottom: 84px; z-index: 2; }
+.app-fab { position: absolute; right: var(--x-space-4); bottom: calc(var(--x-space-8) * 3); z-index: 2; }
 .app-fab.x-icon-button { width: 52px; height: 52px; border-radius: 50%; background: var(--x-accent); color: var(--x-accent-fg); }
-body { position: relative; }
+
+/* ---- Desktop: a page of blocks and panels ---- */
+.app-page { display: grid; align-content: start; gap: var(--x-space-5); padding: var(--x-space-6) var(--x-space-5) var(--x-space-8); }
+.app-page > * { min-width: 0; }
+.app-panel { display: grid; gap: var(--x-space-3); min-width: 0; padding: var(--x-space-4); border: 1px solid var(--x-border); border-radius: var(--x-radius-2xl); background: var(--x-bg-panel); --x-chart-surface: var(--x-bg-panel); }
+.app-panel > .x-chart, .app-panel .x-order-book { --x-chart-surface: var(--x-bg-panel); margin: 0; }
+.app-panel[data-flush] { padding: 0; overflow: hidden; }
+.app-panel[data-flush] li:last-child > .x-inbox-row { border-bottom: 0; }
+.app-panel-head { display: flex; align-items: center; justify-content: space-between; gap: var(--x-space-3); min-height: var(--x-size-sm); }
+.app-panel-head h2 { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); letter-spacing: var(--x-tracking-tight); }
+.app-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--x-space-4); }
+.app-who { display: inline-flex; align-items: center; gap: var(--x-space-2); }
+.app-link { color: inherit; text-decoration: none; }
+.app-link:hover { color: var(--x-accent-ink); }
+.app-mono { color: var(--x-fg-2); font: var(--x-weight-body) var(--x-text-xs) / 1.4 var(--x-font-mono); }
+@media (max-width: 600px) { .app-split { grid-template-columns: minmax(0, 1fr); } }

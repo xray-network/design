@@ -1,0 +1,31 @@
+<!-- Funnel Chart: funnel-chart.controller.js draws the table. The table is the data and the accessible view; without JavaScript it
+     simply shows. Needs core/chart.css as well as its own. -->
+<figure class="x-chart x-funnel-chart">
+  <figcaption class="x-chart-title">Checkout, last 30 days</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Step</th><th scope="col">People</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Opened checkout</th><td data-value="4820">4,820</td></tr>
+      <tr><th scope="row">Entered details</th><td data-value="3610">3,610</td></tr>
+      <tr><th scope="row">Chose a method</th><td data-value="2940">2,940</td></tr>
+      <tr><th scope="row">Paid</th><td data-value="2512">2,512</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- With the table shown in place of the plot -->
+<figure class="x-chart x-funnel-chart" data-view="table" aria-label="Checkout, last 30 days">
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Step</th><th scope="col">People</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Opened checkout</th><td data-value="4820">4,820</td></tr>
+      <tr><th scope="row">Entered details</th><td data-value="3610">3,610</td></tr>
+      <tr><th scope="row">Chose a method</th><td data-value="2940">2,940</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<script type="module">
+  import { initFunnelCharts } from "./funnel-chart.controller.js";
+  initFunnelCharts();
+</script>

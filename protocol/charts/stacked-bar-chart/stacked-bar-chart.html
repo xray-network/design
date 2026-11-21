@@ -1,0 +1,33 @@
+<!-- Stacked Bar Chart: stacked-bar-chart.controller.js draws the table. The table is the data and the accessible view; without JavaScript it
+     simply shows. Needs core/chart.css as well as its own. -->
+<figure class="x-chart x-stacked-bar-chart">
+  <figcaption class="x-chart-title">Volume by payment method</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Month</th><th scope="col">Card</th><th scope="col">Bank transfer</th><th scope="col">Wallet</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Jan</th><td data-value="26100">26,100</td><td data-value="11600">11,600</td><td data-value="4300">4,300</td></tr>
+      <tr><th scope="row">Feb</th><td data-value="29800">29,800</td><td data-value="13200">13,200</td><td data-value="5500">5,500</td></tr>
+      <tr><th scope="row">Mar</th><td data-value="28400">28,400</td><td data-value="12900">12,900</td><td data-value="4900">4,900</td></tr>
+      <tr><th scope="row">Apr</th><td data-value="33200">33,200</td><td data-value="14800">14,800</td><td data-value="5900">5,900</td></tr>
+      <tr><th scope="row">May</th><td data-value="37900">37,900</td><td data-value="17100">17,100</td><td data-value="6900">6,900</td></tr>
+      <tr><th scope="row">Jun</th><td data-value="39400">39,400</td><td data-value="17600">17,600</td><td data-value="7200">7,200</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- With the table shown in place of the plot -->
+<figure class="x-chart x-stacked-bar-chart" data-view="table" aria-label="Volume by payment method">
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Month</th><th scope="col">Card</th><th scope="col">Bank transfer</th><th scope="col">Wallet</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Jan</th><td data-value="26100">26,100</td><td data-value="11600">11,600</td><td data-value="4300">4,300</td></tr>
+      <tr><th scope="row">Feb</th><td data-value="29800">29,800</td><td data-value="13200">13,200</td><td data-value="5500">5,500</td></tr>
+      <tr><th scope="row">Mar</th><td data-value="28400">28,400</td><td data-value="12900">12,900</td><td data-value="4900">4,900</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<script type="module">
+  import { initStackedBarCharts } from "./stacked-bar-chart.controller.js";
+  initStackedBarCharts();
+</script>

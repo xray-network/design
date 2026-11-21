@@ -1,0 +1,21 @@
+/* Settings: a form in sections, a label column beside each section's controls. Built from Input, Switch and Button. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-settings { display: grid; min-width: 0; container-type: inline-size; }
+  .x-settings-section { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: var(--x-space-6); padding-block: var(--x-space-5); border-top: 1px solid var(--x-border); }
+  .x-settings-section:first-child { padding-top: 0; border-top: 0; }
+  .x-settings-title { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); letter-spacing: var(--x-tracking-tight); }
+  .x-settings-description { margin: var(--x-space-1) 0 0; color: var(--x-fg-3); font-size: var(--x-text-sm); }
+  .x-settings-fields { display: grid; justify-items: start; gap: var(--x-space-4); min-width: 0; }
+  /* Controls keep a readable width however wide the page is. */
+  .x-settings-fields > :is(.x-field, .x-switch, .x-select-native, fieldset) { width: 100%; max-width: 360px; }
+  .x-settings-section[data-tone="danger"] .x-settings-title { color: var(--x-danger-fg); }
+  .x-settings-actions { display: flex; gap: var(--x-space-2); padding: var(--x-space-5) 0 0 calc(200px + var(--x-space-6)); border-top: 1px solid var(--x-border); }
+  /* In a narrow column the explanation sits above its controls. */
+  @container (max-width: 600px) {
+    .x-settings-section { grid-template-columns: minmax(0, 1fr); gap: var(--x-space-3); }
+    .x-settings-actions { padding-inline-start: 0; }
+  }
+}

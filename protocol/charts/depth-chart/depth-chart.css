@@ -1,0 +1,11 @@
+/* DepthChart: An order book as two stepped areas. Requires core/tokens.css and core/chart.css (the frame every chart shares). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-depth-chart { position: relative; }
+  .x-depth-chart-side[data-side="bids"] { --x-depth-chart-color: var(--x-success); }
+  .x-depth-chart-side[data-side="asks"] { --x-depth-chart-color: var(--x-danger); }
+  .x-depth-chart-area { fill: var(--x-depth-chart-color, currentColor); fill-opacity: 0.12; stroke: none; }
+  .x-depth-chart-line { fill: none; stroke: var(--x-depth-chart-color, currentColor); stroke-width: 2; stroke-linejoin: round; }
+}

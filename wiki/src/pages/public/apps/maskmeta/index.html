@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Maskmeta</title>
+  <!-- A showcase app of XRAY/DESIGN: plain HTML on the kit's own CSS and controllers. One file: every screen is
+       a section, shown by the hash (index.html#wallet); ../app.js moves between them with the kit's Screen pattern.
+       Classes that start with x- are kit components, blocks, charts and motion; app- classes are layout only. -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="../app.css">
+  <script type="module" src="../app.js"></script>
+</head>
+<body data-form="mobile">
+  <div class="app-shell">
+    <div class="x-screens app-views">
+      <section class="x-screen app-view" data-screen="wallet" aria-label="Wallet" tabindex="-1">
+<header class="app-bar"><span class="app-title" data-brand>Maskmeta</span><button class="x-icon-button" type="button" aria-label="Receive"><svg class="x-icon" data-icon="qr-code"></svg></button><button class="x-icon-button" type="button" aria-label="Notifications"><svg class="x-icon" data-icon="bell"></svg></button></header>
+      <main class="app-screen">
+        <section class="x-balance" aria-label="Total balance">
+          <div class="x-balance-label">Total balance</div>
+          <span class="x-numeral" data-size="hero"><span class="x-numeral-value">15,971<span class="x-numeral-frac">.81</span></span><span class="x-numeral-ticker">USD</span></span>
+          <div class="x-balance-meta"><span class="x-delta" data-trend="up">+1.6%</span><span class="x-balance-period">today</span></div>
+          <div class="x-balance-actions"><a class="x-button" href="#send">Send</a><button class="x-button" type="button" data-variant="ghost">Receive</button><button class="x-button" type="button" data-variant="ghost">Buy</button></div>
+        </section>
+        <section><figure class="x-chart x-share-bar" aria-label="Portfolio by asset"><table class="x-chart-data"><thead><tr><th scope="col">Asset</th><th scope="col">Value</th></tr></thead><tbody><tr><th scope="row">Bitcoin</th><td data-value="9641">9,641</td></tr><tr><th scope="row">Ether</th><td data-value="4813">4,813</td></tr><tr><th scope="row">USD Coin</th><td data-value="1200">1,200</td></tr><tr><th scope="row">Chainlink</th><td data-value="318">318</td></tr></tbody></table></figure></section>
+        <section><h2 class="app-heading">Assets</h2><div class="x-list x-stagger x-asset-list" role="list" aria-label="Assets"><a class="x-list-row" role="listitem" href="#swap"><span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">B</span><span class="x-list-text"><span class="x-list-title">Bitcoin</span><span class="x-list-sub">0.1 BTC</span></span><span class="x-list-end"><span class="x-list-title">$9,641.21</span><span class="x-list-sub"><span class="x-delta" data-trend="up">+1.8%</span></span></span><span class="x-asset-list-share" style="--x-asset-list-share: 0.6" aria-hidden="true"></span></a><a class="x-list-row" role="listitem" href="#swap"><span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">E</span><span class="x-list-text"><span class="x-list-title">Ether</span><span class="x-list-sub">1.5 ETH</span></span><span class="x-list-end"><span class="x-list-title">$4,812.60</span><span class="x-list-sub"><span class="x-delta" data-trend="up">+2.4%</span></span></span><span class="x-asset-list-share" style="--x-asset-list-share: 0.3" aria-hidden="true"></span></a><a class="x-list-row" role="listitem" href="#swap"><span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">U</span><span class="x-list-text"><span class="x-list-title">USD Coin</span><span class="x-list-sub">1,200 USDC</span></span><span class="x-list-end"><span class="x-list-title">$1,200.00</span><span class="x-list-sub"><span class="x-delta">0.0%</span></span></span><span class="x-asset-list-share" style="--x-asset-list-share: 0.075" aria-hidden="true"></span></a><a class="x-list-row" role="listitem" href="#swap"><span class="x-list-token" style="--x-list-token-bg: var(--x-bg-active); color: var(--x-fg-1)" aria-hidden="true">C</span><span class="x-list-text"><span class="x-list-title">Chainlink</span><span class="x-list-sub">21.4 LINK</span></span><span class="x-list-end"><span class="x-list-title">$318.00</span><span class="x-list-sub"><span class="x-delta" data-trend="up">+0.6%</span></span></span><span class="x-asset-list-share" style="--x-asset-list-share: 0.02" aria-hidden="true"></span></a></div></section>
+      </main>
+      </section>
+      <section class="x-screen app-view" data-screen="send" data-tab="wallet" aria-label="Send" tabindex="-1" hidden>
+<header class="app-bar"><a class="x-icon-button" href="#wallet" aria-label="Back to the wallet"><svg class="x-icon" data-icon="chevron-left"></svg></a><span class="app-title">Send</span></header>
+      <main class="app-screen"><section><form class="x-send-form" data-available="12480.254221" data-ticker="USD">
+  <div class="x-field">
+    <label class="x-field-label" for="send-to">Recipient</label>
+    <div class="x-input x-send-form-address">
+      <input id="send-to" name="to" type="text" placeholder="Email or account ID" autocomplete="off" spellcheck="false" required>
+    </div>
+  </div>
+
+  <div class="x-field">
+    <label class="x-field-label" for="send-amount">Amount</label>
+    <div class="x-input" data-size="lg">
+      <input id="send-amount" name="amount" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off" required data-x-amount aria-describedby="send-amount-hint">
+      <button class="x-button" type="button" data-variant="chip" data-x-max>Max</button>
+      <span class="x-input-affix">USD</span>
+    </div>
+    <p class="x-field-hint" id="send-amount-hint">12,480.25 USD available</p>
+  </div>
+
+  <div class="x-field">
+    <span class="x-field-label" id="send-fee-label">Fee</span>
+    <div class="x-options" role="radiogroup" aria-labelledby="send-fee-label">
+      <label class="x-option">
+        <input type="radio" name="fee" value="slow" data-fee="0.12">
+        <span class="x-option-title">Standard</span><span>2–3 business days</span><span class="x-option-value">Free</span>
+      </label>
+      <label class="x-option">
+        <input type="radio" name="fee" value="standard" data-fee="0.17" checked>
+        <span class="x-option-title">Same day</span><span>Before 6 pm</span><span class="x-option-value">$1.00</span>
+      </label>
+      <label class="x-option">
+        <input type="radio" name="fee" value="fast" data-fee="0.42">
+        <span class="x-option-title">Instant</span><span>In seconds</span><span class="x-option-value">$2.50</span>
+      </label>
+    </div>
+  </div>
+
+  <dl class="x-send-form-summary">
+    <div><dt>Fee</dt><dd data-x-fee>1.00 USD</dd></div>
+    <div><dt>Total</dt><dd><b data-x-total>1.00 USD</b></dd></div>
+  </dl>
+
+  <button class="x-button" type="submit" data-size="lg" data-width="full">Review transaction</button>
+</form></section></main>
+      </section>
+      <section class="x-screen app-view" data-screen="swap" aria-label="Swap" tabindex="-1" hidden>
+<header class="app-bar"><span class="app-title">Swap</span><button class="x-icon-button" type="button" aria-label="Slippage"><svg class="x-icon" data-icon="adjustments-horizontal"></svg></button></header>
+      <main class="app-screen"><section><form class="x-swap">
+  <div class="x-swap-pair">
+    <div class="x-amount" data-max="2.41" data-decimals="8">
+      <div class="x-amount-head">
+        <label class="x-amount-label" for="swap-pay">You pay</label>
+        <span class="x-amount-balance">Balance 2.41 <button class="x-button" type="button" data-variant="chip" data-x-max>Max</button></span>
+      </div>
+      <div class="x-amount-main">
+        <input class="x-amount-input" id="swap-pay" name="pay" type="text" inputmode="decimal" autocomplete="off" placeholder="0" value="1.5" aria-describedby="swap-pay-foot">
+        <button class="x-amount-currency" type="button" aria-label="Change currency, ETH"><span>ETH</span>
+          <svg class="x-amount-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+      </div>
+      <div class="x-amount-foot" id="swap-pay-foot"><span class="x-amount-fiat">≈ $4,812.60</span></div>
+    </div>
+
+    <button class="x-icon-button x-swap-flip" type="button" aria-label="Switch currencies">
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"/></svg>
+    </button>
+
+    <div class="x-amount">
+      <div class="x-amount-head"><label class="x-amount-label" for="swap-receive">You receive</label><span class="x-amount-balance">Balance 120.00</span></div>
+      <div class="x-amount-main">
+        <input class="x-amount-input" id="swap-receive" type="text" inputmode="decimal" value="4802.11" readonly aria-describedby="swap-receive-foot">
+        <button class="x-amount-currency" type="button" aria-label="Change currency, USDC"><span>USDC</span>
+          <svg class="x-amount-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+      </div>
+      <div class="x-amount-foot" id="swap-receive-foot"><span class="x-amount-fiat">≈ $4,802.11</span></div>
+    </div>
+  </div>
+
+  <dl class="x-swap-details">
+    <div><dt>Rate</dt><dd>1 ETH = 3,201.41 USDC</dd></div>
+    <div><dt>Network fee</dt><dd>$1.84</dd></div>
+    <div><dt>Minimum received</dt><dd>4,778.10 USDC</dd></div>
+  </dl>
+
+  <button class="x-button" type="submit" data-size="lg" data-width="full">Review swap</button>
+</form></section></main>
+      </section>
+      <section class="x-screen app-view" data-screen="activity" aria-label="Activity" tabindex="-1" hidden>
+<header class="app-bar"><span class="app-title">Activity</span><button class="x-icon-button" type="button" aria-label="Filter"><svg class="x-icon" data-icon="funnel"></svg></button></header>
+      <main class="app-screen"><section><section class="x-transactions" aria-label="Recent activity">
+  <div class="x-transactions-head">
+    <h2>Recent activity</h2>
+  </div>
+  <div class="x-chips" role="radiogroup" aria-label="Transaction type">
+    <label class="x-chip"><input type="radio" name="tx-kind" value="all" checked><span>All</span></label>
+    <label class="x-chip"><input type="radio" name="tx-kind" value="sent"><span>Sent<i>2</i></span></label>
+    <label class="x-chip"><input type="radio" name="tx-kind" value="received"><span>Received<i>2</i></span></label>
+    <label class="x-chip"><input type="radio" name="tx-kind" value="refund"><span>Refunds<i>1</i></span></label>
+  </div>
+  <div class="x-transactions-days">
+    <div class="x-list x-transactions-day" role="list" aria-label="Today">
+      <div class="x-list-heading">Today</div>
+      <a class="x-list-row" href="#tx" role="listitem" data-kind="received">
+        <span class="x-list-icon" data-tone="positive" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M19.5 4.5l-15 15m0 0h11.25m-11.25 0V8.25"/></svg></span>
+        <span class="x-list-text"><span class="x-list-title">Received</span><span class="x-list-sub">14:02 · from Jane Cooper</span></span>
+        <span class="x-list-end" data-tone="positive"><span class="x-list-title">+$250.00</span><span class="x-list-sub">$175.00</span></span>
+      </a>
+      <a class="x-list-row" href="#tx" role="listitem" data-kind="sent">
+        <span class="x-list-icon" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg></span>
+        <span class="x-list-text"><span class="x-list-title">Sent</span><span class="x-list-sub">09:17 · to Acme Inc.</span></span>
+        <span class="x-list-end"><span class="x-list-title">−$42.17</span><span class="x-list-sub">$29.52</span></span>
+      </a>
+    </div>
+    <div class="x-list x-transactions-day" role="list" aria-label="Yesterday">
+      <div class="x-list-heading">Yesterday</div>
+      <a class="x-list-row" href="#tx" role="listitem" data-kind="refund">
+        <span class="x-list-icon" data-tone="positive" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg></span>
+        <span class="x-list-text"><span class="x-list-title">Refund</span><span class="x-list-sub">21:44 · Order #1042</span></span>
+        <span class="x-list-end" data-tone="positive"><span class="x-list-title">+$12.40</span><span class="x-list-sub">$8.68</span></span>
+      </a>
+      <a class="x-list-row" href="#tx" role="listitem" data-kind="sent">
+        <span class="x-list-icon" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg></span>
+        <span class="x-list-text"><span class="x-list-title">Sent</span><span class="x-list-sub">08:03 · to Robert Fox</span></span>
+        <span class="x-list-end"><span class="x-list-title">−$1,000.00</span><span class="x-list-sub">$700.00</span></span>
+      </a>
+    </div>
+    <div class="x-list x-transactions-day" role="list" aria-label="Nov 9">
+      <div class="x-list-heading">Nov 9</div>
+      <a class="x-list-row" href="#tx" role="listitem" data-kind="received">
+        <span class="x-list-icon" data-tone="positive" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24"><path d="M19.5 4.5l-15 15m0 0h11.25m-11.25 0V8.25"/></svg></span>
+        <span class="x-list-text"><span class="x-list-title">Received</span><span class="x-list-sub">11:50 · from Northwind</span></span>
+        <span class="x-list-end" data-tone="positive"><span class="x-list-title">+$75.50</span><span class="x-list-sub">$52.85</span></span>
+      </a>
+    </div>
+  </div>
+  <p class="x-transactions-empty" hidden>No transactions yet</p>
+  <div class="x-transactions-foot">
+    <form class="x-pagination" method="get" role="navigation" aria-label="Transaction pages">
+      <span class="x-pagination-control">
+        <a class="x-pagination-step" aria-disabled="true" aria-label="Previous page"><svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 19.5 8.25 12l7.5-7.5"/></svg></a>
+        <input class="x-pagination-input" type="number" inputmode="numeric" name="page" value="1" min="1" max="10" aria-label="Page number">
+        <a class="x-pagination-step" href="?page=2" aria-label="Next page"><svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg></a>
+      </span>
+      <span class="x-pagination-count">10 pages · 48 items</span>
+    </form>
+  </div>
+</section></section></main>
+      </section>
+    </div>
+    <footer class="x-tab-bar">
+      <nav class="x-liquid-indicator" aria-label="Maskmeta" data-width="full" data-layout="stack"><a class="x-liquid-indicator-item" href="#wallet" aria-current="page"><svg class="x-icon" data-icon="wallet"></svg><span>Wallet</span></a><a class="x-liquid-indicator-item" href="#swap"><svg class="x-icon" data-icon="arrows-right-left"></svg><span>Swap</span></a><a class="x-liquid-indicator-item" href="#activity"><svg class="x-icon" data-icon="clock"></svg><span>Activity</span></a><span class="x-liquid-indicator-pill" aria-hidden="true"></span></nav>
+    </footer>
+  </div>
+</body>
+</html>

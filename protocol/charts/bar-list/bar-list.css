@@ -1,0 +1,28 @@
+/* BarList: amounts compared across named things, each row a line of text over a slim bar.
+   Requires core/tokens.css and core/chart.css (the frame every chart shares). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-bar-list {
+    --x-bar-list-thick: var(--x-space-1-5);
+    --x-bar-list-color: var(--x-chart-1);
+
+    position: relative;
+  }
+  .x-bar-list-rows { display: grid; margin: 0; padding: 0; list-style: none; }
+  /* Rows touch, and their air is padding: the pointer is always over one of them, so the step back never flickers. */
+  .x-bar-list-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: var(--x-space-2) var(--x-space-4); padding-block: var(--x-space-2-5); font-size: var(--x-text-sm); }
+  .x-bar-list-row:first-child { padding-top: 0; }
+  .x-bar-list-row:last-child { padding-bottom: 0; }
+  .x-bar-list-name { min-width: 0; overflow: hidden; color: var(--x-fg-1); font-weight: var(--x-weight-body); text-overflow: ellipsis; white-space: nowrap; }
+  .x-bar-list-value { color: var(--x-fg-2); font-weight: var(--x-weight-label); font-variant-numeric: tabular-nums; text-align: end; transition: color var(--x-duration-fast) var(--x-ease); }
+
+  /* Slim and round, like the kit's bars: the color is a stroke, not a block. The track is the whole scale. */
+  .x-bar-list-track { grid-column: 1 / -1; display: block; height: var(--x-bar-list-thick); border-radius: var(--x-radius-pill); background: var(--x-bg-soft); }
+  .x-bar-list-bar { display: block; min-width: var(--x-bar-list-thick); height: 100%; border-radius: inherit; background: var(--x-bar-list-color); transition: opacity var(--x-duration-fast) var(--x-ease); }
+
+  /* The row being read keeps its color and its value brightens; the others step back a little. */
+  .x-bar-list-rows:hover .x-bar-list-row:not(:hover) .x-bar-list-bar { opacity: 0.55; }
+  .x-bar-list-row:hover .x-bar-list-value { color: var(--x-fg-1); }
+}

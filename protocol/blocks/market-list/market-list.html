@@ -1,0 +1,25 @@
+<!-- MarketList: List, the Tag component's delta, and the Sparkline chart. sparkline.controller.js draws the lines. -->
+<div class="x-list x-market-list" role="list" aria-label="Markets">
+  <a class="x-list-row" role="listitem" href="#btc">
+    <span class="x-list-token" aria-hidden="true">B</span>
+    <span class="x-list-text"><span class="x-list-title">BTC</span><span class="x-list-sub">Bitcoin</span></span>
+    <span class="x-market-list-trend"><span class="x-sparkline" data-trend="up" data-values="92 93 91 94 95 94 96" role="img" aria-label="Up over 7 days"></span></span>
+    <span class="x-list-end"><span class="x-list-title">$96,412.10</span><span class="x-list-sub"><span class="x-delta" data-trend="up">+1.8%</span></span></span>
+  </a>
+  <a class="x-list-row" role="listitem" href="#sol">
+    <span class="x-list-token" aria-hidden="true">S</span>
+    <span class="x-list-text"><span class="x-list-title">SOL</span><span class="x-list-sub">Solana</span></span>
+    <span class="x-market-list-trend"><span class="x-sparkline" data-trend="down" data-values="201 198 199 194 190 188 187" role="img" aria-label="Down over 7 days"></span></span>
+    <span class="x-list-end"><span class="x-list-title">$187.52</span><span class="x-list-sub"><span class="x-delta" data-trend="down">−3.1%</span></span></span>
+  </a>
+  <button class="x-list-row" role="listitem" type="button">
+    <span class="x-list-token" aria-hidden="true">U</span>
+    <span class="x-list-text"><span class="x-list-title">USDC</span><span class="x-list-sub">USD Coin</span></span>
+    <span class="x-list-end"><span class="x-list-title">$1.00</span><span class="x-list-sub"><span class="x-delta">0.0%</span></span></span>
+  </button>
+</div>
+
+<script type="module">
+  import { initSparklines } from "../../charts/sparkline/sparkline.controller.js";
+  initSparklines();
+</script>

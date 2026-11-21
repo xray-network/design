@@ -1,0 +1,36 @@
+<!-- Bar chart: bar-chart.controller.js draws the table as columns, one per series in each category. The table is
+     the data and the accessible view. Needs core/chart.css as well as its own. -->
+<figure class="x-chart x-bar-chart">
+  <figcaption class="x-chart-title">Payouts and refunds</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Month</th><th scope="col">Payouts</th><th scope="col">Refunds</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Jan</th><td data-value="18200">18,200</td><td data-value="1200">1,200</td></tr>
+      <tr><th scope="row">Feb</th><td data-value="21400">21,400</td><td data-value="900">900</td></tr>
+      <tr><th scope="row">Mar</th><td data-value="19800">19,800</td><td data-value="1500">1,500</td></tr>
+      <tr><th scope="row">Apr</th><td data-value="24100">24,100</td><td data-value="1100">1,100</td></tr>
+      <tr><th scope="row">May</th><td data-value="26500">26,500</td><td data-value="800">800</td></tr>
+      <tr><th scope="row">Jun</th><td data-value="25200">25,200</td><td data-value="1300">1,300</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- One series, with the table shown in place of the plot -->
+<figure class="x-chart x-bar-chart" data-height="160" data-view="table" aria-label="New customers per month">
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Month</th><th scope="col">Customers</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Jan</th><td data-value="38">38</td></tr>
+      <tr><th scope="row">Feb</th><td data-value="52">52</td></tr>
+      <tr><th scope="row">Mar</th><td data-value="47">47</td></tr>
+      <tr><th scope="row">Apr</th><td data-value="61">61</td></tr>
+      <tr><th scope="row">May</th><td data-value="58">58</td></tr>
+      <tr><th scope="row">Jun</th><td data-value="73">73</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<script type="module">
+  import { initBarCharts } from "./bar-chart.controller.js";
+  initBarCharts();
+</script>

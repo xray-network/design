@@ -1,0 +1,43 @@
+<!-- Settings: Input, Switch and Button here; any form control fits a section. No JS: it is a form. -->
+<form class="x-settings">
+  <section class="x-settings-section" aria-labelledby="settings-profile">
+    <div class="x-settings-about">
+      <h2 class="x-settings-title" id="settings-profile">Profile</h2>
+      <p class="x-settings-description">Shown on receipts and invoices.</p>
+    </div>
+    <div class="x-settings-fields">
+      <div class="x-field">
+        <label class="x-field-label" for="settings-name">Business name</label>
+        <div class="x-input"><input id="settings-name" type="text" value="Acme Studio" autocomplete="off"></div>
+      </div>
+      <div class="x-field">
+        <label class="x-field-label" for="settings-email">Email</label>
+        <div class="x-input"><input id="settings-email" type="email" value="billing@acme.studio" autocomplete="off" aria-describedby="settings-email-hint"></div>
+        <p class="x-field-hint" id="settings-email-hint">We send receipts and alerts here.</p>
+      </div>
+    </div>
+  </section>
+  <section class="x-settings-section" aria-labelledby="settings-security">
+    <div class="x-settings-about">
+      <h2 class="x-settings-title" id="settings-security">Security</h2>
+      <p class="x-settings-description">Who can get in, and how.</p>
+    </div>
+    <div class="x-settings-fields">
+      <label class="x-switch" data-label="start"><input type="checkbox" role="switch" checked><span class="x-switch-track" aria-hidden="true"><span class="x-switch-thumb"></span></span><span class="x-switch-label">Two-step sign-in</span></label>
+      <label class="x-switch" data-label="start"><input type="checkbox" role="switch"><span class="x-switch-track" aria-hidden="true"><span class="x-switch-thumb"></span></span><span class="x-switch-label">Sign out after 30 minutes</span></label>
+    </div>
+  </section>
+  <section class="x-settings-section" data-tone="danger" aria-labelledby="settings-danger">
+    <div class="x-settings-about">
+      <h2 class="x-settings-title" id="settings-danger">Danger zone</h2>
+      <p class="x-settings-description">These cannot be undone.</p>
+    </div>
+    <div class="x-settings-fields">
+      <button class="x-button" type="button" data-variant="danger" data-size="sm">Close account</button>
+    </div>
+  </section>
+  <div class="x-settings-actions">
+    <button class="x-button" type="submit" data-size="sm">Save changes</button>
+    <button class="x-button" type="reset" data-variant="ghost" data-size="sm">Cancel</button>
+  </div>
+</form>

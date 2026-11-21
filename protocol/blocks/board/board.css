@@ -1,0 +1,22 @@
+/* Board: columns of cards, one column per state. Built from Tag, Avatar and Button. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 1fr); align-items: start; gap: var(--x-space-3); min-width: 0; overflow-x: auto; scrollbar-width: thin; }
+  .x-board-column { display: grid; gap: var(--x-space-2); min-width: 0; padding: var(--x-space-2); border: 1px solid var(--x-border); border-radius: var(--x-radius-2xl); background: var(--x-bg-faint); }
+  .x-board-head { display: flex; align-items: center; gap: var(--x-space-2); min-height: var(--x-size-sm); padding-inline: var(--x-space-1-5) 0; }
+  .x-board-title { margin: 0; overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); text-overflow: ellipsis; white-space: nowrap; }
+  .x-board-count { flex: 1; color: var(--x-fg-3); font-size: var(--x-text-sm); font-variant-numeric: tabular-nums; }
+  .x-board-cards { display: grid; gap: var(--x-space-2); margin: 0; padding: 0; list-style: none; }
+  .x-board-card { display: grid; gap: var(--x-space-2); width: 100%; padding: var(--x-space-3); border: 1px solid var(--x-border); border-radius: var(--x-radius-xl); background: var(--x-bg-panel); color: var(--x-fg-1); font: var(--x-weight-body) var(--x-text-sm) / 1.4 var(--x-font-sans); text-align: start; text-decoration: none; cursor: pointer; transition: border-color var(--x-duration-fast) var(--x-ease); }
+  .x-board-card:hover { border-color: var(--x-border-hover); }
+  .x-board-card:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 2px; }
+  .x-board-key { color: var(--x-fg-3); font: var(--x-weight-body) var(--x-text-xs) / 1.2 var(--x-font-mono); }
+  .x-board-name { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+  .x-board-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--x-space-2); min-height: var(--x-size-xs); }
+  .x-board-tags { display: flex; flex-wrap: wrap; gap: var(--x-space-1); min-width: 0; }
+  .x-board-foot > .x-avatar { --x-avatar-size: var(--x-size-xs); flex: none; margin-inline-start: auto; }
+  /* A column with nothing in it keeps its place and says so. */
+  .x-board-empty { margin: 0; padding: var(--x-space-4) var(--x-space-2); color: var(--x-fg-3); font-size: var(--x-text-sm); text-align: center; }
+}

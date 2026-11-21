@@ -1,0 +1,18 @@
+---
+title: Viewtrad App
+outline: false
+---
+
+import { AppShowcase, AppParts } from "../../showcase/Apps"
+
+# Viewtrad App
+
+<AppShowcase id="viewtrad" />
+
+A markets terminal in three screens. Markets is a ChartCard of the portfolio over the MarketList block and a DonutChart; a market is a ChartCard with a CandlestickChart, then the OrderBook block beside a DepthChart of the same orders; Map is a Treemap of the largest S&P 500 companies, sized by market cap and colored by the day's move. The figures are samples, not live quotes.
+
+The app is one static HTML page on the kit's own CSS and controllers: every screen is a section, and the tabs in
+the TopBar block move between them with the Screen pattern. It is designed 740px wide and is framed here at 640px.
+**Open** shows a screen on its own; **Copy prompt** gives your agent that page to rebuild in your project.
+
+<AppParts id="viewtrad" />

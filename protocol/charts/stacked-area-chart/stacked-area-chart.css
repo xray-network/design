@@ -1,0 +1,9 @@
+/* StackedAreaChart: A total over time as bands laid on each other. Requires core/tokens.css and core/chart.css (the frame every chart shares). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-stacked-area-chart { position: relative; }
+  .x-stacked-area-chart-band { fill: var(--x-chart-color, currentColor); fill-opacity: 0.16; stroke: none; }
+  .x-stacked-area-chart-line { fill: none; stroke: var(--x-chart-color, currentColor); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+}

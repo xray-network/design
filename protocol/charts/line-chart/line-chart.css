@@ -1,0 +1,14 @@
+/* Line chart: one line per series. Requires core/tokens.css and core/chart.css (the frame every chart shares). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-line-chart { position: relative; }
+  .x-line-chart-line { fill: none; stroke: var(--x-chart-color, currentColor); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  /* A wash of the series color, never a block of it. */
+  .x-line-chart-area { fill: var(--x-chart-color, currentColor); fill-opacity: 0.1; stroke: none; }
+  /* A ring in the surface color keeps a dot readable where it sits on a line or on another dot. */
+  .x-line-chart-dot { fill: var(--x-chart-color, currentColor); stroke: var(--x-chart-surface, var(--x-bg)); stroke-width: 2; }
+  /* The readout's dots ride along their lines with the crosshair. */
+  .x-line-chart-dot[data-readout] { transition: translate var(--x-duration-fast) var(--x-ease); pointer-events: none; }
+}

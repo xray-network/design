@@ -1,0 +1,35 @@
+<!-- Scatter Chart: scatter-chart.controller.js draws the table. The table is the data and the accessible view; without JavaScript it
+     simply shows. Needs core/chart.css as well as its own. -->
+<figure class="x-chart x-scatter-chart">
+  <figcaption class="x-chart-title">Orders and revenue per customer</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Customer</th><th scope="col">Orders</th><th scope="col">Revenue</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Acme Studio</th><td data-value="42">42</td><td data-value="18400">18,400</td></tr>
+      <tr><th scope="row">Northwind</th><td data-value="31">31</td><td data-value="12100">12,100</td></tr>
+      <tr><th scope="row">Delta Works</th><td data-value="58">58</td><td data-value="26300">26,300</td></tr>
+      <tr><th scope="row">Mira Lindqvist</th><td data-value="6">6</td><td data-value="1900">1,900</td></tr>
+      <tr><th scope="row">Kai Nakamura</th><td data-value="12">12</td><td data-value="3600">3,600</td></tr>
+      <tr><th scope="row">Harbour Co</th><td data-value="24">24</td><td data-value="14800">14,800</td></tr>
+      <tr><th scope="row">Orchard Ltd</th><td data-value="37">37</td><td data-value="13900">13,900</td></tr>
+      <tr><th scope="row">Glacier Inc</th><td data-value="49">49</td><td data-value="19700">19,700</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- With the table shown in place of the plot -->
+<figure class="x-chart x-scatter-chart" data-view="table" aria-label="Orders and revenue per customer">
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Customer</th><th scope="col">Orders</th><th scope="col">Revenue</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Acme Studio</th><td data-value="42">42</td><td data-value="18400">18,400</td></tr>
+      <tr><th scope="row">Northwind</th><td data-value="31">31</td><td data-value="12100">12,100</td></tr>
+      <tr><th scope="row">Delta Works</th><td data-value="58">58</td><td data-value="26300">26,300</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<script type="module">
+  import { initScatterCharts } from "./scatter-chart.controller.js";
+  initScatterCharts();
+</script>

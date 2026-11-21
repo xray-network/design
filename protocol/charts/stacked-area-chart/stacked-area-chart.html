@@ -1,0 +1,33 @@
+<!-- Stacked Area Chart: stacked-area-chart.controller.js draws the table. The table is the data and the accessible view; without JavaScript it
+     simply shows. Needs core/chart.css as well as its own. -->
+<figure class="x-chart x-stacked-area-chart">
+  <figcaption class="x-chart-title">Balance by account</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Month</th><th scope="col">Main</th><th scope="col">Savings</th><th scope="col">Trading</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Jan</th><td data-value="8200">8,200</td><td data-value="31000">31,000</td><td data-value="5200">5,200</td></tr>
+      <tr><th scope="row">Feb</th><td data-value="9100">9,100</td><td data-value="33500">33,500</td><td data-value="6900">6,900</td></tr>
+      <tr><th scope="row">Mar</th><td data-value="8700">8,700</td><td data-value="36200">36,200</td><td data-value="6100">6,100</td></tr>
+      <tr><th scope="row">Apr</th><td data-value="10400">10,400</td><td data-value="40100">40,100</td><td data-value="7800">7,800</td></tr>
+      <tr><th scope="row">May</th><td data-value="11800">11,800</td><td data-value="44800">44,800</td><td data-value="9100">9,100</td></tr>
+      <tr><th scope="row">Jun</th><td data-value="12480">12,480</td><td data-value="48300">48,300</td><td data-value="9640">9,640</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- With the table shown in place of the plot -->
+<figure class="x-chart x-stacked-area-chart" data-view="table" aria-label="Balance by account">
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Month</th><th scope="col">Main</th><th scope="col">Savings</th><th scope="col">Trading</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Jan</th><td data-value="8200">8,200</td><td data-value="31000">31,000</td><td data-value="5200">5,200</td></tr>
+      <tr><th scope="row">Feb</th><td data-value="9100">9,100</td><td data-value="33500">33,500</td><td data-value="6900">6,900</td></tr>
+      <tr><th scope="row">Mar</th><td data-value="8700">8,700</td><td data-value="36200">36,200</td><td data-value="6100">6,100</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<script type="module">
+  import { initStackedAreaCharts } from "./stacked-area-chart.controller.js";
+  initStackedAreaCharts();
+</script>

@@ -1,18 +1,18 @@
 ---
-title: Nancbin
+title: Nancbin App
 outline: false
 ---
 
 import { AppShowcase, AppParts } from "../../showcase/Apps"
 
-# Nancbin
+# Nancbin App
 
 <AppShowcase id="nancbin" />
 
-An exchange in three screens. Markets is a Segmented filter over List rows with prices and changes; Trade is a price with its period switch and the Swap block; the wallet is the Balance block over the asset list.
+An exchange in three screens. Markets is a Segmented filter over the MarketList block, each market with its Sparkline; Trade is a price, a LineChart and the Swap block; the wallet is the Balance block over the AssetList block, each holding with its share of the whole.
 
-Every screen is a static HTML page on the kit's own CSS and controllers. The bottom tabs are a LiquidIndicator
-and link the screens to each other, so each frame is a working app. **Open** shows a screen on its own; **Copy
-prompt** gives your agent that page to rebuild in your project.
+The app is one static HTML page on the kit's own CSS and controllers: every screen is a section, and the bottom
+tabs are the TabBar block, a LiquidIndicator that moves between them with the Screen pattern, so nothing reloads.
+**Open** shows a screen on its own; **Copy prompt** gives your agent that page to rebuild in your project.
 
 <AppParts id="nancbin" />

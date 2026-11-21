@@ -1,0 +1,48 @@
+<!-- Treemap: treemap.controller.js draws the table. The table is the data and the accessible view; without JavaScript it
+     simply shows. Needs core/chart.css as well as its own. -->
+<figure class="x-chart x-treemap">
+  <figcaption class="x-chart-title">Holdings</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Asset</th><th scope="col">Value</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Wrapped Bitcoin</th><td data-value="9640">9,640</td></tr>
+      <tr><th scope="row">Ether</th><td data-value="4812">4,812</td></tr>
+      <tr><th scope="row">Solana</th><td data-value="1875">1,875</td></tr>
+      <tr><th scope="row">USD Coin</th><td data-value="1200">1,200</td></tr>
+      <tr><th scope="row">Dai</th><td data-value="540">540</td></tr>
+      <tr><th scope="row">Chainlink</th><td data-value="318">318</td></tr>
+      <tr><th scope="row">Aave</th><td data-value="212">212</td></tr>
+      <tr><th scope="row">Uniswap</th><td data-value="96">96</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- A market map: a second column says how each part moved, and colors the tiles -->
+<figure class="x-chart x-treemap">
+  <figcaption class="x-chart-title">Largest companies</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Company</th><th scope="col">Market cap</th><th scope="col">Today</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">NVDA</th><td data-value="4300">4,300</td><td>+3.4%</td></tr>
+      <tr><th scope="row">MSFT</th><td data-value="3800">3,800</td><td>+1.2%</td></tr>
+      <tr><th scope="row">AAPL</th><td data-value="3500">3,500</td><td>+0.8%</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- With the table shown in place of the plot -->
+<figure class="x-chart x-treemap" data-view="table" aria-label="Holdings">
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Asset</th><th scope="col">Value</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Wrapped Bitcoin</th><td data-value="9640">9,640</td></tr>
+      <tr><th scope="row">Ether</th><td data-value="4812">4,812</td></tr>
+      <tr><th scope="row">Solana</th><td data-value="1875">1,875</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<script type="module">
+  import { initTreemaps } from "./treemap.controller.js";
+  initTreemaps();
+</script>

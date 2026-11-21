@@ -1,0 +1,12 @@
+/* CandlestickChart: A price over periods. Requires core/tokens.css and core/chart.css (the frame every chart shares). */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-candlestick-chart { position: relative; }
+  .x-candlestick-chart-candle[data-trend="up"] { --x-candlestick-chart-color: var(--x-success); }
+  .x-candlestick-chart-candle[data-trend="down"] { --x-candlestick-chart-color: var(--x-danger); }
+  .x-candlestick-chart-wick { stroke: var(--x-candlestick-chart-color, currentColor); stroke-width: 1; shape-rendering: crispEdges; }
+  .x-candlestick-chart-body { fill: var(--x-candlestick-chart-color, currentColor); }
+  .x-candlestick-chart-band { fill: var(--x-bg-soft); pointer-events: none; transition: translate var(--x-duration-fast) var(--x-ease); }
+}

@@ -1,0 +1,14 @@
+/* MarketList: assets with a trend line, a price and its change. Built from List and Tag (the delta), with a Sparkline. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-market-list { container-type: inline-size; }
+  /* The trend line: a Sparkline, 72px wide. Give it its direction (data-trend), and it takes that color; the number
+     beside it says the same in text. */
+  .x-market-list-trend { display: grid; flex: none; width: 72px; }
+  .x-market-list-trend > .x-sparkline { width: 100%; }
+  .x-market-list .x-list-end { min-width: 84px; }
+  /* No room for it: the trend line goes, the price and its change stay. */
+  @container (max-width: 280px) { .x-market-list-trend { display: none; } }
+}

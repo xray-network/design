@@ -1,0 +1,49 @@
+<!-- RecordDetail: Tag, Button and Timeline. No JS. -->
+<article class="x-record-detail" aria-labelledby="record-title">
+  <header class="x-record-detail-head">
+    <div class="x-record-detail-id">
+      <div class="x-record-detail-line">
+        <h2 class="x-record-detail-title" id="record-title">$1,200.00</h2>
+        <span class="x-tag" data-size="sm" data-tone="success"><span class="x-status-dot" aria-hidden="true"></span>Succeeded</span>
+      </div>
+      <p class="x-record-detail-sub">Payment from Acme Studio · Today, 09:41</p>
+    </div>
+    <div class="x-record-detail-actions">
+      <button class="x-button" type="button" data-variant="ghost" data-size="sm">Send receipt</button>
+      <button class="x-button" type="button" data-variant="ghost" data-size="sm">Refund</button>
+    </div>
+  </header>
+  <dl class="x-record-detail-facts">
+    <div class="x-record-detail-fact"><dt>Payment ID</dt><dd>pi_3Q4821</dd></div>
+    <div class="x-record-detail-fact"><dt>Customer</dt><dd>Acme Studio</dd></div>
+    <div class="x-record-detail-fact"><dt>Method</dt><dd>Visa ···· 4821</dd></div>
+    <div class="x-record-detail-fact"><dt>Fee</dt><dd>$35.10 (2.9% + 30¢)</dd></div>
+    <div class="x-record-detail-fact"><dt>Net</dt><dd>$1,164.90, paid out tomorrow</dd></div>
+  </dl>
+  <section class="x-record-detail-section" aria-labelledby="record-timeline">
+    <h3 class="x-record-detail-heading" id="record-timeline">Timeline</h3>
+    <ol class="x-timeline">
+      <li class="x-timeline-item" data-tone="success">
+        <span class="x-timeline-dot" aria-hidden="true"></span>
+        <div class="x-timeline-content"><div class="x-timeline-head"><span class="x-timeline-title">Payment succeeded</span><time class="x-timeline-time" datetime="2026-11-21T09:41">09:41</time></div></div>
+      </li>
+      <li class="x-timeline-item">
+        <span class="x-timeline-dot" aria-hidden="true"></span>
+        <div class="x-timeline-content"><div class="x-timeline-head"><span class="x-timeline-title">Payment started</span><time class="x-timeline-time" datetime="2026-11-21T09:40">09:40</time></div><p class="x-timeline-text">Checkout on acme.studio</p></div>
+      </li>
+    </ol>
+  </section>
+</article>
+
+<!-- Loading -->
+<article class="x-record-detail" aria-label="Payment" aria-busy="true">
+  <header class="x-record-detail-head">
+    <div class="x-record-detail-id">
+      <div class="x-record-detail-line"><h2 class="x-record-detail-title"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 5em"></span></h2></div>
+      <p class="x-record-detail-sub"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 14em"></span></p>
+    </div>
+  </header>
+  <dl class="x-record-detail-facts">
+    <div class="x-record-detail-fact"><dt>Payment ID</dt><dd><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 8em"></span></dd></div>
+  </dl>
+</article>

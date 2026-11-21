@@ -1,0 +1,22 @@
+/* Composer: a growing text box with tools, a count and a send button. Built from Button and Avatar. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-composer { display: flex; align-items: flex-start; gap: var(--x-space-3); min-width: 0; padding: var(--x-space-3); border: 1px solid var(--x-border); border-radius: var(--x-radius-2xl); background: var(--x-bg-panel); transition: border-color var(--x-duration-fast) var(--x-ease); }
+  .x-composer:focus-within { border-color: var(--x-border-hover); }
+  .x-composer-lead { flex: none; }
+  .x-composer-body { display: grid; flex: 1; gap: var(--x-space-2); min-width: 0; }
+  .x-composer-input { display: block; width: 100%; min-height: var(--x-size-md); max-height: 240px; padding: var(--x-space-2) 0; border: 0; outline: 0; background: none; color: var(--x-fg-1); font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans); resize: none; field-sizing: content; }
+  .x-composer-input::placeholder { color: var(--x-fg-4); }
+  .x-composer-foot { display: flex; align-items: center; gap: var(--x-space-2); }
+  .x-composer-tools { display: flex; flex: 1; gap: var(--x-space-0-5); min-width: 0; margin-inline-start: calc(var(--x-space-1-5) * -1); }
+  .x-composer-count { margin-inline-start: auto; color: var(--x-fg-3); font-size: var(--x-text-xs); font-variant-numeric: tabular-nums; }
+  .x-composer[data-over] .x-composer-count { color: var(--x-danger-fg); }
+
+  /* A reply box: one line, the button beside the text. */
+  .x-composer[data-variant="inline"] { align-items: center; padding: var(--x-space-1-5) var(--x-space-1-5) var(--x-space-1-5) var(--x-space-3); }
+  .x-composer[data-variant="inline"] > .x-composer-body { display: flex; align-items: flex-end; }
+  .x-composer[data-variant="inline"] .x-composer-input { flex: 1; min-height: var(--x-size-sm); padding-block: var(--x-space-1-5); }
+  .x-composer[data-variant="inline"] .x-composer-foot { flex: none; }
+}

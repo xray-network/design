@@ -1,0 +1,51 @@
+/* Pager: pages side by side that are swiped through and snap into place. Requires core/tokens.css and
+   core/motion.js, through pager.controller.js or the React component. The movement is the browser's own scrolling. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-pager { display: grid; gap: var(--x-space-3); min-width: 0; }
+
+  /* The track scrolls sideways and stops on a page: the snapping, the momentum and the rubber band at the ends
+     are the platform's, so they feel the way every other scroll on the device does. */
+  .x-pager-track {
+    --x-pager-gap: var(--x-space-3);
+
+    display: flex;
+    gap: var(--x-pager-gap);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    list-style: none;
+  }
+  .x-pager-track::-webkit-scrollbar { display: none; }
+  /* A mouse can drag the track. While it is held, the track follows the pointer freely: snapping waits. */
+  @media (hover: hover) and (pointer: fine) {
+    .x-pager-track { cursor: grab; }
+  }
+  .x-pager-track[data-dragging] { scroll-snap-type: none; cursor: grabbing; user-select: none; -webkit-user-select: none; }
+  .x-pager-track:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 2px; border-radius: var(--x-radius-md); }
+  .x-pager-page { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
+  /* Peek: a page is narrower than the track, so the next one shows at the edge and says there is more. */
+  .x-pager[data-peek] .x-pager-page { flex-basis: 84%; }
+
+  /* The dots: one per page, the current one wider. They are buttons: a press goes to the page. */
+  .x-pager-dots { display: flex; justify-content: center; gap: var(--x-space-1-5); }
+  .x-pager-dot {
+    width: 6px;
+    height: 6px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--x-radius-pill);
+    background: var(--x-fg-4);
+    cursor: pointer;
+    transition: width var(--x-spring-duration) var(--x-spring), background-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-pager-dot:hover { background: var(--x-fg-3); }
+  .x-pager-dot[aria-current="true"] { width: 18px; background: var(--x-fg-1); }
+  .x-pager-dot:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 3px; }
+}

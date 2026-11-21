@@ -1,0 +1,27 @@
+<!-- Pager: the track is a native scroller that snaps to its pages. pager.controller.js keeps the dots in step,
+     moves the track when a dot is pressed, and fires "change" ({ index }) on the root. -->
+<div class="x-pager" role="group" aria-roledescription="carousel" aria-label="What is new">
+  <ul class="x-pager-track" tabindex="0">
+    <li class="x-pager-page" role="group" aria-roledescription="slide" aria-label="1 of 3">Payouts in 30 countries</li>
+    <li class="x-pager-page" role="group" aria-roledescription="slide" aria-label="2 of 3">Invoices in your own name</li>
+    <li class="x-pager-page" role="group" aria-roledescription="slide" aria-label="3 of 3">Reports every Monday</li>
+  </ul>
+  <div class="x-pager-dots">
+    <button class="x-pager-dot" type="button" aria-label="Page 1" aria-current="true"></button>
+    <button class="x-pager-dot" type="button" aria-label="Page 2"></button>
+    <button class="x-pager-dot" type="button" aria-label="Page 3"></button>
+  </div>
+</div>
+
+<!-- Peek: the next page shows at the edge -->
+<div class="x-pager" data-peek="" role="group" aria-roledescription="carousel" aria-label="Cards">
+  <ul class="x-pager-track" tabindex="0">
+    <li class="x-pager-page" role="group" aria-roledescription="slide" aria-label="1 of 2">Card ···· 4821</li>
+    <li class="x-pager-page" role="group" aria-roledescription="slide" aria-label="2 of 2">Card ···· 0077</li>
+  </ul>
+</div>
+
+<script type="module">
+  import { initPagers } from "./pager.controller.js";
+  initPagers();
+</script>

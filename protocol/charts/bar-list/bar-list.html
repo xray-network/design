@@ -1,0 +1,32 @@
+<!-- Bar List: bar-list.controller.js draws the table. The table is the data and the accessible view; without JavaScript it
+     simply shows. Needs core/chart.css as well as its own. -->
+<figure class="x-chart x-bar-list">
+  <figcaption class="x-chart-title">Requests by endpoint</figcaption>
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Endpoint</th><th scope="col">Requests</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">/v1/accounts</th><td data-value="18420">18,420</td></tr>
+      <tr><th scope="row">/v1/transactions</th><td data-value="12904">12,904</td></tr>
+      <tr><th scope="row">/v1/transfers</th><td data-value="3118">3,118</td></tr>
+      <tr><th scope="row">/v1/webhooks</th><td data-value="1206">1,206</td></tr>
+      <tr><th scope="row">/v1/customers/search</th><td data-value="842">842</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<!-- With the table shown in place of the plot -->
+<figure class="x-chart x-bar-list" data-view="table" aria-label="Requests by endpoint">
+  <table class="x-chart-data">
+    <thead><tr><th scope="col">Endpoint</th><th scope="col">Requests</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">/v1/accounts</th><td data-value="18420">18,420</td></tr>
+      <tr><th scope="row">/v1/transactions</th><td data-value="12904">12,904</td></tr>
+      <tr><th scope="row">/v1/transfers</th><td data-value="3118">3,118</td></tr>
+    </tbody>
+  </table>
+</figure>
+
+<script type="module">
+  import { initBarLists } from "./bar-list.controller.js";
+  initBarLists();
+</script>

@@ -29,8 +29,13 @@ import { CodeBlock, HeroArtwork, HeroLinks, HomeScreens, CopyPromptButton, insta
       <Link className="spectre-text-link" href="/installation">Installation guide <span aria-hidden="true">↗</span></Link>
     </div>
     <p>Open your project in a coding agent and send this prompt.</p>
-    <CodeBlock wrapCode><pre tabIndex={0}><code>{installationPrompt}</code></pre></CodeBlock>
-    <p className="spectre-flow__result">Your agent installs the protocol and kit in <code>.agents/design/</code>, sets up the tokens and links to the protocol from <code>AGENTS.md</code>.</p>
+    <div className="spectre-install">
+      <span className="spectre-install-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" focusable="false"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg></span>
+      <div>
+        <CodeBlock wrapCode><pre tabIndex={0}><code>{installationPrompt}</code></pre></CodeBlock>
+        <p className="spectre-flow__result">Your agent installs the protocol and kit in <code>.agents/design/</code>, sets up the tokens and links to the protocol from <code>AGENTS.md</code>.</p>
+      </div>
+    </div>
   </section>
 
   <section className="spectre-workflow" id="first-component" aria-labelledby="first-component-title">

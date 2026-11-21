@@ -1,0 +1,12 @@
+<!-- Replace: replace(region, change) from replace.controller.js fades the region's content out, runs the change,
+     and fades the new content in. The region itself keeps its place. -->
+<div class="x-replace" id="status" role="status">Checking the address…</div>
+<button class="x-button" type="button" data-variant="ghost" id="check">Check again</button>
+
+<script type="module">
+  import { replace } from "./replace.controller.js";
+  const status = document.getElementById("status");
+  document.getElementById("check").addEventListener("click", () => {
+    replace(status, () => { status.textContent = "The address is valid."; });
+  });
+</script>

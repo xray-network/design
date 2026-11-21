@@ -1,0 +1,35 @@
+<!-- Comments: Avatar and the Composer block. composer.controller.js sends a "post" event with the new comment's text;
+     the app adds it to the thread. -->
+<section class="x-comments" aria-label="Activity">
+  <ol class="x-comments-list">
+    <li class="x-comments-item">
+      <span class="x-avatar" data-seed="jane.cooper" data-palette="amber" aria-hidden="true"></span>
+      <div class="x-comments-body">
+        <div class="x-comments-head"><span class="x-comments-author">Jane Cooper</span><time class="x-comments-time" datetime="2026-11-21T09:12">2 hours ago</time></div>
+        <div class="x-comments-text"><p>It happens on every screen with a text field. The bar should go away while the keyboard is up.</p></div>
+      </div>
+    </li>
+    <li class="x-comments-event"><p><strong>Tomas Ruiz</strong> moved this to In progress</p><time class="x-comments-time" datetime="2026-11-21T10:05">1 hour ago</time></li>
+    <li class="x-comments-item">
+      <span class="x-avatar" data-seed="tomas" data-palette="ember" aria-hidden="true"></span>
+      <div class="x-comments-body">
+        <div class="x-comments-head"><span class="x-comments-author">Tomas Ruiz</span><time class="x-comments-time" datetime="2026-11-21T10:40">20 minutes ago</time></div>
+        <div class="x-comments-text"><p>Fixed on the branch. It hides with the keyboard and comes back with it.</p></div>
+      </div>
+    </li>
+  </ol>
+  <form class="x-composer" data-variant="inline">
+    <span class="x-composer-lead"><span class="x-avatar" data-size="sm" data-seed="you" data-palette="amber" aria-hidden="true"></span></span>
+    <div class="x-composer-body">
+      <textarea class="x-composer-input" name="text" rows="1" aria-label="Add a comment" placeholder="Add a comment"></textarea>
+      <div class="x-composer-foot"><button class="x-button" type="submit" data-size="sm" disabled>Comment</button></div>
+    </div>
+  </form>
+</section>
+
+<script type="module">
+  import { initComposers } from "../composer/composer.controller.js";
+  import { initAvatars } from "../../components/avatar/avatar.controller.js";
+  initComposers();
+  initAvatars();
+</script>

@@ -1,0 +1,31 @@
+/* Reorder: drag an item to a new place in its list. Requires core/tokens.css and core/motion.js, through
+   reorder.controller.js or the React component. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-reorder { position: relative; margin: 0; padding: 0; list-style: none; }
+
+  /* The item in the hand rides above the others; the page does not scroll under the finger that holds it. */
+  .x-reorder > [data-dragging] { position: relative; z-index: 1; cursor: grabbing; user-select: none; -webkit-user-select: none; }
+
+  /* The grip: what is pressed to pick an item up, and what the arrow keys move from. */
+  .x-reorder-handle {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    width: var(--x-size-sm);
+    height: var(--x-size-sm);
+    padding: 0;
+    border: 0;
+    border-radius: var(--x-radius-sm);
+    background: none;
+    color: var(--x-fg-4);
+    cursor: grab;
+    touch-action: none;
+    transition: color var(--x-duration-fast) var(--x-ease), background-color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-reorder-handle:hover { background: var(--x-bg-soft); color: var(--x-fg-2); }
+  .x-reorder-handle:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 1px; color: var(--x-fg-1); }
+  .x-reorder-handle .x-icon { width: var(--x-icon-md); height: var(--x-icon-md); }
+}

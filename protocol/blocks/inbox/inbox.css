@@ -1,0 +1,25 @@
+/* Inbox: messages with sender, subject, first words and time. Built from Avatar. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-inbox { display: grid; margin: 0; padding: 0; list-style: none; }
+  .x-inbox-row { position: relative; display: flex; align-items: flex-start; gap: var(--x-space-3); min-width: 0; padding: var(--x-space-3) var(--x-space-4); border: 0; border-bottom: 1px solid var(--x-border); background: none; color: var(--x-fg-2); font: var(--x-weight-body) var(--x-text-sm) / 1.4 var(--x-font-sans); text-align: start; text-decoration: none; cursor: pointer; transition: background-color var(--x-duration-fast) var(--x-ease); }
+  button.x-inbox-row { width: 100%; }
+  .x-inbox-row:hover { background: var(--x-bg-soft); }
+  .x-inbox-row:focus-visible { outline: 2px solid var(--x-focus); outline-offset: -2px; }
+  /* The message that is open beside the list. */
+  .x-inbox-row[aria-current] { background: var(--x-bg-active); }
+  .x-inbox-row > .x-avatar { flex: none; }
+  .x-inbox-body { display: grid; flex: 1; gap: var(--x-space-0-5); min-width: 0; }
+  .x-inbox-head { display: flex; align-items: baseline; gap: var(--x-space-2); min-width: 0; }
+  .x-inbox-from { flex: 1; min-width: 0; overflow: hidden; color: var(--x-fg-2); font-size: var(--x-text-md); text-overflow: ellipsis; white-space: nowrap; }
+  .x-inbox-marks { display: inline-flex; flex: none; gap: var(--x-space-1); align-self: center; color: var(--x-fg-3); }
+  .x-inbox-marks > .x-icon { width: var(--x-icon-sm); height: var(--x-icon-sm); }
+  .x-inbox-time { flex: none; color: var(--x-fg-3); font-size: var(--x-text-xs); font-variant-numeric: tabular-nums; }
+  .x-inbox-subject { overflow: hidden; color: var(--x-fg-2); text-overflow: ellipsis; white-space: nowrap; }
+  .x-inbox-snippet { display: -webkit-box; overflow: hidden; color: var(--x-fg-3); -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+  /* Unread: a dot at the row's edge, and the sender and subject step forward. */
+  .x-inbox-row[data-unread]::before { content: ""; position: absolute; top: calc(var(--x-space-3) + var(--x-space-4)); left: var(--x-space-1); width: 6px; height: 6px; border-radius: 50%; background: var(--x-accent-ink); }
+  .x-inbox-row[data-unread] :is(.x-inbox-from, .x-inbox-subject) { color: var(--x-fg-1); font-weight: var(--x-weight-label); }
+}

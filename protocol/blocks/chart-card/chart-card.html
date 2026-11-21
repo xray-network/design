@@ -1,0 +1,53 @@
+<!-- ChartCard: Tag (the delta) and Segmented around any chart; here a LineChart, drawn by its controller. -->
+<section class="x-chart-card" aria-labelledby="chart-card-title">
+  <header class="x-chart-card-head">
+    <h3 class="x-chart-card-title" id="chart-card-title">Gross volume</h3>
+    <div class="x-chart-card-controls">
+      <div class="x-segmented" role="radiogroup" aria-label="Period" data-size="sm">
+        <label class="x-segmented-item"><input type="radio" name="chart-card-period" value="7d"><span>7D</span></label>
+        <label class="x-segmented-item"><input type="radio" name="chart-card-period" value="30d" checked><span>30D</span></label>
+        <label class="x-segmented-item"><input type="radio" name="chart-card-period" value="90d"><span>90D</span></label>
+        <span class="x-segmented-indicator" aria-hidden="true"></span>
+      </div>
+    </div>
+  </header>
+  <div class="x-chart-card-figure">
+    <span class="x-chart-card-value">$84,120</span>
+    <span class="x-delta" data-trend="up">+12.0%</span>
+    <span class="x-chart-card-note">on the 30 days before</span>
+  </div>
+  <div class="x-chart-card-plot">
+    <figure class="x-chart x-line-chart" data-area="" data-height="160" aria-label="Gross volume by week">
+      <table class="x-chart-data">
+        <thead><tr><th scope="col">Week</th><th scope="col">Volume</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Oct 27</th><td data-value="17200">17,200</td></tr>
+          <tr><th scope="row">Nov 3</th><td data-value="19800">19,800</td></tr>
+          <tr><th scope="row">Nov 10</th><td data-value="21400">21,400</td></tr>
+          <tr><th scope="row">Nov 17</th><td data-value="25720">25,720</td></tr>
+        </tbody>
+      </table>
+    </figure>
+  </div>
+</section>
+
+<!-- A measure that fell: the change says so in text, and takes the down color -->
+<section class="x-chart-card" aria-labelledby="chart-card-refunds">
+  <header class="x-chart-card-head"><h3 class="x-chart-card-title" id="chart-card-refunds">Refunds</h3></header>
+  <div class="x-chart-card-figure"><span class="x-chart-card-value">$1,310</span><span class="x-delta" data-trend="down">−2.1%</span></div>
+  <div class="x-chart-card-plot"><span class="x-sparkline" data-values="18 16 17 14 15 13 12" role="img" aria-label="Down over 7 weeks"></span></div>
+</section>
+
+<!-- Loading -->
+<section class="x-chart-card" aria-label="Gross volume" aria-busy="true">
+  <header class="x-chart-card-head"><h3 class="x-chart-card-title">Gross volume</h3></header>
+  <div class="x-chart-card-figure"><span class="x-chart-card-value"><span class="x-skeleton" data-shape="text" aria-hidden="true" style="--x-skeleton-width: 5em"></span></span></div>
+  <div class="x-chart-card-plot"><span class="x-skeleton" aria-hidden="true" style="--x-skeleton-height: 160px"></span></div>
+</section>
+
+<script type="module">
+  import { initLineCharts } from "../../charts/line-chart/line-chart.controller.js";
+  import { initSegmented } from "../../components/segmented/segmented.controller.js";
+  initLineCharts();
+  initSegmented();
+</script>

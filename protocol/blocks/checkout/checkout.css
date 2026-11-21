@@ -1,0 +1,25 @@
+/* Checkout: the order's items, how the total adds up, and the button that pays. Built from Button. Requires core/tokens.css. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+@layer components {
+  .x-checkout { display: grid; gap: var(--x-space-4); min-width: 0; }
+  .x-checkout-title { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-lg); font-weight: var(--x-weight-title); letter-spacing: var(--x-tracking-tight); }
+  .x-checkout-items { display: grid; gap: var(--x-space-3); margin: 0; padding: 0; list-style: none; }
+  .x-checkout-item { display: flex; align-items: center; gap: var(--x-space-3); min-width: 0; }
+  .x-checkout-thumb { flex: none; width: 56px; height: 56px; overflow: hidden; border: 1px solid var(--x-border); border-radius: var(--x-radius-lg); background: var(--x-bg-chip); }
+  .x-checkout-thumb > * { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .x-checkout-text { display: grid; flex: 1; gap: var(--x-space-0-5); min-width: 0; }
+  .x-checkout-name { overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-md); font-weight: var(--x-weight-label); text-overflow: ellipsis; white-space: nowrap; }
+  .x-checkout-detail { overflow: hidden; color: var(--x-fg-3); font-size: var(--x-text-sm); text-overflow: ellipsis; white-space: nowrap; }
+  .x-checkout-price { flex: none; color: var(--x-fg-1); font-size: var(--x-text-md); font-variant-numeric: tabular-nums; }
+
+  /* How the total adds up: each line a label and an amount, the total last and louder. */
+  .x-checkout-totals { display: grid; gap: var(--x-space-2); margin: 0; padding-top: var(--x-space-4); border-top: 1px solid var(--x-border); }
+  .x-checkout-row { display: flex; justify-content: space-between; gap: var(--x-space-4); color: var(--x-fg-2); font-size: var(--x-text-sm); }
+  .x-checkout-row > dd { margin: 0; color: var(--x-fg-1); font-variant-numeric: tabular-nums; }
+  .x-checkout-row[data-total] { margin-top: var(--x-space-1); padding-top: var(--x-space-3); border-top: 1px solid var(--x-border); color: var(--x-fg-1); font-size: var(--x-text-lg); font-weight: var(--x-weight-title); }
+  .x-checkout-method { min-width: 0; }
+  .x-checkout-pay { display: grid; gap: var(--x-space-2); }
+  .x-checkout-note { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-xs); text-align: center; }
+}
