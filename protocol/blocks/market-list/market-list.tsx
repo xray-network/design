@@ -9,7 +9,7 @@ export type Market = {
   symbol: ReactNode;
   /** The asset's name, or its volume: the quiet second line. */
   name?: ReactNode;
-  /** The asset's mark: a token disc (span.x-list-token), an Avatar, a logo. */
+  /** The asset's mark: a token disc with its icon (span.x-list-token[data-tone=neutral] › Icon), an Avatar, a logo. */
   lead?: ReactNode;
   /** The price, formatted. */
   price: ReactNode;

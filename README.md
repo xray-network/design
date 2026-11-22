@@ -52,11 +52,11 @@ wiki/                     docs and live playground (Rspress), deployed with ever
 └── scripts/check-protocol.mjs  the one check; runs before every wiki build
 ```
 
-Components in 1.0.0 (48): `alert`, `avatar`, `border-beam`, `button` (+ icon button), `calendar`, `card` (+ tile), `card-option`,
+Components in 1.0.0 (49): `alert`, `avatar`, `border-beam`, `button` (+ icon button), `calendar`, `card` (+ tile), `card-option`,
 `checkbox`, `chips`, `collapse`, `combobox`, `command`, `copy`, `empty`, `icon` (interface, social and crypto icons),
 `input` (+ field, textarea), `input-amount`, `input-group`, `list`, `menu`, `menu-list`, `menu-navigation`, `message`,
 `modal` (+ side sheet), `numeral`, `pagination`, `popconfirm`, `popover`, `progress` (+ meter), `radio`, `result`, `segmented`,
-`select`, `select-native`, `skeleton`, `slider`, `spinner`, `stats`, `steps`, `switch`, `table`, `table-compact`, `tabs`,
+`select`, `select-native`, `skeleton`, `slider`, `spinner`, `stats`, `steps`, `switch`, `table`, `table-compact`, `tabs`, `tabs-line`,
 `tag` (+ status, delta), `timeline`, `toast`, `tooltip`, `typography`.
 
 Blocks in 1.0.0 (30): `api-keys`, `asset-list`, `balance`, `board`, `chart-card`, `chat`, `chat-list`, `checkout`,

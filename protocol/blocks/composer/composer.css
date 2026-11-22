@@ -19,4 +19,9 @@
   .x-composer[data-variant="inline"] > .x-composer-body { display: flex; align-items: flex-end; }
   .x-composer[data-variant="inline"] .x-composer-input { flex: 1; min-height: var(--x-size-sm); padding-block: var(--x-space-1-5); }
   .x-composer[data-variant="inline"] .x-composer-foot { flex: none; }
+
+  /* iPhone Safari zooms the page into a field whose text is under 16px: there, the text is at least 16px. */
+  @supports (-webkit-touch-callout: none) {
+    .x-composer-input { font-size: max(16px, var(--x-text-md)); }
+  }
 }

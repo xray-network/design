@@ -12,6 +12,7 @@ import ToastExample from "./examples/toast"
 import AlertExample from "./examples/alert"
 import MessageExample from "./examples/message"
 import TabsExample from "./examples/tabs"
+import TabsLineExample from "./examples/tabs-line"
 import CardExample from "./examples/card"
 import NumeralExample from "./examples/numeral"
 import AvatarExample from "./examples/avatar"
@@ -61,6 +62,7 @@ export const ToastDemo = () => <Demo id="toast" name="Toast"><ToastExample /></D
 export const AlertDemo = () => <Demo id="alert" name="Alert"><AlertExample /></Demo>
 export const MessageDemo = () => <Demo id="message" name="Message"><MessageExample /></Demo>
 export const TabsDemo = () => <Demo id="tabs" name="Tabs"><TabsExample /></Demo>
+export const TabsLineDemo = () => <Demo id="tabs-line" name="TabsLine"><TabsLineExample /></Demo>
 export const CardDemo = () => <Demo id="card" name="Card" loading>{({ loading }) => <CardExample loading={loading} />}</Demo>
 export const NumeralDemo = () => <Demo id="numeral" name="Numeral"><NumeralExample /></Demo>
 export const AvatarDemo = () => <Demo id="avatar" name="Avatar" loading>{({ loading }) => <AvatarExample loading={loading} />}</Demo>
@@ -89,7 +91,7 @@ export const TableCompactDemo = () => <Demo id="table-compact" name="TableCompac
 export const SkeletonDemo = () => <Demo id="skeleton" name="Skeleton"><SkeletonExample /></Demo>
 export const OptionDemo = () => <Demo id="card-option" name="CardOption" loading>{({ loading }) => <OptionExample loading={loading} />}</Demo>
 export const StatsDemo = () => <Demo id="stats" name="Stats" loading>{({ loading }) => <StatsExample loading={loading} />}</Demo>
-export const ProgressDemo = () => <Demo id="progress" name="Progress" loading>{({ loading }) => <ProgressExample loading={loading} />}</Demo>
+export const ProgressDemo = () => <Demo id="progress" name="Progress"><ProgressExample /></Demo>
 export const CalendarDemo = () => <Demo id="calendar" name="Calendar"><CalendarExample /></Demo>
 export const SliderDemo = () => <Demo id="slider" name="Slider"><SliderExample /></Demo>
 export const StepsDemo = () => <Demo id="steps" name="Steps"><StepsExample /></Demo>

@@ -1,7 +1,7 @@
 ---
 id: modal
 name: Modal
-summary: Modal dialog on native <dialog>; centered panel on desktop, bottom sheet on phones, or a side sheet.
+summary: Modal dialog on native <dialog>; a panel near the top of the window, or a side sheet.
 motion: 0
 requires: [tokens]
 components: [button]
@@ -13,7 +13,7 @@ files: [modal.css, modal.html, modal.controller.js, modal.controller.d.ts, modal
 Interrupts the flow for one decision or one short task: confirm, rename, add account. Long flows
 belong on a page. Non-blocking information belongs in a toast.
 
-**Side sheet** (`placement="end"` or `"start"`): the same modal as a full-height panel at the window's edge, for
+**Side sheet** (`placement="end"` or `"start"`): the same modal as a panel floating at the window's edge, for
 details, filters and settings that keep the page in view beside them. On phones the start sheet is the app's
 navigation drawer.
 
@@ -42,7 +42,7 @@ dialog.x-dialog[aria-labelledby]       460px panel, 20px radius, panel surface, 
 | Attribute | Values | Default |
 |---|---|---|
 | `data-size` | `sm` 380px, `lg` 620px | 460px |
-| `data-placement` | `top`: 48px below the window's top edge, dropping in from above (search, growing forms); `end`, `start`: a full-height side sheet that slides in from that edge (420px; `lg` 560px) | centered |
+| `data-placement` | `top`: 48px below the window's top edge, dropping in from above (search, growing forms); `end`, `start`: a side sheet floating 12px from the window on every side (8px on phones), sliding in from that edge (420px; `lg` 560px) | a sixth of the window's height from the top (48–160px); on phones 12px |
 | `data-x-dismiss` (HTML) / `dismissible` (React) | `none` / `false`: no backdrop or Esc close | dismissible |
 
 Below 560px every size becomes a full-width bottom sheet with stacked full-width actions; `top` becomes a sheet
@@ -104,5 +104,5 @@ overshoot reads as hesitation on the way out. Reduced motion: instant.
       (its space is kept) and without one (no gutter is added)
 - [ ] Long content scrolls inside the body; header and footer stay put
 - [ ] Phone width: bottom sheet, stacked actions, safe-area padding
-- [ ] Side sheets: full height at their edge, footer at the bottom, slide in from that edge (also right-to-left)
+- [ ] Side sheets: float 12px from the window on every side (8px on phones), footer at the bottom, slide in from that edge (also right-to-left)
 - [ ] Both themes; reduced motion

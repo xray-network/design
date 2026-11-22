@@ -1,3 +1,5 @@
+import { fontPage, fontStack, type Token, type UserTheme } from "./theme/userTheme"
+
 /** The protocol version this wiki documents (DESIGN-PROTOCOL.md's Protocol-Version, injected by rspress.config.ts). */
 export const KIT_VERSION = process.env.KIT_VERSION as string
 
@@ -71,17 +73,25 @@ export function appScreenPrompt(app: string, screen: string, url: string): strin
   return `Use the installed XRAY/DESIGN design skill. If it is not installed, read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository.\n\nBuild a screen like the ${app} ${screen} screen at ${url} in this project. Read that page's HTML first: classes that start with x- are kit components, blocks and motion patterns, and classes that start with app- are layout only. Add the kit parts it uses with the skill, follow their contracts and the skill's guidance for this project's GUI framework, recreate the layout in this project's own layout system, and use this project's data, copy and navigation, preserving the existing app structure.`
 }
 
-export type ThemeInputs = { brand: string; font: string; radius: "kit" | "sharper" | "rounder"; grays: "kit" | "cooler" | "warmer" | "neutral" }
-
-/** Theming: the skill's "Theme or rebrand" steps do the work; the prompt carries the human's inputs and target. */
-export function themePrompt(inputs: ThemeInputs, preference: GuiPreference): string {
+/** Theming: the reader's primary color, tone and font, with every token derived from them, for the skill's "Theme or
+    rebrand" steps to write into the project's theme layer. */
+export function themePrompt(theme: UserTheme, tokens: Token[], preference: GuiPreference): string {
   const framework = frameworkFor(preference)
-  const brand = inputs.brand.trim()
-  if (!framework || !brand) return ""
-  const extras = [
-    inputs.font.trim() && `font ${inputs.font.trim()} (already loaded by the project)`,
-    inputs.radius !== "kit" && `${inputs.radius} corners than the kit's (scale the whole radius scale)`,
-    inputs.grays !== "kit" && `${inputs.grays === "neutral" ? "pure neutral" : inputs.grays} grays (shift the background, border and text neutrals together, in light/dark pairs)`,
-  ].filter(Boolean)
-  return `Use the installed XRAY/DESIGN design skill. If it is not installed, read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository.\n\nTheme XRAY/DESIGN for this project using ${framework}: brand color ${brand}${extras.length ? `, ${extras.join(", ")}` : ""}. Follow the skill's "Theme or rebrand" steps: keep the overrides in the project's theme layer (recorded as "theme" in design.lock.json), derive the accent set for both themes, never edit copied kit files, and check contrast in light and dark theme.`
+  if (!framework) return ""
+  const width = Math.max(...tokens.map((token) => token.name.length))
+  const colors = tokens.map((token) => `${token.name.padEnd(width)}  ${token.light === token.dark ? token.light : `${token.light} / ${token.dark}`}   (${token.note})`).join("\n")
+  const font = theme.font.trim()
+    ? `Font: ${theme.font.trim()}, from Google Fonts (${fontPage(theme.font)}). Load weights 400, 500, 600 and 700 with font-display: swap, the way this project loads fonts, and set --x-font-sans to ${fontStack(theme.font.trim())}.`
+    : "Font: keep the kit's system font stack."
+  return `Use the installed XRAY/DESIGN design skill. If it is not installed, read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository.
+
+Theme XRAY/DESIGN for this project using ${framework}. Follow the skill's "Theme or rebrand" steps: put these values in the project's theme layer (recorded as "theme" in design.lock.json), never edit copied kit files, and keep every token not listed here as the kit has it.
+
+Primary color ${theme.primary}, ${theme.tone} grays. The colors, light / dark, where they differ:
+
+${colors}
+
+${font}
+
+Then check contrast in light and dark theme: text on the canvas and on accent fills at least 4.5:1, focus rings, icons and chart lines at least 3:1.`
 }

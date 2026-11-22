@@ -12,9 +12,11 @@
     display: grid;
     grid-template-rows: 0fr;
     min-width: 0;
-    transition: grid-template-rows var(--x-duration-slow) var(--x-ease);
+    /* Closing: on --x-ease the region dropped most of its height in the first frames and read as a snap, faster
+       than it opened. The soft spring spreads the movement, so closing takes as long as opening looks. */
+    transition: grid-template-rows calc(var(--x-duration-slow) * 1.2) var(--x-spring-soft);
   }
-  .x-expand[data-open] { grid-template-rows: 1fr; }
+  .x-expand[data-open] { grid-template-rows: 1fr; transition: grid-template-rows var(--x-duration-slow) var(--x-ease); }
 
   /* Closed, the content is out of sight, out of the tab order and out of the accessibility tree: visibility turns
      off when the closing ends, and on as the opening starts. */
@@ -25,10 +27,10 @@
     visibility: hidden;
     opacity: 0;
     transition:
-      opacity var(--x-duration-base) var(--x-ease),
-      visibility var(--x-duration-slow);
+      opacity calc(var(--x-duration-slow) * 1.2) var(--x-spring-soft),
+      visibility calc(var(--x-duration-slow) * 1.2);
   }
-  .x-expand[data-open] > .x-expand-content { visibility: visible; opacity: 1; }
+  .x-expand[data-open] > .x-expand-content { visibility: visible; opacity: 1; transition: opacity var(--x-duration-base) var(--x-ease); }
 
   /* Peek: closed, the first lines stay on show and fade out at the bottom ("Show more"). */
   .x-expand[data-peek] { --x-expand-peek: 4.5em; }

@@ -11,9 +11,11 @@
 @layer components {
   .x-segmented {
     --x-segmented-pad: 3px;
-    --x-segmented-item-height: 32px;
+    --x-segmented-height: var(--x-control-md);
+    /* The items fill the track: its height less the padding and the 1px hairline on each side. */
+    --x-segmented-item-height: calc(var(--x-segmented-height) - var(--x-segmented-pad) * 2 - 2px);
     --x-segmented-item-pad: 16px;
-    --x-segmented-font-size: var(--x-text-sm);
+    --x-segmented-font-size: var(--x-text-md);
     --x-segmented-indicator-bg: var(--x-bg-active);
     --x-segmented-radius: var(--x-radius-lg);
     /* Concentric with the track: its radius minus the padding and the 1px border. */
@@ -54,7 +56,7 @@
   .x-segmented-item:has(:disabled) > span { color: var(--x-fg-3); }
 
   /* ---- Sizes and width */
-  .x-segmented[data-size="sm"] { --x-segmented-item-height: 26px; --x-segmented-item-pad: 12px; --x-segmented-font-size: var(--x-text-xs); --x-segmented-radius: var(--x-radius-md); }
+  .x-segmented[data-size="sm"] { --x-segmented-height: var(--x-control-sm); --x-segmented-item-pad: 12px; --x-segmented-font-size: var(--x-text-sm); --x-segmented-radius: var(--x-radius-md); }
   .x-segmented[data-width="full"] { display: flex; }
   .x-segmented[data-width="full"] .x-segmented-item { flex: 1 1 0; }
 

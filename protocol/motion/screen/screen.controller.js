@@ -10,10 +10,12 @@ const current = new WeakMap();
  * `to` first, and hide `from` when the promise resolves.
  *
  * - forward: the new screen slides in from the end, over the old one, which eases back a little and dims.
- * - back: the reverse. The old screen slides away to the end and uncovers the one it came from.
+ * - back: the reverse. The old screen slides away to the end and uncovers the one it came from. The two move as
+ *   one: the same curve and the same time, so they end together, the leaving one covering the whole width and the
+ *   one under it a quarter of it (a parallax). On the soft spring, a fifth quicker than going forward.
  * - fade: for screens side by side in the hierarchy (tabs). The old one fades out, the new one fades in.
  *
- * The screen that arrives travels on the soft spring; the one that leaves is an exit, on --x-ease.
+ * Forward, the screen that arrives travels on the soft spring and the one that leaves is an exit, on --x-ease.
  * Reduced motion: it resolves at once.
  *
  * @param {HTMLElement} from  the screen that is leaving
@@ -26,6 +28,9 @@ export function screenTransition(from, to, { direction = "forward" } = {}) {
   running.get(container)?.(false);
   const enter = { duration: duration(to, "--x-spring-soft-duration"), easing: easing(to, "--x-spring-soft") };
   const exit = { duration: duration(to, "--x-duration-slow"), easing: easing(to, "--x-ease") };
+  // Back: both screens on one curve and one clock. On --x-ease the leaving one jumped most of the width in its first
+  // frames and the two parted ways; on the soft spring they glide together and land together.
+  const back = { duration: enter.duration * 0.8, easing: enter.easing };
   if (!enter.duration) return Promise.resolve(true);
 
   // The one that covers is on top: the arriving screen going forward, the leaving one going back.
@@ -40,7 +45,7 @@ export function screenTransition(from, to, { direction = "forward" } = {}) {
     direction === "fade"
       ? [from.animate([{ opacity: 1 }, { opacity: 0 }], { ...exit, duration: exit.duration / 2, ...hold }), to.animate([{ opacity: 0 }, { opacity: 1 }], { ...exit, delay: exit.duration / 2, duration: exit.duration / 2, ...hold })]
       : direction === "back"
-        ? [from.animate([{ translate: "0 0" }, { translate: "100% 0" }], { ...exit, ...hold }), to.animate([{ translate: "-24% 0", opacity: 0.4 }, { translate: "0 0", opacity: 1 }], { ...exit, ...hold })]
+        ? [from.animate([{ translate: "0 0" }, { translate: "100% 0" }], { ...back, ...hold }), to.animate([{ translate: "-24% 0", opacity: 0.4 }, { translate: "0 0", opacity: 1 }], { ...back, ...hold })]
         : [to.animate([{ translate: "100% 0" }, { translate: "0 0" }], { ...enter, ...hold }), from.animate([{ translate: "0 0", opacity: 1 }, { translate: "-24% 0", opacity: 0.4 }], { ...exit, ...hold })];
 
   return new Promise((resolve) => {

@@ -12,7 +12,7 @@
     --x-button-fg: var(--x-accent-fg);
     --x-button-border: transparent;
     --x-button-border-hover: transparent;
-    --x-button-height: var(--x-size-lg);
+    --x-button-height: var(--x-control-md);
     --x-button-pad: 18px;
     --x-button-font-size: var(--x-text-md);
     --x-button-font-weight: var(--x-weight-label);
@@ -75,8 +75,8 @@
   }
 
   /* ---- Sizes (not for chips) */
-  .x-button[data-size="sm"] { --x-button-height: 32px; --x-button-pad: 14px; --x-button-font-size: var(--x-text-sm); --x-button-radius: var(--x-radius-md); }
-  .x-button[data-size="lg"] { --x-button-height: var(--x-size-2xl); --x-button-font-size: var(--x-text-lg); --x-button-radius: var(--x-radius-xl); }
+  .x-button[data-size="sm"] { --x-button-height: var(--x-control-sm); --x-button-pad: 14px; --x-button-font-size: var(--x-text-sm); --x-button-radius: var(--x-radius-md); }
+  .x-button[data-size="lg"] { --x-button-height: var(--x-control-lg); --x-button-font-size: var(--x-text-lg); --x-button-radius: var(--x-radius-xl); }
   .x-button[data-width="full"] { display: flex; width: 100%; }
   /* Round: a fully rounded capsule, for primary calls to action and floating actions. */
   .x-button[data-shape="round"] { --x-button-radius: var(--x-radius-pill); }

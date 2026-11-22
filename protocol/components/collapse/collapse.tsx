@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState, type ReactNode } from "react";
+import { toggleCollapseItem } from "./collapse.controller.js";
 import "./collapse.css";
 
 export type CollapseItem<T extends string> = {
@@ -53,7 +54,15 @@ export function Collapse<T extends string>({
           open={open.includes(item.value)}
           onToggle={(event) => toggle(item.value, event.currentTarget.open)}
         >
-          <summary className="x-collapse-header">
+          <summary
+            className="x-collapse-header"
+            onClick={(event) => {
+              // Where details content cannot animate in CSS (Safari, Firefox), the height is animated here.
+              if (CSS.supports("interpolate-size", "allow-keywords")) return;
+              event.preventDefault();
+              void toggleCollapseItem(event.currentTarget.parentElement as HTMLDetailsElement);
+            }}
+          >
             <span className="x-collapse-title">{item.title}</span>
             {item.extra != null && <span className="x-collapse-extra">{item.extra}</span>}
             <svg className="x-collapse-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

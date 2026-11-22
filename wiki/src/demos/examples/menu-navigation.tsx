@@ -33,9 +33,9 @@ const Label = ({ children }: { children: string }) => <span className="wiki-demo
 
 export default function MenuNavigationExample() {
   return (
-    <div style={{ display: "grid", gap: "var(--x-space-3)", minHeight: 520, alignContent: "start" }} onClick={(e) => { if ((e.target as Element).closest("a")) e.preventDefault() }}>
+    <div style={{ display: "grid", gap: "var(--x-space-3)", minHeight: 520, alignContent: "start", alignSelf: "stretch", minWidth: 0 }} onClick={(e) => { if ((e.target as Element).closest("a")) e.preventDefault() }}>
       <Label>Opens on click, then follows the pointer</Label>
-      <div style={{ minHeight: 220 }}><MenuNavigation aria-label="Main" items={ITEMS} /></div>
+      <div style={{ minHeight: 220, minWidth: 0 }}><MenuNavigation aria-label="Main" items={ITEMS} /></div>
       <Label>Opens on hover</Label>
       <MenuNavigation aria-label="Main, hover" trigger="hover" items={ITEMS} />
     </div>

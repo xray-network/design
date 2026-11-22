@@ -59,7 +59,16 @@ export function trackIndicator(root, getActive) {
     }
     const left = active.offsetLeft;
     const right = root.clientWidth - (active.offsetLeft + active.offsetWidth);
-    const min = Math.min(0, root.clientWidth - root.scrollWidth);
+    // How far the track scrolls, from its items alone. Its scrollWidth would count the indicator too, which is
+    // stretched over the scrollable area: after the track had scrolled once (a narrow window), the indicator kept
+    // the overflow alive when it widened again, with a scrollbar and a gap at the end.
+    let end = 0;
+    for (const child of root.children) {
+      const item = /** @type {HTMLElement} */ (child);
+      if (getComputedStyle(item).position === "absolute") continue;
+      end = Math.max(end, item.offsetLeft + item.offsetWidth);
+    }
+    const min = Math.min(0, root.clientWidth - (end + parseFloat(getComputedStyle(root).paddingRight || "0")));
     if (last !== null && left !== last.left) {
       const forward = left > last.left;
       root.dataset.direction = forward ? "forward" : "backward";

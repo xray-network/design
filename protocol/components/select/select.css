@@ -5,7 +5,7 @@
 
 @layer components {
   .x-select {
-    --x-select-height: var(--x-size-xl);
+    --x-select-height: var(--x-control-md);
     --x-select-radius: var(--x-radius-lg);
     --x-select-pad: var(--x-space-4);
     --x-select-font-size: var(--x-text-md);
@@ -47,7 +47,7 @@
   }
   .x-select[aria-expanded="true"] .x-select-chevron { rotate: 180deg; }
 
-  .x-select[data-size="sm"] { --x-select-height: var(--x-size-md); --x-select-radius: var(--x-radius-md); --x-select-pad: var(--x-space-3-5); --x-select-font-size: var(--x-text-sm); }
+  .x-select[data-size="sm"] { --x-select-height: var(--x-control-sm); --x-select-radius: var(--x-radius-md); --x-select-pad: var(--x-space-3-5); --x-select-font-size: var(--x-text-sm); }
 
   /* ---- Listbox: a popover in the top layer, at least as wide as the trigger */
   .x-select-list {
@@ -123,4 +123,9 @@
     transition: scale var(--x-spring-duration) var(--x-spring);
   }
   .x-select-option[aria-selected="true"] .x-select-check { scale: 1; }
+
+  /* On iPhone fields have 16px text (it stops the page zooming into them); the Select matches them there. */
+  @supports (-webkit-touch-callout: none) {
+    .x-select, .x-select[data-size="sm"] { --x-select-font-size: 16px; }
+  }
 }

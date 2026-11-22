@@ -144,6 +144,9 @@ tokens:
     size-lg: 40px  # default button
     size-xl: 44px  # default input
     size-2xl: 48px
+    control-sm: 36px  # form controls, small: toolbars, filters, page actions
+    control-md: 40px  # form controls, default
+    control-lg: 48px  # form controls, large
     icon-sm: 14px
     icon-md: 16px
     icon-lg: 18px
@@ -283,6 +286,10 @@ System sans (`--x-font-sans`), system mono (`--x-font-mono`). No webfonts unless
 - Content column: 740px for single-task screens, 1080px for grids. Page padding 32/24 desktop, 24/16 phone.
 - Sections stack with 40px gaps and **no boxes around sections**. Cards are for repeated objects (apps, accounts), not for grouping.
 - Lists are rows without boxes: 14px radius rows with a soft wash on hover.
+- **Form controls stand in line.** Button, Input, Select, SelectNative, Combobox, InputGroup and Segmented share
+  one height per size: `sm` 36px with 13px text, the default 40px with 14px, `lg` 48px with 15px
+  (`--x-control-sm`, `-md`, `-lg`). A search field, a filter and an action of the same size line up in any row.
+  Icon buttons and chips keep their own sizes: they sit inside rows and fields, not beside them.
 
 ## 5. Radius
 
@@ -312,7 +319,7 @@ Inputs, chips and tags are never capsules.
 
 ## 7. Icons
 
-24px-grid outline icons (Heroicons outline style), stroke 1.75, round caps and joins, `currentColor`.
+24px-grid outline icons, stroke 1.75, round caps and joins, `currentColor`.
 Sizes: 14 (in 22px buttons), 16 (in menus, inputs and small buttons), 18 (in 36px buttons).
 Filled marks are reserved for brand and chain logos and for verified badges. Decorative icons get
 `aria-hidden="true"`.

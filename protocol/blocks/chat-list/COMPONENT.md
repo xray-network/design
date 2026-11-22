@@ -59,6 +59,7 @@ None.
 - One line for the name and one for the last message; both shorten.
 - The time is short: a time today, a weekday this week, a date before that.
 - A count above 99 reads 99+.
+- A row is the same height read or unread: the count's line is kept when there is no count.
 
 ## Safe edits
 

@@ -1,0 +1,25 @@
+<!-- TabsLine: tabs-line.controller.js adds the line and slides it to the current tab. Without it, the current tab
+     draws its own line. -->
+<div class="x-tabs-line" role="group" aria-label="Payment sections">
+  <button class="x-tabs-line-item" type="button" aria-current="true"><span>Overview</span></button>
+  <button class="x-tabs-line-item" type="button"><span>Activity</span><span class="x-tabs-line-count">12</span></button>
+  <button class="x-tabs-line-item" type="button"><span>Disputes</span></button>
+  <button class="x-tabs-line-item" type="button" disabled><span>Payouts</span></button>
+  <span class="x-tabs-line-bar" aria-hidden="true"></span>
+</div>
+
+<!-- Navigation: links, with an icon; set aria-current="page" from the route. Full width: the tabs share the row. -->
+<nav class="x-tabs-line" aria-label="Account" data-width="full">
+  <a class="x-tabs-line-item" href="/profile" aria-current="page">
+    <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+    <span>Profile</span>
+  </a>
+  <a class="x-tabs-line-item" href="/security"><span>Security</span></a>
+  <a class="x-tabs-line-item" href="/billing"><span>Billing</span></a>
+  <span class="x-tabs-line-bar" aria-hidden="true"></span>
+</nav>
+
+<script type="module">
+  import { initTabsLines } from "./tabs-line.controller.js";
+  initTabsLines();
+</script>

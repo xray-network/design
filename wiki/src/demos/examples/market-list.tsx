@@ -1,5 +1,9 @@
 import { MarketList } from "@protocol/blocks/market-list/market-list"
 import { Sparkline } from "@protocol/charts/sparkline/sparkline"
+import { Icon } from "@protocol/components/icon/icon"
+import { bitcoin, chainlink, ethereum, solana, usdc } from "@protocol/components/icon/crypto.js"
+
+const ICON = { btc: bitcoin, eth: ethereum, sol: solana, link: chainlink, usdc }
 
 const MARKETS = [
   { id: "btc", symbol: "BTC", name: "Bitcoin", price: "$96,412.10", change: 1.8, values: [92, 93, 91, 94, 95, 94, 96] },
@@ -16,7 +20,7 @@ export default function MarketListExample() {
         aria-label="Markets"
         items={MARKETS.map(({ values, ...market }) => ({
           ...market,
-          lead: <span className="x-list-token" style={{ "--x-list-token-bg": "var(--x-bg-active)", color: "var(--x-fg-1)" } as never} aria-hidden="true">{market.symbol.slice(0, 1)}</span>,
+          lead: <span className="x-list-token" data-tone="neutral" aria-hidden="true"><Icon icon={ICON[market.id as keyof typeof ICON]} /></span>,
           trend: <Sparkline values={values} width={72} trend={market.change > 0 ? "up" : market.change < 0 ? "down" : undefined} aria-label={`${market.change >= 0 ? "Up" : "Down"} over 7 days`} />,
         }))}
       />

@@ -34,7 +34,7 @@ focus-selector requirements describe the web implementation; native controls exp
 | Attribute | Values | Default |
 |---|---|---|
 | `.x-button` `data-variant` | `ghost` (hairline), `chip` (small filled button), `danger` | primary (accent fill) |
-| `.x-button` `data-size` | `sm` 32px / 13px text / 10px radius, `lg` 48px / 15px text / 14px radius (not for chips) | 40px / 14px text / 12px radius |
+| `.x-button` `data-size` | `sm` 36px / 13px text / 10px radius, `lg` 48px / 15px text / 14px radius (not for chips); the same heights as every form control (`--x-control-*`) | 40px / 14px text / 12px radius |
 | `.x-button` `data-width` | `full` | content width |
 | `.x-button` `data-shape` | `round` (fully rounded capsule) | rounded corners that follow the height |
 | `.x-icon-button` `data-size` | `sm` 28px / 8px radius, `xs` 22px / 6px radius | 36px / 10px |

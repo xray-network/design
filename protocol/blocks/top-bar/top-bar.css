@@ -9,8 +9,7 @@
   .x-top-bar > .x-top-bar-nav { --x-liquid-indicator-item-height: var(--x-size-sm); --x-liquid-indicator-item-pad: var(--x-space-3); --x-liquid-indicator-radius: var(--x-radius-md); margin-inline-end: auto; border: 0; background: none; }
   .x-top-bar-nav .x-icon { width: var(--x-icon-md); height: var(--x-icon-md); }
   .x-top-bar-end { display: flex; flex: none; align-items: center; gap: var(--x-space-2); }
-  /* In a narrow bar the tabs keep their icons and drop their labels. */
-  @container (max-width: 560px) {
-    .x-top-bar-nav .x-liquid-indicator-item > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  }
+  /* Wider than the bar, the tabs scroll sideways between the brand and the end, labels and all (no scrollbar). */
+  .x-top-bar > .x-top-bar-nav { flex: 0 1 auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .x-top-bar > .x-top-bar-nav::-webkit-scrollbar { display: none; }
 }

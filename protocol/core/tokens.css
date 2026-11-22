@@ -124,6 +124,11 @@
     --x-size-lg: 40px; /* default button */
     --x-size-xl: 44px; /* default input */
     --x-size-2xl: 48px;
+    /* Form controls share one height per size, so a field, a select, a segmented control and a button stand in line
+       in any row: Button, Input, Select, SelectNative, Combobox, InputGroup and Segmented all read these. */
+    --x-control-sm: var(--x-size-md);  /* 36: toolbars, filters, page and panel actions */
+    --x-control-md: var(--x-size-lg);  /* 40: the default */
+    --x-control-lg: var(--x-size-2xl); /* 48: a form's main action, an amount */
     --x-icon-sm: 14px;
     --x-icon-md: 16px;
     --x-icon-lg: 18px;

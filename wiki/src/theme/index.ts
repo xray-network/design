@@ -8,6 +8,7 @@ import { Messages } from "@protocol/components/message/message"
 import pkg from "../../package.json"
 import { PageArrows } from "./PageArrows"
 import { NavTitle } from "./NavTitle"
+import { UserThemeStyle } from "./useUserTheme"
 import { moon, sun } from "@protocol/components/icon/icons.js"
 
 // The theme switch's sun and moon, from the kit's icons (Rspress's SwitchAppearance takes IconSun and IconMoon
@@ -49,7 +50,8 @@ export const Layout = () =>
     beforeNavMenu: pkg.version ? createElement("span", { className: "wiki-version" }, `v${pkg.version}`) : null,
     // Previous / next arrows on the right of the page title.
     beforeDocContent: createElement(PageArrows),
-    bottom: createElement(Fragment, null, createElement(Toaster), createElement(Messages)),
+    // The reader's theme from the Theming page, on every preview.
+    bottom: createElement(Fragment, null, createElement(Toaster), createElement(Messages), createElement(UserThemeStyle)),
   })
 
 export * from "@rspress/core/theme-original"

@@ -27,7 +27,18 @@
       <span class="x-list-sub">$29.52</span>
     </span>
   </a>
-  <!-- A token disc as the lead; a button row -->
+  <!-- A token disc with the asset's icon, neutral: the crypto icons carry no color of their own -->
+  <div class="x-list-row" role="listitem">
+    <span class="x-list-token" data-tone="neutral" aria-hidden="true"><svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(14 12 12)"><path d="M8.5 6v12m0-12h4.25a3 3 0 0 1 0 6H8.5m0 0h5a3 3 0 0 1 0 6h-5M7 6h1.5M7 18h1.5M10.5 3.75V6m3-2.25V6m-3 12v2.25m3-2.25v2.25"/></g></svg></span>
+    <span class="x-list-text">
+      <span class="x-list-title">Bitcoin</span>
+      <span class="x-list-sub">0.1 BTC</span>
+    </span>
+    <span class="x-list-end">
+      <span class="x-list-title">$9,641.21</span>
+    </span>
+  </div>
+  <!-- A token disc with a letter, for an asset with no icon; a button row -->
   <button class="x-list-row" type="button" role="listitem">
     <span class="x-list-token" style="--x-list-token-bg: var(--x-warning)" aria-hidden="true">S</span>
     <span class="x-list-text">
@@ -38,6 +49,16 @@
       <span class="x-list-title">$461.82</span>
     </span>
   </button>
+</div>
+
+<!-- Text only: no lead and no end; the row is its title, with an optional line under it -->
+<div class="x-list" role="list" aria-label="Documents">
+  <a class="x-list-row" href="/release-notes" role="listitem">
+    <span class="x-list-text"><span class="x-list-title">Release notes</span><span class="x-list-sub">What changed in 1.0.0</span></span>
+  </a>
+  <a class="x-list-row" href="/terms" role="listitem">
+    <span class="x-list-text"><span class="x-list-title">Terms of service</span></span>
+  </a>
 </div>
 
 <!-- Loading -->

@@ -37,7 +37,7 @@ draws its border on top.
 
 | Attribute | Values |
 |---|---|
-| `data-size` | `sm` (36px), `lg` (48px); default 44px. Overrides the size of every part. |
+| `data-size` | `sm` (36px), `lg` (48px); default 40px: the same heights as every form control (`--x-control-*`). Overrides the size of every part. |
 | `data-orientation` | `vertical`: a column of full-width parts (rare; stacked buttons) |
 
 ## Accessibility

@@ -45,6 +45,7 @@ export const components = [
   { id: "table", text: "Table" },
   { id: "table-compact", text: "TableCompact" },
   { id: "tabs", text: "Tabs" },
+  { id: "tabs-line", text: "TabsLine" },
   { id: "tag", text: "Tag" },
   { id: "timeline", text: "Timeline" },
   { id: "toast", text: "Toast" },
@@ -279,6 +280,7 @@ export function sidebar(): Sidebar {
       { text: "Tailwind", link: "/tailwind" },
       { text: "Native GUI", link: "/native-gui" },
       { text: "Releases", link: "/releases" },
+      { text: "License", link: "/license" },
     ],
   }
 }

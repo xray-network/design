@@ -44,6 +44,10 @@
   .x-list-icon[data-tone="positive"] { color: var(--x-success-fg); }
   .x-list-icon .x-icon { width: var(--x-icon-md); height: var(--x-icon-md); }
   .x-list-token { background: var(--x-list-token-bg, var(--x-accent)); color: var(--x-accent-fg); font-size: var(--x-text-sm); font-weight: var(--x-weight-stat); }
+  /* The asset's own mark: an icon in the disc. Neutral: a quiet disc in the active fill, for marks that carry no
+     color of their own (the crypto icons). */
+  .x-list-token > .x-icon { width: var(--x-icon-lg); height: var(--x-icon-lg); }
+  .x-list-token[data-tone="neutral"] { background: var(--x-bg-active); color: var(--x-fg-1); }
 
   /* Loading: bars on the right hug the right edge, like the amounts they stand for. */
   .x-list-end .x-skeleton { margin-left: auto; }

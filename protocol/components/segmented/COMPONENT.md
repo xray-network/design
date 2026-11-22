@@ -28,7 +28,7 @@ use a select or a menu.
 
 | Attribute | Values | Default |
 |---|---|---|
-| `data-size` | `sm` (26px items, 12px text) | 32px items, 13px text |
+| `data-size` | `sm`: 36px, 13px text | 40px, 14px text: the same heights as every form control (`--x-control-*`) |
 | `data-width` | `full` (items share the width equally) | content width |
 
 ## States

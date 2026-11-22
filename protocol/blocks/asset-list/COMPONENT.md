@@ -22,7 +22,7 @@ MarketList.
 ```
 div.x-list.x-asset-list[role="list"][aria-label]
 └── a.x-list-row[role="listitem"]             or a button
-    ├── span.x-list-token                      the asset's mark; or an Avatar, a logo
+    ├── span.x-list-token[data-tone=neutral]   the asset's icon (Icon's crypto icons); or an Avatar, a logo
     ├── span.x-list-text
     │   ├── span.x-list-title                  the asset's name
     │   └── span.x-list-sub                    the amount held

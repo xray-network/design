@@ -128,4 +128,9 @@
     white-space: nowrap;
   }
   .x-command-foot > span { display: inline-flex; align-items: center; gap: var(--x-space-1-5); }
+
+  /* iPhone Safari zooms the page into a field whose text is under 16px: there, the text is at least 16px. */
+  @supports (-webkit-touch-callout: none) {
+    .x-command-input { font-size: max(16px, var(--x-text-md)); }
+  }
 }

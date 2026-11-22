@@ -39,7 +39,7 @@ div.x-combobox[data-multiple]
 
 | Attribute | Values | Default |
 |---|---|---|
-| `.x-combobox-field` `data-size` | `sm` 36px | 44px |
+| `.x-combobox-field` `data-size` | `sm` 36px; the same heights as every form control (`--x-control-*`) | 40px |
 | `.x-combobox` `data-multiple` | present: several values, shown as chips; the listbox is `aria-multiselectable` | one value |
 
 ## States

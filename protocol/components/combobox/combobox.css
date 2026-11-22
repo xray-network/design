@@ -6,7 +6,7 @@
   .x-combobox { position: relative; min-width: 0; }
 
   .x-combobox-field {
-    --x-combobox-height: var(--x-size-xl);
+    --x-combobox-height: var(--x-control-md);
     --x-combobox-radius: var(--x-radius-lg);
     --x-combobox-pad: var(--x-space-4);
     --x-combobox-border: var(--x-border);
@@ -26,7 +26,7 @@
   .x-combobox-field:has([aria-expanded="true"]) { --x-combobox-border: var(--x-focus); }
   .x-combobox-field:has([aria-invalid="true"]) { --x-combobox-border: var(--x-danger); }
   .x-combobox-field:has(:disabled) { opacity: 0.4; pointer-events: none; }
-  .x-combobox-field[data-size="sm"] { --x-combobox-height: var(--x-size-md); --x-combobox-radius: var(--x-radius-md); --x-combobox-pad: var(--x-space-3-5); }
+  .x-combobox-field[data-size="sm"] { --x-combobox-height: var(--x-control-sm); --x-combobox-radius: var(--x-radius-md); --x-combobox-pad: var(--x-space-3-5); }
 
   .x-combobox-input {
     flex: 1;
@@ -167,4 +167,9 @@
 
   .x-combobox-empty { padding: var(--x-space-3) var(--x-space-2-5); color: var(--x-fg-3); font-size: var(--x-text-sm); }
   .x-combobox-empty[hidden] { display: none; }
+
+  /* iPhone Safari zooms the page into a field whose text is under 16px: there, the text is at least 16px. */
+  @supports (-webkit-touch-callout: none) {
+    .x-combobox-input, .x-combobox-field[data-size="sm"] .x-combobox-input { font-size: max(16px, var(--x-text-md)); }
+  }
 }

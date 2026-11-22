@@ -28,19 +28,27 @@
     stroke-linecap: round;
     stroke-linejoin: round;
   }
-  /* Each stroke has pathLength="100": dash it fully, then draw it once. */
+  /* Each stroke is dashed by its own length (--x-result-length, in viewBox units), offset by all of it, then
+     drawn once. The lengths are written out, not set with pathLength, which iPhone Safari ignores on a circle. */
+  .x-result-ring { --x-result-length: 277; }
   .x-result-ring,
   .x-result-mark {
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
-    animation: x-result-draw var(--x-spring-soft-duration) var(--x-ease) forwards;
+    stroke-dasharray: var(--x-result-length, 100);
+    stroke-dashoffset: var(--x-result-length, 100);
+    animation: x-result-draw var(--x-spring-soft-duration) var(--x-ease) both;
   }
   .x-result-mark { animation-duration: var(--x-duration-slow); animation-delay: var(--x-spring-soft-duration); }
   .x-result-mark[data-step="2"] { animation-delay: calc(var(--x-spring-soft-duration) + var(--x-duration-slow)); }
-  @keyframes x-result-draw { to { stroke-dashoffset: 0; } }
+  /* Hidden until its drawing starts (fill both: also through its delay): iPhone Safari paints a round cap for the
+     empty dash at the start of a path, which would leave a dot on show before the stroke draws. */
+  @keyframes x-result-draw {
+    from { stroke-dashoffset: var(--x-result-length, 100); opacity: 0; }
+    1% { opacity: 1; }
+    to { stroke-dashoffset: 0; opacity: 1; }
+  }
 
   /* Loading: an open ring that turns until the outcome is known; then the status changes and the mark draws. */
-  .x-result[data-status="loading"] .x-result-ring { stroke-dasharray: 72 28; stroke-dashoffset: 0; stroke-width: 9; animation: none; }
+  .x-result[data-status="loading"] .x-result-ring { stroke-dasharray: 199 78; stroke-dashoffset: 0; stroke-width: 9; animation: none; }
   .x-result[data-status="loading"] .x-result-icon { animation: x-result-spin 700ms linear infinite; } /* progress: essential motion, kept when reduced */
   @keyframes x-result-spin { to { rotate: 360deg; } }
 

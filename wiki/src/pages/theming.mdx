@@ -1,33 +1,30 @@
 ---
 title: Theming
-description: "Make XRAY/DESIGN yours: the brand color, fonts, corners and grays, in any GUI framework, without editing kit files."
+description: "Make XRAY/DESIGN yours: a primary color, warm, default or cold grays and a Google font, derived into every color for both themes."
 ---
 
 import { ThemePrompt } from "../demos/ThemePrompt"
 
 # Theming
 
-Theming changes the look of every component at once: your brand color, fonts, corner radius and grays, in any GUI
-framework. Your agent writes your values into your [theme layer](/concepts#tokens-and-themes), so upgrades keep
-your brand.
+Pick a primary color, the tone of the grays and a font. The kit's colors are derived from them for light and dark
+theme: the accent shades for fills, hover and press; a lighter or darker ink where the color is drawn thin on the
+canvas, so links, focus rings and icons stay readable; and grays tinted warm or cold. The example shows the result
+on the kit, and the prompt under it carries every value to your coding agent, which writes them into your
+[theme layer](/concepts#tokens-and-themes) so upgrades keep your brand.
 
-## Generate a theme prompt
-
-Enter your brand (turn on **Show preview** to see it on kit components), pick your framework, then send the prompt
-to your coding agent. It derives
-the full set of colors for light and dark theme, writes them to your theme layer and checks contrast.
+Your theme stays in this browser and is applied to every preview in this wiki, so you can see any component in it.
+The showcase apps keep the kit's look. **Reset to the kit** removes it.
 
 <ThemePrompt />
 
-## What you can change
+## What changes
 
-| Part | How it changes |
+| Setting | What it changes |
 |---|---|
-| Brand color | Buttons, selections, links, focus rings and icons, derived from one color. Fills keep your color; links, focus rings and icons get a lighter shade in dark theme, so they stay readable. |
-| Font | Any font your project already loads, with the system fonts as fallbacks. |
-| Corners | Sharper or rounder, scaled together so nested corners still fit. Round controls stay round. |
-| Grays | Backgrounds, borders and text, cooler, warmer or pure neutral, in both themes. |
+| Primary color | Buttons, selections, switches, links, focus rings and the first chart series. Fills keep your color; where it is drawn thin on the canvas it is darkened in light theme and lightened in dark theme until it reads (4.5:1 and 6:1). Text on a fill is white, or near black when white would not read. |
+| Tone | The grays of backgrounds, borders and text, in both themes: warm, cold, or the kit's own (default). Each step keeps the kit's lightness, so contrast stays the same. |
+| Font | Any Google font; the prompt has your agent load it and keep the system fonts as fallbacks. |
 
-Only the brand color is required; font, corners and grays keep the kit's look unless you change them. Everything
-else stays as it is: both themes, readable contrast, status colors, spacing, motion and how components
-work. The full rule is in the [design protocol](/protocol), section 11.
+Everything else stays as the kit has it: status colors, spacing, corners, motion and how components work. The full
+rule is in the [design protocol](/protocol), section 11.

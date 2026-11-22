@@ -50,7 +50,7 @@ The trigger is anywhere: a button with `aria-expanded` and `aria-controls` point
 
 ## Motion
 
-Tier 0, CSS only. The height is a grid row animating from `0fr` to `1fr` on `--x-ease` and `--x-duration-slow`,
+Tier 0, CSS only. The height is a grid row animating from `0fr` to `1fr`: opening on `--x-ease` and `--x-duration-slow`, closing on `--x-spring-soft` over 1.2× that, so it does not snap shut,
 which reaches the content's real height in every browser with nothing measured. The content fades on
 `--x-duration-base`. A layout shift must not wobble, so there is no spring. Reduced motion: instant.
 

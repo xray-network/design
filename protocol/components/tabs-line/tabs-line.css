@@ -1,0 +1,111 @@
+/* TabsLine: tabs on a hairline, with a 3px line under the current one that slides from tab to tab. Requires
+   core/tokens.css and core/motion.js (trackIndicator), through tabs-line.controller.js or the React component. */
+
+@layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
+
+/* Registered, so the line's edges animate as lengths (the same properties LiquidIndicator uses). */
+@property --x-ind-left { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --x-ind-right { syntax: "<length>"; inherits: true; initial-value: 0px; }
+
+@layer components {
+  .x-tabs-line {
+    --x-tabs-line-height: var(--x-size-lg);
+    --x-tabs-line-gap: var(--x-space-6);
+    --x-tabs-line-thick: 3px;
+    --x-tabs-line-color: var(--x-accent);
+
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    gap: var(--x-tabs-line-gap);
+    max-width: 100%;
+    overflow-x: auto;
+    /* The hairline is a background that scrolls with the tabs, so it runs under all of them and the line can lie
+       on it; a border would sit outside the scrolling area. */
+    background: linear-gradient(var(--x-border), var(--x-border)) left bottom / 100% 1px no-repeat local;
+    scrollbar-width: none;
+  }
+  .x-tabs-line::-webkit-scrollbar { display: none; }
+
+  .x-tabs-line-item {
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: var(--x-space-2);
+    min-height: var(--x-tabs-line-height);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--x-fg-3);
+    font: var(--x-weight-label) var(--x-text-md) / 1 var(--x-font-sans);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color var(--x-duration-fast) var(--x-ease);
+  }
+  .x-tabs-line-item > .x-icon { width: var(--x-icon-md); height: var(--x-icon-md); }
+  .x-tabs-line-item:hover,
+  .x-tabs-line-item[aria-current] { color: var(--x-fg-1); }
+  .x-tabs-line-item:focus-visible { outline: 2px solid var(--x-focus); outline-offset: -2px; border-radius: var(--x-radius-xs); }
+  .x-tabs-line-item:disabled { color: var(--x-fg-4); cursor: default; }
+
+  /* A count after the label: how many items the tab holds. */
+  .x-tabs-line-count { display: inline-grid; min-width: 20px; height: 18px; padding: 0 var(--x-space-1-5); place-items: center; border-radius: var(--x-radius-pill); background: var(--x-bg-active); color: var(--x-fg-2); font-size: var(--x-text-2xs); font-variant-numeric: tabular-nums; }
+
+  /* Before the controller runs, the current tab draws its own line. */
+  .x-tabs-line:not([data-indicator]) .x-tabs-line-item[aria-current]::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: var(--x-tabs-line-thick);
+    border-radius: var(--x-tabs-line-thick) var(--x-tabs-line-thick) 0 0;
+    background: var(--x-tabs-line-color);
+  }
+
+  /* The line: one for the row, on the hairline, as wide as the current tab. The edge in the direction of travel
+     leads on the liquid spring and the other follows on the soft one, so it stretches toward its target. */
+  .x-tabs-line-bar {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: var(--x-ind-left);
+    right: var(--x-ind-right);
+    z-index: 1;
+    height: var(--x-tabs-line-thick);
+    border-radius: var(--x-tabs-line-thick) var(--x-tabs-line-thick) 0 0;
+    background: var(--x-tabs-line-color);
+    pointer-events: none;
+  }
+  .x-tabs-line[data-indicator] .x-tabs-line-bar { display: block; }
+  .x-tabs-line[data-indicator="ready"] .x-tabs-line-bar {
+    transition:
+      left var(--x-spring-duration) var(--x-spring),
+      right var(--x-spring-duration) var(--x-spring);
+  }
+  .x-tabs-line[data-indicator="ready"][data-direction="forward"] .x-tabs-line-bar {
+    transition:
+      right calc(var(--x-spring-duration) * 0.85) var(--x-spring),
+      left calc(var(--x-spring-soft-duration) * 1.1) var(--x-spring-soft);
+  }
+  .x-tabs-line[data-indicator="ready"][data-direction="backward"] .x-tabs-line-bar {
+    transition:
+      left calc(var(--x-spring-duration) * 0.85) var(--x-spring),
+      right calc(var(--x-spring-soft-duration) * 1.1) var(--x-spring-soft);
+  }
+  /* At an end tab there is no room to overshoot: the leading edge eases into place (data-settle, set by JS). */
+  .x-tabs-line[data-indicator="ready"][data-direction="forward"][data-settle] .x-tabs-line-bar {
+    transition:
+      right var(--x-duration-slow) var(--x-ease),
+      left calc(var(--x-spring-soft-duration) * 1.1) var(--x-spring-soft);
+  }
+  .x-tabs-line[data-indicator="ready"][data-direction="backward"][data-settle] .x-tabs-line-bar {
+    transition:
+      left var(--x-duration-slow) var(--x-ease),
+      right calc(var(--x-spring-soft-duration) * 1.1) var(--x-spring-soft);
+  }
+
+  /* Full width: the tabs share the row equally (two to four tabs over a panel). */
+  .x-tabs-line[data-width="full"] { gap: 0; }
+  .x-tabs-line[data-width="full"] .x-tabs-line-item { flex: 1 1 0; justify-content: center; min-width: 0; }
+}

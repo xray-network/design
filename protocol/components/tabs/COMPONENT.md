@@ -12,7 +12,7 @@ files: [tabs.css, tabs.html, tabs.controller.js, tabs.tsx]
 
 The app's top-level view switcher: Dashboard, Mini Apps, then one tab per open mini app. Tabs are
 navigation, so the current one carries `aria-current="page"`. For switching a small view in place
-(periods, panes) use Segmented.
+(periods, panes) use Segmented. For page sections with a sliding underline, use TabsLine.
 
 ## Platform contract
 

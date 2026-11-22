@@ -64,15 +64,16 @@ function ms(value = "") {
 /** The kit's three curves side by side: each one drawn from its token, and a dot that travels the same distance on it. */
 export function MotionCurves() {
   const [end, setEnd] = useState(false)
-  const [reduce, setReduce] = useState(false)
+  // Motion is on: the switch turns it off, the way reduced motion would.
+  const [motion, setMotion] = useState(true)
   const [read, setRead] = useState<Record<string, string>>({})
   const root = useRef<HTMLDivElement>(null)
 
-  // The curves and durations shown are the tokens' own values, read where the demo sits (so "Reduce motion" shows 0ms).
+  // The curves and durations shown are the tokens' own values, read where the demo sits (so with Motion off it shows 0ms).
   useEffect(() => {
     const style = getComputedStyle(root.current!)
     setRead(Object.fromEntries(CURVES.flatMap((c) => [c.token, c.duration]).map((token) => [token, style.getPropertyValue(token).trim()])))
-  }, [reduce])
+  }, [motion])
 
   // Plays once when the demo first comes into view.
   useEffect(() => {
@@ -86,11 +87,11 @@ export function MotionCurves() {
   }, [])
 
   return (
-    <div ref={root} className="wiki-demo rp-not-doc" data-motion={reduce ? "reduce" : undefined}>
+    <div ref={root} className="wiki-demo rp-not-doc" data-motion={motion ? undefined : "reduce"}>
       <div className="wiki-demo-bar">
         <h2 className="wiki-demo-prompt-title">The three curves</h2>
         <div className="wiki-demo-switches">
-          <Switch size="sm" checked={reduce} onChange={(event) => setReduce(event.target.checked)}>Reduce motion</Switch>
+          <Switch size="sm" checked={motion} onChange={(event) => setMotion(event.target.checked)}>Motion</Switch>
           <Button size="sm" variant="ghost" onClick={() => setEnd(!end)}>Play</Button>
         </div>
       </div>

@@ -22,7 +22,7 @@ ComboBox), styled to the input's height and radius where the platform allows.
 ## Anatomy
 
 ```
-div.x-select-native[data-size]          the input's frame: 44px, 12px radius, hairline
+div.x-select-native[data-size]          the input's frame: 40px, 12px radius, hairline
 ├── select                              fills the frame; the platform draws the list
 └── svg.x-select-native-chevron         16px, --x-fg-3, decorative
 ```
@@ -31,7 +31,7 @@ div.x-select-native[data-size]          the input's frame: 44px, 12px radius, ha
 
 | Attribute | Values |
 |---|---|
-| `data-size` | `sm` (36px), `lg` (56px); default 44px, matching Input |
+| `data-size` | `sm` (36px), `lg` (48px); default 40px: the same heights as every form control (`--x-control-*`) |
 
 ## States
 

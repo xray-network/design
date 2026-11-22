@@ -47,6 +47,4 @@
   .x-progress[data-tone="danger"] { --x-progress-fill: var(--x-danger); }
   .x-progress[data-tone="neutral"] { --x-progress-fill: var(--x-fg-3); }
 
-  /* Loading: the head keeps its height with skeleton bars; the track stays empty. */
-  .x-progress[aria-busy="true"] .x-progress-fill { scale: 0 1; }
 }

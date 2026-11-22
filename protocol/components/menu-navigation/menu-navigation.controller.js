@@ -30,7 +30,9 @@ export function bindMenuNavigation(nav) {
   const place = (trigger, panel) => {
     if (!viewport) return;
     const w = panel.offsetWidth, h = panel.offsetHeight;
-    const max = nav.clientWidth > 0 ? Math.max(0, Math.min(trigger.offsetLeft, innerWidth - nav.getBoundingClientRect().left - w - 16)) : trigger.offsetLeft;
+    // Where the trigger is now, the row's scroll included.
+    const left = trigger.getBoundingClientRect().left - nav.getBoundingClientRect().left;
+    const max = nav.clientWidth > 0 ? Math.max(0, Math.min(left, innerWidth - nav.getBoundingClientRect().left - w - 16)) : left;
     viewport.style.setProperty("--x-menu-navigation-w", `${w}px`);
     viewport.style.setProperty("--x-menu-navigation-h", `${h}px`);
     viewport.style.setProperty("--x-menu-navigation-x", `${Math.round(max)}px`);

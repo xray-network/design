@@ -8,10 +8,15 @@
     --x-menu-navigation-panel-width: 300px;
 
     position: relative;
+    min-width: 0;
+    max-width: 100%;
     color: var(--x-fg-2);
     font: var(--x-weight-body) var(--x-text-md) / var(--x-leading-body) var(--x-font-sans);
   }
-  .x-menu-navigation-list { display: flex; align-items: center; gap: var(--x-space-1); margin: 0; padding: 0; list-style: none; }
+  /* Wider than its place, the row scrolls sideways (no scrollbar); the padding keeps focus rings inside it. */
+  .x-menu-navigation-list { display: flex; align-items: center; gap: var(--x-space-1); margin: calc(var(--x-space-1) * -1); padding: var(--x-space-1); overflow-x: auto; list-style: none; scrollbar-width: none; }
+  .x-menu-navigation-list::-webkit-scrollbar { display: none; }
+  .x-menu-navigation-list > li { flex: none; }
 
   .x-menu-navigation-trigger {
     display: inline-flex;

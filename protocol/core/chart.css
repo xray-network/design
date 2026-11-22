@@ -43,7 +43,9 @@
   .x-chart-legend button[aria-pressed="false"] { color: var(--x-fg-4); text-decoration: line-through; }
   .x-chart-legend button[aria-pressed="false"]::before { background: transparent; }
 
-  .x-chart-plot { position: relative; min-width: 0; outline: none; }
+  /* The plot reads, it is not text: no selection, no tap flash. A finger moving sideways scrubs the readout; moving up
+     or down scrolls the page. */
+  .x-chart-plot { position: relative; min-width: 0; outline: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; touch-action: pan-y; }
   .x-chart-plot:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 4px; border-radius: var(--x-radius-sm); }
   .x-chart-svg { display: block; width: 100%; overflow: visible; }
   /* Grid and ticks are quiet: hairlines one step off the surface, and small muted numbers that line up. */

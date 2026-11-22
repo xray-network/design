@@ -22,7 +22,7 @@ The app supplies the markets in its own order (top, gainers, favorites) and open
 ```
 div.x-list.x-market-list[role="list"][aria-label]
 └── a.x-list-row[role="listitem"]             or a button
-    ├── span.x-list-token                      the asset's mark; or an Avatar, a logo
+    ├── span.x-list-token[data-tone=neutral]   the asset's icon (Icon's crypto icons); or an Avatar, a logo
     ├── span.x-list-text
     │   ├── span.x-list-title                  the ticker
     │   └── span.x-list-sub                    the name

@@ -24,6 +24,8 @@
   /* A revoked key stays in the list, struck out of use. */
   .x-api-keys-key[data-state="revoked"] .x-api-keys-name { color: var(--x-fg-3); }
   .x-api-keys-key[data-state="revoked"] .x-api-keys-value { text-decoration: line-through; }
+  /* With no Revoke button after it, the tag takes the row's end, where the buttons of the other rows are. */
+  .x-api-keys-key[data-state="revoked"] > .x-tag { grid-column: 2 / -1; justify-self: end; }
   @container (max-width: 420px) {
     .x-api-keys-key { grid-template-columns: minmax(0, 1fr) auto; }
     .x-api-keys-key > .x-tag { grid-area: auto; justify-self: start; }

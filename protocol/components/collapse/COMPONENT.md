@@ -3,7 +3,7 @@ id: collapse
 name: Collapse
 summary: Sections that open and close in place (accordion); content renders on first open unless forced.
 motion: 0
-requires: [tokens]
+requires: [tokens, motion]
 components: []
 files: [collapse.css, collapse.html, collapse.controller.js, collapse.controller.d.ts, collapse.tsx]
 ---
@@ -53,8 +53,9 @@ div.x-collapse[data-variant]                    one frame with hairline dividers
 
 ## Motion
 
-Height and opacity on `--x-duration-base` with `--x-ease` where `::details-content` and
-`interpolate-size` are supported; instant elsewhere and when motion is reduced. Chevron turns on `--x-duration-fast`.
+Height and opacity on `--x-duration-base` with `--x-ease`: in CSS where `::details-content` and `interpolate-size`
+are supported, and by the controller (`toggleCollapseItem`, which the React version uses too) where they are not
+(Safari, Firefox). Instant when motion is reduced. Chevron turns on `--x-duration-fast`.
 
 ## Component tokens
 

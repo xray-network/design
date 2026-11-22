@@ -21,7 +21,8 @@
   .x-table-compact-title { margin: 0; color: var(--x-fg-1); font-size: 18px; font-weight: var(--x-weight-title); line-height: 1.3; }
   .x-table-compact-description { margin: var(--x-space-1) 0 0; color: var(--x-fg-3); font-size: var(--x-text-xs); }
 
-  .x-table-compact-scroll { overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--x-border) transparent; }
+  /* Positioned, so the row links' cover (below) stays inside the scroller even where a browser cannot position a row. */
+  .x-table-compact-scroll { position: relative; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--x-border) transparent; }
   .x-table-compact table {
     width: 100%;
     border-collapse: collapse;

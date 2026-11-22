@@ -1,7 +1,6 @@
 "use client";
 
 import { useId, type CSSProperties, type ReactNode } from "react";
-import { Skeleton } from "../skeleton/skeleton";
 import "./progress.css";
 
 type Tone = "accent" | "success" | "warning" | "danger" | "neutral";
@@ -18,12 +17,10 @@ type BarProps = {
   "aria-valuetext"?: string;
   "aria-label"?: string;
   size?: "sm" | "md";
-  /** Placeholders in the head while the reading loads. */
-  loading?: boolean;
   className?: string;
 };
 
-function Bar({ role, value, max = 100, label, valueText, tone, size = "md", loading, className, ...aria }: BarProps & { role: "progressbar" | "meter"; tone: Tone }) {
+function Bar({ role, value, max = 100, label, valueText, tone, size = "md", className, ...aria }: BarProps & { role: "progressbar" | "meter"; tone: Tone }) {
   const labelId = useId();
   const fraction = Math.min(1, Math.max(0, max > 0 ? value / max : 0));
   const shown = valueText === undefined ? `${Math.round(fraction * 100)}%` : valueText;
@@ -36,17 +33,16 @@ function Bar({ role, value, max = 100, label, valueText, tone, size = "md", load
       data-tone={tone === "accent" ? undefined : tone}
       aria-labelledby={label != null ? labelId : undefined}
       aria-label={aria["aria-label"]}
-      aria-valuenow={loading ? undefined : value}
+      aria-valuenow={value}
       aria-valuemin={0}
       aria-valuemax={max}
-      aria-valuetext={loading ? undefined : aria["aria-valuetext"]}
-      aria-busy={loading || undefined}
-      style={loading ? undefined : ({ "--x-progress-value": fraction } as CSSProperties)}
+      aria-valuetext={aria["aria-valuetext"]}
+      style={{ "--x-progress-value": fraction } as CSSProperties}
     >
       {head && (
         <div className="x-progress-head">
-          <span className="x-progress-label" id={labelId}>{loading ? <Skeleton shape="text" width="5em" /> : label}</span>
-          {shown !== false && <span className="x-progress-value">{loading ? <Skeleton shape="text" width="4em" /> : shown}</span>}
+          <span className="x-progress-label" id={labelId}>{label}</span>
+          {shown !== false && <span className="x-progress-value">{shown}</span>}
         </div>
       )}
       <div className="x-progress-track"><div className="x-progress-fill" /></div>

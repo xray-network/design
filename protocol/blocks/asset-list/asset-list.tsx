@@ -14,7 +14,7 @@ export type Asset = {
   change?: number;
   /** The asset's share of the whole, 0 to 1: a slim line under the row. */
   share?: number;
-  /** The asset's mark: a token disc (span.x-list-token), an Avatar, a logo. */
+  /** The asset's mark: a token disc with its icon (span.x-list-token[data-tone=neutral] › Icon), an Avatar, a logo. */
   lead?: ReactNode;
   href?: string;
 };

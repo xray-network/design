@@ -3,10 +3,11 @@
 @layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
 
 @layer components {
-  .x-page-header { display: flex; align-items: center; gap: var(--x-space-2); min-width: 0; }
+  .x-page-header { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-3) var(--x-space-2); min-width: 0; }
   .x-page-header > .x-page-header-back { flex: none; margin-inline-start: calc(var(--x-space-1-5) * -1); }
-  .x-page-header-text { flex: 1; min-width: 0; }
+  /* The title takes the row; with less than 240px left for it, the actions wrap under it. */
+  .x-page-header-text { flex: 1 1 240px; min-width: 0; }
   .x-page-header-title { margin: 0; overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-2xl); font-weight: var(--x-weight-title); letter-spacing: var(--x-tracking-tight); line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
   .x-page-header-description { margin: var(--x-space-1) 0 0; color: var(--x-fg-3); font-size: var(--x-text-sm); }
-  .x-page-header-actions { display: flex; flex: none; align-items: center; gap: var(--x-space-2); margin-inline-start: var(--x-space-2); }
+  .x-page-header-actions { display: flex; flex: none; flex-wrap: wrap; align-items: center; gap: var(--x-space-2); }
 }

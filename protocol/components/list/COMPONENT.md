@@ -19,11 +19,12 @@ no borders or cards; the hover fill overhangs the content, so text stays on the 
 div.x-list[role=list]                          2px gaps
 ├── div.x-list-heading                         12/600 group title: a day, a category
 └── div|a|button.x-list-row[role=listitem]     14px radius, 10px 12px padding
-    ├── lead: .x-list-icon | .x-list-token | Avatar | Tile     36px
+    ├── lead: .x-list-icon | .x-list-token | Avatar | Tile     36px; optional. A token holds the asset's icon (Icon's
+    │                                                          crypto and currency icons), or a letter when it has none
     ├── span.x-list-text
     │   ├── .x-list-title                      14/600, one line
     │   └── .x-list-sub                        13px, one line
-    └── span.x-list-end[data-tone]             right-aligned, tabular digits
+    └── span.x-list-end[data-tone]             optional; right-aligned, tabular digits
         ├── .x-list-title                      amount
         └── .x-list-sub                        fiat value or detail
 ```
@@ -34,6 +35,7 @@ div.x-list[role=list]                          2px gaps
 |---|---|
 | `.x-list-end` / `.x-list-icon` `data-tone` | `positive` (incoming funds, rewards) |
 | `.x-list-token` `--x-list-token-bg` | the asset's color token; default `--x-accent` |
+| `.x-list-token` `data-tone` | `neutral`: the active fill and the primary text color, for an icon that carries no color of its own (the crypto icons) | the asset's color |
 
 ## States
 

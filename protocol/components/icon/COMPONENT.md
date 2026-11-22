@@ -61,9 +61,7 @@ None. Icons rotate or move only as part of their component (a chevron that turns
 
 - 24×24 viewBox, `currentColor`, no fills on outline icons, no hard-coded stroke widths in bodies.
 - Social and crypto icons are trademarks of their owners: use them only to refer to that service or chain.
-- Sources: interface icons from Heroicons (MIT) and Lucide (ISC), plus XRAY drawings; social and crypto icons from
-  Tabler Icons (MIT), plus XRAY drawings (Farcaster, Substack, the XRAY mark, and chains Tabler lacks, after the XRAY
-  app's chain marks). Keep the license notes at the top of `icons.js`, `socials.js` and `crypto.js`.
+- Keep the license notes at the top of `icons.js`, `socials.js` and `crypto.js`: they travel with the icons.
 
 ## Safe edits
 

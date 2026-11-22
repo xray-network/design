@@ -24,7 +24,7 @@ requirements below apply only to web. Selection state uses the native framework'
 ## Anatomy
 
 ```
-button.x-select[popovertarget][aria-haspopup=listbox][aria-expanded]   44px, 12px radius, hairline
+button.x-select[popovertarget][aria-haspopup=listbox][aria-expanded]   40px, 12px radius, hairline
 ├── span.x-select-value[data-placeholder]    selected label, or the placeholder when empty
 └── svg.x-select-chevron                     turns 180° when open
 div.x-select-list[popover][role=listbox]     panel surface, 14px radius, at least as wide as the trigger
@@ -39,7 +39,7 @@ input[type=hidden][data-for=<list id>]       optional: submits the value with a 
 
 | Attribute | Values | Default |
 |---|---|---|
-| `.x-select` `data-size` | `sm` 36px / 10px radius | 44px / 12px radius |
+| `.x-select` `data-size` | `sm` 36px / 10px radius; the same heights as every form control (`--x-control-*`) | 40px / 12px radius |
 
 ## States
 

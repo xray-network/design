@@ -123,6 +123,21 @@ export function chartFrame(figure, draw, { height = 220, legend = [], colors } =
   plot.className = "x-chart-plot";
   const root = svg("svg", { class: "x-chart-svg", role: "presentation" }, plot);
   const tip = tooltip(plot);
+  // Touch has no hover: a tap shows the readout where the finger is and it stays until a tap elsewhere. The
+  // browser reports the finger leaving as soon as it lifts, so for touch "leave" does not hide it.
+  let hideReadout = () => {};
+  const keepOnTouch = () => {
+    const leave = plot.onpointerleave;
+    hideReadout = () => leave?.call(plot, new PointerEvent("pointerleave"));
+    plot.onpointerleave = (event) => { if (event.pointerType === "mouse") leave?.call(plot, event); };
+  };
+  const onDown = (event) => {
+    event.preventDefault(); // no text selection, no focus ring, no tap flash: the press only reads
+    if (event.pointerType !== "mouse") plot.onpointermove?.(event);
+  };
+  const onOutside = (event) => { if (event.pointerType !== "mouse" && !plot.contains(/** @type {Node} */ (event.target))) hideReadout(); };
+  plot.addEventListener("pointerdown", onDown);
+  document.addEventListener("pointerdown", onOutside);
   const render = () => {
     const width = Math.round(plot.clientWidth);
     // Only a new width needs a new drawing; the drawing itself changes the plot's height, which must not loop.
@@ -133,6 +148,7 @@ export function chartFrame(figure, draw, { height = 220, legend = [], colors } =
     root.setAttribute("height", String(height));
     tip.hide();
     draw({ svg: root, width, height, tip, off, relabel: (index, text) => { if (entries[index]) entries[index].textContent = text; } });
+    keepOnTouch();
   };
   // Drawn on the next frame, not inside the observer: drawing changes the plot's own height, and a size changed
   // while sizes are being reported makes the browser complain of a loop.
@@ -141,7 +157,7 @@ export function chartFrame(figure, draw, { height = 220, legend = [], colors } =
   observer.observe(plot);
   figure.setAttribute("data-drawn", "");
   render();
-  return () => { cancelAnimationFrame(frame); observer.disconnect(); plot.remove(); figure.removeAttribute("data-drawn"); };
+  return () => { cancelAnimationFrame(frame); observer.disconnect(); document.removeEventListener("pointerdown", onOutside); plot.remove(); figure.removeAttribute("data-drawn"); };
 }
 
 /**

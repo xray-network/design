@@ -35,6 +35,7 @@ import { Empty } from "../../protocol/components/empty/empty";
 import { Result } from "../../protocol/components/result/result";
 import { BorderBeam } from "../../protocol/components/border-beam/border-beam";
 import { Tabs } from "../../protocol/components/tabs/tabs";
+import { TabsLine } from "../../protocol/components/tabs-line/tabs-line";
 import { Delta, Status, Tag } from "../../protocol/components/tag/tag";
 import { Toaster } from "../../protocol/components/toast/toast";
 import { Tooltip } from "../../protocol/components/tooltip/tooltip";
@@ -169,6 +170,12 @@ export const examples: Record<string, ReactElement> = {
     />
   ),
   toast: <><Toaster /><Toaster position="top" /></>,
+  "tabs-line": (
+    <>
+      <TabsLine aria-label="Payment sections" items={[{ value: "overview", label: "Overview" }, { value: "activity", label: "Activity", count: 12 }, { value: "payouts", label: "Payouts", disabled: true }]} />
+      <TabsLine aria-label="Account" fullWidth value="profile" items={[{ value: "profile", label: "Profile", icon, href: "/profile" }, { value: "security", label: "Security", href: "/security" }]} />
+    </>
+  ),
   tabs: (
     <>
     <Tabs aria-label="Account" value="assets" onValueChange={noop} items={[{ value: "assets", label: "Assets", content: "12,480 ADA" }, { value: "activity", label: "Activity", content: "38" }]} />
@@ -393,7 +400,6 @@ export const examples: Record<string, ReactElement> = {
       <Meter value={4.1} max={5} warning={4} danger={4.8} label="Storage" valueText="4.1 of 5 GB" aria-valuetext="4.1 of 5 GB" />
       <Meter value={1020} max={1000} danger={1000} aria-label="Daily limit" valueText={false} />
       <Meter value={3} max={10} tone="neutral" aria-label="Seats" valueText={false} />
-      <Meter value={0} max={5} label="Storage" loading />
     </>
   ),
   slider: (

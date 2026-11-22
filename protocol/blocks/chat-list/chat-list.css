@@ -3,7 +3,8 @@
 @layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
 
 @layer components {
-  .x-chat-list .x-list-end { display: grid; justify-items: end; align-content: start; gap: var(--x-space-1); align-self: stretch; padding-top: var(--x-space-0-5); }
+  /* The time, then a line kept for the count whether or not there is one: a row is the same height read or unread. */
+  .x-chat-list .x-list-end { display: grid; grid-template-rows: auto 20px; justify-items: end; align-content: start; gap: var(--x-space-1); align-self: stretch; padding-top: var(--x-space-0-5); }
   .x-chat-list .x-list-end > .x-list-sub { font-size: var(--x-text-xs); }
   /* Unread: the last message steps forward and the count shows. */
   .x-chat-list .x-list-row[data-unread] .x-list-text > .x-list-sub { color: var(--x-fg-1); }

@@ -66,7 +66,7 @@ export function ApiKeys({ keys, creating, onCreate, onCancel, secret, onDone, on
             <span className="x-api-keys-name">{key.name}</span>
             <span className="x-api-keys-meta"><code className="x-api-keys-value">{key.masked}</code>{key.note != null && <span>{key.note}</span>}</span>
             {key.revoked
-              ? <span className="x-tag" data-size="sm">Revoked</span>
+              ? <span className="x-tag" data-size="sm" data-tone="warning"><span className="x-status-dot" aria-hidden="true" />Revoked</span>
               : <span className="x-tag" data-size="sm" data-tone="success"><span className="x-status-dot" aria-hidden="true" />Active</span>}
             {!key.revoked && <button className="x-button" type="button" data-variant="ghost" data-size="sm" onClick={() => onRevoke?.(key.id)}>Revoke</button>}
           </li>

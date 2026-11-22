@@ -35,7 +35,7 @@
 
   /* ---- Input: a rounded box that holds the native input plus optional affixes and buttons */
   .x-input {
-    --x-input-height: var(--x-size-xl);
+    --x-input-height: var(--x-control-md);
     --x-input-pad: var(--x-space-4);
     --x-input-font-size: var(--x-text-md);
     --x-input-font-weight: var(--x-weight-body);
@@ -94,7 +94,7 @@
 
   /* ---- Sizes */
   .x-input[data-size="sm"] {
-    --x-input-height: var(--x-size-md);
+    --x-input-height: var(--x-control-sm);
     --x-input-pad: var(--x-space-3-5);
     --x-input-font-size: var(--x-text-sm);
     --x-input-radius: var(--x-radius-md);
@@ -102,7 +102,7 @@
   }
   /* Amount entry: large bold numerals. */
   .x-input[data-size="lg"] {
-    --x-input-height: 56px;
+    --x-input-height: var(--x-control-lg);
     --x-input-pad: var(--x-space-5);
     --x-input-font-size: var(--x-text-2xl);
     --x-input-font-weight: var(--x-weight-title);
@@ -130,4 +130,10 @@
   .x-input:has(> textarea[aria-invalid="true"]) { --x-input-border: var(--x-danger); }
   .x-input:has(> textarea:disabled) { opacity: 0.4; }
   .x-input[data-size="lg"] { padding-right: var(--x-space-2-5); }
+
+  /* iPhone Safari zooms the page into a field whose text is under 16px: there, the text is at least 16px. */
+  @supports (-webkit-touch-callout: none) {
+    .x-input > input { font-size: max(16px, var(--x-input-font-size)); }
+    .x-input > textarea { font-size: max(16px, var(--x-text-md)); }
+  }
 }

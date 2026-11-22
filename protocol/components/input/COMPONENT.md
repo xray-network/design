@@ -28,7 +28,7 @@ Allow text scaling and control growth while preserving the base-scale spacing/ra
 ```
 .x-field
 ├── label.x-field-label[for]
-├── .x-input                       44px, 12px radius, hairline border
+├── .x-input                       40px, 12px radius, hairline border
 │   ├── [svg.x-icon | .x-input-affix]   leading
 │   ├── input                       borderless, fills the box
 │   └── [.x-input-affix | .x-button | .x-icon-button]   trailing
@@ -40,7 +40,7 @@ Allow text scaling and control growth while preserving the base-scale spacing/ra
 
 | Attribute | Values | Default |
 |---|---|---|
-| `.x-input` `data-size` | `sm` 36px / 10px radius (search, filters), `lg` 56px / 14px radius with 22px bold numerals (amounts) | 44px / 12px radius |
+| `.x-input` `data-size` | `sm` 36px / 10px radius (search, filters), `lg` 48px / 14px radius with large bold numerals (amounts); the same heights as every form control (`--x-control-*`) | 40px / 12px radius |
 | `.x-input > textarea` | multi-line: three lines high, grows with content up to 320px (`field-sizing: content`) | |
 
 ## States

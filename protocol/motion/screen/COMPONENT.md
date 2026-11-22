@@ -27,7 +27,7 @@ div.x-screens                               one place; clips whatever is on its 
 | Direction | For | Movement |
 |---|---|---|
 | `forward` (default) | going deeper: a row to its detail, the next step | the new screen slides in from the end, over the old one, which eases back 24% and dims |
-| `back` | coming out again | the old screen slides away to the end; the one under it eases forward |
+| `back` | coming out again | the old screen slides away to the end; the one under it comes forward with it, a quarter as far, and both land together |
 | `fade` | sideways: tabs, sections at the same level | the old screen fades out, then the new one fades in |
 
 ## States
@@ -48,8 +48,10 @@ div.x-screens                               one place; clips whatever is on its 
 ## Motion
 
 Tier 1. `screenTransition(from, to, { direction })` from the controller stacks the two screens and plays both
-with `translate` and `opacity`. The screen that arrives travels on `--x-spring-soft`; the one that leaves is an
-exit, on `--x-ease` and `--x-duration-slow`. A change made mid-flight finishes the running one first.
+with `translate` and `opacity`. Forward, the screen that arrives travels on `--x-spring-soft`; the one that leaves
+is an exit, on `--x-ease` and `--x-duration-slow`. Back, the two move as one: both on `--x-spring-soft` at 80% of
+its duration, so they start and land together, the leaving screen crossing the whole width and the one under it a
+quarter of it. A change made mid-flight finishes the running one first.
 Reduced motion: the screens simply swap.
 
 ## Component tokens

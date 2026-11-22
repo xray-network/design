@@ -212,32 +212,33 @@
   }
 }
 
-/* The Theming page's prompt: the brand inputs fill the stage, side by side on wide screens. */
-.wiki-theme-stage { min-height: 0; }
-.wiki-theme-inputs { align-self: stretch; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--x-space-4); }
-@media (max-width: 560px) { .wiki-theme-inputs { grid-template-columns: minmax(0, 1fr); } }
+/* The Theming page: three settings in a row (stacked on a phone), the example, then the prompt. */
+.wiki-theme-settings { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: var(--x-space-4); padding: var(--x-space-6); border-bottom: 1px solid var(--x-border); }
+@media (max-width: 760px) { .wiki-theme-settings { grid-template-columns: minmax(0, 1fr); padding: var(--x-space-5) var(--x-space-4); } }
+/* The native color picker as a swatch at the start of the hex field. */
+.wiki-theme-picker { display: grid; flex: none; width: 22px; height: 22px; overflow: hidden; border-radius: var(--x-radius-xs); box-shadow: inset 0 0 0 1px var(--x-border); }
+.wiki-theme-picker > input { width: 34px; height: 34px; margin: -6px; padding: 0; border: 0; background: none; cursor: pointer; }
 
-/* Theme preview (shown with "Show preview"): a compact panel of accent-bearing components with the entered theme, in
-   the page's current theme. */
-.wiki-theme-preview {
-  display: flex;
-  flex-direction: column;
-  gap: var(--x-space-3);
-  padding: var(--x-space-4);
-  border: 1px solid var(--x-border);
-  border-radius: var(--x-radius-2xl);
-  background: var(--x-bg);
-  color: var(--x-fg-2);
-  font: var(--x-weight-body) var(--x-text-sm) / var(--x-leading-body) var(--x-font-sans);
-}
-.wiki-theme-preview-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5) var(--x-space-4); }
-.wiki-theme-preview-radios { display: flex; gap: var(--x-space-4); }
-.wiki-theme-preview-link {
-  color: var(--x-link);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.wiki-theme-preview-link:hover { color: var(--x-accent-ink-hover); }
+/* The example: the derived palette beside a panel of components in the theme. */
+.wiki-theme-example { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: var(--x-space-5); padding: var(--x-space-4) 0 var(--x-space-2); color: var(--x-fg-2); font: var(--x-weight-body) var(--x-text-sm) / var(--x-leading-body) var(--x-font-sans); }
+@media (max-width: 760px) { .wiki-theme-example { grid-template-columns: minmax(0, 1fr); } }
+.wiki-theme-palette { display: grid; align-content: start; gap: var(--x-space-4); }
+.wiki-theme-palette h3 { margin: 0 0 var(--x-space-2); color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-label); }
+.wiki-theme-palette ul { display: grid; gap: var(--x-space-1-5); margin: 0; padding: 0; list-style: none; }
+.wiki-theme-palette li { display: flex; align-items: center; gap: var(--x-space-2-5); min-width: 0; }
+.wiki-theme-palette li > span:last-child { display: flex; justify-content: space-between; gap: var(--x-space-2); flex: 1; min-width: 0; }
+.wiki-theme-palette code { overflow: hidden; color: var(--x-fg-1); font: var(--x-weight-body) var(--x-text-xs) / 1.4 var(--x-font-mono); text-overflow: ellipsis; white-space: nowrap; }
+.wiki-theme-palette small { flex: none; color: var(--x-fg-3); font: var(--x-weight-body) var(--x-text-2xs) / 1.4 var(--x-font-mono); }
+.wiki-theme-swatch-chip { flex: none; width: 28px; height: 28px; border: 1px solid var(--x-border); border-radius: var(--x-radius-sm); }
+.wiki-theme-sample { display: grid; gap: var(--x-space-4); min-width: 0; padding: var(--x-space-5); border: 1px solid var(--x-border); border-radius: var(--x-radius-2xl); background: var(--x-bg); }
+.wiki-theme-sample > header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--x-space-3); }
+.wiki-theme-sample h3 { margin: 0; color: var(--x-fg-1); font-size: var(--x-text-xl); font-weight: var(--x-weight-title); letter-spacing: var(--x-tracking-tight); }
+.wiki-theme-sample header p { margin: var(--x-space-1) 0 0; color: var(--x-fg-3); }
+.wiki-theme-sample-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2-5) var(--x-space-4); }
+.wiki-theme-sample-row > .x-input { flex: 1 1 160px; max-width: 220px; }
+.wiki-theme-sample-radios { display: flex; gap: var(--x-space-4); }
+.wiki-theme-sample-link { color: var(--x-link); text-decoration: underline; text-underline-offset: 3px; }
+.wiki-theme-sample-link:hover { color: var(--x-accent-ink-hover); }
 
 /* ---- Motion demos */
 .wiki-demo-chat { flex: 1; min-width: 0; }
@@ -356,6 +357,8 @@
 .wiki-demo-morph-stats dd { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-xs); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .wiki-demo-morph-stats dt + dd { color: var(--x-fg-1); font-size: var(--x-text-2xl); font-weight: var(--x-weight-title); letter-spacing: var(--x-tracking-tight); line-height: 1.1; }
 .wiki-demo-morph-actions { display: flex; align-items: center; gap: var(--x-space-2); }
+.wiki-demo-morph-detail > .wiki-demo-morph-close { position: absolute; top: var(--x-space-3); inset-inline-end: var(--x-space-3); z-index: 1; }
+.wiki-demo-morph-detail > .wiki-demo-morph-top { padding-inline-end: calc(var(--x-size-sm) + var(--x-space-2)); flex-wrap: wrap; row-gap: var(--x-space-3); }
 
 /* The scenes: a quiet stand-in for a screen, so the pill and the round button have somewhere to live. */
 .wiki-demo-morph-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--x-space-3); align-self: stretch; }
@@ -382,8 +385,11 @@
    directs the list on the left, what changes it on the right. */
 .wiki-demo-motion { display: grid; gap: var(--x-space-4); align-self: stretch; max-width: 440px; }
 .wiki-demo-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--x-space-3); padding-bottom: var(--x-space-4); border-bottom: 1px solid var(--x-border); }
-.wiki-demo-toolbar-group { display: flex; align-items: center; gap: var(--x-space-2); color: var(--x-fg-3); font-size: var(--x-text-sm); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.wiki-demo-toolbar-group > span:first-child { margin-inline-end: var(--x-space-1); }
+.wiki-demo-toolbar-group { display: flex; align-items: center; gap: var(--x-space-2); min-width: 0; max-width: 100%; color: var(--x-fg-3); font-size: var(--x-text-sm); font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* A label with a control: the label above it, the control as wide as the row allows (a Segmented scrolls inside). */
+.wiki-demo-toolbar-group:has(> span:first-child + :is(.x-segmented, .x-chips, .x-select, .x-select-native, .x-liquid-indicator, .x-slider)) { flex-direction: column; align-items: flex-start; gap: var(--x-space-1-5); }
+.wiki-demo-toolbar-group:has(> span:first-child + :is(.x-segmented, .x-chips, .x-select, .x-select-native, .x-liquid-indicator, .x-slider)) > span:first-child { color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-label); }
+.wiki-demo-toolbar-group > :is(.x-segmented, .x-chips, .x-liquid-indicator) { max-width: 100%; }
 .wiki-demo-reflow { display: grid; gap: var(--x-space-2); }
 .wiki-demo-reflow > li, .wiki-demo-stagger > li { display: flex; align-items: center; justify-content: space-between; gap: var(--x-space-3); padding: var(--x-space-3) var(--x-space-4); border: 1px solid var(--x-border); border-radius: var(--x-radius-lg); background: var(--x-bg-panel); color: var(--x-fg-3); font-size: var(--x-text-sm); font-variant-numeric: tabular-nums; }
 .wiki-demo-reflow strong, .wiki-demo-stagger > li { color: var(--x-fg-1); font-weight: var(--x-weight-label); }
@@ -416,7 +422,8 @@
   .wiki-demo-morph, .wiki-demo-morph-pair { grid-template-columns: minmax(0, 1fr); }
   .wiki-demo-morph-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--x-space-4); }
   .wiki-demo-morph-stats > div:nth-child(odd) { padding-inline-start: 0; border-inline-start: 0; }
-  .wiki-demo-morph-detail > .wiki-demo-morph-top { flex-wrap: wrap; }
+  .wiki-demo-morph-detail > .wiki-demo-morph-top > .wiki-demo-morph-actions { flex-basis: 100%; }
+  .wiki-demo-morph-detail > .wiki-demo-morph-top > .wiki-demo-morph-actions > .x-button { flex: 1; }
   .wiki-demo-morph-form { flex-wrap: wrap; }
   .wiki-demo-morph-form > .x-input { flex-basis: 100%; }
 }
@@ -445,6 +452,7 @@
 /* Replace */
 .wiki-demo-replace { display: grid; gap: var(--x-space-4); padding: var(--x-space-4); border: 1px solid var(--x-border); border-radius: var(--x-radius-2xl); background: var(--x-bg-panel); color: var(--x-fg-3); font-size: var(--x-text-sm); }
 .wiki-demo-replace[data-row] { grid-template-columns: minmax(0, 1fr) auto; align-items: center; min-height: 68px; }
+@media (max-width: 560px) { .wiki-demo-replace[data-row] { grid-template-columns: minmax(0, 1fr); justify-items: start; } }
 .wiki-demo-replace > .x-replace[role="tabpanel"] { display: grid; gap: var(--x-space-1); min-height: 112px; align-content: start; }
 .wiki-demo-replace > .x-replace > div { display: flex; align-items: baseline; gap: var(--x-space-2); padding-top: var(--x-space-2); font-size: var(--x-text-xs); }
 .wiki-demo-replace b { color: var(--x-fg-1); font-size: var(--x-text-2xl); font-weight: var(--x-weight-title); letter-spacing: var(--x-tracking-tight); font-variant-numeric: tabular-nums; }
@@ -474,3 +482,17 @@
 .wiki-demo-phone-screen { height: 100%; padding: var(--x-space-2) var(--x-space-4) 96px; overflow-y: auto; color: var(--x-fg-3); font-size: var(--x-text-sm); scrollbar-width: none; }
 .wiki-demo-phone-screen::-webkit-scrollbar { display: none; }
 .wiki-demo-phone-screen > p { margin: 0; padding-block: var(--x-space-3); border-bottom: 1px solid var(--x-border); }
+
+/* Icon: the places icons sit in an interface, each with a short label above it. */
+.wiki-demo-icon-uses { display: grid; gap: var(--x-space-6); align-self: stretch; min-width: 0; }
+.wiki-demo-icon-use { display: grid; gap: var(--x-space-2-5); min-width: 0; }
+.wiki-demo-icon-use h3 { margin: 0; color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-label); }
+.wiki-demo-icon-use > div { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2); min-width: 0; }
+.wiki-demo-icon-use > div > :is(.x-input, .x-list) { flex: 1 1 100%; max-width: 360px; }
+.wiki-demo-icon-text { max-width: 52ch; margin: 0; color: var(--x-fg-2); font-size: var(--x-text-md); line-height: var(--x-leading-body); }
+.wiki-demo-icon-text > .x-icon { display: inline-block; vertical-align: -2px; color: var(--x-fg-3); }
+
+/* In a preview's bar while the reader's theme is on: a quiet link back to the Theming page. */
+.wiki-demo-theme { display: inline-flex; align-items: center; gap: var(--x-space-1-5); color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-label); text-decoration: none; }
+.wiki-demo-theme::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--wiki-user-accent, var(--x-accent)); }
+.wiki-demo-theme:hover { color: var(--x-fg-1); }

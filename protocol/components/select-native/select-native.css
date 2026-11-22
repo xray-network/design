@@ -4,7 +4,7 @@
 
 @layer components {
   .x-select-native {
-    --x-select-native-height: var(--x-size-xl);
+    --x-select-native-height: var(--x-control-md);
     --x-select-native-radius: var(--x-radius-lg);
     --x-select-native-border: var(--x-border);
     --x-select-native-pad: var(--x-space-4);
@@ -48,15 +48,20 @@
   .x-select-native:has(> select:is([multiple], [size]:not([size="1"]))) .x-select-native-chevron { display: none; }
 
   .x-select-native[data-size="sm"] {
-    --x-select-native-height: var(--x-size-md);
+    --x-select-native-height: var(--x-control-sm);
     --x-select-native-radius: var(--x-radius-md);
     --x-select-native-pad: var(--x-space-3-5);
     --x-select-native-font-size: var(--x-text-sm);
   }
   .x-select-native[data-size="lg"] {
-    --x-select-native-height: 56px;
+    --x-select-native-height: var(--x-control-lg);
     --x-select-native-radius: var(--x-radius-xl);
     --x-select-native-pad: var(--x-space-5);
-    --x-select-native-font-size: var(--x-text-xl);
+    --x-select-native-font-size: var(--x-text-lg);
+  }
+
+  /* iPhone Safari zooms the page into a field whose text is under 16px: there, the text is at least 16px. */
+  @supports (-webkit-touch-callout: none) {
+    .x-select-native > select { font-size: max(16px, var(--x-select-native-font-size)); }
   }
 }

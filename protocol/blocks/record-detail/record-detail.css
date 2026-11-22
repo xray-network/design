@@ -5,11 +5,12 @@
 @layer components {
   .x-record-detail { display: grid; gap: var(--x-space-5); min-width: 0; container-type: inline-size; }
   .x-record-detail-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--x-space-2) var(--x-space-3); }
-  .x-record-detail-id { flex: 1; min-width: 0; }
+  /* The title takes the row; with less than 240px left for it, the actions wrap under it. */
+  .x-record-detail-id { flex: 1 1 240px; min-width: 0; }
   .x-record-detail-line { display: flex; align-items: center; gap: var(--x-space-2-5); min-width: 0; }
   .x-record-detail-title { margin: 0; overflow: hidden; color: var(--x-fg-1); font: var(--x-weight-stat) var(--x-text-3xl) / 1.15 var(--x-font-sans); font-variant-numeric: tabular-nums; letter-spacing: var(--x-tracking-tight); text-overflow: ellipsis; white-space: nowrap; }
   .x-record-detail-sub { margin: var(--x-space-1) 0 0; color: var(--x-fg-3); font-size: var(--x-text-sm); }
-  .x-record-detail-actions { display: flex; flex: none; gap: var(--x-space-2); }
+  .x-record-detail-actions { display: flex; flex: none; flex-wrap: wrap; gap: var(--x-space-2); }
 
   /* Facts: a label column and a value column, a hairline between rows. */
   .x-record-detail-facts { display: grid; margin: 0; border-block: 1px solid var(--x-border); }

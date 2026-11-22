@@ -1,6 +1,10 @@
 import { useState } from "react"
 import { AssetList } from "@protocol/blocks/asset-list/asset-list"
 import { Switch } from "@protocol/components/switch/switch"
+import { Icon } from "@protocol/components/icon/icon"
+import { bitcoin, chainlink, ethereum, usdc } from "@protocol/components/icon/crypto.js"
+
+const ICON = { btc: bitcoin, eth: ethereum, usdc, link: chainlink }
 
 const ASSETS = [
   { id: "btc", name: "Bitcoin", amount: "0.1 BTC", value: "$9,641.21", change: 1.8, share: 0.6 },
@@ -17,7 +21,7 @@ export default function AssetListExample() {
       <AssetList
         aria-label="Assets"
         masked={masked}
-        items={ASSETS.map((asset) => ({ ...asset, lead: <span className="x-list-token" style={{ "--x-list-token-bg": "var(--x-bg-active)", color: "var(--x-fg-1)" } as never} aria-hidden="true">{asset.name.slice(0, 1)}</span> }))}
+        items={ASSETS.map((asset) => ({ ...asset, lead: <span className="x-list-token" data-tone="neutral" aria-hidden="true"><Icon icon={ICON[asset.id as keyof typeof ICON]} /></span> }))}
       />
     </div>
   )

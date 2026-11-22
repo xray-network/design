@@ -57,4 +57,9 @@
   .x-pagination-input:disabled { color: var(--x-fg-3); }
 
   .x-pagination-count { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* iPhone Safari zooms the page into a field whose text is under 16px: there, the text is at least 16px. */
+  @supports (-webkit-touch-callout: none) {
+    .x-pagination-input { font-size: 16px; }
+  }
 }

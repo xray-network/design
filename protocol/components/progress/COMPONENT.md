@@ -4,7 +4,7 @@ name: Progress
 summary: A bar for how far a task has come, and a meter for a reading on a fixed scale, colored by level.
 motion: 0
 requires: [tokens]
-components: [skeleton]
+components: []
 files: [progress.css, progress.html, progress.tsx]
 ---
 
@@ -44,7 +44,6 @@ A meter picks its tone from its level: React's `Meter` takes `warning` and `dang
 |---|---|---|
 | value | `--x-progress-value` (0–1) inline | fill scaled from the left |
 | complete | value 1 | full fill; announce completion in text, not color alone |
-| loading | `aria-busy="true"` | the head shows skeleton bars; the track stays empty |
 
 ## Accessibility
 

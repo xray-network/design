@@ -225,6 +225,34 @@ for (const [where, { kind, id, meta, dir, files }] of Object.entries(entries)) {
   }
 }
 
+// Form controls stand in line: each one's height at each size is the shared control token (--x-control-sm, -md,
+// -lg), so a field, a select, a segmented control and a button of one size line up in any row.
+const CONTROL_HEIGHTS = [
+  ["components/button", "x-button", "--x-button-height"],
+  ["components/input", "x-input", "--x-input-height"],
+  ["components/select", "x-select", "--x-select-height"],
+  ["components/select-native", "x-select-native", "--x-select-native-height"],
+  ["components/combobox", "x-combobox-field", "--x-combobox-height"],
+  ["components/input-group", "x-group", "--x-group-height"],
+  ["components/segmented", "x-segmented", "--x-segmented-height"],
+]
+for (const [where, cls, prop] of CONTROL_HEIGHTS) {
+  const entry = entries[where]
+  if (!entry) continue
+  const css = stripComments(read(join(entry.dir, `${entry.id}.css`)))
+  for (const [size, token] of [[null, "--x-control-md"], ["sm", "--x-control-sm"], ["lg", "--x-control-lg"]]) {
+    const selector = size ? `\\.${cls}\\[data-size="${size}"\\]` : `\\.${cls}`
+    const block = css.match(new RegExp(`(?:^|[\\s}])${selector}\\s*\\{([^}]*)\\}`))
+    if (!block) {
+      if (!size) error(where, `no .${cls} rule to read its height from`)
+      continue
+    }
+    const value = block[1].match(new RegExp(`${prop}\\s*:\\s*([^;]+);`))?.[1].trim()
+    if (value === undefined) { if (!size) error(where, `.${cls} sets no ${prop}`); continue }
+    if (value !== `var(${token})`) error(where, `.${cls}${size ? `[data-size="${size}"]` : ""} sets ${prop}: ${value}; form controls take var(${token}), so they line up with each other`)
+  }
+}
+
 // ---------------------------------------------------------------------------
 // 4. Web parity (native implementations require their target framework's checks)
 // ---------------------------------------------------------------------------

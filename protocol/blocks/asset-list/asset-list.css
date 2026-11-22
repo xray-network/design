@@ -6,6 +6,6 @@
   .x-asset-list .x-list-row { position: relative; }
   /* The asset's share of the whole: a slim line under its row, in the row's inset. */
   .x-asset-list-share { position: absolute; inset: auto var(--x-list-row-inset) var(--x-space-0-5); height: 2px; overflow: hidden; border-radius: var(--x-radius-pill); background: var(--x-bg-soft); pointer-events: none; }
-  .x-asset-list-share::before { content: ""; display: block; width: calc(var(--x-asset-list-share, 0) * 100%); height: 100%; border-radius: inherit; background: var(--x-accent-ink); }
+  .x-asset-list-share::before { content: ""; display: block; width: calc(var(--x-asset-list-share, 0) * 100%); height: 100%; border-radius: inherit; background: var(--x-accent); }
   .x-asset-list .x-list-row:has(> .x-asset-list-share) { padding-bottom: var(--x-space-3-5); }
 }

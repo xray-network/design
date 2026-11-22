@@ -15,7 +15,7 @@ export type DialogProps = {
   footer?: ReactNode;
   size?: "sm" | "md" | "lg";
   /** Where it opens: centered (default); near the top of the window for dialogs that grow (search, long forms);
-   *  or a full-height side sheet at the end or start edge (details, filters, a navigation drawer). */
+   *  or a side sheet floating at the end or start edge (details, filters, a navigation drawer). */
   placement?: "center" | "top" | "end" | "start";
   /** Allow closing by clicking the backdrop. Default true; turn off for destructive or unsaved flows. */
   dismissible?: boolean;

@@ -28,12 +28,15 @@ The first version.
   follow the ink.
 - **Grays:** neutral with the faintest warm tint (oklch chroma 0.0015 at most, hue 65), so chrome and text stay
   quiet beside any brand color; secondary text keeps 4.5:1 on the canvas in both themes.
-- **Components (48):** Alert, Avatar, BorderBeam, Button (+ icon button, round shape), Calendar (a day or a range), Card (+ tile),
+- **Components (49):** Alert, Avatar, BorderBeam, Button (+ icon button, round shape), Calendar (a day or a range), Card (+ tile),
   Checkbox, Chips, Collapse, Combobox, Command, Copy, Empty, Icon (interface, social and crypto icons, all outline),
   Input (field, input, textarea), InputAmount, InputGroup, List, Menu, MenuList, MenuNavigation, Message, Modal (+ side sheet), Numeral,
   CardOption (with a radio dot in the top-right corner), Pagination, Popconfirm, Popover, Progress (+ meter),
   Radio, Result, Segmented, Select, SelectNative, Skeleton, Slider, Spinner,
-  Stats, Steps, Switch, Table, TableCompact, Tabs, Tag (+ status, delta), Timeline, Toast, Tooltip, Typography.
+  Stats, Steps, Switch, Table, TableCompact, Tabs, TabsLine (a line that slides under the current tab), Tag (+ status, delta), Timeline, Toast, Tooltip, Typography.
+- **Control sizes:** every form control (Button, Input, Select, SelectNative, Combobox, InputGroup, Segmented) has
+  the same height at each size, from `--x-control-sm`, `-md` and `-lg`: 36, 40 and 48px, with 13, 14 and 15px text,
+  so controls of one size line up in any row. The protocol check enforces it.
 - **Loading states:** Skeleton (shapes, and text bars exactly one line tall with stable varied widths). Table, Table
   Compact, Result, Button, Pagination, Avatar (a spinner on top) and every block that shows data take `loading`: placeholders follow
   the structure, not the content, and the layout does not move.

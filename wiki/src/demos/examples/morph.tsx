@@ -77,11 +77,11 @@ export default function MorphExample() {
         <div ref={detail} className="wiki-demo-morph-detail" hidden={!open}>
           {open && (
             <>
+              <IconButton className="wiki-demo-morph-close" aria-label="Close" size="sm" onClick={hide}><Icon icon={xMark} /></IconButton>
               <div className="wiki-demo-morph-top">
                 <span className="wiki-demo-morph-id"><Avatar seed={open.id} palette={open.palette} size="lg" /><span><strong>{open.title}</strong><span>{open.text}</span></span></span>
                 <span className="wiki-demo-morph-actions">
                   <Button size="sm">Open {open.title.toLowerCase()}<Icon icon={arrowUpRight} /></Button>
-                  <IconButton aria-label="Close" size="sm" onClick={hide}><Icon icon={xMark} /></IconButton>
                 </span>
               </div>
               <dl className="wiki-demo-morph-stats">

@@ -5,6 +5,7 @@
 import { avatarSvg, initAvatars } from "../kit/components/avatar/avatar.controller.js";
 import { initCalendars } from "../kit/components/calendar/calendar.controller.js";
 import { initCopies } from "../kit/components/copy/copy.controller.js";
+import * as crypto from "../kit/components/icon/crypto.js";
 import * as icons from "../kit/components/icon/icons.js";
 import { initAmounts } from "../kit/components/input-amount/input-amount.controller.js";
 import { initSegmented } from "../kit/components/segmented/segmented.controller.js";
@@ -40,13 +41,17 @@ if (framed) {
   new MutationObserver(sync).observe(parent.document.documentElement, { attributes: true, attributeFilter: ["class"] });
 }
 
-// <svg class="x-icon" data-icon="heart"></svg> draws the kit icon of that name.
-const byName = new Map(Object.values(icons).filter((i) => i && typeof i === "object" && "body" in i).map((i) => [i.name, i]));
+// <svg class="x-icon" data-icon="heart"></svg> draws the kit icon of that name: an interface icon, or a crypto one.
+const byName = new Map([...Object.values(crypto), ...Object.values(icons)].filter((i) => i && typeof i === "object" && "body" in i).map((i) => [i.name, i]));
 const draw = (svg) => {
   const icon = byName.get(svg.dataset.icon);
   if (!icon) return;
   svg.setAttribute("viewBox", "0 0 24 24");
   svg.setAttribute("aria-hidden", "true");
+  // .x-icon gets its stroke from icon.css; anything else (the Menu List chevron) is drawn the same way here.
+  if (!svg.classList.contains("x-icon")) {
+    for (const [name, value] of [["fill", "none"], ["stroke", "currentColor"], ["stroke-width", "2"], ["stroke-linecap", "round"], ["stroke-linejoin", "round"]]) svg.setAttribute(name, value);
+  }
   svg.innerHTML = icon.body;
 };
 for (const svg of document.querySelectorAll("svg[data-icon]")) draw(svg);

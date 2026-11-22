@@ -1,5 +1,5 @@
 /* Dialog: native <dialog> opened with showModal(). Requires core/tokens.css and button.
-   Desktop: centered panel. Phones: bottom sheet. Enters on the liquid spring, exits on ease. */
+   Desktop: centered panel. Phones: at the top, 12px from the edges. Enters on the liquid spring, exits on ease. */
 
 @layer theme, base, components, utilities; /* layer order; repeated in every kit file, so load order never matters */
 
@@ -8,10 +8,14 @@
     --x-dialog-width: 460px;
     --x-dialog-pad: var(--x-space-6);
     --x-dialog-enter-y: 10px;
+    /* From the top of the window: a sixth of its height, between 48px and 160px. Not centered, so the dialog stays
+       put while its content changes, and every dialog opens at the same place. */
+    --x-dialog-top: clamp(var(--x-space-12), 16vh, 160px);
 
     width: min(var(--x-dialog-width), calc(100vw - var(--x-space-8)));
     max-width: none;
-    max-height: calc(100dvh - var(--x-space-8));
+    margin: var(--x-dialog-top) auto auto;
+    max-height: calc(100dvh - var(--x-dialog-top) - var(--x-space-6));
     padding: 0;
     border: 1px solid var(--x-border);
     border-radius: var(--x-radius-3xl);
@@ -124,32 +128,21 @@
     max-height: calc(100dvh - var(--x-space-12) * 2);
   }
 
-  /* Side sheet: full height at the window's end or start edge (logical: it follows the writing direction);
-     slides in from that edge. */
+  /* Side sheet: a panel that floats at the window's end or start edge (logical: it follows the writing direction),
+     the same distance from the window on every side, its frame and corners whole; slides in from that edge. */
   .x-dialog:is([data-placement="end"], [data-placement="start"]) {
     --x-dialog-width: 420px;
     --x-dialog-enter-x: 32px;
-    height: 100dvh;
-    max-height: 100dvh;
-    margin: 0;
-    border-width: 0;
-    border-radius: 0;
+    --x-dialog-inset: var(--x-space-3);
+    width: min(var(--x-dialog-width), calc(100vw - var(--x-dialog-inset) * 2));
+    height: calc(100dvh - var(--x-dialog-inset) * 2);
+    max-height: calc(100dvh - var(--x-dialog-inset) * 2);
+    margin: var(--x-dialog-inset);
     scale: 1;
     translate: var(--x-dialog-enter-x) 0;
   }
-  .x-dialog[data-placement="end"] {
-    margin-inline-start: auto;
-    border-inline-start-width: 1px;
-    border-start-start-radius: var(--x-radius-3xl);
-    border-end-start-radius: var(--x-radius-3xl);
-  }
-  .x-dialog[data-placement="start"] {
-    --x-dialog-enter-x: -32px;
-    margin-inline-end: auto;
-    border-inline-end-width: 1px;
-    border-start-end-radius: var(--x-radius-3xl);
-    border-end-end-radius: var(--x-radius-3xl);
-  }
+  .x-dialog[data-placement="end"] { margin-inline-start: auto; }
+  .x-dialog[data-placement="start"] { --x-dialog-enter-x: -32px; margin-inline-end: auto; }
   .x-dialog:dir(rtl)[data-placement="end"] { --x-dialog-enter-x: -32px; }
   .x-dialog:dir(rtl)[data-placement="start"] { --x-dialog-enter-x: 32px; }
   .x-dialog:is([data-placement="end"], [data-placement="start"])[open] { scale: 1; translate: 0 0; }
@@ -158,40 +151,33 @@
   }
   .x-dialog:is([data-placement="end"], [data-placement="start"])[data-size="lg"] { --x-dialog-width: 560px; }
 
-  /* Phones: a bottom sheet that rises from the edge. */
+  /* Phones: every dialog opens at the top, 12px from the edges of the window, and drops in a little from above:
+     clear of the keyboard, which rises from below. */
   @media (max-width: 560px) {
-    .x-dialog {
-      --x-dialog-enter-y: 48px;
-      --x-dialog-pad: var(--x-space-5);
-      width: 100%;
-      max-height: calc(100dvh - var(--x-space-10));
-      margin: auto 0 0;
-      border-width: 1px 0 0;
-      border-radius: var(--x-radius-3xl) var(--x-radius-3xl) 0 0;
-      scale: 1;
-    }
-    .x-dialog[open] { scale: 1; }
-    @starting-style {
-      .x-dialog[open] { scale: 1; }
-    }
-    /* Top on phones: a full-width sheet from the top edge, 16px below it. */
+    .x-dialog,
     .x-dialog[data-placement="top"] {
-      --x-dialog-enter-y: -48px;
-      width: calc(100% - var(--x-space-4) * 2);
-      margin: var(--x-space-4) auto auto;
-      max-height: calc(100dvh - var(--x-space-8));
+      --x-dialog-enter-y: -16px;
+      --x-dialog-pad: var(--x-space-5);
+      width: calc(100% - var(--x-space-3) * 2);
+      max-height: calc(100dvh - var(--x-space-3) * 2);
+      margin: var(--x-space-3) auto auto;
       border-width: 1px;
       border-radius: var(--x-radius-3xl);
     }
-    /* Side sheets stay at their edge, 32px short of the full width, so the page shows beside them. */
+    /* Side sheets still float at their edge, closer to the window, and 32px short of the full width, so the page
+       shows beside them. */
     .x-dialog:is([data-placement="end"], [data-placement="start"]) {
+      --x-dialog-inset: var(--x-space-2);
       width: calc(100% - var(--x-space-8));
-      max-height: 100dvh;
-      margin-block: 0;
+      height: calc(100dvh - var(--x-dialog-inset) * 2);
+      max-height: calc(100dvh - var(--x-dialog-inset) * 2);
+      margin-block: var(--x-dialog-inset);
+      border-width: 1px;
+      border-radius: var(--x-radius-3xl);
     }
-    .x-dialog[data-placement="end"] { border-width: 0; border-inline-start-width: 1px; border-radius: 0; border-start-start-radius: var(--x-radius-3xl); border-end-start-radius: var(--x-radius-3xl); }
-    .x-dialog[data-placement="start"] { border-width: 0; border-inline-end-width: 1px; border-radius: 0; border-start-end-radius: var(--x-radius-3xl); border-end-end-radius: var(--x-radius-3xl); }
-    .x-dialog-footer { flex-direction: column-reverse; padding-bottom: max(var(--x-space-4), env(safe-area-inset-bottom)); }
+    .x-dialog[data-placement="end"] { margin-inline: auto var(--x-dialog-inset); }
+    .x-dialog[data-placement="start"] { margin-inline: var(--x-dialog-inset) auto; }
+    .x-dialog-footer { flex-direction: column-reverse; }
     .x-dialog-footer > .x-button { width: 100%; }
   }
 }

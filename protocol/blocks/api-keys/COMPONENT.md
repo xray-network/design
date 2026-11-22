@@ -29,7 +29,7 @@ section.x-api-keys[aria-label]
     └── li.x-api-keys-key[data-state="revoked"]
         ├── span.x-api-keys-name
         ├── span.x-api-keys-meta              code.x-api-keys-value (masked) + last use
-        ├── span.x-tag                        Active, or Revoked
+        ├── span.x-tag                        Active, or Revoked (warning); a revoked key's tag sits at the row's end
         └── button.x-button                   Revoke; none on a revoked key
 ```
 
@@ -43,7 +43,7 @@ None.
 |---|---|---|
 | making a key | the form is present | a name field with Create key and Cancel |
 | new key | the secret panel is present | the full key with a copy button, until Done |
-| revoked | `data-state="revoked"` | the name is muted, the key struck through, no Revoke button |
+| revoked | `data-state="revoked"` | the name is muted, the key struck through, a warning Revoked tag at the row's end in place of the Revoke button |
 
 ## Accessibility
 
