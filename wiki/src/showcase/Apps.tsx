@@ -242,8 +242,8 @@ export function AppParts({ id }: { id: AppId }) {
 // The home page's wall of screens: four columns, each a stack of screens, alternate columns shifted for a
 // masonry look. The wall is static, the screens are live: each scrolls and takes taps inside its own frame.
 const WALL: { app: AppId; file: string; height: number }[][] = [
-  [{ app: "gramainst", file: "feed", height: 560 }, { app: "maskmeta", file: "wallet", height: 440 }],
-  [{ app: "gramatel", file: "chats", height: 420 }, { app: "tifyspo", file: "home", height: 580 }],
+  [{ app: "gramainst", file: "feed", height: 560 }, { app: "tertwit", file: "profile", height: 440 }],
+  [{ app: "gramatel", file: "chats", height: 420 }, { app: "maskmeta", file: "wallet", height: 580 }],
   [{ app: "nancbin", file: "trade", height: 600 }, { app: "mailg", file: "inbox", height: 400 }],
   [{ app: "bnbair", file: "explore", height: 460 }, { app: "gramatel", file: "chat", height: 540 }],
   [{ app: "tertwit", file: "home", height: 520 }, { app: "tifyspo", file: "player", height: 480 }],
