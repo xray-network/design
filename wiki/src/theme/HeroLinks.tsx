@@ -27,7 +27,7 @@ export function HeroLinks() {
     <nav className="spectre-hero-links" aria-label="Browse the kit">
       {ITEMS.map(({ value, label, href }) => (
         <Link key={href} className="spectre-hero-link" href={href}>
-          <span className="spectre-hero-link__label">{label}<span aria-hidden="true">↗</span></span>
+          <span className="spectre-hero-link__label">{label}<span className="wiki-arrow" aria-hidden="true" /></span>
           <span className="spectre-hero-link__value">{value}</span>
         </Link>
       ))}

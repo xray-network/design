@@ -79,7 +79,7 @@ export function PromptCard({
         <h2 className="wiki-prompt-title">Copy into your coding agent</h2>
         {source && (
           <a className="wiki-prompt-source" href={source.href} target="_blank" rel="noreferrer" aria-label={source.label}>
-            Reference source <span aria-hidden="true">↗</span>
+            Reference source <span className="wiki-arrow" aria-hidden="true" />
           </a>
         )}
       </div>

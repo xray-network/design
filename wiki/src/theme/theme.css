@@ -37,6 +37,7 @@ html:root {
   --spectre-sidebar-header: var(--xr-fg-muted);
   --spectre-symbol-color: var(--xr-brand);
   --spectre-external-link-icon: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20fill='none'%20viewBox='0%200%2024%2024'%20stroke='%23000'%20stroke-width='1.6'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='m12%205-7%207%207%207M5%2012h14'/%3E%3C/svg%3E");
+  --wiki-arrow-icon: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20fill='none'%20viewBox='0%200%2024%2024'%20stroke='%23000'%20stroke-width='2.4'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M6%2018%2018%206M8.5%206H18v9.5'/%3E%3C/svg%3E");
   --rp-content-padding-x: 48px;
   --rp-content-padding-y: 64px;
   --rp-outline-width: 200px;
@@ -212,6 +213,20 @@ html .rp-nav__title__suffix {
   font: 650 calc(var(--wiki-logo-h) * 17 / 23)/1 var(--xr-font-sans); /* 17px beside the 23px logo */
   letter-spacing: -.01em;
   white-space: nowrap;
+}
+
+/* The arrow after a link that leads onward: up and to the right. It is drawn, not typed: as the character (U+2197) it
+   becomes a boxed color emoji on Windows. It takes the text's color and follows its size. A link's underline stops
+   before it. */
+.wiki-arrow {
+  display: inline-block;
+  width: .82em;
+  height: .82em;
+  margin-left: .12em;
+  vertical-align: -.04em;
+  background-color: currentColor;
+  -webkit-mask: var(--wiki-arrow-icon) center / contain no-repeat;
+  mask: var(--wiki-arrow-icon) center / contain no-repeat;
 }
 
 /* Reuse the Back to Wiki arrow, rotated to mark external destinations. */
