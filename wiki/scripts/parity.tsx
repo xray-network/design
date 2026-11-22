@@ -11,6 +11,7 @@ import { Checkbox, CheckboxGroup } from "../../protocol/components/checkbox/chec
 import { RadioGroup } from "../../protocol/components/radio/radio";
 import { Chips } from "../../protocol/components/chips/chips";
 import { Dialog } from "../../protocol/components/modal/modal";
+import { Drawer } from "../../protocol/components/drawer/drawer";
 import { Field, Input, TextArea, TextField } from "../../protocol/components/input/input";
 import { List, ListHeading, ListIcon, ListRow } from "../../protocol/components/list/list";
 import { Menu } from "../../protocol/components/menu/menu";
@@ -158,8 +159,13 @@ export const examples: Record<string, ReactElement> = {
     <>
       <Dialog open={false} onOpenChange={noop} title="Remove account?" description="Account 2 will be removed." size="sm" footer={<Button variant="ghost">Cancel</Button>} />
       <Dialog open={false} onOpenChange={noop} title="Search" placement="top" size="lg" forceMount>Body</Dialog>
-      <Dialog open={false} onOpenChange={noop} title="Filters" placement="end" footer={<Button>Apply</Button>} />
-      <Dialog open={false} onOpenChange={noop} title="Menu" placement="start" />
+    </>
+  ),
+  drawer: (
+    <>
+      <Drawer open={false} onOpenChange={noop} title="Filters" description="Narrow the history by type and period." footer={<><Button variant="ghost">Reset</Button><Button>Apply</Button></>} />
+      <Drawer open={false} onOpenChange={noop} title="Payment 4821" size="lg" forceMount>Body</Drawer>
+      <Drawer open={false} onOpenChange={noop} title="Menu" placement="start" />
     </>
   ),
   menu: (

@@ -33,31 +33,6 @@
   <div class="x-dialog-body"><p>Customers, invoices and payments.</p></div>
 </dialog>
 
-<!-- Side sheet: floating at the end edge, 12px from the window (start for a navigation drawer). -->
-<button class="x-button" type="button" data-variant="ghost" data-x-dialog-open="filters">Filters</button>
-<dialog class="x-dialog" id="filters" data-placement="end" aria-labelledby="filters-title">
-  <header class="x-dialog-header">
-    <h2 class="x-dialog-title" id="filters-title">Filters</h2>
-    <button class="x-icon-button" type="button" data-size="sm" aria-label="Close" data-x-dialog-close>
-      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6l12 12"/></svg>
-    </button>
-  </header>
-  <div class="x-dialog-body"><p>Type, period and amount.</p></div>
-  <footer class="x-dialog-footer">
-    <button class="x-button" type="button" data-variant="ghost" data-x-dialog-close>Reset</button>
-    <button class="x-button" type="button" data-x-dialog-close="apply">Apply</button>
-  </footer>
-</dialog>
-<dialog class="x-dialog" id="menu-drawer" data-placement="start" aria-labelledby="menu-drawer-title">
-  <header class="x-dialog-header">
-    <h2 class="x-dialog-title" id="menu-drawer-title">Menu</h2>
-    <button class="x-icon-button" type="button" data-size="sm" aria-label="Close" data-x-dialog-close>
-      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6l12 12"/></svg>
-    </button>
-  </header>
-  <div class="x-dialog-body"><p>Navigation goes here.</p></div>
-</dialog>
-
 <script type="module">
   import { initDialogs } from "./modal.controller.js";
   initDialogs();

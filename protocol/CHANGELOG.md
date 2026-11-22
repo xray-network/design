@@ -28,9 +28,9 @@ The first version.
   follow the ink.
 - **Grays:** neutral with the faintest warm tint (oklch chroma 0.0015 at most, hue 65), so chrome and text stay
   quiet beside any brand color; secondary text keeps 4.5:1 on the canvas in both themes.
-- **Components (49):** Alert, Avatar, BorderBeam, Button (+ icon button, round shape), Calendar (a day or a range), Card (+ tile),
-  Checkbox, Chips, Collapse, Combobox, Command, Copy, Empty, Icon (interface, social and crypto icons, all outline),
-  Input (field, input, textarea), InputAmount, InputGroup, List, Menu, MenuList, MenuNavigation, Message, Modal (+ side sheet), Numeral,
+- **Components (50):** Alert, Avatar, BorderBeam, Button (+ icon button, round shape), Calendar (a day or a range), Card (+ tile),
+  Checkbox, Chips, Collapse, Combobox, Command, Copy, Drawer (a panel at the window's edge), Empty, Icon (interface, social and crypto icons, all outline),
+  Input (field, input, textarea), InputAmount, InputGroup, List, Menu, MenuList, MenuNavigation, Message, Modal, Numeral,
   CardOption (with a radio dot in the top-right corner), Pagination, Popconfirm, Popover, Progress (+ meter),
   Radio, Result, Segmented, Select, SelectNative, Skeleton, Slider, Spinner,
   Stats, Steps, Switch, Table, TableCompact, Tabs, TabsLine (a line that slides under the current tab), Tag (+ status, delta), Timeline, Toast, Tooltip, Typography.

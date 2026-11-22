@@ -56,7 +56,7 @@ export function initDialogs(root = document) {
  * reports its full width.
  */
 function measureScrollbar() {
-  if (document.querySelector(".x-dialog:modal")) return;
+  if (document.querySelector(".x-dialog:modal, .x-drawer:modal")) return;
   const root = document.documentElement;
   root.toggleAttribute("data-x-scrollbar", innerWidth - root.clientWidth > 0);
 }
@@ -66,8 +66,8 @@ let observer = null;
 
 /**
  * Keeps the scrollbar mark current while dialogs exist on the page (content and window size change it), so a dialog
- * opened any way, even with a direct showModal(), locks the page without a shift. Called by initDialogs and the
- * React Dialog; returns a cleanup.
+ * opened any way, even with a direct showModal(), locks the page without a shift. Called by initDialogs, the React
+ * Dialog and the Drawer (which shares this lock); returns a cleanup.
  */
 export function trackScrollbar() {
   if (tracking++ === 0) {

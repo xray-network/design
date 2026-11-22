@@ -15,6 +15,7 @@ export const components = [
   { id: "combobox", text: "Combobox" },
   { id: "command", text: "Command" },
   { id: "copy", text: "Copy" },
+  { id: "drawer", text: "Drawer" },
   { id: "empty", text: "Empty" },
   { id: "icon", text: "Icon" },
   { id: "input", text: "Input" },

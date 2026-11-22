@@ -7,6 +7,7 @@ import SegmentedExample from "./examples/segmented"
 import SwitchExample from "./examples/switch"
 import FieldExample from "./examples/input"
 import DialogExample from "./examples/modal"
+import DrawerExample from "./examples/drawer"
 import MenuExample from "./examples/menu"
 import ToastExample from "./examples/toast"
 import AlertExample from "./examples/alert"
@@ -57,6 +58,7 @@ export const SegmentedDemo = () => <Demo id="segmented" name="Segmented"><Segmen
 export const SwitchDemo = () => <Demo id="switch" name="Switch"><SwitchExample /></Demo>
 export const FieldDemo = () => <Demo id="input" name="Input"><FieldExample /></Demo>
 export const DialogDemo = () => <Demo id="modal" name="Modal"><DialogExample /></Demo>
+export const DrawerDemo = () => <Demo id="drawer" name="Drawer"><DrawerExample /></Demo>
 export const MenuDemo = () => <Demo id="menu" name="Menu"><MenuExample /></Demo>
 export const ToastDemo = () => <Demo id="toast" name="Toast"><ToastExample /></Demo>
 export const AlertDemo = () => <Demo id="alert" name="Alert"><AlertExample /></Demo>

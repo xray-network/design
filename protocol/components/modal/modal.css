@@ -128,29 +128,6 @@
     max-height: calc(100dvh - var(--x-space-12) * 2);
   }
 
-  /* Side sheet: a panel that floats at the window's end or start edge (logical: it follows the writing direction),
-     the same distance from the window on every side, its frame and corners whole; slides in from that edge. */
-  .x-dialog:is([data-placement="end"], [data-placement="start"]) {
-    --x-dialog-width: 420px;
-    --x-dialog-enter-x: 32px;
-    --x-dialog-inset: var(--x-space-3);
-    width: min(var(--x-dialog-width), calc(100vw - var(--x-dialog-inset) * 2));
-    height: calc(100dvh - var(--x-dialog-inset) * 2);
-    max-height: calc(100dvh - var(--x-dialog-inset) * 2);
-    margin: var(--x-dialog-inset);
-    scale: 1;
-    translate: var(--x-dialog-enter-x) 0;
-  }
-  .x-dialog[data-placement="end"] { margin-inline-start: auto; }
-  .x-dialog[data-placement="start"] { --x-dialog-enter-x: -32px; margin-inline-end: auto; }
-  .x-dialog:dir(rtl)[data-placement="end"] { --x-dialog-enter-x: -32px; }
-  .x-dialog:dir(rtl)[data-placement="start"] { --x-dialog-enter-x: 32px; }
-  .x-dialog:is([data-placement="end"], [data-placement="start"])[open] { scale: 1; translate: 0 0; }
-  @starting-style {
-    .x-dialog:is([data-placement="end"], [data-placement="start"])[open] { scale: 1; translate: var(--x-dialog-enter-x) 0; }
-  }
-  .x-dialog:is([data-placement="end"], [data-placement="start"])[data-size="lg"] { --x-dialog-width: 560px; }
-
   /* Phones: every dialog opens at the top, 12px from the edges of the window, and drops in a little from above:
      clear of the keyboard, which rises from below. */
   @media (max-width: 560px) {
@@ -164,19 +141,6 @@
       border-width: 1px;
       border-radius: var(--x-radius-3xl);
     }
-    /* Side sheets still float at their edge, closer to the window, and 32px short of the full width, so the page
-       shows beside them. */
-    .x-dialog:is([data-placement="end"], [data-placement="start"]) {
-      --x-dialog-inset: var(--x-space-2);
-      width: calc(100% - var(--x-space-8));
-      height: calc(100dvh - var(--x-dialog-inset) * 2);
-      max-height: calc(100dvh - var(--x-dialog-inset) * 2);
-      margin-block: var(--x-dialog-inset);
-      border-width: 1px;
-      border-radius: var(--x-radius-3xl);
-    }
-    .x-dialog[data-placement="end"] { margin-inline: auto var(--x-dialog-inset); }
-    .x-dialog[data-placement="start"] { margin-inline: var(--x-dialog-inset) auto; }
     .x-dialog-footer { flex-direction: column-reverse; }
     .x-dialog-footer > .x-button { width: 100%; }
   }

@@ -14,9 +14,9 @@ export type DialogProps = {
   /** Actions, right-aligned on desktop, stacked full-width on phones. Primary action last. */
   footer?: ReactNode;
   size?: "sm" | "md" | "lg";
-  /** Where it opens: centered (default); near the top of the window for dialogs that grow (search, long forms);
-   *  or a side sheet floating at the end or start edge (details, filters, a navigation drawer). */
-  placement?: "center" | "top" | "end" | "start";
+  /** Where it opens: centered (default), or near the top of the window for dialogs that grow (search, long forms).
+   *  A panel at the window's edge is a Drawer. */
+  placement?: "center" | "top";
   /** Allow closing by clicking the backdrop. Default true; turn off for destructive or unsaved flows. */
   dismissible?: boolean;
   /** Render the children while the dialog has never been open. By default they render on first open, then stay. */

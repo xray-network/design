@@ -1,0 +1,52 @@
+<!-- Drawer: a panel at the window's edge on native <dialog>. drawer.controller.js wires openers, closers and backdrop clicks. -->
+
+<!-- At the end edge (the default): filters, details, settings. The footer stays at the bottom of the panel. -->
+<button class="x-button" type="button" data-variant="ghost" data-x-drawer-open="filters">Filters</button>
+<dialog class="x-drawer" id="filters" aria-labelledby="filters-title" aria-describedby="filters-desc">
+  <header class="x-drawer-header">
+    <h2 class="x-drawer-title" id="filters-title">Filters</h2>
+    <button class="x-icon-button" type="button" data-size="sm" aria-label="Close" data-x-drawer-close>
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6l12 12"/></svg>
+    </button>
+  </header>
+  <div class="x-drawer-body">
+    <p class="x-drawer-description" id="filters-desc">Narrow the history by type and period.</p>
+    <p>Type, period and amount.</p>
+  </div>
+  <footer class="x-drawer-footer">
+    <button class="x-button" type="button" data-variant="ghost" data-x-drawer-close>Reset</button>
+    <button class="x-button" type="button" data-x-drawer-close="apply">Apply</button>
+  </footer>
+</dialog>
+
+<!-- Wide (560px), for a record's details. Lazy: its content is rendered by initDrawers right before the first opening. -->
+<button class="x-button" type="button" data-variant="ghost" data-x-drawer-open="payment">Payment details</button>
+<dialog class="x-drawer" id="payment" data-size="lg" aria-labelledby="payment-title">
+  <header class="x-drawer-header">
+    <h2 class="x-drawer-title" id="payment-title">Payment 4821</h2>
+    <button class="x-icon-button" type="button" data-size="sm" aria-label="Close" data-x-drawer-close>
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6l12 12"/></svg>
+    </button>
+  </header>
+  <div class="x-drawer-body">
+    <template data-lazy><p>Paid on 14 March, 240.00 USD, to Acme Billing.</p></template>
+  </div>
+</dialog>
+
+<!-- At the start edge: the app's navigation on phones. -->
+<button class="x-button" type="button" data-variant="ghost" data-x-drawer-open="menu-drawer">Menu</button>
+<dialog class="x-drawer" id="menu-drawer" data-placement="start" aria-labelledby="menu-drawer-title">
+  <header class="x-drawer-header">
+    <h2 class="x-drawer-title" id="menu-drawer-title">Menu</h2>
+    <button class="x-icon-button" type="button" data-size="sm" aria-label="Close" data-x-drawer-close>
+      <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6l12 12"/></svg>
+    </button>
+  </header>
+  <div class="x-drawer-body"><p>Navigation goes here.</p></div>
+</dialog>
+
+<script type="module">
+  import { initDrawers } from "./drawer.controller.js";
+  initDrawers();
+  // Read the result: document.getElementById("filters").addEventListener("close", (e) => e.target.returnValue)
+</script>

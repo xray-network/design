@@ -1,7 +1,7 @@
 ---
 id: modal
 name: Modal
-summary: Modal dialog on native <dialog>; a panel near the top of the window, or a side sheet.
+summary: Modal dialog on native <dialog>, centered or near the top of the window.
 motion: 0
 requires: [tokens]
 components: [button]
@@ -13,9 +13,8 @@ files: [modal.css, modal.html, modal.controller.js, modal.controller.d.ts, modal
 Interrupts the flow for one decision or one short task: confirm, rename, add account. Long flows
 belong on a page. Non-blocking information belongs in a toast.
 
-**Side sheet** (`placement="end"` or `"start"`): the same modal as a panel floating at the window's edge, for
-details, filters and settings that keep the page in view beside them. On phones the start sheet is the app's
-navigation drawer.
+A panel at the window's edge, for filters, details, settings or navigation that keep the page in view beside
+them, is a Drawer.
 
 ## Platform contract
 
@@ -42,17 +41,17 @@ dialog.x-dialog[aria-labelledby]       460px panel, 20px radius, panel surface, 
 | Attribute | Values | Default |
 |---|---|---|
 | `data-size` | `sm` 380px, `lg` 620px | 460px |
-| `data-placement` | `top`: 48px below the window's top edge, dropping in from above (search, growing forms); `end`, `start`: a side sheet floating 12px from the window on every side (8px on phones), sliding in from that edge (420px; `lg` 560px) | a sixth of the window's height from the top (48–160px); on phones 12px |
+| `data-placement` | `top`: 48px below the window's top edge, dropping in from above (search, growing forms) | a sixth of the window's height from the top (48–160px); on phones 12px |
 | `data-x-dismiss` (HTML) / `dismissible` (React) | `none` / `false`: no backdrop or Esc close | dismissible |
 
 Below 560px every size becomes a full-width bottom sheet with stacked full-width actions; `top` becomes a sheet
-16px below the top edge. Side sheets stay side sheets, 32px short of the full width, so the page shows beside them.
+16px below the top edge.
 
 ## States
 
 | State | Source | Look |
 |---|---|---|
-| open | `[open]` via `showModal()` | rises from 10px below (48px on phones) at 0.96 scale on `--x-spring`; side sheets slide in 32px from their edge; scrim fades in |
+| open | `[open]` via `showModal()` | rises from 10px below (48px on phones) at 0.96 scale on `--x-spring`; scrim fades in |
 | closing | `[open]` removed | fades and sinks on `--x-ease`, no overshoot |
 
 ## Accessibility
@@ -82,7 +81,7 @@ overshoot reads as hesitation on the way out. Reduced motion: instant.
 
 ## Component tokens
 
-`--x-dialog-width`, `-pad`, `-enter-y`, `-enter-x`.
+`--x-dialog-width`, `-pad`, `-enter-y`.
 
 ## Invariants
 
@@ -104,5 +103,4 @@ overshoot reads as hesitation on the way out. Reduced motion: instant.
       (its space is kept) and without one (no gutter is added)
 - [ ] Long content scrolls inside the body; header and footer stay put
 - [ ] Phone width: bottom sheet, stacked actions, safe-area padding
-- [ ] Side sheets: float 12px from the window on every side (8px on phones), footer at the bottom, slide in from that edge (also right-to-left)
 - [ ] Both themes; reduced motion

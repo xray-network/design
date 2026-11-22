@@ -69,6 +69,10 @@
   font-weight: var(--x-weight-label);
 }
 /* A label sits close above the row it names, and further from the row before it. */
+/* A form inside a dialog's body (the Modal demo): its fields in one column, spaced like the body's own content. */
+.wiki-demo-form { display: grid; gap: var(--x-space-4); min-width: 0; }
+/* A captioned group of controls inside a drawer's body (the Drawer demo's filters). */
+.wiki-demo-drawer-group { display: grid; gap: var(--x-space-2); min-width: 0; }
 .wiki-demo-stage > .wiki-demo-label + * { margin-top: calc(var(--x-space-2) - var(--x-space-4)); }
 .wiki-demo-stage > * + .wiki-demo-label { margin-top: var(--x-space-2); }
 
