@@ -52,7 +52,7 @@ tokens:
     scroll-shade: { light: "rgb(0 0 0 / 0.1)", dark: "rgb(0 0 0 / 0.6)" }  # edge of a row with hidden items
     border: { light: "#e7e6e6", dark: "#232222" }
     border-hover: { light: "#d5d4d4", dark: "#414040" }
-    fg-1: { light: "#0f0f0f", dark: "#ffffff" }  # titles, values
+    fg-1: { light: "#000000", dark: "#ffffff" }  # titles, values
     fg-2: { light: "#414040", dark: "#d5d4d4" }  # body
     fg-3: "#767575"  # secondary, labels
     fg-4: { light: "#a3a2a2", dark: "#585757" }  # placeholders, legal

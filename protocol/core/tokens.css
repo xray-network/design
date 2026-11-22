@@ -177,7 +177,7 @@
     --x-border-hover: light-dark(var(--x-gray-300), var(--x-gray-700));
 
     /* ---- Semantic: text ------------------------------------------------ */
-    --x-fg-1: light-dark(var(--x-gray-950), var(--x-white));   /* titles, values */
+    --x-fg-1: light-dark(var(--x-black), var(--x-white));      /* titles, values: pure black on white, white on black */
     --x-fg-2: light-dark(var(--x-gray-700), var(--x-gray-300)); /* body */
     --x-fg-3: var(--x-gray-500);                                /* secondary, labels */
     --x-fg-4: light-dark(var(--x-gray-400), var(--x-gray-600)); /* placeholders, legal */

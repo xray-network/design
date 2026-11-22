@@ -153,7 +153,7 @@ export function deriveTokens(theme: UserTheme): Token[] {
     t("--x-bg-active-hover", g["300"], g["700"], "a selected item under the pointer"),
     t("--x-border", g["200"], g["900"], "hairlines"),
     t("--x-border-hover", g["300"], g["700"], "a hairline under the pointer"),
-    t("--x-fg-1", g["950"], white, "titles, values"),
+    t("--x-fg-1", black, white, "titles, values"),
     t("--x-fg-2", g["700"], g["300"], "body text"),
     t("--x-fg-3", g["500"], g["500"], "secondary text, labels"),
     t("--x-fg-4", g["400"], g["600"], "placeholders"),

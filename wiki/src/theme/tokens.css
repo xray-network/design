@@ -1,5 +1,5 @@
 /*
- * The wiki's own palette: an orange accent on warm neutrals ("sand"), in both themes. It styles the wiki only
+ * The wiki's own palette: black, white and an orange accent, with warm neutrals ("sand") between, in both themes. It styles the wiki only
  * (navigation, pages, home); the kit's demos keep the kit's tokens, so components show as they ship (blue).
  *
  * Three parts:
@@ -29,8 +29,8 @@ html:root {
   --xr-orange-900: #6b2509;
   --xr-orange-950: #3a1407;
 
-  /* Sand: near-neutral grays, the faintest warm tint (C .002 at most). */
-  --xr-sand-0: #fefefe;
+  /* Sand: near-neutral grays, the faintest warm tint (C .002 at most), for surfaces, borders and secondary text.
+     The page and its text are not sand: they are pure white and black. */
   --xr-sand-50: #f9f9f9;
   --xr-sand-100: #f3f2f2;
   --xr-sand-200: #e7e6e6;
@@ -39,7 +39,6 @@ html:root {
   --xr-sand-500: #727170;
   --xr-sand-600: #585757;
   --xr-sand-700: #403f3f;
-  --xr-sand-950: #131212;
 
   /* Night: the dark theme's near-neutral steps above a black page, at the kit's dark lightness steps (panel L14, border
      L24.5, chip L28, strong border L32), so wiki surfaces and kit previews sit together on black. */
@@ -63,7 +62,7 @@ html:root {
   --xr-ease: cubic-bezier(.16, 1, .3, 1);
 
   /* ---- 2. Roles: light ---------------------------------------------------- */
-  --xr-canvas: var(--xr-sand-0);         /* page: almost white, a touch warm */
+  --xr-canvas: var(--xr-white);          /* page */
   --xr-panel: var(--xr-white);           /* frames and cards */
   --xr-surface: var(--xr-sand-50);       /* code, title bars, quiet fills */
   --xr-chip: var(--xr-sand-100);
@@ -73,7 +72,7 @@ html:root {
   --xr-grid-line: rgb(0 0 0 / .09);    /* dashed guides */
   --xr-scrollbar: var(--xr-sand-300);    /* scrollbar thumb */
   --xr-scrollbar-hover: var(--xr-sand-400);
-  --xr-fg: var(--xr-sand-950);
+  --xr-fg: var(--xr-black);              /* headings, names, values; reading text is the secondary step */
   --xr-fg-secondary: var(--xr-sand-600);
   --xr-fg-muted: var(--xr-sand-500);
   --xr-fg-disabled: var(--xr-sand-400);
@@ -99,7 +98,7 @@ html:root {
   --xr-review-fg: var(--xr-orange-800);
 }
 
-/* ---- 2. Roles: dark (a black page, warm night steps above it, warm off-white text) ---------------- */
+/* ---- 2. Roles: dark (a black page, warm night steps above it, white text) -------------------------- */
 html:root:is(.rp-dark, .dark) {
   --xr-canvas: var(--xr-black);
   --xr-panel: var(--xr-night-panel);
@@ -111,7 +110,7 @@ html:root:is(.rp-dark, .dark) {
   --xr-grid-line: rgb(255 255 255 / .11);
   --xr-scrollbar: var(--xr-night-border-strong);
   --xr-scrollbar-hover: var(--xr-sand-600);
-  --xr-fg: #eeedec;
+  --xr-fg: var(--xr-white);
   --xr-fg-secondary: #c2c1c0;
   --xr-fg-muted: var(--xr-sand-400);
   --xr-fg-disabled: var(--xr-sand-600);

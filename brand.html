@@ -8,16 +8,16 @@
 <meta name="description" content="The XRAY identity: a black or white wordmark, one orange ray, a product name beside it, an orange X for the favicon and the icon, and the patterns built from them.">
 <script>document.documentElement.classList.add("js")</script>
 <style>:root {
-  --o: #f9601f; --bg: #fefefe; --fg: #131212; --mut: #6b6a69; --line: #e7e6e6; --line-2: #cfcecd; --soft: #f4f3f2; --o-text: #d14300;
+  --o: #f9601f; --bg: #FFFFFF; --fg: #000000; --mut: #6b6a69; --line: #e7e6e6; --line-2: #cfcecd; --soft: #f4f3f2; --o-text: #d14300;
   --f: ui-sans-serif, -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
   --m: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   --gap: clamp(10px, calc(var(--vw) * 1.1), 18px); --r: clamp(18px, calc(var(--vw) * 2.2), 34px);
   color-scheme: light dark;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --bg: #000; --fg: #eeedec; --mut: #a09f9e; --line: #232222; --line-2: #3a3939; --soft: #111010; --o-text: #ff8a52; }
+  :root:not([data-theme="light"]) { --bg: #000; --fg: #FFFFFF; --mut: #a09f9e; --line: #232222; --line-2: #3a3939; --soft: #111010; --o-text: #ff8a52; }
 }
-:root[data-theme="dark"] { --bg: #000; --fg: #eeedec; --mut: #a09f9e; --line: #232222; --line-2: #3a3939; --soft: #111010; --o-text: #ff8a52; }
+:root[data-theme="dark"] { --bg: #000; --fg: #FFFFFF; --mut: #a09f9e; --line: #232222; --line-2: #3a3939; --soft: #111010; --o-text: #ff8a52; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
@@ -93,10 +93,10 @@ h1 { margin-top: clamp(20px, calc(var(--vw) * 2.4), 40px); font-size: clamp(40px
 .tall { min-height: clamp(260px, calc(var(--vw) * 33), 540px); }
 .mid { min-height: clamp(170px, calc(var(--vw) * 17), 270px); }
 .center { display: grid; place-items: center; padding: clamp(20px, calc(var(--vw) * 3), 48px); }
-.light { background: #fefefe; color: #131212; box-shadow: inset 0 0 0 1px #e7e6e6; }
-.dark { background: #000; color: #eeedec; box-shadow: inset 0 0 0 1px #232222; }
+.light { background: #FFFFFF; color: #000000; box-shadow: inset 0 0 0 1px #e7e6e6; }
+.dark { background: #000; color: #FFFFFF; box-shadow: inset 0 0 0 1px #232222; }
 .orange { background: var(--o); color: #fff; }
-.gray { background: #ecebea; color: #131212; }
+.gray { background: #FFFFFF; color: #000000; }
 .soft { background: var(--soft); }
 .line { box-shadow: inset 0 0 0 1px var(--line); }
 .tag { position: absolute; left: clamp(14px, calc(var(--vw) * 1.6), 24px); bottom: clamp(12px, calc(var(--vw) * 1.4), 20px); font: 500 11px/1.3 var(--m); letter-spacing: .06em; text-transform: uppercase; opacity: .62; }
@@ -201,11 +201,11 @@ h1 { margin-top: clamp(20px, calc(var(--vw) * 2.4), 40px); font-size: clamp(40px
 .sw dt { font: 500 11px/1.4 var(--m); letter-spacing: .06em; text-transform: uppercase; opacity: .62; }
 .sw dd { font: 500 15px/1.4 var(--m); }
 .sw p { font-size: 14.5px; line-height: 1.45; opacity: .8; max-width: 44ch; }
-.sw-orange { background: #f9601f; color: #131212; }
-.sw-black { background: #131212; color: #eeedec; box-shadow: inset 0 0 0 1px #2a2929; }
-.sw-white { background: #eeedec; color: #131212; }
-.sw-paper { background: #fefefe; color: #131212; box-shadow: inset 0 0 0 1px #e7e6e6; }
-.sw-night { background: #000; color: #eeedec; box-shadow: inset 0 0 0 1px #2a2929; }
+.sw-orange { background: #f9601f; color: #000000; }
+.sw-black { background: #000000; color: #FFFFFF; box-shadow: inset 0 0 0 1px #2a2929; }
+.sw-white { background: #FFFFFF; color: #000000; }
+.sw-paper { background: #FFFFFF; color: #000000; box-shadow: inset 0 0 0 1px #e7e6e6; }
+.sw-night { background: #000; color: #FFFFFF; box-shadow: inset 0 0 0 1px #2a2929; }
 .pairs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); margin-top: var(--gap); }
 .pairing { display: grid; gap: 4px; padding: 18px 20px 16px; border-radius: calc(var(--r) * .7); }
 .pairing b { font-size: 44px; line-height: 1; letter-spacing: -.04em; }
@@ -303,8 +303,8 @@ h1 { margin-top: clamp(20px, calc(var(--vw) * 2.4), 40px); font-size: clamp(40px
 
 /* ---- in use --------------------------------------------------------------------------------------------------------- */
 .stack { min-width: 0; }
-.browser { --ink: #131212; --ink2: #585757; --ink3: #8a8988; --rule: #e7e6e6; --canvas: #fefefe; --chip: #f3f2f2; --acc: #d14300; height: 100%; border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; background: var(--canvas); color: var(--ink); }
-.browser.dark { --ink: #eeedec; --ink2: #c2c1c0; --ink3: #8a8988; --rule: #232222; --canvas: #000; --chip: #1a1919; --acc: #ff8a52; box-shadow: none; }
+.browser { --ink: #000000; --ink2: #585757; --ink3: #8a8988; --rule: #e7e6e6; --canvas: #FFFFFF; --chip: #f3f2f2; --acc: #d14300; height: 100%; border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; background: var(--canvas); color: var(--ink); }
+.browser.dark { --ink: #FFFFFF; --ink2: #c2c1c0; --ink3: #8a8988; --rule: #232222; --canvas: #000; --chip: #1a1919; --acc: #ff8a52; box-shadow: none; }
 .b-tabs { display: flex; padding: 8px 10px 0; background: var(--chip); }
 .b-tabs .tab { background: var(--canvas); }
 .b-head { display: flex; align-items: center; gap: 18px; padding: 16px 20px; border-bottom: 1px solid var(--rule); font-size: 13px; white-space: nowrap; overflow: hidden; }
@@ -325,7 +325,7 @@ h1 { margin-top: clamp(20px, calc(var(--vw) * 2.4), 40px); font-size: clamp(40px
 .social { aspect-ratio: 3 / 1; overflow: visible; margin-bottom: clamp(36px, calc(var(--vw) * 5), 72px); }
 .social .pat { position: absolute; inset: 0; border-radius: var(--r); }
 .social > svg { border-radius: var(--r); }
-.social-logo { position: absolute; top: 10%; left: 4.5%; color: #eeedec; }
+.social-logo { position: absolute; top: 10%; left: 4.5%; color: #FFFFFF; }
 .social-logo .lk { --h: clamp(11px, calc(var(--vw) * 2.1), 34px); }
 .avatar { position: absolute; left: 4.5%; bottom: -12%; width: clamp(52px, calc(var(--vw) * 9), 132px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: clamp(3px, calc(var(--vw) * .4), 6px) solid var(--bg); background: #000; }
 .avatar .ic { width: 100%; height: 100%; }
@@ -385,26 +385,28 @@ tbody tr:last-child td { border-bottom: 1px solid var(--line); }
    (lockup, icon, patterns, mock-ups); what follows lays them out. ===== */
 
 /* ---- surfaces: every section is one of four, and sets the page's tokens for what is inside it ---------------------- */
-html { background: #fefefe; }
-body { background: #fefefe; color: #131212; }
+html { background: #FFFFFF; }
+body { background: #FFFFFF; color: #000000; }
 /* The page is one column, 1440px at most. Every `vw` in this stylesheet is rewritten to --vw when the page is built, so
    sizes stop growing where the column does. --edge is what a block crosses to reach the window's side. */
 :root { --vw: min(100vw / 100, 14.4px); --gut: clamp(16px, calc(var(--vw) * 4.4), 80px); --out: max(0px, (100vw - 1440px) / 2); --edge: calc(var(--out) + var(--gut));
   /* Two distances and no others: --sec from a section's edge to its content, --blk between the blocks inside it. */
-  --sec: clamp(80px, calc(var(--vw) * 11), 160px); --blk: clamp(48px, calc(var(--vw) * 7), 100px); }
+  --sec: clamp(80px, calc(var(--vw) * 11), 160px); --blk: clamp(48px, calc(var(--vw) * 7), 100px);
+  /* The Grid pattern in outline, as one tile (drawn when the page is built). */
+  --marks: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22308%22 height=%22308%22 viewBox=%220 0 308 308%22 fill=%22none%22 stroke=%22%23d6d5d4%22 stroke-linejoin=%22round%22%3E%3Cdefs%3E%3Cpath id=%22x%22 d=%22M69.3727 32.6864L102.506 0.000732422H147.259L88.0101 57.6489L80.4171 60.5451L46.3635 94.0582H0.345138L59.8238 37.3755L69.3727 32.6864ZM0 0.000732422H46.5936L79.0365 32.4106L88.9305 37.5134L147.489 94.0582H100.435L66.1514 59.7176L56.1424 54.4768L0 0.000732422Z%22 fill=%22%23ffffff%22 paint-order=%22stroke%22/%3E%3Cpath id=%22r%22 d=%22M568 94.06H648L732.6 -51.94H726.6Z%22/%3E%3C/defs%3E%3Cuse href=%22%23x%22 transform=%22translate(22 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(242 22) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(22 66) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(22 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(110 110) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(22 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(198 154) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(22 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(286 198) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(22 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(66 242) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(22 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(154 286) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%2215.96%22/%3E%3C/svg%3E"); }
 .s { position: relative; padding-block: var(--sec); background: var(--bg); color: var(--fg); overflow: clip; }
-.t-light { --bg: #fefefe; --fg: #131212; --mut: #6b6a69; --line: #e7e6e6; --line-2: #cfcecd; --soft: #f4f3f2; --o-text: #d14300; }
+.t-light { --bg: #FFFFFF; --fg: #000000; --mut: #6b6a69; --line: #e7e6e6; --line-2: #cfcecd; --soft: #f4f3f2; --o-text: #d14300; }
 /* White, with a band of the Grid pattern in outline (the X in rows, a ray now and then) along the top and bottom edges,
    each fading toward the content.
    It sets one light section apart from the next without a gray. */
-.t-marks { --bg: #fefefe; --fg: #131212; --mut: #6b6a69; --line: #e7e6e6; --line-2: #cfcecd; --soft: #f4f3f2; --o-text: #d14300; --fade: calc(var(--sec) * 1.35); }
+.t-marks { --bg: #FFFFFF; --fg: #000000; --mut: #6b6a69; --line: #e7e6e6; --line-2: #cfcecd; --soft: #f4f3f2; --o-text: #d14300; --fade: calc(var(--sec) * 1.35); }
 .s.t-marks { isolation: isolate; }
-.s.t-marks::before, .s.t-marks::after { content: ""; position: absolute; inset-inline: 0; z-index: -1; height: var(--fade); background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22308%22 height=%22308%22 viewBox=%220 0 308 308%22 fill=%22none%22 stroke=%22%23d6d5d4%22 stroke-linejoin=%22round%22%3E%3Cdefs%3E%3Cpath id=%22x%22 d=%22M69.3727 32.6864L102.506 0.000732422H147.259L88.0101 57.6489L80.4171 60.5451L46.3635 94.0582H0.345138L59.8238 37.3755L69.3727 32.6864ZM0 0.000732422H46.5936L79.0365 32.4106L88.9305 37.5134L147.489 94.0582H100.435L66.1514 59.7176L56.1424 54.4768L0 0.000732422Z%22/%3E%3Cpath id=%22r%22 d=%22M568 94.06H648L732.6 -51.94H726.6Z%22/%3E%3C/defs%3E%3Cuse href=%22%23x%22 transform=%22translate(22 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(242 22) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 22) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(22 66) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 66) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(22 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(110 110) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 110) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(22 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(198 154) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 154) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(22 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 198) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(286 198) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(22 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(66 242) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(154 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 242) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(22 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(66 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(110 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23r%22 transform=%22translate(154 286) scale(0.1507) translate(-650.3 -21.06)%22 stroke-width=%226.64%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(198 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(242 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3Cuse href=%22%23x%22 transform=%22translate(286 286) scale(0.1253) translate(-73.75 -47.03)%22 stroke-width=%227.98%22/%3E%3C/svg%3E") 50% 0 / 308px 308px; pointer-events: none; }
+.s.t-marks::before, .s.t-marks::after { content: ""; position: absolute; inset-inline: 0; z-index: -1; height: var(--fade); background: var(--marks) 50% 0 / 308px 308px; pointer-events: none; }
 .s.t-marks::before { top: 0; -webkit-mask: linear-gradient(#000, transparent); mask: linear-gradient(#000, transparent); }
 .s.t-marks::after { bottom: 0; background-position: 50% 100%; -webkit-mask: linear-gradient(transparent, #000); mask: linear-gradient(transparent, #000); }
-.gray { background: #eeedec; }
-.t-dark { --bg: #000; --fg: #eeedec; --mut: #a09f9e; --line: #232222; --line-2: #3a3939; --soft: #111010; --o-text: #ff8a52; }
-.t-orange { --bg: #f9601f; --fg: #131212; --mut: #3d1a0a; --line: rgb(19 18 18 / .24); --line-2: rgb(19 18 18 / .4); --soft: #ff7037; --o-text: #131212; }
+.gray { background: #FFFFFF; }
+.t-dark { --bg: #000; --fg: #FFFFFF; --mut: #a09f9e; --line: #232222; --line-2: #3a3939; --soft: #111010; --o-text: #ff8a52; }
+.t-orange { --bg: #f9601f; --fg: #000000; --mut: #3d1a0a; --line: rgb(0 0 0 / .24); --line-2: rgb(0 0 0 / .4); --soft: #ff7037; --o-text: #000000; }
 .s.flush { padding-bottom: 0; }
 .wrap { max-width: 1440px; margin-inline: auto; padding-inline: var(--gut); }
 /* A block that leaves the column for the window's side, and loses its corners there. */
@@ -421,11 +423,11 @@ body { background: #fefefe; color: #131212; }
 .num { display: block; color: var(--o-text); font: 600 13px/1 var(--m); letter-spacing: .08em; }
 
 /* ---- the bar: nothing but the logo, the sections and a counter; it takes the tone of the section under it -------- */
-.bar2 { position: fixed; inset: 0 0 auto; z-index: 30; display: flex; align-items: center; gap: 28px; height: 64px; padding-inline: var(--edge); color: #131212; transition: color .35s; pointer-events: none; }
+.bar2 { position: fixed; inset: 0 0 auto; z-index: 30; display: flex; align-items: center; gap: 28px; height: 64px; padding-inline: var(--edge); color: #000000; transition: color .35s; pointer-events: none; }
 .bar2 > * { pointer-events: auto; }
-.bar2::before { content: ""; position: absolute; inset: 0 0 -14px; z-index: -1; background: color-mix(in srgb, var(--bar-bg, #fefefe) 86%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); -webkit-mask: linear-gradient(#000 72%, transparent); mask: linear-gradient(#000 72%, transparent); transition: background-color .35s; }
-.bar2[data-tone="dark"] { color: #eeedec; }
-.bar2[data-tone="orange"] { color: #131212; }
+.bar2::before { content: ""; position: absolute; inset: 0 0 -14px; z-index: -1; background: color-mix(in srgb, var(--bar-bg, #FFFFFF) 86%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); -webkit-mask: linear-gradient(#000 72%, transparent); mask: linear-gradient(#000 72%, transparent); transition: background-color .35s; }
+.bar2[data-tone="dark"] { color: #FFFFFF; }
+.bar2[data-tone="orange"] { color: #000000; }
 .bar2[data-tone="orange"] .wm .ray { fill: currentColor; }
 .bar2 .bar-logo { color: inherit; }
 .bar2 nav { display: flex; gap: clamp(14px, calc(var(--vw) * 1.8), 28px); margin-left: auto; }
@@ -489,26 +491,14 @@ body { background: #fefefe; color: #131212; }
 .variant h3 { grid-column: 2 / span 5; font-size: clamp(28px, calc(var(--vw) * 3.4), 52px); font-weight: 700; line-height: 1; letter-spacing: -.045em; }
 .variant p { grid-column: 8 / -1; color: var(--mut); font-size: clamp(14.5px, calc(var(--vw) * 1.1), 17px); line-height: 1.5; text-wrap: pretty; }
 @media (max-width: 820px) { .variant h3 { grid-column: 2 / -1; } .variant p { grid-column: 1 / -1; margin-top: 12px; } }
-.logo-show { align-items: start; }
-.logo-show.flip .logo-notes { grid-column: 1 / span 3; }
-.logo-show.flip .logo-big { grid-column: 5 / -1; }
-.scheme.flip .pairs2 { grid-column: 1 / span 3; }
+/* A variant is its drawing and, beside it, its rules: the numbered parts, then clear space and the smallest size. The
+   second variant mirrors the first. */
+.scheme { align-items: start; }
+.anatomy-wide { grid-column: 1 / span 9; }
+.logo-side { grid-column: 10 / -1; display: grid; gap: clamp(20px, calc(var(--vw) * 2.4), 36px); }
+.logo-side .spec { grid-column: auto; align-content: start; }
+.scheme.flip .logo-side { grid-column: 1 / span 3; }
 .scheme.flip .anatomy-wide { grid-column: 4 / -1; }
-/* The stacked lockup. --u is the letters' height. The name hangs from a strut 1.2 u tall, so its baseline is exactly
-   that far under the letters'; the ray takes the whole height, letters' top to name's baseline. The padding under it
-   is room for the name's descenders. */
-.lk2 { --u: 15px; display: inline-flex; align-items: flex-start; padding-bottom: calc(var(--u) * .32); white-space: nowrap; }
-.lk2-ray { flex: none; width: auto; height: calc(var(--u) * 2.2); fill: var(--o); }
-.lk2-col { display: flex; flex-direction: column; align-items: flex-start; }
-.lk2-wm { display: block; width: auto; height: var(--u); fill: currentColor; }
-.lk2-nm { display: block; font: 650 calc(var(--u) * 1.147) / 0 var(--f); letter-spacing: -.01em; }
-.lk2-nm::before { content: ""; display: inline-block; height: calc(var(--u) * 1.2); }
-.lk2.xxl { --u: clamp(22px, calc(var(--vw) * 5.6), 92px); }
-.logo-big { grid-column: 1 / span 8; }
-.lk.xxl { --h: clamp(34px, calc(var(--vw) * 8.6), 168px); }
-.logo-notes { grid-column: 10 / -1; }
-.anatomy-wide { grid-column: 1 / span 9; margin-top: var(--blk); padding-top: clamp(20px, calc(var(--vw) * 3), 44px); border-top: 1px solid var(--line); }
-.pairs2 { grid-column: 10 / -1; align-self: start; margin-top: var(--blk); }
 .pairs2 li { padding: 14px 0; border-top: 1px solid var(--line); color: var(--mut); font-size: 14.5px; line-height: 1.5; }
 .pairs2 li b { display: block; color: var(--fg); font-weight: 600; }
 .surfaces { margin-top: var(--blk); align-items: stretch; }
@@ -520,10 +510,11 @@ body { background: #fefefe; color: #131212; }
 .files2 { grid-column: 1 / span 6; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; align-items: center; }
 .files2 .label { grid-column: 1 / -1; }
 @media (max-width: 900px) {
-  .logo-big, .logo-notes, .anatomy-wide, .pairs2, .sf-a, .sf-b, .sf-c, .files2, .logo-show.flip .logo-notes, .logo-show.flip .logo-big, .scheme.flip .pairs2, .scheme.flip .anatomy-wide { grid-column: 1 / -1; margin-top: 0; }
-  .logo-show.flip .logo-big, .scheme.flip .anatomy-wide { order: -1; }
-  .logo-notes, .anatomy-wide, .surfaces { margin-top: 32px; }
+  .anatomy-wide, .logo-side, .scheme.flip .logo-side, .scheme.flip .anatomy-wide, .sf-a, .sf-b, .sf-c, .files2 { grid-column: 1 / -1; margin-top: 0; }
+  .scheme.flip .anatomy-wide { order: -1; }
+  .logo-side, .surfaces { margin-top: 32px; }
   .files2 { grid-template-columns: 1fr; }
+}
 }
 
 /* ---- names: three figures, then every product passing by --------------------------------------------------------- */
@@ -571,17 +562,18 @@ body { background: #fefefe; color: #131212; }
 .b-tabs .tab .ic { position: relative; top: -.032em; }
 
 /* The home screen, drawn in outline: a white card, empty places as hairline tiles, and the one real icon among them. */
-.ios { background: #fefefe; color: #131212; box-shadow: inset 0 0 0 1px var(--line-2); }
+.ios { background: #FFFFFF; color: #000000; box-shadow: inset 0 0 0 1px var(--line-2); }
 .app i { background: none; box-shadow: inset 0 0 0 1px var(--line-2); }
 .app .ic { box-shadow: none; }
-.app em { color: #131212; text-shadow: none; }
+.app em { color: #000000; text-shadow: none; }
 .ios .tag { color: var(--mut); opacity: 1; }
 
 /* ---- color: three bands, each named in letters its own edge cuts ---------------------------------------------------- */
 .band { position: relative; padding-top: clamp(28px, calc(var(--vw) * 4), 64px); overflow: hidden; }
-.b-orange { background: #f9601f; color: #131212; --mut: #3d1a0a; }
-.b-black { background: #131212; color: #eeedec; }
-.b-white { background: #eeedec; color: #131212; }
+.b-orange { background: #f9601f; color: #000000; --mut: #3d1a0a; }
+.b-black { background: #000000; color: #FFFFFF; }
+/* White is the page itself: the band has no fill of its own, and its name ends where the band does. */
+.b-white { background: #FFFFFF; color: #000000; }
 .band-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, calc(var(--vw) * 1.4), 24px); align-items: start; }
 .band dl { grid-column: 1 / span 6; display: flex; flex-wrap: wrap; gap: 10px clamp(20px, calc(var(--vw) * 3), 56px); }
 .band dt { font: 500 11px/1.4 var(--m); letter-spacing: .08em; text-transform: uppercase; opacity: .6; }
@@ -602,7 +594,7 @@ body { background: #fefefe; color: #131212; }
 .type-scale2 .t-row:first-child { border-top: 0; }
 .type-notes { grid-column: 9 / -1; }
 @media (max-width: 900px) { .type-scale2, .type-notes { grid-column: 1 / -1; } }
-.spec.logo-notes, .spec.type-notes { align-content: start; }
+.spec.type-notes { align-content: start; }
 
 /* ---- slash: the field from edge to edge ---------------------------------------------------------------------------- */
 .field2 { position: relative; min-height: clamp(360px, 62vh, 760px); border-block: 1px solid var(--line); --xr-fg-muted: #a5a4a4; --spectre-symbol-color: #ff8a52; }
@@ -717,14 +709,6 @@ body { background: #fefefe; color: #131212; }
   <section class="s t-dark" data-tone="dark" data-n="01" id="logo">
     <div class="wrap head "><span class="num" data-reveal>01</span><h2 class="cut" data-reveal><span class="rise"><span class="drift" data-drift>Logo</span></span></h2><p class="intro" data-reveal>Three parts: the drawn wordmark, the ray, and a product name set in the interface font. They come in one line or in two. The wordmark takes the text color of its surface. Only the ray is orange.</p></div>
     <div class="wrap variant" data-reveal><span class="num">A</span><h3>One line</h3><p>The logo wherever there is width for it: headers, footers, signatures, anything set in a row.</p></div>
-    <div class="wrap g12 logo-show">
-      <div class="logo-big" data-reveal><span class="lk xxl"><svg class="wm " viewBox="0 -51.94 727.14 146" role="img" aria-label="XRAY"><use href="#wl"/><use class="ray" href="#gr" x="-5.46"/></svg><span class="nm">Design</span></span></div>
-      <ol class="spec logo-notes" data-reveal>
-        <li><b>Wordmark</b>Black <code>#131212</code> on light, white <code>#EEEDEC</code> on dark. Never orange, never a gradient.</li>
-        <li><b>Ray</b>Orange <code>#F9601F</code> on every surface. It rises 55% above the letters and is the only part that does. It stands between the Y's right side and the name, with no space on either side.</li>
-        <li><b>Product name</b>The interface font, weight 650, mixed case, tracking −1%. Its size is 17/23 of the logo's height. It sits on the baseline and starts where the ray ends.</li>
-      </ol>
-    </div>
     <div class="wrap g12 scheme">
       <div class="anatomy-wide" data-reveal><svg class="anatomy" viewBox="-140 -100 1290 300" role="img" aria-label="The lockup with its baseline, letter height and ray height marked, and the ray's position between the Y and the name">
   <g class="guides"><path d="M-140 94.06H1150"/><path d="M-140 0H1150"/><path d="M-140 -51.94H1150"/></g>
@@ -738,35 +722,40 @@ body { background: #fefefe; color: #131212; }
     <g transform="translate(940 150)"><circle r="17"/><text y="5">3</text></g>
   </g>
 </svg></div>
-      <ul class="pairs2" data-reveal>
+      <div class="logo-side" data-reveal>
+        <ol class="spec logo-notes">
+        <li><b>Wordmark</b>Black on light, white on dark. Never orange, never gray, never a gradient.</li>
+        <li><b>Ray</b>Orange <code>#F9601F</code> on every surface. It rises 55% above the letters and is the only part that does. It stands between the Y's right side and the name, with no space on either side.</li>
+        <li><b>Product name</b>The interface font, weight 650, mixed case, tracking −1%. Its size is 17/23 of the logo's height. It sits on the baseline and starts where the ray ends.</li>
+      </ol>
+        <ul class="pairs2">
         <li><b>Clear space</b>The height of the letters, on every side.</li>
         <li><b>Smallest size</b>16px of logo height. Below that, use the icon.</li>
       </ul>
+      </div>
     </div>
-    <div class="wrap variant" data-reveal><span class="num">B</span><h3>Two lines</h3><p>The same parts where a row is too narrow: square formats, columns, covers. The name moves under the letters and the ray moves to the left, as tall as both.</p></div>
-    <div class="wrap g12 logo-show flip">
-      <ol class="spec logo-notes" data-reveal>
-        <li><b>Wordmark</b>The same letters, on the first line.</li>
-        <li><b>Ray</b>At the left, standing on the name's baseline, its tip on the top corner of the X. That makes it 2.2 letter heights tall: 1.42 times its size in the one-line logo.</li>
-        <li><b>Product name</b>On the second line, starting under the X. The same size and weight as in one line; its baseline is 1.2 letter heights under the letters'.</li>
-      </ol>
-      <div class="logo-big" data-reveal><span class="lk2 xxl"><svg class="lk2-ray" viewBox="568 -51.94 164.6 146" aria-hidden="true"><use href="#gr"/></svg><span class="lk2-col"><svg class="lk2-wm" viewBox="0 0 562.54 94.06" role="img" aria-label="XRAY"><use href="#wl"/></svg><span class="lk2-nm">Design</span></span></span></div>
-    </div>
+    <div class="wrap variant" data-reveal><span class="num">B</span><h3>Two lines</h3><p>The same logo where a row is too narrow: square formats, columns, covers. Nothing moves but the name, which wraps to a second line under the letters.</p></div>
     <div class="wrap g12 scheme flip">
-      <ul class="pairs2" data-reveal>
+      <div class="logo-side" data-reveal>
+        <ol class="spec logo-notes">
+        <li><b>Wordmark</b>The letters and their ray, unchanged, on the first line.</li>
+        <li><b>Ray</b>Where it always is: on the Y's right side, rising 55% above the letters. With no name beside it, it ends the first line.</li>
+        <li><b>Product name</b>Wrapped to the second line, starting on the X's left edge. The same size and weight as in one line; its baseline is 1.2 letter heights under the letters'.</li>
+      </ol>
+        <ul class="pairs2">
         <li><b>Clear space</b>The height of the letters, on every side.</li>
-        <li><b>Smallest size</b>10px of letter height. Below that, use the icon.</li>
+        <li><b>Smallest size</b>16px of logo height, as in one line. Below that, use the icon.</li>
       </ul>
-      <div class="anatomy-wide" data-reveal><svg class="anatomy" viewBox="-483 -70 1290 360" role="img" aria-label="The two-line lockup: the ray at the left from the top of the letters to the name's baseline, the letters, and the name under them">
-  <g class="guides"><path d="M-483 0H807"/><path d="M-483 94.06H807"/><path d="M-483 206.93H807"/></g>
-  <g class="labels"><text x="-483" y="-10">Letter top · ray tip</text><text x="-483" y="84.1">Baseline</text><text x="-483" y="232.9">Name baseline</text></g>
-  <g fill="currentColor"><use href="#wl"/></g>
-  <use href="#gr" transform="translate(-233.29 0) scale(1.41734) translate(-568 51.94)" fill="#F9601F"/>
+      </div>
+      <div class="anatomy-wide" data-reveal><svg class="anatomy" viewBox="-180 -100 1290 400" role="img" aria-label="The two-line lockup: the wordmark with its ray as in one line, and the name on a second line under the letters">
+  <g class="guides"><path d="M-180 206.93H1110"/><path d="M-180 94.06H1110"/><path d="M-180 0H1110"/><path d="M-180 -51.94H1110"/></g>
+  <g class="labels"><text x="-180" y="196.9">Name baseline</text><text x="-180" y="84">Baseline</text><text x="-180" y="-10">Letter height</text><text x="-180" y="-62">Ray tip · +55%</text></g>
+  <g fill="currentColor"><use href="#wl"/></g><use href="#gr" x="-5.46" fill="#F9601F"/>
   <text class="a-name" x="0" y="206.93" font-size="107.9" letter-spacing="-1.08">Design</text>
-  <g class="raylines"><path d="M-233.29 -70V246.9M0 -70V246.9"/></g>
+  <g class="raylines"><path d="M562.54 -100V128M727.14 -100V128"/></g>
   <g class="pins">
-    <g transform="translate(620 47.0)"><circle r="17"/><text y="5">1</text></g>
-    <g transform="translate(-156.6 268.9)"><circle r="17"/><text y="5">2</text></g>
+    <g transform="translate(290 -26)"><circle r="17"/><text y="5">1</text></g>
+    <g transform="translate(771.1 21)"><circle r="17"/><text y="5">2</text></g>
     <g transform="translate(470 172.9)"><circle r="17"/><text y="5">3</text></g>
   </g>
 </svg></div>
@@ -777,8 +766,8 @@ body { background: #fefefe; color: #131212; }
       <div class="cell gray center sf-c" data-reveal><span class="lk md mono"><svg class="wm " viewBox="0 -51.94 727.14 146" role="img" aria-label="XRAY"><use href="#wl"/><use class="ray" href="#gr" x="-5.46"/></svg><span class="nm">Design</span></span><span class="tag">One color · all black</span></div>
       <div class="files2" data-reveal>
         <span class="label">Files</span>
-        <button type="button" class="file" data-dl="logo" data-ink="#131212" data-name="xray-logo-light">xray-logo-light.svg <i>↓</i></button>
-        <button type="button" class="file" data-dl="logo" data-ink="#EEEDEC" data-name="xray-logo-dark">xray-logo-dark.svg <i>↓</i></button>
+        <button type="button" class="file" data-dl="logo" data-ink="#000000" data-name="xray-logo-light">xray-logo-light.svg <i>↓</i></button>
+        <button type="button" class="file" data-dl="logo" data-ink="#FFFFFF" data-name="xray-logo-dark">xray-logo-dark.svg <i>↓</i></button>
         <button type="button" class="file" data-dl="logo" data-ink="#FFFFFF" data-ray="#FFFFFF" data-name="xray-logo-white">xray-logo-white.svg <i>↓</i></button>
       </div>
     </div>
@@ -845,15 +834,15 @@ body { background: #fefefe; color: #131212; }
     </div>
     <div class="band b-black" data-tone="dark">
       <div class="wrap band-in">
-        <dl data-reveal><div><dt>HEX</dt><dd>#131212</dd></div><div><dt>Page, dark</dt><dd>#000000</dd></div></dl>
-        <p data-reveal>The wordmark and text on light</p>
+        <dl data-reveal><div><dt>HEX</dt><dd>#000000</dd></div><div><dt>RGB</dt><dd>0 0 0</dd></div></dl>
+        <p data-reveal>The wordmark and text on light · the page on dark</p>
         <h3 class="cut noline r" data-reveal><span class="rise"><span class="drift" data-drift>Black</span></span></h3>
       </div>
     </div>
     <div class="band b-white" data-tone="light">
       <div class="wrap band-in">
-        <dl data-reveal><div><dt>HEX</dt><dd>#EEEDEC</dd></div><div><dt>Page, light</dt><dd>#FEFEFE</dd></div><div><dt>On orange</dt><dd>#FFFFFF</dd></div></dl>
-        <p data-reveal>The wordmark and text on dark</p>
+        <dl data-reveal><div><dt>HEX</dt><dd>#FFFFFF</dd></div><div><dt>RGB</dt><dd>255 255 255</dd></div></dl>
+        <p data-reveal>The wordmark and text on dark · the page on light · the label on orange</p>
         <h3 class="cut noline" data-reveal><span class="rise"><span class="drift" data-drift>White</span></span></h3>
       </div>
     </div>
@@ -942,11 +931,11 @@ body { background: #fefefe; color: #131212; }
   <section class="s t-light" data-tone="light" data-n="07" id="patterns">
     <div class="wrap head "><span class="num" data-reveal>07</span><h2 class="cut" data-reveal><span class="rise"><span class="drift" data-drift>Patterns</span></span></h2><p class="intro" data-reveal>Six patterns from two shapes, the X and the ray. Each works in three colorways: switch them on the tile, and take the SVG. They are vector, so they scale from a favicon strip to a stage wall.</p></div>
     <div class="wrap pgrid" data-reveal>
-      <figure class="tile p-wide fly-r" data-pattern="field" data-way="black"><div class="art"><svg class="pat" viewBox="0 0 1500 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Field pattern"><rect class="bg" width="1500" height="500" fill="#000000"/><use class="m1" href="#p-field" fill="#F9601F"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way on" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way" data-way="paper" aria-label="Paper colorway" style="--c:#FEFEFE"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Field</b><span>A square lattice of X in space, seen at an angle. Banners, social headers, slide covers.</span></figcaption></figure>
-      <figure class="tile p-tall" data-pattern="cropray" data-way="paper"><div class="art"><svg class="pat" viewBox="0 0 900 1200" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Beam pattern"><rect class="bg" width="900" height="1200" fill="#FEFEFE"/><use class="m1" href="#p-cropray" fill="#F9601F"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way on" data-way="paper" aria-label="Paper colorway" style="--c:#FEFEFE"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Beam</b><span>The ray, larger than the frame. Posters, section openers.</span></figcaption></figure>
-      <figure class="tile p-crop" data-pattern="cropx" data-way="orange"><div class="art"><svg class="pat" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Crossing pattern"><rect class="bg" width="1200" height="900" fill="#F9601F"/><use class="m1" href="#p-cropx" fill="#FFFFFF"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way on" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way" data-way="paper" aria-label="Paper colorway" style="--c:#FEFEFE"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Crossing</b><span>The X as a supergraphic, cut by the edges. Avatars, covers, merchandise.</span></figcaption></figure>
-      <figure class="tile p-sq" data-pattern="rays" data-way="black"><div class="art"><svg class="pat" viewBox="0 0 900 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Crowd pattern"><rect class="bg" width="900" height="900" fill="#000000"/><use class="m1" href="#p-rays" fill="#F9601F"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way on" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way" data-way="paper" aria-label="Paper colorway" style="--c:#FEFEFE"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Crowd</b><span>Rays standing to the horizon. Event graphics, dark covers.</span></figcaption></figure>
-      <figure class="tile p-sq" data-pattern="grid" data-way="paper" data-two><div class="art"><svg class="pat" viewBox="0 0 900 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Grid pattern"><rect class="bg" width="900" height="900" fill="#FEFEFE"/><use class="m2" href="#p-grid" fill="#131212"/><use class="m1" href="#p-grid2" fill="#F9601F"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way on" data-way="paper" aria-label="Paper colorway" style="--c:#FEFEFE"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Grid</b><span>X in rows, a ray now and then. Wrapping, backgrounds, empty states.</span></figcaption></figure>
+      <figure class="tile p-wide fly-r" data-pattern="field" data-way="black"><div class="art"><svg class="pat" viewBox="0 0 1500 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Field pattern"><rect class="bg" width="1500" height="500" fill="#000000"/><use class="m1" href="#p-field" fill="#F9601F"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way on" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way" data-way="paper" aria-label="Paper colorway" style="--c:#FFFFFF"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Field</b><span>A square lattice of X in space, seen at an angle. Banners, social headers, slide covers.</span></figcaption></figure>
+      <figure class="tile p-tall" data-pattern="cropray" data-way="paper"><div class="art"><svg class="pat" viewBox="0 0 900 1200" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Beam pattern"><rect class="bg" width="900" height="1200" fill="#FFFFFF"/><use class="m1" href="#p-cropray" fill="#F9601F"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way on" data-way="paper" aria-label="Paper colorway" style="--c:#FFFFFF"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Beam</b><span>The ray, larger than the frame. Posters, section openers.</span></figcaption></figure>
+      <figure class="tile p-crop" data-pattern="cropx" data-way="orange"><div class="art"><svg class="pat" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Crossing pattern"><rect class="bg" width="1200" height="900" fill="#F9601F"/><use class="m1" href="#p-cropx" fill="#FFFFFF"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way on" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way" data-way="paper" aria-label="Paper colorway" style="--c:#FFFFFF"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Crossing</b><span>The X as a supergraphic, cut by the edges. Avatars, covers, merchandise.</span></figcaption></figure>
+      <figure class="tile p-sq" data-pattern="rays" data-way="black"><div class="art"><svg class="pat" viewBox="0 0 900 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Crowd pattern"><rect class="bg" width="900" height="900" fill="#000000"/><use class="m1" href="#p-rays" fill="#F9601F"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way on" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way" data-way="paper" aria-label="Paper colorway" style="--c:#FFFFFF"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Crowd</b><span>Rays standing to the horizon. Event graphics, dark covers.</span></figcaption></figure>
+      <figure class="tile p-sq" data-pattern="grid" data-way="paper" data-two><div class="art"><svg class="pat" viewBox="0 0 900 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Grid pattern"><rect class="bg" width="900" height="900" fill="#FFFFFF"/><use class="m2" href="#p-grid" fill="#000000"/><use class="m1" href="#p-grid2" fill="#F9601F"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way on" data-way="paper" aria-label="Paper colorway" style="--c:#FFFFFF"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Grid</b><span>X in rows, a ray now and then. Wrapping, backgrounds, empty states.</span></figcaption></figure>
       <div class="p-note">
         <h3>Using patterns</h3>
         <ul>
@@ -955,7 +944,7 @@ body { background: #fefefe; color: #131212; }
           <li>The marks are never outlined, rotated freely or recolored outside the three colorways.</li>
         </ul>
       </div>
-      <figure class="tile p-ramp fly-l" data-pattern="ramp" data-way="orange"><div class="art"><svg class="pat" viewBox="0 0 1500 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ramp pattern"><rect class="bg" width="1500" height="500" fill="#F9601F"/><use class="m1" href="#p-ramp" fill="#FFFFFF"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way on" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way" data-way="paper" aria-label="Paper colorway" style="--c:#FEFEFE"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Ramp</b><span>Rays on one baseline, each taller than the last. Growth, releases, numbers.</span></figcaption></figure>
+      <figure class="tile p-ramp fly-l" data-pattern="ramp" data-way="orange"><div class="art"><svg class="pat" viewBox="0 0 1500 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ramp pattern"><rect class="bg" width="1500" height="500" fill="#F9601F"/><use class="m1" href="#p-ramp" fill="#FFFFFF"/></svg><div class="tile-ui"><span class="ways"><button type="button" class="way on" data-way="orange" aria-label="Orange colorway" style="--c:#F9601F"></button><button type="button" class="way" data-way="black" aria-label="Black colorway" style="--c:#000000"></button><button type="button" class="way" data-way="paper" aria-label="Paper colorway" style="--c:#FFFFFF"></button></span><button type="button" class="dl" data-dl="pattern">SVG ↓</button></div></div><figcaption><b>Ramp</b><span>Rays on one baseline, each taller than the last. Growth, releases, numbers.</span></figcaption></figure>
     </div>
   </section>
 
@@ -971,7 +960,7 @@ body { background: #fefefe; color: #131212; }
         <span class="tag under">Social header · 3:1 · orange on black · the avatar is the icon</span>
       </div>
       <div class="cell light og u-d" data-reveal>
-        <svg class="pat" viewBox="0 0 900 1200" preserveAspectRatio="xMidYMid slice" role="img" aria-label="cropray pattern"><rect class="bg" width="900" height="1200" fill="#FEFEFE"/><use class="m1" href="#p-cropray" fill="#F9601F"/></svg>
+        <svg class="pat" viewBox="0 0 900 1200" preserveAspectRatio="xMidYMid slice" role="img" aria-label="cropray pattern"><rect class="bg" width="900" height="1200" fill="#FFFFFF"/><use class="m1" href="#p-cropray" fill="#F9601F"/></svg>
         <div class="og-in"><span class="lk "><svg class="wm " viewBox="0 -51.94 727.14 146" role="img" aria-label="XRAY"><use href="#wl"/><use class="ray" href="#gr" x="-5.46"/></svg><span class="nm">Design</span></span><b>Build, adapt and maintain consistent UI with AI.</b><span>wiki.xraynetwork.io/design</span></div>
         <span class="tag">Share card · 1200 × 630</span>
       </div>
@@ -993,7 +982,7 @@ body { background: #fefefe; color: #131212; }
     <div class="wrap table" data-reveal><table>
       <thead><tr><th>Piece</th><th>Rule</th><th>File</th></tr></thead>
       <tbody>
-        <tr><td>Wordmark</td><td>Black <code>#131212</code> on light, white <code>#EEEDEC</code> on dark. Never orange.</td><td><code>xray-logo-light.svg</code>, <code>xray-logo-dark.svg</code></td></tr>
+        <tr><td>Wordmark</td><td>Black <code>#000000</code> on light, white <code>#FFFFFF</code> on dark. Never orange.</td><td><code>xray-logo-light.svg</code>, <code>xray-logo-dark.svg</code></td></tr>
         <tr><td>Ray</td><td>Orange <code>#F9601F</code> on every surface. It stands on the Y's right side, with no space around it.</td><td>Part of the logo files</td></tr>
         <tr><td>Product name</td><td>Weight 650, mixed case, 17/23 of the logo's height, on the baseline, right after the ray.</td><td>Set as text</td></tr>
         <tr><td>Typed name</td><td>XRAY in capitals, a slash, the name in mixed case: XRAY/Design.</td><td>—</td></tr>
@@ -1012,7 +1001,7 @@ body { background: #fefefe; color: #131212; }
 <script>(() => {
   const NS = "http://www.w3.org/2000/svg";
   const O = "#F9601F";
-  const WAYS = { orange: [O, "#FFFFFF"], black: ["#000000", O], paper: ["#FEFEFE", O] };
+  const WAYS = { orange: [O, "#FFFFFF"], black: ["#000000", O], paper: ["#FFFFFF", O] };
   const calm = matchMedia("(prefers-reduced-motion: reduce)");
 
   // ---- reveals: each marked element comes in once, when it enters the window
@@ -1076,8 +1065,8 @@ body { background: #fefefe; color: #131212; }
     tile.dataset.way = way;
     tile.querySelector(".bg").setAttribute("fill", bg);
     if (tile.hasAttribute("data-two")) {
-      tile.querySelector(".m2").setAttribute("fill", way === "paper" ? "#131212" : "#FFFFFF");
-      tile.querySelector(".m1").setAttribute("fill", way === "orange" ? "#131212" : O);
+      tile.querySelector(".m2").setAttribute("fill", way === "paper" ? "#000000" : "#FFFFFF");
+      tile.querySelector(".m1").setAttribute("fill", way === "orange" ? "#000000" : O);
     } else {
       tile.querySelector(".m1").setAttribute("fill", mark);
     }
