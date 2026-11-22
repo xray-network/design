@@ -71,6 +71,9 @@ on `--x-ease` (`data-settle`) and never touches the edge. The slide never shows 
 
 ## Invariants
 
+- Wider than its place, the row scrolls sideways and never shows a scrollbar: a mouse drags it like a finger,
+  a drag never selects, and a shade (`--x-scroll-shade`) marks each side with hidden options (`scrollStrip` in
+  `core/motion.js`).
 - Native radio inputs stay. Do not replace them with buttons and click handlers.
 - One indicator element; the per-item fill is only the no-JS fallback.
 - Indicator stays under the labels (`isolation: isolate` + `z-index: -1`).
@@ -86,6 +89,7 @@ on `--x-ease` (`data-settle`) and never touches the edge. The slide never shows 
 
 ## Checklist
 
+- [ ] Too narrow: no scrollbar; a mouse drags the row without selecting; a shade marks each side with hidden options
 - [ ] Click, arrow keys and Tab all work; focus ring visible on the item
 - [ ] Indicator lands exactly on the item after resizing and font loading
 - [ ] Both themes; disabled item; `sm` size; `full` width

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import { Alert } from "@protocol/components/alert/alert"
 import { Button } from "@protocol/components/button/button"
 import { Checkbox } from "@protocol/components/checkbox/checkbox"
+import { Icon } from "@protocol/components/icon/icon"
+import { eyeDropper } from "@protocol/components/icon/icons.js"
 import { Field, Input, TextField } from "@protocol/components/input/input"
 import { Progress } from "@protocol/components/progress/progress"
 import { Radio } from "@protocol/components/radio/radio"
@@ -128,7 +130,7 @@ export function ThemePrompt() {
         <Button variant="ghost" size="sm" disabled={isDefault(theme)} onClick={() => { setOtherFont(false); setTheme(DEFAULT_THEME) }}>Reset to the kit</Button>
       </div>
       <div className="wiki-theme-settings">
-        <Field label="Primary color" hint="Buttons, selections, links and focus rings come from it" error={hexError}>
+        <Field label="Primary color" hint="Type a hex or pick one. Buttons, selections, links and focus rings come from it" error={hexError}>
           {(control) => (
             <Input
               {...control}
@@ -136,7 +138,20 @@ export function ThemePrompt() {
               autoComplete="off"
               value={hex}
               onChange={(event) => setPrimary(event.target.value)}
-              prefix={<span className="wiki-theme-picker"><input type="color" aria-label="Pick a color" value={parseHex(hex) ?? theme.primary} onChange={(event) => setPrimary(event.target.value.toUpperCase())} /></span>}
+              prefix={
+                // The color itself, as large as the Pick chip; it opens the same picker.
+                <label className="wiki-theme-swatch-pick" style={{ background: parseHex(hex) ?? theme.primary }} title="Open the color picker">
+                  <input type="color" aria-label="Pick a color" tabIndex={-1} value={parseHex(hex) ?? theme.primary} onChange={(event) => setPrimary(event.target.value.toUpperCase())} />
+                </label>
+              }
+              suffix={
+                // The browser's color picker, under a chip that says what it does.
+                <label className="x-button wiki-theme-picker" data-variant="chip" title="Open the color picker">
+                  <Icon icon={eyeDropper} size="sm" />
+                  Pick
+                  <input type="color" aria-label="Pick a color" value={parseHex(hex) ?? theme.primary} onChange={(event) => setPrimary(event.target.value.toUpperCase())} />
+                </label>
+              }
             />
           )}
         </Field>

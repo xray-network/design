@@ -18,6 +18,27 @@
   }
   .x-tabs::-webkit-scrollbar { display: none; }
 
+  /* ---- Overflow: no scrollbar; a mouse drags the row and a shade marks each side with hidden tabs (data-scroll and
+     data-dragging, from scrollStrip in core/motion.js). The shades are sticky items that take no room. */
+  .x-tabs[data-dragging] { cursor: grabbing; user-select: none; }
+  .x-tabs::before,
+  .x-tabs::after {
+    content: "";
+    position: sticky;
+    z-index: 1;
+    flex: none;
+    align-self: stretch;
+    width: var(--x-space-6);
+    margin-block: calc(var(--x-space-1) * -1);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--x-duration-fast) var(--x-ease);
+  }
+  .x-tabs::before { left: calc(var(--x-space-1) * -1); margin-right: calc((var(--x-space-6) + var(--x-tabs-gap)) * -1); background: linear-gradient(to right, var(--x-scroll-shade), transparent); }
+  .x-tabs::after { right: calc(var(--x-space-1) * -1); margin-left: calc((var(--x-space-6) + var(--x-tabs-gap)) * -1); background: linear-gradient(to left, var(--x-scroll-shade), transparent); }
+  .x-tabs[data-scroll~="start"]::before,
+  .x-tabs[data-scroll~="end"]::after { opacity: 1; }
+
   .x-tab {
     --x-tab-height: var(--x-size-md);
     --x-tab-bg: var(--x-bg-faint);

@@ -3,7 +3,7 @@ id: tabs
 name: Tabs
 summary: View tabs on the canvas; the current view is filled. Tabs can carry small actions.
 motion: 0
-requires: [tokens]
+requires: [tokens, motion]
 components: [button]
 files: [tabs.css, tabs.html, tabs.controller.js, tabs.tsx]
 ---
@@ -67,6 +67,9 @@ Tier 0. Fill and text color on `--x-duration-fast`. Tabs do not slide: there is 
 
 ## Invariants
 
+- Wider than its place, the row scrolls sideways and never shows a scrollbar: a mouse drags it like a finger,
+  a drag never selects, and a shade (`--x-scroll-shade`) marks each side with hidden tabs (`scrollStrip` in
+  `core/motion.js`).
 - Web current state comes from `aria-current="page"`, not a class; native state uses framework navigation/selection state.
 - 36px tall, 10px radius, weight 600: the same size and radius as icon buttons beside them.
 - No underline or sliding indicator; the filled tab is the indicator.
@@ -80,6 +83,7 @@ Tier 0. Fill and text color on `--x-duration-fast`. Tabs do not slide: there is 
 
 ## Checklist
 
+- [ ] Too narrow: no scrollbar; a mouse drags the row without selecting; a shade marks each side with hidden tabs
 - [ ] One current tab; it is visible after switching in a narrow row
 - [ ] Tab and its actions are separately focusable and labelled
 - [ ] Both themes; the row never shows a scrollbar

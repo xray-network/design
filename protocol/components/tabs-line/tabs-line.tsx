@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { trackIndicator } from "../../core/motion.js";
+import { scrollStrip, trackIndicator } from "../../core/motion.js";
 import "./tabs-line.css";
 
 export type TabsLineItem<T extends string> = {
@@ -43,7 +43,8 @@ export function TabsLine<T extends string>({ items, value, defaultValue, onValue
     const root = ref.current;
     if (!root) return;
     tracker.current = trackIndicator(root, () => root.querySelector<HTMLElement>(":scope > .x-tabs-line-item[aria-current]"));
-    return () => tracker.current?.destroy();
+    const strip = scrollStrip(root);
+    return () => { tracker.current?.destroy(); strip.destroy(); };
   }, []);
   useIsomorphicLayoutEffect(() => { tracker.current?.update(); }, [current, items.length]);
 

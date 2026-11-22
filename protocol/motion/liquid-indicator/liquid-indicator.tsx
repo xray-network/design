@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { trackIndicator } from "../../core/motion.js";
+import { scrollStrip, trackIndicator } from "../../core/motion.js";
 import "./liquid-indicator.css";
 
 export type LiquidIndicatorItem<T extends string> = {
@@ -41,7 +41,8 @@ export function LiquidIndicator<T extends string>({ items, value, defaultValue, 
     const root = ref.current;
     if (!root) return;
     tracker.current = trackIndicator(root, () => root.querySelector<HTMLElement>(":scope > .x-liquid-indicator-item[aria-current]"));
-    return () => tracker.current?.destroy();
+    const strip = scrollStrip(root);
+    return () => { tracker.current?.destroy(); strip.destroy(); };
   }, []);
   useIsomorphicLayoutEffect(() => { tracker.current?.update(); }, [current, items.length]);
 

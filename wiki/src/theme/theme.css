@@ -1582,35 +1582,35 @@ html .rp-nav-menu--left .rp-nav-menu__item__container {
 
 /* Scrollbars: one thin style everywhere (the page, the sidebar and outline, code blocks, the search panel, demos),
    a thumb in the wiki's border tone on a clear track, in both themes (darker on hover where the browser draws
-   ::-webkit-scrollbar). Elements that hide their
-   scrollbar (scrolling tab rows) keep doing so: their own rules are more specific. */
+   ::-webkit-scrollbar). The kit's own elements (x- classes) keep their rules: these are not in a cascade layer, so
+   they would beat the kit's and put a scrollbar back on rows that hide theirs. */
 html,
-html *,
+html *:not([class^="x-"], [class*=" x-"]),
 html .rp-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: var(--xr-scrollbar) transparent;
 }
 
 /* Browsers without scrollbar-color (Safari) draw the same: an 8px gutter, a 4px rounded thumb. */
-html ::-webkit-scrollbar,
+html :not([class^="x-"], [class*=" x-"])::-webkit-scrollbar,
 html .rp-scrollbar::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-html ::-webkit-scrollbar-track,
-html ::-webkit-scrollbar-corner {
+html :not([class^="x-"], [class*=" x-"])::-webkit-scrollbar-track,
+html :not([class^="x-"], [class*=" x-"])::-webkit-scrollbar-corner {
   background: transparent;
 }
 
-html ::-webkit-scrollbar-thumb,
+html :not([class^="x-"], [class*=" x-"])::-webkit-scrollbar-thumb,
 html .rp-scrollbar::-webkit-scrollbar-thumb {
   border: 2px solid transparent;
   border-radius: 8px;
   background: var(--xr-scrollbar) padding-box;
 }
 
-html ::-webkit-scrollbar-thumb:hover,
+html :not([class^="x-"], [class*=" x-"])::-webkit-scrollbar-thumb:hover,
 html .rp-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--xr-scrollbar-hover) padding-box;
 }

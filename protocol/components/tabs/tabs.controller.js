@@ -1,9 +1,12 @@
+import { scrollStrip } from "../../core/motion.js";
+
 /**
  * Tabs for plain HTML: clicking a tab makes it the current one (aria-current="page") and fires
  * a "change" event on the .x-tabs element with detail.value (the tab's data-value).
  * In an app with a router, set aria-current from the route instead and skip this controller.
  * Views: a tab with aria-controls shows that .x-tabs-panel and hides the others; a <template data-lazy> inside a
  * panel is rendered the first time the panel shows.
+ * Rows wider than their place scroll sideways: a mouse drags them and a shade marks hidden tabs (scrollStrip).
  *
  * @param {ParentNode} [root]
  * @returns {() => void} cleanup
@@ -27,5 +30,6 @@ export function initTabs(root = document) {
     tabs.dispatchEvent(new CustomEvent("change", { detail: { value: tab.getAttribute("data-value") }, bubbles: true }));
   };
   root.addEventListener("click", onClick);
-  return () => root.removeEventListener("click", onClick);
+  const strips = [...root.querySelectorAll(".x-tabs")].map((tabs) => scrollStrip(/** @type {HTMLElement} */ (tabs)));
+  return () => { root.removeEventListener("click", onClick); strips.forEach((strip) => strip.destroy()); };
 }

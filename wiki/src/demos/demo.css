@@ -213,11 +213,19 @@
 }
 
 /* The Theming page: three settings in a row (stacked on a phone), the example, then the prompt. */
-.wiki-theme-settings { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: var(--x-space-4); padding: var(--x-space-6); border-bottom: 1px solid var(--x-border); }
-@media (max-width: 760px) { .wiki-theme-settings { grid-template-columns: minmax(0, 1fr); padding: var(--x-space-5) var(--x-space-4); } }
+/* As many columns as fit at 240px each, so Tone always shows its three options in full. */
+.wiki-theme-settings { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); align-items: start; gap: var(--x-space-4); padding: var(--x-space-6); border-bottom: 1px solid var(--x-border); }
+@media (max-width: 760px) { .wiki-theme-settings { padding: var(--x-space-5) var(--x-space-4); } }
 /* The native color picker as a swatch at the start of the hex field. */
-.wiki-theme-picker { display: grid; flex: none; width: 22px; height: 22px; overflow: hidden; border-radius: var(--x-radius-xs); box-shadow: inset 0 0 0 1px var(--x-border); }
-.wiki-theme-picker > input { width: 34px; height: 34px; margin: -6px; padding: 0; border: 0; background: none; cursor: pointer; }
+.wiki-theme-picker { position: relative; flex: none; gap: var(--x-space-1-5); cursor: pointer; }
+/* The color before the value: a rounded square the size of the Pick chip, as far from the left edge as the chip is
+   from the right. */
+.wiki-theme-swatch-pick { position: relative; flex: none; width: var(--x-size-sm); height: var(--x-size-sm); border-radius: var(--x-radius-sm); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--x-fg-1) 14%, transparent); cursor: pointer; }
+.x-input:has(> .wiki-theme-swatch-pick:first-child) { padding-left: 6px; }
+/* The native input covers the chip, so a click on any part of it opens the picker. */
+.wiki-theme-picker > input,
+.wiki-theme-swatch-pick > input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; opacity: 0; cursor: pointer; }
+.wiki-theme-picker:has(> input:focus-visible) { outline: 2px solid var(--x-focus); outline-offset: 2px; }
 
 /* The example: the derived palette beside a panel of components in the theme. */
 .wiki-theme-example { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: var(--x-space-5); padding: var(--x-space-4) 0 var(--x-space-2); color: var(--x-fg-2); font: var(--x-weight-body) var(--x-text-sm) / var(--x-leading-body) var(--x-font-sans); }
@@ -493,6 +501,11 @@
 .wiki-demo-icon-text > .x-icon { display: inline-block; vertical-align: -2px; color: var(--x-fg-3); }
 
 /* In a preview's bar while the reader's theme is on: a quiet link back to the Theming page. */
-.wiki-demo-theme { display: inline-flex; align-items: center; gap: var(--x-space-1-5); color: var(--x-fg-3); font-size: var(--x-text-xs); font-weight: var(--x-weight-label); text-decoration: none; }
-.wiki-demo-theme::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--wiki-user-accent, var(--x-accent)); }
-.wiki-demo-theme:hover { color: var(--x-fg-1); }
+/* Your theme or the default on every preview; the saved theme stays either way. */
+.wiki-demo-theme-switch { display: inline-flex; align-items: center; gap: 2px; padding: 2px; border-radius: var(--x-radius-pill); background: var(--x-bg-chip); }
+.wiki-demo-theme-switch > button, .wiki-demo-theme-edit { display: inline-flex; align-items: center; gap: var(--x-space-1-5); height: 24px; padding: 0 var(--x-space-2-5); border: 0; border-radius: var(--x-radius-pill); background: none; color: var(--x-fg-3); font: var(--x-weight-label) var(--x-text-xs) / 1 var(--x-font-sans); white-space: nowrap; text-decoration: none; cursor: pointer; transition: background-color var(--x-duration-fast) var(--x-ease), color var(--x-duration-fast) var(--x-ease); }
+.wiki-demo-theme-switch > button:hover, .wiki-demo-theme-edit:hover { color: var(--x-fg-1); }
+.wiki-demo-theme-switch > button[aria-pressed="true"] { background: var(--x-bg-panel); color: var(--x-fg-1); box-shadow: 0 0 0 1px var(--x-border); }
+.wiki-demo-theme-switch > button:focus-visible, .wiki-demo-theme-edit:focus-visible { outline: 2px solid var(--x-focus); outline-offset: 1px; }
+.wiki-demo-theme-edit { width: 24px; justify-content: center; padding: 0; }
+.wiki-demo-theme-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--wiki-user-accent, var(--x-accent)); }

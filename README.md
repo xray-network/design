@@ -40,7 +40,7 @@ protocol/                 the protocol and kit; installed as-is to <project>/.ag
 ├── core/                 shared code every component builds on
 │   ├── tokens.css        tokens and cascade layers
 │   ├── base.css          optional reset, focus ring, utilities
-│   ├── motion.js (+ .d.ts)  spring() -> linear(), trackIndicator, createFlip
+│   ├── motion.js (+ .d.ts)  spring() -> linear(), trackIndicator, scrollStrip, createFlip
 │   └── place.js (+ .d.ts)   placeElement: sides, flipping, the visual viewport
 ├── components/<id>/      primitives: COMPONENT.md, <id>.css, <id>.html, [<id>.controller.js], <id>.tsx
 ├── blocks/<id>/          screen sections built from components (and other blocks); same files

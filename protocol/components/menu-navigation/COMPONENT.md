@@ -3,7 +3,7 @@ id: menu-navigation
 name: MenuNavigation
 summary: A site or app top navigation whose submenus open in one panel that slides between items.
 motion: 0
-requires: [tokens]
+requires: [tokens, motion]
 components: []
 files: [menu-navigation.css, menu-navigation.html, menu-navigation.controller.js, menu-navigation.controller.d.ts, menu-navigation.tsx]
 ---
@@ -65,6 +65,9 @@ Incoming panel: opacity and translate on `--x-spring-soft` (no overshoot). The v
 
 ## Invariants
 
+- Wider than its place, the row scrolls sideways and never shows a scrollbar: a mouse drags it like a finger,
+  a drag never selects, and a shade (`--x-scroll-shade`) marks each side with hidden items (`scrollStrip` in
+  `core/motion.js`).
 - One shared panel; only one submenu open at a time.
 - Links in submenus carry a title and a one-line description.
 
@@ -75,6 +78,7 @@ Incoming panel: opacity and translate on `--x-spring-soft` (no overshoot). The v
 
 ## Checklist
 
+- [ ] Too narrow: no scrollbar; a mouse drags the row without selecting; a shade marks each side with hidden items
 - [ ] Opens by click and keyboard; switching items slides from the right side
 - [ ] Esc, outside click and tabbing out close it; focus returns to the trigger on Esc
 - [ ] The panel stays inside the viewport at narrow widths

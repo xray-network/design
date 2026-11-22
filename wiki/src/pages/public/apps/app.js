@@ -11,6 +11,8 @@ import { initAmounts } from "../kit/components/input-amount/input-amount.control
 import { initSegmented } from "../kit/components/segmented/segmented.controller.js";
 import { initSliders } from "../kit/components/slider/slider.controller.js";
 import { initComposers } from "../kit/blocks/composer/composer.controller.js";
+import { initStories } from "../kit/blocks/stories/stories.controller.js";
+import { scrollStrip } from "../kit/core/motion.js";
 import { initPosts } from "../kit/blocks/post/post.controller.js";
 import { initSendForms } from "../kit/blocks/send-form/send-form.controller.js";
 import { initSwaps } from "../kit/blocks/swap/swap.controller.js";
@@ -66,13 +68,15 @@ for (const el of document.querySelectorAll("[data-art]")) {
 const money = (value) => "$" + new Intl.NumberFormat("en-US", { notation: Math.abs(value) >= 10000 ? "compact" : "standard", maximumFractionDigits: 1 }).format(value);
 const cap = (billions) => (billions >= 1000 ? `$${(billions / 1000).toFixed(1)}T` : `$${billions}B`);
 const each = (selector, bind, format = money, flag = "data-money") => { for (const figure of document.querySelectorAll(selector)) bind(figure, figure.hasAttribute(flag) ? { format } : undefined); };
-for (const start of [initAvatars, initSegmented, initPosts, initAmounts, initSwaps, initSendForms, initExpands, initSliders, initCopies, initCalendars, initPagers, initComposers,
+for (const start of [initAvatars, initSegmented, initPosts, initAmounts, initSwaps, initSendForms, initExpands, initSliders, initCopies, initCalendars, initPagers, initComposers, initStories,
   initSparklines, initDonutCharts, initBarLists, initCandlestickCharts, initDepthCharts, initFunnelCharts, initHeatmaps, initShareBars, initStackedAreaCharts, initStatusStrips]) start();
 each(".x-line-chart", bindLineChart);
 each(".x-bar-chart", bindBarChart);
 each(".x-stacked-bar-chart", bindStackedBarChart);
 each(".x-treemap", bindTreemap, cap, "data-cap");
 const indicators = [...document.querySelectorAll(".x-liquid-indicator")].map((nav) => bindLiquidIndicator(nav));
+// The app's own sideways rows (chips, cards) drag and shade like the kit's.
+for (const row of document.querySelectorAll(".app-chips, .app-cards")) scrollStrip(row);
 
 // ---- Screens. The hash names the one in view. Tabs are links to hashes, so the browser's back button, a link
 // from outside and a frame's src all land on the right screen, and moving between them never loads a page.

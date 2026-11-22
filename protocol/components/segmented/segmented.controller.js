@@ -1,4 +1,4 @@
-import { trackIndicator } from "../../core/motion.js";
+import { scrollStrip, trackIndicator } from "../../core/motion.js";
 
 /**
  * Enhances every .x-segmented under root with the liquid indicator. When the next element is .x-segmented-panels,
@@ -23,6 +23,7 @@ export function initSegmented(root = document) {
       el.append(indicator);
     }
     const tracker = trackIndicator(el, () => el.querySelector(":scope > .x-segmented-item:has(input:checked)"));
+    const strip = scrollStrip(el);
     const panels = el.nextElementSibling?.classList.contains("x-segmented-panels") ? el.nextElementSibling : null;
     const showPanel = () => {
       const value = el.querySelector(":scope > .x-segmented-item > input:checked")?.getAttribute("value");
@@ -38,6 +39,7 @@ export function initSegmented(root = document) {
     el.closest("form")?.addEventListener("reset", onReset);
     cleanups.push(() => {
       tracker.destroy();
+      strip.destroy();
       el.removeEventListener("change", onChange);
       el.closest("form")?.removeEventListener("reset", onReset);
       delete el.dataset.xReady;

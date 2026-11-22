@@ -1,3 +1,5 @@
+import { scrollStrip } from "../../core/motion.js";
+
 /**
  * MenuNavigation behavior, shared by the HTML version (initMenuNavigations) and React (bindMenuNavigation).
  *
@@ -127,8 +129,12 @@ export function bindMenuNavigation(nav) {
   nav.addEventListener("keydown", onKeydown);
   document.addEventListener("pointerdown", onDocPointer);
   addEventListener("resize", onResize);
+  // A row wider than its place scrolls sideways: a mouse drags it and a shade marks hidden items.
+  const list = nav.querySelector(":scope > .x-menu-navigation-list");
+  const strip = list ? scrollStrip(/** @type {HTMLElement} */ (list)) : null;
 
   return () => {
+    strip?.destroy();
     nav.removeEventListener("click", onClick);
     nav.removeEventListener("pointerover", onPointerOver);
     nav.removeEventListener("pointerleave", onPointerLeave);

@@ -1,4 +1,7 @@
-import type { ReactNode } from "react";
+"use client";
+
+import { useEffect, useRef, type ReactNode } from "react";
+import { scrollStrip } from "../../core/motion.js";
 import "./stories.css";
 
 export type Story = {
@@ -21,8 +24,14 @@ export type StoriesProps = {
 
 /** A row of people or channels with something new. New ones come first; the app marks them seen. */
 export function Stories({ items, onOpen, className, "aria-label": label }: StoriesProps) {
+  const ref = useRef<HTMLUListElement>(null);
+  useEffect(() => {
+    if (!ref.current) return;
+    const strip = scrollStrip(ref.current);
+    return () => strip.destroy();
+  }, []);
   return (
-    <ul className={className ? `x-stories ${className}` : "x-stories"} aria-label={label}>
+    <ul ref={ref} className={className ? `x-stories ${className}` : "x-stories"} aria-label={label}>
       {items.map((item) => {
         const content = <><span className="x-stories-ring">{item.avatar}</span><span className="x-stories-name">{item.name}</span></>;
         const seen = item.seen ? "" : undefined;

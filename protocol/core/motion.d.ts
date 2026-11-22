@@ -5,6 +5,7 @@ export function trackIndicator(
   root: HTMLElement,
   getActive: () => HTMLElement | null,
 ): { update: () => void; destroy: () => void };
+export function scrollStrip(root: HTMLElement): { update: () => void; destroy: () => void };
 export function createFlip(
   getElements: () => Iterable<Element>,
   options?: { token?: string; easingToken?: string },

@@ -49,6 +49,7 @@ tokens:
     bg-soft: { light: "rgb(0 0 0 / 0.06)", dark: "rgb(255 255 255 / 0.06)" }  # hover wash
     bg-faint: { light: "rgb(0 0 0 / 0.03)", dark: "rgb(255 255 255 / 0.04)" }  # resting tabs
     scrim: { light: "rgb(0 0 0 / 0.35)", dark: "rgb(0 0 0 / 0.6)" }
+    scroll-shade: { light: "rgb(0 0 0 / 0.1)", dark: "rgb(0 0 0 / 0.6)" }  # edge of a row with hidden items
     border: { light: "#e7e6e6", dark: "#232222" }
     border-hover: { light: "#d5d4d4", dark: "#414040" }
     fg-1: { light: "#0f0f0f", dark: "#ffffff" }  # titles, values
@@ -248,6 +249,7 @@ for the tokens file. Raw hex, rgb or hsl values never appear in component CSS.
 | Canvas | `--x-bg` | Page. Exact white in light, exact black in dark. |
 | Surfaces | `--x-bg-panel` → `--x-bg-chip` → `--x-bg-active` | Cards, menus, dialogs → chips, tracks → selected items. Each step is one level up. |
 | Washes | `--x-bg-soft`, `--x-bg-faint` | Hover on transparent controls; resting tabs. |
+| Shade | `--x-scroll-shade` | The edge of a row that scrolls sideways, on the side with hidden items. |
 | Lines | `--x-border`, `--x-border-hover` | Every edge. Hover steps the hairline up. |
 | Text | `--x-fg-1` … `--x-fg-4` | Titles and values → body → labels and secondary → placeholders and legal. |
 | Action | `--x-accent` (+ `-hover`, `-press`, `-fg`, `-wash`) | Accent fills: primary buttons, the switch, checked boxes, the active chart series. Same blue in both themes. |
@@ -315,7 +317,8 @@ Inputs, chips and tags are never capsules.
 - Elevation is expressed by surface step and hairline, never by shadow.
 - Web overlays (menus, dialogs, toasts, messages) use the Popover API or `<dialog>`, so they sit in the top layer.
   Native targets use framework overlay/modal presentation with equivalent focus and dismissal behavior.
-- Modal dialogs dim the page with `--x-scrim`. Nothing else dims.
+- Modal dialogs dim the page with `--x-scrim`. Nothing else dims, except the shade at the edge of a row that scrolls
+  sideways (`--x-scroll-shade`), where items are hidden.
 
 ## 7. Icons
 
@@ -355,7 +358,7 @@ These tiers describe the web implementation. Native targets use their framework'
 the same motion budget, easing intent and reduced-motion behavior.
 
 0. CSS: transitions, `@starting-style`, `linear()` springs. The default.
-1. Kit helpers in `core/motion.js`: `trackIndicator`, `createFlip`, `afterTransition`. No dependencies. The kit's
+1. Kit helpers in `core/motion.js`: `trackIndicator`, `scrollStrip`, `createFlip`, `afterTransition`. No dependencies. The kit's
    motion patterns (`motion/`: Presence, Stagger, Expand, LiquidIndicator, Reflow, Drag, Reorder, Morph, Replace,
    Screen, Pager) are these helpers and tier 0 CSS applied, ready to add.
 2. A JS motion library (for example `motion`), only for gesture physics such as drag-to-dismiss, only in React,

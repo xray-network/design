@@ -54,6 +54,9 @@ None.
 
 ## Invariants
 
+- Wider than its place, the tabs scroll sideways and never shows a scrollbar: a mouse drags them like a finger,
+  a drag never selects, and a shade (`--x-scroll-shade`) marks each side with hidden tabs (`scrollStrip` in
+  `core/motion.js`).
 - Two to six sections, every one with an icon.
 - One row, 56px: it never wraps.
 - A hairline under it, no shadow.
@@ -65,6 +68,7 @@ None.
 
 ## Checklist
 
+- [ ] Too narrow: no scrollbar; a mouse drags the row without selecting; a shade marks each side with hidden tabs
 - [ ] The pill follows the current section
 - [ ] On a phone the tabs scroll sideways and nothing is cut off at the end
 - [ ] Both themes

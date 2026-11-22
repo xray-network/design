@@ -15,6 +15,9 @@ export const KIT_PRIMARY = "#1940ED"
 export const DEFAULT_THEME: UserTheme = { primary: KIT_PRIMARY, tone: "default", font: "" }
 export const THEME_KEY = "xray-design-user-theme"
 export const THEME_EVENT = "xray-design-user-theme"
+/** Set while the previews show the default theme; the reader's theme stays saved. */
+export const THEME_OFF_KEY = "xray-design-user-theme-off"
+export const THEME_OFF_EVENT = "xray-design-user-theme-off"
 
 /** Popular Google fonts for interfaces; any other Google font can be typed in. */
 export const GOOGLE_FONTS = ["Inter", "Roboto", "Open Sans", "Lato", "Montserrat", "Poppins", "Nunito", "Manrope", "DM Sans", "Plus Jakarta Sans", "IBM Plex Sans", "Work Sans", "Figtree", "Outfit", "Space Grotesk", "Sora", "Rubik", "Geist"]
@@ -198,16 +201,37 @@ export function saveTheme(theme: UserTheme) {
     // The theme still applies to this page when storage is unavailable.
   }
   window.dispatchEvent(new CustomEvent(THEME_EVENT, { detail: theme }))
+  // Editing the theme brings it back to the previews.
+  if (readThemeOff()) saveThemeOff(false)
 }
 
-/** Puts the theme on the page: a style element for the previews, and the Google font's stylesheet. */
-export function applyTheme(theme: UserTheme) {
+export function readThemeOff(): boolean {
+  try {
+    return localStorage.getItem(THEME_OFF_KEY) === "1"
+  } catch {
+    return false
+  }
+}
+
+export function saveThemeOff(off: boolean) {
+  try {
+    if (off) localStorage.setItem(THEME_OFF_KEY, "1")
+    else localStorage.removeItem(THEME_OFF_KEY)
+  } catch {
+    // Applies to this page only.
+  }
+  window.dispatchEvent(new CustomEvent(THEME_OFF_EVENT, { detail: off }))
+}
+
+/** Puts the theme on the page: a style element for the previews, and the Google font's stylesheet. With `off`, the
+    previews show the default theme and only the Theming page's example keeps the reader's. */
+export function applyTheme(theme: UserTheme, off = false) {
   if (typeof document === "undefined") return
   let style = document.getElementById("wiki-user-theme") as HTMLStyleElement | null
   if (isDefault(theme)) { style?.remove(); document.getElementById("wiki-user-font")?.remove(); return }
   if (!style) { style = document.createElement("style"); style.id = "wiki-user-theme"; document.head.append(style) }
   // The wiki's own chrome only borrows the color for the "Your theme" mark in preview bars.
-  style.textContent = `:root { --wiki-user-accent: ${parseHex(theme.primary) ?? KIT_PRIMARY}; } :is(${THEME_SCOPE}) { ${themeDeclarations(theme)} }`
+  style.textContent = `:root { --wiki-user-accent: ${parseHex(theme.primary) ?? KIT_PRIMARY}; } :is(${off ? ".wiki-theme-example" : THEME_SCOPE}) { ${themeDeclarations(theme)} }`
   const font = theme.font.trim()
   let link = document.getElementById("wiki-user-font") as HTMLLinkElement | null
   if (!font) { link?.remove(); return }

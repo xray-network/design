@@ -62,13 +62,7 @@ export function trackIndicator(root, getActive) {
     // How far the track scrolls, from its items alone. Its scrollWidth would count the indicator too, which is
     // stretched over the scrollable area: after the track had scrolled once (a narrow window), the indicator kept
     // the overflow alive when it widened again, with a scrollbar and a gap at the end.
-    let end = 0;
-    for (const child of root.children) {
-      const item = /** @type {HTMLElement} */ (child);
-      if (getComputedStyle(item).position === "absolute") continue;
-      end = Math.max(end, item.offsetLeft + item.offsetWidth);
-    }
-    const min = Math.min(0, root.clientWidth - (end + parseFloat(getComputedStyle(root).paddingRight || "0")));
+    const min = Math.min(0, root.clientWidth - contentWidth(root));
     if (last !== null && left !== last.left) {
       const forward = left > last.left;
       root.dataset.direction = forward ? "forward" : "backward";
@@ -99,6 +93,102 @@ export function trackIndicator(root, getActive) {
   update();
 
   return { update, destroy: () => resize.disconnect() };
+}
+
+/**
+ * How wide a row's content is: its in-flow items and the padding after the last. The row's scrollWidth would also
+ * count what is laid over the items (an indicator stretched over the scrollable area), which can keep an overflow
+ * alive after the row has widened again.
+ * @param {HTMLElement} root
+ */
+function contentWidth(root) {
+  // Measured from the root's own box: offsetLeft would count from the nearest positioned ancestor, which is not the
+  // root in rows that are not positioned (tabs, navigation lists).
+  const start = root.getBoundingClientRect().left + root.clientLeft - root.scrollLeft;
+  let end = 0;
+  for (const child of root.children) {
+    if (getComputedStyle(child).position === "absolute") continue;
+    end = Math.max(end, child.getBoundingClientRect().right - start);
+  }
+  return end + parseFloat(getComputedStyle(root).paddingRight || "0");
+}
+
+/**
+ * A row that scrolls sideways when it is wider than its place (tabs, segmented, navigation): never a scrollbar,
+ * a mouse drags it like a finger does, and data-scroll on the root names the sides with hidden items ("start",
+ * "end" or "start end"), so the CSS can shade them. A drag that moved does not count as a click on an item.
+ *
+ *   const strip = scrollStrip(document.querySelector(".x-tabs"));
+ *   strip.destroy();
+ *
+ * @param {HTMLElement} root   The scrolling element.
+ * @returns {{ update: () => void, destroy: () => void }}
+ */
+export function scrollStrip(root) {
+  const update = () => {
+    const max = contentWidth(root) - root.clientWidth;
+    const at = Math.abs(root.scrollLeft); // negative in right-to-left rows
+    const sides = [at > 1 && "start", at < max - 1 && "end"].filter(Boolean).join(" ");
+    if (sides) root.dataset.scroll = sides;
+    else root.removeAttribute("data-scroll");
+  };
+
+  /** @type {{ id: number, x: number, left: number, moved: boolean } | null} */
+  let drag = null;
+  const down = (/** @type {PointerEvent} */ event) => {
+    if (event.pointerType !== "mouse" || event.button !== 0 || contentWidth(root) <= root.clientWidth + 1) return;
+    drag = { id: event.pointerId, x: event.clientX, left: root.scrollLeft, moved: false };
+  };
+  const move = (/** @type {PointerEvent} */ event) => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const dx = event.clientX - drag.x;
+    if (!drag.moved) {
+      if (Math.abs(dx) < 4) return;
+      drag.moved = true;
+      root.setPointerCapture(drag.id);
+      root.dataset.dragging = "";
+    }
+    root.scrollLeft = drag.left - dx;
+  };
+  const swallow = (/** @type {MouseEvent} */ event) => { event.preventDefault(); event.stopPropagation(); };
+  const up = (/** @type {PointerEvent} */ event) => {
+    if (!drag || event.pointerId !== drag.id) return;
+    if (drag.moved) {
+      // The click that ends a drag selects nothing.
+      root.addEventListener("click", swallow, { capture: true, once: true });
+      setTimeout(() => root.removeEventListener("click", swallow, { capture: true }));
+      root.removeAttribute("data-dragging");
+    }
+    drag = null;
+  };
+  // Links and images in the row would start the browser's own drag instead.
+  const dragstart = (/** @type {DragEvent} */ event) => { if (drag) event.preventDefault(); };
+
+  root.addEventListener("scroll", update, { passive: true });
+  root.addEventListener("pointerdown", down);
+  root.addEventListener("pointermove", move);
+  root.addEventListener("pointerup", up);
+  root.addEventListener("pointercancel", up);
+  root.addEventListener("dragstart", dragstart);
+  const resize = new ResizeObserver(update);
+  resize.observe(root);
+  for (const child of root.children) resize.observe(child);
+  update();
+
+  return {
+    update,
+    destroy() {
+      resize.disconnect();
+      root.removeEventListener("scroll", update);
+      root.removeEventListener("pointerdown", down);
+      root.removeEventListener("pointermove", move);
+      root.removeEventListener("pointerup", up);
+      root.removeEventListener("pointercancel", up);
+      root.removeEventListener("dragstart", dragstart);
+      root.removeAttribute("data-scroll");
+      root.removeAttribute("data-dragging");
+    },
+  };
 }
 
 /**

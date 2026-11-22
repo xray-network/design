@@ -60,6 +60,9 @@ First placement and resizes snap. Reduced motion: instant.
 
 ## Invariants
 
+- Wider than its place, the row scrolls sideways and never shows a scrollbar: a mouse drags it like a finger,
+  a drag never selects, and a shade (`--x-scroll-shade`) marks each side with hidden items (`scrollStrip` in
+  `core/motion.js`).
 - One pill per group; it travels, it never fades out in one place and in at another.
 - The pill stays under the labels, and is drawn on a spring only for position: color changes use `--x-ease`.
 - State is `aria-current`; the controller reads it and never invents it.
@@ -73,6 +76,7 @@ First placement and resizes snap. Reduced motion: instant.
 
 ## Checklist
 
+- [ ] Too narrow: no scrollbar; a mouse drags the row without selecting; a shade marks each side with hidden items
 - [ ] The pill lands exactly on the item after resizing and font loading
 - [ ] Moving between far items stretches and settles; moving back does the same in reverse
 - [ ] No overflow or scrollbar at the first and last item

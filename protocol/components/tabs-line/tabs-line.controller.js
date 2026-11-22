@@ -1,4 +1,4 @@
-import { trackIndicator } from "../../core/motion.js";
+import { scrollStrip, trackIndicator } from "../../core/motion.js";
 
 /**
  * TabsLine for plain HTML: adds the line to a row of tabs and keeps it under the current one.
@@ -25,6 +25,7 @@ export function bindTabsLine(root) {
   const items = () => [...root.querySelectorAll(":scope > .x-tabs-line-item")];
   const current = () => root.querySelector(":scope > .x-tabs-line-item[aria-current]");
   const tracker = trackIndicator(root, current);
+  const strip = scrollStrip(root);
   const onClick = (event) => {
     const item = /** @type {Element} */ (event.target).closest(".x-tabs-line-item");
     if (!item || item.parentElement !== root || item.matches("a[href], :disabled") || item.hasAttribute("aria-current")) return;
@@ -37,7 +38,7 @@ export function bindTabsLine(root) {
   root.addEventListener("click", onClick);
   return {
     update: tracker.update,
-    destroy: () => { tracker.destroy(); root.removeEventListener("click", onClick); },
+    destroy: () => { tracker.destroy(); strip.destroy(); root.removeEventListener("click", onClick); },
   };
 }
 

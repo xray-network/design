@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { trackIndicator } from "../../core/motion.js";
+import { scrollStrip, trackIndicator } from "../../core/motion.js";
 import "./segmented.css";
 
 export type SegmentedOption<T extends string> = {
@@ -54,7 +54,8 @@ export function Segmented<T extends string>({
     const root = rootRef.current;
     if (!root) return;
     tracker.current = trackIndicator(root, () => root.querySelector<HTMLElement>(":scope > .x-segmented-item:has(input:checked)"));
-    return () => tracker.current?.destroy();
+    const strip = scrollStrip(root);
+    return () => { tracker.current?.destroy(); strip.destroy(); };
   }, []);
 
   useLayoutEffect(() => {

@@ -22,7 +22,7 @@ The first version.
   native implementation tracking and upgrades; native component libraries are not shipped.
 - **Core:** semantic tokens for two themes (`light-dark()`, `data-theme`, `data-motion="reduce"`), cascade
   layers that match Tailwind's, springs as CSS `linear()`, an optional reset and focus ring, and motion helpers
-  (liquid indicator, FLIP).
+  (liquid indicator, FLIP, and sideways rows that a mouse drags and that shade the side with hidden items).
 - **Accent:** `--x-accent` for fills, the same blue in both themes; `--x-accent-ink` (+ `-hover`) for focus
   rings, focused borders, links, icons and check marks, lighter in dark theme. `--x-focus` and `--x-link`
   follow the ink.

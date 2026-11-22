@@ -1,4 +1,4 @@
-import { trackIndicator } from "../../core/motion.js";
+import { scrollStrip, trackIndicator } from "../../core/motion.js";
 
 /**
  * LiquidIndicator for plain HTML: adds the pill to a group and keeps it under the current item.
@@ -24,6 +24,7 @@ export function bindLiquidIndicator(root) {
   }
   const items = () => [...root.querySelectorAll(":scope > .x-liquid-indicator-item")];
   const tracker = trackIndicator(root, () => root.querySelector(":scope > .x-liquid-indicator-item[aria-current]"));
+  const strip = scrollStrip(root);
   const onClick = (event) => {
     const item = /** @type {Element} */ (event.target).closest(".x-liquid-indicator-item");
     if (!item || item.parentElement !== root || item.matches("a[href], :disabled") || item.hasAttribute("aria-current")) return;
@@ -35,7 +36,7 @@ export function bindLiquidIndicator(root) {
   root.addEventListener("click", onClick);
   return {
     update: tracker.update,
-    destroy: () => { tracker.destroy(); root.removeEventListener("click", onClick); },
+    destroy: () => { tracker.destroy(); strip.destroy(); root.removeEventListener("click", onClick); },
   };
 }
 

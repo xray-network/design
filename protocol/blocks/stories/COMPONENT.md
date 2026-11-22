@@ -3,9 +3,9 @@ id: stories
 name: Stories
 summary: A row of round avatars that scrolls sideways, each ringed while it has something new to show.
 motion: 0
-requires: [tokens]
+requires: [tokens, motion]
 components: [avatar]
-files: [stories.css, stories.html, stories.tsx]
+files: [stories.css, stories.html, stories.controller.js, stories.controller.d.ts, stories.tsx]
 ---
 
 # Stories
@@ -52,6 +52,9 @@ None.
 
 ## Invariants
 
+- Wider than its place, the row scrolls sideways and never shows a scrollbar: a mouse drags it like a finger,
+  a drag never selects, and a shade (`--x-scroll-shade`) marks each side with hidden people (`scrollStrip` in
+  `core/motion.js`).
 - One row. It scrolls; it never wraps to a second line.
 - The ring is the only color: no gradients.
 - Names are one short word or a handle.
@@ -63,6 +66,7 @@ None.
 
 ## Checklist
 
+- [ ] Too narrow: no scrollbar; a mouse drags the row without selecting; a shade marks each side with hidden people
 - [ ] Ten items scroll sideways with no scrollbar and no page overflow
 - [ ] Seen items are told apart without relying on color alone
 - [ ] Both themes

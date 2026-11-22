@@ -54,9 +54,49 @@ body[data-deep] .app-dock { margin-bottom: max(var(--x-space-3), env(safe-area-i
 /* A row of chips that scrolls sideways instead of wrapping. */
 .app-chips { flex-wrap: nowrap; padding: var(--x-space-3) var(--x-space-4); overflow-x: auto; scrollbar-width: none; }
 .app-chips::-webkit-scrollbar { display: none; }
+/* ---- Overflow: no scrollbar; a mouse drags the row and a shade marks each side with hidden chips (data-scroll and
+   data-dragging, from scrollStrip in core/motion.js). The shades are sticky items that take no room. */
+.app-chips[data-dragging] { cursor: grabbing; user-select: none; }
+.app-chips::before,
+.app-chips::after {
+  content: "";
+  position: sticky;
+  z-index: 1;
+  flex: none;
+  align-self: stretch;
+  width: var(--x-space-6);
+  margin-block: calc(var(--x-space-3) * -1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--x-duration-fast) var(--x-ease);
+}
+.app-chips::before { left: calc(var(--x-space-4) * -1); margin-right: calc((var(--x-space-6) + var(--x-space-2)) * -1); background: linear-gradient(to right, var(--x-scroll-shade), transparent); }
+.app-chips::after { right: calc(var(--x-space-4) * -1); margin-left: calc((var(--x-space-6) + var(--x-space-2)) * -1); background: linear-gradient(to left, var(--x-scroll-shade), transparent); }
+.app-chips[data-scroll~="start"]::before,
+.app-chips[data-scroll~="end"]::after { opacity: 1; }
 /* Cards that scroll sideways: a cover, a title and a line under it. */
 .app-cards { display: flex; gap: var(--x-space-3); margin-inline: calc(var(--x-space-4) * -1); padding-inline: var(--x-space-4); overflow-x: auto; scrollbar-width: none; }
 .app-cards::-webkit-scrollbar { display: none; }
+/* ---- Overflow: no scrollbar; a mouse drags the row and a shade marks each side with hidden cards (data-scroll and
+   data-dragging, from scrollStrip in core/motion.js). The shades are sticky items that take no room. */
+.app-cards[data-dragging] { cursor: grabbing; user-select: none; }
+.app-cards::before,
+.app-cards::after {
+  content: "";
+  position: sticky;
+  z-index: 1;
+  flex: none;
+  align-self: stretch;
+  width: var(--x-space-6);
+  margin-block: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--x-duration-fast) var(--x-ease);
+}
+.app-cards::before { left: calc(var(--x-space-4) * -1); margin-right: calc((var(--x-space-6) + var(--x-space-3)) * -1); background: linear-gradient(to right, var(--x-scroll-shade), transparent); }
+.app-cards::after { right: calc(var(--x-space-4) * -1); margin-left: calc((var(--x-space-6) + var(--x-space-3)) * -1); background: linear-gradient(to left, var(--x-scroll-shade), transparent); }
+.app-cards[data-scroll~="start"]::before,
+.app-cards[data-scroll~="end"]::after { opacity: 1; }
 .app-card { display: grid; flex: none; gap: var(--x-space-0-5); width: 132px; color: inherit; text-decoration: none; }
 .app-card > .app-art { aspect-ratio: 1; margin-bottom: var(--x-space-1-5); border-radius: var(--x-radius-xl); }
 .app-card-title { overflow: hidden; color: var(--x-fg-1); font-size: var(--x-text-sm); font-weight: var(--x-weight-label); text-overflow: ellipsis; white-space: nowrap; }

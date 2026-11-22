@@ -1,6 +1,7 @@
 "use client";
 
-import { useId, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { scrollStrip } from "../../core/motion.js";
 import "./tabs.css";
 
 export type TabItem<T extends string> = {
@@ -33,10 +34,16 @@ export function Tabs<T extends string>({ items, value, onValueChange, trailing, 
   const [seen, setSeen] = useState<Set<T>>(() => new Set([value]));
   if (!seen.has(value)) setSeen(new Set(seen).add(value));
   const panels = items.some((item) => item.content != null);
+  const ref = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!ref.current) return;
+    const strip = scrollStrip(ref.current);
+    return () => strip.destroy();
+  }, []);
   const ids = (item: TabItem<T>) => (item.content != null ? { id: `${id}-${item.value}-tab`, "aria-controls": `${id}-${item.value}` } : {});
 
   const nav = (
-    <nav className={className ? `x-tabs ${className}` : "x-tabs"} aria-label={label}>
+    <nav ref={ref} className={className ? `x-tabs ${className}` : "x-tabs"} aria-label={label}>
       {items.map((item) => {
         const current = item.value === value ? "page" : undefined;
         const body = <>{item.icon}{item.label}</>;

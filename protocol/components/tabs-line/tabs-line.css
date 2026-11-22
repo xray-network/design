@@ -27,6 +27,27 @@
   }
   .x-tabs-line::-webkit-scrollbar { display: none; }
 
+  /* ---- Overflow: no scrollbar; a mouse drags the row and a shade marks each side with hidden tabs (data-scroll and
+     data-dragging, from scrollStrip in core/motion.js). The shades are sticky items that take no room. */
+  .x-tabs-line[data-dragging] { cursor: grabbing; user-select: none; }
+  .x-tabs-line::before,
+  .x-tabs-line::after {
+    content: "";
+    position: sticky;
+    z-index: 1;
+    flex: none;
+    align-self: stretch;
+    width: var(--x-space-6);
+    margin-block: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--x-duration-fast) var(--x-ease);
+  }
+  .x-tabs-line::before { left: 0; margin-right: calc((var(--x-space-6) + var(--x-tabs-line-gap)) * -1); background: linear-gradient(to right, var(--x-scroll-shade), transparent); }
+  .x-tabs-line::after { right: 0; margin-left: calc((var(--x-space-6) + var(--x-tabs-line-gap)) * -1); background: linear-gradient(to left, var(--x-scroll-shade), transparent); }
+  .x-tabs-line[data-scroll~="start"]::before,
+  .x-tabs-line[data-scroll~="end"]::after { opacity: 1; }
+
   .x-tabs-line-item {
     position: relative;
     display: inline-flex;
@@ -106,6 +127,6 @@
   }
 
   /* Full width: the tabs share the row equally (two to four tabs over a panel). */
-  .x-tabs-line[data-width="full"] { gap: 0; }
+  .x-tabs-line[data-width="full"] { --x-tabs-line-gap: 0px; }
   .x-tabs-line[data-width="full"] .x-tabs-line-item { flex: 1 1 0; justify-content: center; min-width: 0; }
 }

@@ -65,6 +65,9 @@ placement and resizes snap. Reduced motion: instant.
 
 ## Invariants
 
+- Wider than its place, the row scrolls sideways and never shows a scrollbar: a mouse drags it like a finger,
+  a drag never selects, and a shade (`--x-scroll-shade`) marks each side with hidden tabs (`scrollStrip` in
+  `core/motion.js`).
 - One line per row; it travels, it never fades out at one tab and in at another.
 - The line is exactly as wide as the current tab's content, and lies on the hairline.
 - State is `aria-current`; the controller reads it and never invents it.
@@ -78,6 +81,7 @@ placement and resizes snap. Reduced motion: instant.
 
 ## Checklist
 
+- [ ] Too narrow: no scrollbar; a mouse drags the row without selecting; a shade marks each side with hidden tabs
 - [ ] The line lands exactly under the tab after resizing and font loading
 - [ ] Far jumps stretch and settle; moving back does the same in reverse
 - [ ] A row that scrolls keeps the line under its tab, and brings the new current tab into view

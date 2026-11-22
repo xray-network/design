@@ -170,6 +170,7 @@
     --x-bg-soft: light-dark(rgb(0 0 0 / 0.06), rgb(255 255 255 / 0.06)); /* hover wash */
     --x-bg-faint: light-dark(rgb(0 0 0 / 0.03), rgb(255 255 255 / 0.04)); /* resting tabs */
     --x-scrim: light-dark(rgb(0 0 0 / 0.35), rgb(0 0 0 / 0.6));
+    --x-scroll-shade: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6)); /* edge of a row with hidden items */
 
     /* ---- Semantic: lines ----------------------------------------------- */
     --x-border: light-dark(var(--x-gray-200), var(--x-gray-900));
