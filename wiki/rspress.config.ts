@@ -44,12 +44,20 @@ export default defineConfig({
   siteOrigin: "https://wiki.xraynetwork.io",
   icon: "/xray-x.svg",
   themeDir: "src/theme",
-  title: "XRAY/DESIGN",
-  // The XRAY wordmark and its ray, all orange in both themes; the product name follows it inside the logo box
-  // (src/theme/NavTitle.tsx), so the logo and the name are one unit.
-  logo: "/xray-logo.svg",
+  title: "XRAY/Design",
+  // The XRAY wordmark in each theme's text color (black on light, white on dark) with its orange ray; the product
+  // name follows it inside the logo box (src/theme/NavTitle.tsx), so the logo and the name are one unit.
+  logo: { light: "/xray-logo-light.svg", dark: "/xray-logo-dark.svg" },
   logoText: "Design",
   description: "A copy-in UI kit for agents: rules, tokens, liquid motion and components in HTML and React.",
+  // The share image is the brand's card (1200 x 630); the home-screen icon is the orange X on black.
+  head: [
+    ["meta", { property: "og:type", content: "website" }],
+    ["meta", { property: "og:image", content: "https://wiki.xraynetwork.io/design/og.png" }],
+    ["meta", { name: "twitter:card", content: "summary_large_image" }],
+    ["meta", { name: "twitter:image", content: "https://wiki.xraynetwork.io/design/og.png" }],
+    ["link", { rel: "apple-touch-icon", href: "/design/xray-icon-180.png" }],
+  ],
   route: { cleanUrls: true },
   markdown: { remarkPlugins: [remarkOutlineHeadings] },
   builderConfig: {

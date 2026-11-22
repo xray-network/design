@@ -174,11 +174,11 @@ html .rp-doc-layout__doc-container .rp-doc {
   }
 }
 
-/* The logo: the XRAY wordmark with its orange ray (an image, 146 units tall: the ray rises from the baseline after the
-   Y to a tip 52 above the letters; the letters fill the bottom 94), then the product name as text inside the same logo
-   box (NavTitle.tsx), so they are one unit. The box is a flex row aligned on baselines (the image offers its bottom
-   edge, the wordmark's baseline), then the name rises so its capitals are centered on the XRAY letters: by half the
-   letters' height (94 of the image's 146 units) less half its cap height (.705em). Line height 1. */
+/* The logo: the XRAY wordmark, black on light and white on dark, with its orange ray (an image per theme, 146 units
+   tall: the ray starts on the Y's right side and rises from the baseline to a tip 52 above the letters; the letters
+   fill the bottom 94), then the product name as text inside the same logo box (NavTitle.tsx), so they are one unit.
+   The image ends on the ray's edge and the name starts there: there is no space around the ray. The box is a flex row
+   aligned on baselines: the image offers its bottom edge, the wordmark's baseline, and the name sits on it. */
 html .rp-nav__title__link {
   min-height: 44px;
   gap: 0;
@@ -207,12 +207,10 @@ html .rp-nav__title__logo-image {
 }
 
 html .rp-nav__title__suffix {
-  position: relative;
-  top: calc(.3525em - var(--wiki-logo-h) * 47 / 146); /* capitals centered on the XRAY letters */
-  margin-left: 3px; /* clear of the ray's edge */
+  margin-left: 0; /* the name starts on the ray's own edge */
   color: var(--xr-fg);
-  font: 800 16px/1 var(--xr-font-sans);
-  letter-spacing: normal;
+  font: 650 calc(var(--wiki-logo-h) * 17 / 23)/1 var(--xr-font-sans); /* 17px beside the 23px logo */
+  letter-spacing: -.01em;
   white-space: nowrap;
 }
 
@@ -393,14 +391,13 @@ html .rp-outline .rp-toc-item__text {
 
 html .rp-doc :where(h1, h2, h3):not(:where(.rp-not-doc *)) {
   color: var(--xr-fg);
-  font-weight: 600;
-  letter-spacing: -.025em;
+  font-weight: 650;
+  letter-spacing: -.03em;
 }
 
 html .rp-doc :where(h1):not(:where(.rp-not-doc *)) {
   font-size: 36px;
-  line-height: 1.15;
-  letter-spacing: -.035em;
+  line-height: 1.1;
 }
 
 html .rp-doc :where(h2):not(:where(.rp-not-doc *)) {
@@ -719,9 +716,9 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   margin: 0 0 24px;
   color: var(--rp-c-text-0);
   font-size: clamp(40px, 5.6cqi, 64px);
-  font-weight: 600;
-  line-height: 1.04;
-  letter-spacing: -.04em;
+  font-weight: 700;
+  line-height: .9;
+  letter-spacing: -.055em;
   text-wrap: balance;
 }
 
@@ -978,7 +975,7 @@ html .rp-doc-layout__container:has(.spectre-home) > .rp-doc-layout__outline-plac
   font-size: clamp(26px, 2.6vw, 34px);
   line-height: 1.2;
   letter-spacing: -.03em;
-  font-weight: 600;
+  font-weight: 650;
 }
 
 .spectre-section-heading .spectre-eyebrow + h2 {
@@ -1327,8 +1324,8 @@ html .rp-doc .rp-codeblock__content--wrap-code code {
   overflow-wrap: anywhere;
 }
 
-/* Accent: fills (buttons, bands, the current search result behind white text) use the brand blue
-   in both themes; thin marks (links, focus, borders, icons) use the link blue, lighter on dark. */
+/* Accent: fills (buttons, bands, the current search result behind white text) use the brand orange
+   in both themes; thin marks (links, focus, borders, icons) use the link orange, deeper on light, lighter on dark. */
 html .rp-suggest-item--current .rp-suggest-item__link { background-color: var(--xr-action); }
 
 /* Previous / next arrows on the right of the page title (PageArrows). The title keeps clear of them. */

@@ -35,4 +35,4 @@ const copyWeb = (dir) => {
   }
 }
 for (const dir of ["core", "components", "blocks", "motion", "charts"]) copyWeb(dir)
-console.log(`Published XRAY/DESIGN protocol ${version}.`)
+console.log(`Published XRAY/Design protocol ${version}.`)

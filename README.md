@@ -1,4 +1,4 @@
-# XRAY/DESIGN
+# XRAY/Design
 
 A visual protocol and copy-in web UI kit for agents. It ships as source plus rules: an agent copies
 web components into a project, or uses the native GUI guidance to implement the design in its framework.
@@ -23,7 +23,7 @@ Docs and live playground: https://wiki.xraynetwork.io/design/
 The `protocol/` folder is installed exactly as it is in this repository: no build, no package. Give
 your agent this prompt:
 
-> Read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository.
+> Read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/Design in this repository.
 
 The protocol's Installation section tells the agent the rest: clone this repository, copy `protocol/` to
 `.agents/design/`, and run the Setup section of `SKILL.md`. It installs the latest protocol and kit from `main`. The wiki's Installation page has the same prompt, plus upgrade steps

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   XRAY/DESIGN tokens
+   XRAY/Design tokens
    Import once, before any component CSS. Defines the cascade layers, every color, type,
    space, radius, size and motion value the components use.
 
@@ -184,21 +184,21 @@
     --x-fg-frac: light-dark(var(--x-gray-500), var(--x-gray-400)); /* numeral fractions */
 
     /* ---- Semantic: action ---------------------------------------------- */
-    /* Fills: the brand blue, identical in both themes (primary button, switch, checked boxes, washes). */
+    /* Fills: the kit's default accent, a blue, identical in both themes (primary button, switch, checked boxes, washes). */
     --x-accent: var(--x-blue-500);
     --x-accent-hover: var(--x-blue-400);
     --x-accent-press: var(--x-blue-600);
     --x-accent-fg: var(--x-white);           /* text on an accent fill */
     --x-accent-wash: light-dark(rgb(25 64 237 / 0.07), rgb(25 64 237 / 0.14)); /* selected option fill */
     /* Ink: the accent drawn thin on the canvas (focus rings, focused borders, links, icons, check marks).
-       Lighter in dark theme, where the brand blue is only 3:1 on black; blue-300 is 5.9:1. */
+       Lighter in dark theme, where the accent blue is only 3:1 on black; blue-300 is 5.9:1. */
     --x-accent-ink: light-dark(var(--x-blue-500), var(--x-blue-300));
     --x-accent-ink-hover: light-dark(var(--x-blue-400), var(--x-blue-200));
 
     /* Chart series, in a fixed order: each color is far enough from its neighbours for color-blind readers, in
        both themes (checked as a set; change the set, not one color). Six, never cycled: a seventh series is "Other".
        Green and red are not here: they mean up and down, good and bad. */
-    --x-chart-1: light-dark(var(--x-blue-500), var(--x-blue-400)); /* the brand blue */
+    --x-chart-1: light-dark(var(--x-blue-500), var(--x-blue-400)); /* the accent blue */
     --x-chart-2: light-dark(var(--x-orange-500), #e8590c);
     --x-chart-3: light-dark(#1baf7a, #199e70);
     --x-chart-4: light-dark(#eda100, #c98500);

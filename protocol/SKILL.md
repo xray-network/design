@@ -1,11 +1,11 @@
 ---
 name: design
-description: Build, adapt, theme, upgrade and audit XRAY/DESIGN interfaces. Copy the supplied HTML or React components, or translate the visual protocol and component contracts into SwiftUI, UIKit, AppKit, JavaFX, Android and other GUI frameworks. Use for UI work in projects using XRAY/DESIGN. The installed catalog is read-only; project implementations are editable.
+description: Build, adapt, theme, upgrade and audit XRAY/Design interfaces. Copy the supplied HTML or React components, or translate the visual protocol and component contracts into SwiftUI, UIKit, AppKit, JavaFX, Android and other GUI frameworks. Use for UI work in projects using XRAY/Design. The installed catalog is read-only; project implementations are editable.
 ---
 
-# XRAY/DESIGN
+# XRAY/Design
 
-This project uses XRAY/DESIGN: a shared visual protocol and a copy-in web UI kit. Web components
+This project uses XRAY/Design: a shared visual protocol and a copy-in web UI kit. Web components
 are copied into the project and become project code. Native GUI projects implement the same design
 using their framework; the catalog supplies contracts and web references, not prebuilt native libraries.
 

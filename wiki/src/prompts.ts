@@ -5,9 +5,9 @@ export const KIT_VERSION = process.env.KIT_VERSION as string
 
 /** Agent prompts, the same form as SPECTRE's. The latest protocol tells the agent how to install or upgrade, so their text never changes. */
 export const installationPrompt =
-  "Read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository."
+  "Read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/Design in this repository."
 
-export const upgradePrompt = "Read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and upgrade XRAY/DESIGN in this repository."
+export const upgradePrompt = "Read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and upgrade XRAY/Design in this repository."
 
 export const primaryGuiTargets = [
   { value: "auto", label: "Auto", framework: "this project's existing GUI framework" },
@@ -65,12 +65,12 @@ export function frameworkFor(preference: GuiPreference): string {
 export function componentPrompt(entry: DemoEntry, preference: GuiPreference): string {
   const framework = frameworkFor(preference)
   if (!framework) return ""
-  return `Use the installed XRAY/DESIGN design skill. If it is not installed, read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository.\n\nAdd the ${entry.name} ${kindName(entry.kind)} (${kitPath(entry)}) using ${framework}. Follow its contract and the skill's guidance for this framework, preserving the existing app structure.`
+  return `Use the installed XRAY/Design design skill. If it is not installed, read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/Design in this repository.\n\nAdd the ${entry.name} ${kindName(entry.kind)} (${kitPath(entry)}) using ${framework}. Follow its contract and the skill's guidance for this framework, preserving the existing app structure.`
 }
 
 /** One screen of a showcase app: the agent reads the published page and rebuilds it in the project. */
 export function appScreenPrompt(app: string, screen: string, url: string): string {
-  return `Use the installed XRAY/DESIGN design skill. If it is not installed, read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository.\n\nBuild a screen like the ${app} ${screen} screen at ${url} in this project. Read that page's HTML first: classes that start with x- are kit components, blocks and motion patterns, and classes that start with app- are layout only. Add the kit parts it uses with the skill, follow their contracts and the skill's guidance for this project's GUI framework, recreate the layout in this project's own layout system, and use this project's data, copy and navigation, preserving the existing app structure.`
+  return `Use the installed XRAY/Design design skill. If it is not installed, read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/Design in this repository.\n\nBuild a screen like the ${app} ${screen} screen at ${url} in this project. Read that page's HTML first: classes that start with x- are kit components, blocks and motion patterns, and classes that start with app- are layout only. Add the kit parts it uses with the skill, follow their contracts and the skill's guidance for this project's GUI framework, recreate the layout in this project's own layout system, and use this project's data, copy and navigation, preserving the existing app structure.`
 }
 
 /** Theming: the reader's primary color, tone and font, with every token derived from them, for the skill's "Theme or
@@ -83,9 +83,9 @@ export function themePrompt(theme: UserTheme, tokens: Token[], preference: GuiPr
   const font = theme.font.trim()
     ? `Font: ${theme.font.trim()}, from Google Fonts (${fontPage(theme.font)}). Load weights 400, 500, 600 and 700 with font-display: swap, the way this project loads fonts, and set --x-font-sans to ${fontStack(theme.font.trim())}.`
     : "Font: keep the kit's system font stack."
-  return `Use the installed XRAY/DESIGN design skill. If it is not installed, read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/DESIGN in this repository.
+  return `Use the installed XRAY/Design design skill. If it is not installed, read https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md completely and install XRAY/Design in this repository.
 
-Theme XRAY/DESIGN for this project using ${framework}. Follow the skill's "Theme or rebrand" steps: put these values in the project's theme layer (recorded as "theme" in design.lock.json), never edit copied kit files, and keep every token not listed here as the kit has it.
+Theme XRAY/Design for this project using ${framework}. Follow the skill's "Theme or rebrand" steps: put these values in the project's theme layer (recorded as "theme" in design.lock.json), never edit copied kit files, and keep every token not listed here as the kit has it.
 
 Primary color ${theme.primary}, ${theme.tone} grays. The colors, light / dark, where they differ:
 

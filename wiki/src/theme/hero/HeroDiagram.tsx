@@ -4,7 +4,7 @@ export function HeroDiagram() {
   const id = useId()
   return (
     <svg className="spectre-hero-diagram" viewBox="0 60 320 114" role="img" aria-labelledby={`${id}-title ${id}-description`} focusable="false">
-      <title id={`${id}-title`}>XRAY/DESIGN: a copy-in UI kit for agents.</title>
+      <title id={`${id}-title`}>XRAY/Design: a copy-in UI kit for agents.</title>
       <desc id={`${id}-description`}>Install the kit by prompt, copy components into your code, then adapt them.</desc>
       <rect className="spectre-diagram-frame" x="14" y="68" width="292" height="98" rx="8" />
 

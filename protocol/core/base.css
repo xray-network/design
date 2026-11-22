@@ -1,5 +1,5 @@
 /* ==========================================================================
-   XRAY/DESIGN base: a minimal reset, the canvas, focus ring and small text utilities.
+   XRAY/Design base: a minimal reset, the canvas, focus ring and small text utilities.
    Optional. Skip it if the host already has a reset; then copy only the focus ring.
    Requires tokens.css.
    ========================================================================== */

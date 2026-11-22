@@ -1,6 +1,6 @@
 # Native GUI
 
-Use this reference when implementing XRAY/DESIGN in a native or non-DOM GUI. It covers SwiftUI,
+Use this reference when implementing XRAY/Design in a native or non-DOM GUI. It covers SwiftUI,
 UIKit/AppKit, JavaFX, Android and adaptation to other frameworks. The catalog ships tested HTML/React
 implementations and native porting guidance; it does not ship or certify native component libraries.
 

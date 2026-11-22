@@ -4,13 +4,13 @@ title: Tailwind
 
 # Tailwind
 
-XRAY/DESIGN does not ship Tailwind support: components are plain CSS that reads `--x-*` variables.
+XRAY/Design does not ship Tailwind support: components are plain CSS that reads `--x-*` variables.
 Because those variables are ordinary CSS custom properties, they connect to Tailwind in either
 direction with a few lines in your project. Pick the direction that matches who owns the look:
 
-- **XRAY/DESIGN → Tailwind:** the kit's tokens are the source of truth. Your Tailwind code uses them, so
+- **XRAY/Design → Tailwind:** the kit's tokens are the source of truth. Your Tailwind code uses them, so
   everything you write matches the kit components.
-- **Tailwind → XRAY/DESIGN:** your Tailwind theme is the source of truth. Kit components take your brand
+- **Tailwind → XRAY/Design:** your Tailwind theme is the source of truth. Kit components take your brand
   color, font and radius.
 
 The examples use Tailwind v4 and a UI folder at `src/ui/`.
@@ -39,7 +39,7 @@ Skip `core/base.css` in Tailwind projects: preflight already resets the page.
 Dark mode needs no setup: kit colors switch on their own, and setup connects them to your `.dark` class if your
 project uses one. Utilities mapped to kit tokens switch with them, so kit colors need no `dark:` variants.
 
-## XRAY/DESIGN → Tailwind
+## XRAY/Design → Tailwind
 
 Map the tokens once in your Tailwind theme:
 
@@ -87,7 +87,7 @@ motion and any overrides you make still apply. Durations have no theme namespace
 Pick names that do not collide with your theme. Mapping `--color-accent` replaces Tailwind's built-in
 `accent-*` color utilities in this project; prefix the names (`--color-x-accent`) if you need both.
 
-## Tailwind → XRAY/DESIGN
+## Tailwind → XRAY/Design
 
 Kit components only read semantic tokens. Point those tokens at your Tailwind theme in one project file, loaded
 after `core/tokens.css`, and every kit component follows your theme. Never edit `core/tokens.css` itself:
@@ -108,7 +108,7 @@ it is replaced on upgrade.
   --font-sans: "Inter", system-ui, sans-serif;
 }
 
-/* XRAY/DESIGN follows the project theme. [data-theme] keeps it inside forced-theme sections. */
+/* XRAY/Design follows the project theme. [data-theme] keeps it inside forced-theme sections. */
 :root, [data-theme] {
   --x-accent: var(--color-brand-600);
   --x-accent-hover: var(--color-brand-500);
@@ -161,6 +161,6 @@ Projects built on shadcn/ui keep their theme in variables that already switch wi
 
 ## Both directions at once
 
-The two directions combine: map your brand into the kit (Tailwind → XRAY/DESIGN), then expose the kit's
-semantic tokens as utilities (XRAY/DESIGN → Tailwind). Your Tailwind code and the kit components then share one
+The two directions combine: map your brand into the kit (Tailwind → XRAY/Design), then expose the kit's
+semantic tokens as utilities (XRAY/Design → Tailwind). Your Tailwind code and the kit components then share one
 set of values, and you change the look in one place.

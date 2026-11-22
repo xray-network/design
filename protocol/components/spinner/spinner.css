@@ -5,7 +5,7 @@
 @layer components {
   .x-spinner {
     --x-spinner-size: 24px;
-    --x-spinner-color: var(--x-accent); /* the brand blue, the same in both themes: a thick ring is a fill, not ink */
+    --x-spinner-color: var(--x-accent); /* the accent, the same in both themes: a thick ring is a fill, not ink */
 
     display: inline-block;
     flex: none;

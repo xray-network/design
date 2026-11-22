@@ -1,9 +1,9 @@
 ---
-# XRAY/DESIGN protocol: the design standard for XRAY interfaces.
+# XRAY/Design protocol: the design standard for XRAY interfaces.
 # This header is machine-readable: every design token with its final value in the light and dark themes.
 # core/tokens.css implements exactly these values (the protocol check compares them). The protocol's id and
 # version are the Protocol-ID and Protocol-Version lines under the title.
-name: XRAY/DESIGN
+name: XRAY/Design
 url: https://wiki.xraynetwork.io/design/DESIGN-PROTOCOL.md
 reference: https://wiki.xraynetwork.io/design/
 tagline: Content-first. A quiet canvas, one electric blue, and data as the only other color.
@@ -168,7 +168,7 @@ tokens:
     z-tooltip: "60"
 ---
 
-# XRAY/DESIGN protocol
+# XRAY/Design protocol
 
 Protocol-ID: xray/design
 
@@ -209,7 +209,7 @@ Read each component or block's contract before implementing it on any platform.
 
 ## Installation
 
-These steps are for the coding agent. When asked to install XRAY/DESIGN in a repository:
+These steps are for the coding agent. When asked to install XRAY/Design in a repository:
 
 1. Clone the kit into a temporary directory outside the repository:
    `git clone https://github.com/xray-network/design.git <tmp>`

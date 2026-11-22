@@ -1,4 +1,4 @@
-# XRAY/DESIGN wiki
+# XRAY/Design wiki
 
 Public URL: https://wiki.xraynetwork.io/design/
 

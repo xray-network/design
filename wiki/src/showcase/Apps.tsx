@@ -254,7 +254,7 @@ export function HomeScreens() {
     <section className="spectre-screens" aria-labelledby="screens-title">
       <div className="spectre-section-heading">
         <div><span className="spectre-eyebrow">Showcase</span><h2 id="screens-title" data-outline>Whole apps from the same kit</h2></div>
-        <Link className="spectre-text-link" href="/showcase/">All screens <span aria-hidden="true">↗</span></Link>
+        <Link className="spectre-text-link" href="/showcase/">All apps <span aria-hidden="true">↗</span></Link>
       </div>
       <p>Familiar apps rebuilt as plain HTML on the kit's components, blocks and motion. They are live: scroll, tap and switch tabs.</p>
       <div className="spectre-screens-wall">

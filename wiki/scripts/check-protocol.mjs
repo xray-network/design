@@ -321,4 +321,4 @@ if (errors.length) {
   process.exit(1)
 }
 const list = (kind) => Object.values(entries).filter((e) => e.kind === kind).map((e) => e.id)
-console.log(`XRAY/DESIGN protocol ${version} OK: ${list("components").length} components (${list("components").join(", ")}), ${list("blocks").length} blocks${list("blocks").length ? ` (${list("blocks").join(", ")})` : ""}, ${list("motion").length} motion patterns${list("motion").length ? ` (${list("motion").join(", ")})` : ""}, ${list("charts").length} charts${list("charts").length ? ` (${list("charts").join(", ")})` : ""}`)
+console.log(`XRAY/Design protocol ${version} OK: ${list("components").length} components (${list("components").join(", ")}), ${list("blocks").length} blocks${list("blocks").length ? ` (${list("blocks").join(", ")})` : ""}, ${list("motion").length} motion patterns${list("motion").length ? ` (${list("motion").join(", ")})` : ""}, ${list("charts").length} charts${list("charts").length ? ` (${list("charts").join(", ")})` : ""}`)

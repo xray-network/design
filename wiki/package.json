@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "packageManager": "npm@10.8.2",
-  "description": "XRAY/DESIGN wiki and live playground. Imports the kit straight from ../protocol.",
+  "description": "XRAY/Design wiki and live playground. Imports the kit straight from ../protocol.",
   "homepage": "https://wiki.xraynetwork.io/design/",
   "scripts": {
     "check:protocol": "node scripts/check-protocol.mjs",

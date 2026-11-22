@@ -1,8 +1,8 @@
 // Shared by every showcase app. An app is one HTML file: its screens are sections, shown by the hash
 // (index.html#trade). This script moves between them with the kit's Screen pattern, starts the kit controllers the
-// screens use, draws icons and art by name, and keeps the page in the wiki's theme while it is framed there
+// screens use, draws icons and picture placeholders, and keeps the page in the wiki's theme while it is framed there
 // (opened on its own, it follows the device).
-import { avatarSvg, initAvatars } from "../kit/components/avatar/avatar.controller.js";
+import { initAvatars } from "../kit/components/avatar/avatar.controller.js";
 import { initCalendars } from "../kit/components/calendar/calendar.controller.js";
 import { initCopies } from "../kit/components/copy/copy.controller.js";
 import * as crypto from "../kit/components/icon/crypto.js";
@@ -58,9 +58,14 @@ const draw = (svg) => {
 };
 for (const svg of document.querySelectorAll("svg[data-icon]")) draw(svg);
 
-// <span class="app-art" data-art="seed" data-palette="cool"></span> is abstract art from the Avatar's generator.
+// <span class="app-art" data-art="loft"></span> is a picture's place: an empty block with the photo icon in its middle.
+// The name says what the picture would show; nothing is drawn from it.
 for (const el of document.querySelectorAll("[data-art]")) {
-  el.innerHTML = avatarSvg(el.dataset.art, el.dataset.palette).replace("<svg ", '<svg preserveAspectRatio="xMidYMid slice" ');
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("class", "x-icon");
+  svg.dataset.icon = "photo";
+  el.replaceChildren(svg);
+  draw(svg);
 }
 
 // Every screen is in the document from the start, so the controllers start once, for all of them. A chart draws

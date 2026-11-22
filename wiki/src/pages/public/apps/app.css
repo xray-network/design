@@ -45,9 +45,9 @@ body[data-form="mobile"]:not([data-deep]) .app-screen { padding-bottom: calc(var
 body[data-deep] .app-dock { margin-bottom: max(var(--x-space-3), env(safe-area-inset-bottom)); }
 .app-view:has(> .app-dock) > .app-screen { padding-bottom: var(--x-space-3) !important; }
 
-/* Abstract art in place of photographs: the Avatar's generator, filling its box. */
-.app-art { display: block; overflow: hidden; background: var(--x-bg-chip); }
-.app-art > svg { display: block; width: 100%; height: 100%; }
+/* A picture's place: an empty block in the chip surface with the photo icon in its middle (app.js draws it). */
+[data-art] { display: grid; place-items: center; overflow: hidden; background: var(--x-bg-chip); color: var(--x-fg-4); }
+[data-art] > .x-icon { width: clamp(14px, 28%, 32px); height: auto; aspect-ratio: 1; }
 .app-thumb { flex: none; width: var(--x-size-lg); height: var(--x-size-lg); border-radius: var(--x-radius-md); }
 .x-table .app-thumb { width: var(--x-size-sm); height: var(--x-size-sm); border-radius: var(--x-radius-sm); }
 
