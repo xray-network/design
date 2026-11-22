@@ -102,8 +102,14 @@
   .x-chart-data :is(th, td):first-child { padding-inline-start: 0; text-align: start; }
   .x-chart-data th { color: var(--x-fg-3); font-weight: var(--x-weight-body); }
   .x-chart-data td { color: var(--x-fg-1); }
+  /* Kept for screen readers, out of sight. A table never shrinks below its rows, so its box stays as tall as the
+     data: it hangs from the chart's bottom inline-end corner, up and back, where overflow is never scrollable (a
+     long table below the chart would add empty scrolling to the page). */
   .x-chart[data-drawn]:not([data-view="table"]) > .x-chart-data {
     position: absolute;
+    inset: auto;
+    bottom: 0;
+    inset-inline-end: 0;
     width: 1px;
     height: 1px;
     overflow: hidden;

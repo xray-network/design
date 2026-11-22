@@ -62,3 +62,5 @@ export { HeroDiagram } from "./hero/HeroDiagram"
 export { CopyPromptButton, installationPrompt } from "./CopyPromptButton"
 export { HeroLinks } from "./HeroLinks"
 export { HomeScreens } from "../showcase/Apps"
+// The sidebar with a filter between a section's top links and its list.
+export { Sidebar } from "./Sidebar"

@@ -296,6 +296,72 @@ html .rp-sidebar-item--active:hover {
   background: transparent;
 }
 
+/* The sidebar filter: under a section's top links, over its list. The box starts where Back to Home's round badge
+   does (--wiki-back-x is the badge's center, 10px from its edge) and has a fill, so it covers the rail behind it.
+   The empty note starts where the links' text does. */
+html .wiki-sidebar-filter {
+  margin: 24px 0 8px calc(var(--wiki-bar-x) + 1.5px - 10px);
+}
+html .wiki-sidebar-filter .x-input {
+  width: 100%;
+  padding-inline: 12px 6px;
+  background: var(--x-bg-chip);
+}
+/* Focused, the box takes the wiki's link color (as the current page does), not the kit's blue focus. */
+html .wiki-sidebar-filter .x-input:has(> input:focus) {
+  --x-input-border: var(--xr-link);
+}
+/* On dark the chip fill is half as strong (mixed into the sidebar's surface, so it stays solid over the rail): the box
+   stays quiet beside the links; its placeholder keeps its color, so it reads with more contrast. */
+html:root:is(.rp-dark, .dark) .wiki-sidebar-filter .x-input {
+  background: color-mix(in srgb, var(--x-bg-chip) 50%, var(--wiki-sidebar-surface, var(--rp-c-bg)));
+}
+html .wiki-sidebar-filter .x-input > .x-icon {
+  color: var(--x-fg-3);
+}
+html .wiki-sidebar-filter-clear {
+  display: inline-grid;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--x-fg-3);
+  cursor: pointer;
+}
+html .wiki-sidebar-filter-clear:hover {
+  color: var(--x-fg-1);
+}
+/* The "/" key hint, at the right while the box is empty and not focused; not on touch-only screens. */
+html .wiki-sidebar-filter-key {
+  display: inline-grid;
+  flex: none;
+  min-width: 20px;
+  height: 20px;
+  margin-inline-end: 4px;
+  place-items: center;
+  padding: 0 5px;
+  border: 1px solid var(--x-border);
+  border-radius: 5px;
+  color: var(--x-fg-3);
+  font: 500 11px/1 var(--xr-font-mono);
+}
+html .wiki-sidebar-filter .x-input:has(> input:focus) .wiki-sidebar-filter-key {
+  display: none;
+}
+@media (hover: none) {
+  html .wiki-sidebar-filter-key { display: none; }
+}
+html .wiki-sidebar-filter-empty {
+  margin: 8px 0 8px 12px;
+  color: var(--spectre-sidebar-header);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 /* The kit version: a small badge just before the search box. */
 html .wiki-version {
   flex: none;
@@ -1346,6 +1412,8 @@ html .rp-sidebar-item--active::before {
   }
   html .rp-doc-layout__sidebar .rp-sidebar-item[data-depth="1"] { padding-left: 44px !important; }
   html .rp-doc-layout__sidebar .rp-sidebar-item[data-depth="2"] { padding-left: 60px !important; }
+  /* The empty note starts where the items' text does. */
+  html .rp-doc-layout__sidebar .wiki-sidebar-filter-empty { margin-left: 28px; }
 }
 
 /* Phones: the drawer box starts at the screen edge and its items 20px in; the logo is 16px in, and the text is

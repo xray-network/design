@@ -177,13 +177,39 @@ html .rp-doc-layout__doc:has(.wiki-apps) { overflow: visible; }
   display: flex;
   gap: 20px;
   margin: 0;
-  padding: 0 24px 16px 0;
+  padding: 0 24px 8px 0;
   overflow-x: auto;
   list-style: none;
   scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: var(--x-border-hover) transparent;
+  /* The last screen snaps to the row's end (it cannot reach the left edge): its padding is outside the snap area. */
+  scroll-padding-inline-end: 24px;
 }
+.wiki-app:last-child { scroll-snap-align: end; }
+/* No scrollbar: shades and dragging show the row moves. More specific than the wiki's thin-scrollbar rule. */
+html .wiki-apps .wiki-apps-strip { scrollbar-width: none; }
+html .wiki-apps .wiki-apps-strip::-webkit-scrollbar { display: none; }
+/* A mouse drags the row (Apps.tsx); snapping waits until the row has settled after a drag. */
+.wiki-apps-strip[data-dragging] { scroll-snap-type: none; cursor: grabbing; user-select: none; }
+/* While the row moves, the screens let the pointer through, so nothing in them hovers or reacts on the way. */
+.wiki-apps-strip[data-dragging] iframe { pointer-events: none; }
+/* A shade on each side with hidden screens: sticky items that take no room. */
+.wiki-apps-strip::before,
+.wiki-apps-strip::after {
+  content: "";
+  position: sticky;
+  z-index: 1;
+  flex: none;
+  align-self: stretch;
+  width: 32px;
+  margin-bottom: -8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--x-duration-fast) var(--x-ease);
+}
+.wiki-apps-strip::before { left: 0; margin-right: -52px; background: linear-gradient(to right, var(--x-scroll-shade), transparent); }
+.wiki-apps-strip::after { right: -24px; margin-left: -52px; background: linear-gradient(to left, var(--x-scroll-shade), transparent); }
+.wiki-apps-strip[data-scroll~="start"]::before,
+.wiki-apps-strip[data-scroll~="end"]::after { opacity: 1; }
 .wiki-app { display: grid; flex: none; gap: 12px; width: 300px; margin: 0; scroll-snap-align: start; }
 .wiki-app-frame { height: 640px; overflow: hidden; border: 1px solid var(--x-border-hover); border-radius: 32px; background: var(--x-bg); }
 .wiki-app-frame > iframe { display: block; width: 100%; height: 100%; border: 0; }

@@ -221,30 +221,30 @@ const byName = <T extends { text: string }>(items: readonly T[]) => [...items].s
 /** First item of each section menu: back to the home page and the main menu. The arrow is drawn in theme.css. */
 const back = { text: "Back to Home", link: "/" }
 
-/** One menu per section: Rspress shows the menu whose path prefix matches the page best. */
+/** One menu per section: Rspress shows the menu whose path prefix matches the page best. A section's menu starts
+    with its top links (back, the overview); the theme's Sidebar puts a filter under them, over the list. */
 export function sidebar(): Sidebar {
   return {
     "/components/": [
       back,
-      { sectionHeaderText: "Components" },
       { text: "All components", link: "/components/" },
+      { sectionHeaderText: "Components" },
       ...byName(components).map(({ id, text }) => ({ text: linkText(text), link: `/components/${id}` })),
     ],
     "/blocks/": [
       back,
-      { sectionHeaderText: "Blocks" },
       { text: "All blocks", link: "/blocks/" },
+      { sectionHeaderText: "Blocks" },
       ...byName(blocks).map(({ id, text }) => ({ text: linkText(text), link: `/blocks/${id}` })),
     ],
     "/charts/": [
       back,
-      { sectionHeaderText: "Charts" },
       { text: "All charts", link: "/charts/" },
+      { sectionHeaderText: "Charts" },
       ...byName(charts).map(({ id, text }) => ({ text: linkText(text), link: `/charts/${id}` })),
     ],
     "/motion/": [
       back,
-      { sectionHeaderText: "Motion" },
       { text: "Overview", link: "/motion/" },
       { text: "Foundations", link: "/motion/foundations" },
       ...motionGroups.flatMap((group) => [
@@ -254,7 +254,6 @@ export function sidebar(): Sidebar {
     ],
     "/showcase/": [
       back,
-      { sectionHeaderText: "Showcase" },
       { text: "All apps", link: "/showcase/" },
       { sectionHeaderText: "Mobile first" },
       ...apps.filter((app) => app.form === "mobile").map(({ id, text }) => ({ text: appTitle(text), link: `/showcase/${id}` })),
