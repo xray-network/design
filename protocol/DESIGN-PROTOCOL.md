@@ -182,6 +182,17 @@ Precedence: **DESIGN-PROTOCOL.md** → the component's **COMPONENT.md** → exis
 conflicts with a rule, follow the request only when the human explicitly asks for it, and say
 which rule you broke.
 
+## Scope
+
+This protocol is for surfaces people **work in**: apps, mini apps and dashboards, and any other screen of
+balances, tables, forms and controls.
+
+It is **not** for surfaces that **present** XRAY: promotional and informational websites, papers, decks and
+graphics. Those follow the XRAY/Branding protocol, and nothing in this file overrides it there:
+
+- Reference: https://wiki.xraynetwork.io/branding/
+- Protocol: https://wiki.xraynetwork.io/branding/BRANDING-PROTOCOL.md
+
 ## Platform adaptation
 
 The visual standard applies to web, native and other GUI frameworks. The supplied HTML, CSS and React
