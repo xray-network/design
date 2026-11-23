@@ -188,10 +188,10 @@ This protocol is for surfaces people **work in**: apps, mini apps and dashboards
 balances, tables, forms and controls.
 
 It is **not** for surfaces that **present** XRAY: promotional and informational websites, papers, decks and
-graphics. Those follow the XRAY/Branding protocol, and nothing in this file overrides it there:
+graphics. Those follow the XRAY/Brand protocol, and nothing in this file overrides it there:
 
-- Reference: https://wiki.xraynetwork.io/branding/
-- Protocol: https://wiki.xraynetwork.io/branding/BRANDING-PROTOCOL.md
+- Reference: https://wiki.xraynetwork.io/brand/
+- Protocol: https://wiki.xraynetwork.io/brand/BRAND-PROTOCOL.md
 
 ## Platform adaptation
 
